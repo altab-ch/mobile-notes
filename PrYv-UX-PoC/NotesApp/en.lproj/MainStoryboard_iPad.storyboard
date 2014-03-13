@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch.iPad" variant="6xAndEarlier" propertyAccessControl="none" useAutolayout="YES" initialViewController="TZ3-Le-1gA">
     <dependencies>
-        <deployment defaultVersion="1536" identifier="iOS"/>
+        <deployment defaultVersion="1792" identifier="iOS"/>
         <development version="4600" identifier="xcode"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -352,15 +352,16 @@ height=123312</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icon_picture.png" translatesAutoresizingMaskIntoConstraints="NO" id="hbR-U9-4Ut">
-                                                    <rect key="frame" x="370" y="65" width="31" height="29"/>
+                                                    <rect key="frame" x="370" y="65" width="30" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="8Ss-kA-bso"/>
+                                                        <constraint firstAttribute="width" constant="30" id="lJX-fP-n4R"/>
+                                                    </constraints>
                                                 </imageView>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="96s-0h-Q7y">
                                                     <rect key="frame" x="0.0" y="0.0" width="768" height="160"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="160" id="DeF-Ha-Qdc"/>
-                                                    </constraints>
                                                 </imageView>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" fixedFrame="YES" image="picture_overlay.png" translatesAutoresizingMaskIntoConstraints="NO" id="Ujt-Ke-Si6" userLabel="header_overlay">
                                                     <rect key="frame" x="0.0" y="0.0" width="768" height="45"/>
@@ -432,6 +433,7 @@ height=123312</string>
                                             <constraint firstItem="PR2-gU-vwW" firstAttribute="leading" secondItem="Li3-2h-jQf" secondAttribute="leading" type="default" id="OTJ-I1-ok5"/>
                                             <constraint firstItem="0DU-XM-D3c" firstAttribute="baseline" secondItem="yZr-Rf-uYZ" secondAttribute="baseline" type="default" id="fcF-Ex-dIC"/>
                                             <constraint firstAttribute="trailing" secondItem="Ujt-Ke-Si6" secondAttribute="trailing" type="default" id="h5I-ea-Svu"/>
+                                            <constraint firstItem="hbR-U9-4Ut" firstAttribute="centerY" secondItem="96s-0h-Q7y" secondAttribute="centerY" type="default" id="hhP-Mp-2xN"/>
                                             <constraint firstItem="Ujt-Ke-Si6" firstAttribute="leading" secondItem="Y3Y-WY-e6I" secondAttribute="leading" type="default" id="jGP-j5-3cf"/>
                                             <constraint firstItem="Ujt-Ke-Si6" firstAttribute="trailing" secondItem="96s-0h-Q7y" secondAttribute="trailing" type="default" id="kKM-Ha-yrp"/>
                                             <constraint firstAttribute="trailing" secondItem="0DU-XM-D3c" secondAttribute="trailing" constant="6" id="phv-FG-DDb"/>
