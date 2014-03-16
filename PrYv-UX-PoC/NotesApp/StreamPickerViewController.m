@@ -172,14 +172,7 @@
 
 - (void)updateStreamCellDetails:(StreamCell *)cell withStream:(PYStream *)stream
 {
-    if([stream.children count] > 0)
-    {
-        cell.accessoryImageView.image = [UIImage imageNamed:@"circle-chevron-right"];
-    }
-    else
-    {
-        cell.accessoryImageView.image = nil;
-    }
+    cell.accessoryImageView.image = [UIImage imageNamed:@"circle-chevron-right"];
     cell.streamName.text = stream.name;
     BOOL isSelected = [stream.streamId isEqualToString:self.stream.streamId];
     [cell setSelected:isSelected animated:NO];

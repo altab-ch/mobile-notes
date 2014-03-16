@@ -34,6 +34,9 @@
 #define IS_LRU_SECTION self.isMenuOpen
 #define IS_BROWSE_SECTION !self.isMenuOpen
 
+#define kFilterInitialLimit 5
+#define kFilterIncrement 5
+
 static NSString *browseCellIdentifier = @"BrowseEventsCell_ID";
 
 @interface BrowseEventsViewController () <UIActionSheetDelegate,MNMPullToRefreshManagerClient,MCSwipeTableViewCellDelegate>
@@ -50,6 +53,7 @@ static NSString *browseCellIdentifier = @"BrowseEventsCell_ID";
 @property (nonatomic, strong) PYEventFilter *filter;
 @property (nonatomic, strong) NSNumber *isSourceTypePicked;
 @property (nonatomic, strong) UserHistoryEntry *tempEntry;
+@property (nonatomic, strong) NSIndexPath *lastIndexPath;
 
 - (void)settingButtonTouched:(id)sender;
 - (void)loadData;
@@ -198,7 +202,7 @@ BOOL displayNonStandardEvents;
             self.filter = [[PYEventFilter alloc] initWithConnection:connection
                                                            fromTime:PYEventFilter_UNDEFINED_FROMTIME
                                                              toTime:PYEventFilter_UNDEFINED_TOTIME
-                                                              limit:100
+                                                              limit:kFilterInitialLimit
                                                      onlyStreamsIDs:nil
                                                                tags:nil];
             
@@ -237,6 +241,10 @@ BOOL displayNonStandardEvents;
             {
                 self.streams = streamsObject;
                 [self.tableView reloadData];
+                if(self.lastIndexPath)
+                {
+                    [self.tableView scrollToRowAtIndexPath:self.lastIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+                }
                 [UIView animateWithDuration:0.2 animations:^{
                     self.tableView.alpha = 1.0f;
                 }];
@@ -288,6 +296,25 @@ BOOL displayNonStandardEvents;
         return 70;
     }
     return 0;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(indexPath.row == [self.events count] - 1)
+    {
+        [self loadMoreDataForIndexPath:indexPath];
+    }
+}
+
+- (void)loadMoreDataForIndexPath:(NSIndexPath*)indexPath
+{
+    if(self.lastIndexPath.row == indexPath.row)
+    {
+        return;
+    }
+    self.lastIndexPath = indexPath;
+    self.filter.limit+=kFilterIncrement;
+    [self loadData];
 }
 
 - (BrowseCell *)cellInTableView:(UITableView *)tableView forCellStyleType:(CellStyleType)cellStyleType
@@ -759,7 +786,6 @@ BOOL displayNonStandardEvents;
 
 - (void)pullToRefreshTriggered:(MNMPullToRefreshManager *)manager
 {
-    self.filter.limit++;
     [self loadData];
 }
 
@@ -772,5 +798,11 @@ BOOL displayNonStandardEvents;
 {
     [self.pullToRefreshManager tableViewReleased];
 }
+
+- (NSDate*)lastUpdateDateForManager:(MNMPullToRefreshManager *)manager
+{
+    return [NSDate dateWithTimeIntervalSince1970:self.filter.modifiedSince];
+}
+
 
 @end

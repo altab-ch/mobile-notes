@@ -14,6 +14,7 @@
 
 @property (nonatomic, copy) NSString *currentEventId;
 @property (nonatomic, strong) NSDate *startLoadTime;
+@property (nonatomic, weak) IBOutlet UIActivityIndicatorView *loadingIndicator;
 
 @end
 
@@ -41,6 +42,8 @@
 {
     [super prepareForReuse];
     self.pictureView.image = nil;
+    self.loadingIndicator.hidden = NO;
+    [self.loadingIndicator startAnimating];
 }
 
 
@@ -64,6 +67,8 @@
                 [self.pictureView setImage:img];
                 [UIView animateWithDuration:0.1f delay:0 options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseOut animations:^{
                     [self.pictureView setAlpha:1.0f];
+                    self.loadingIndicator.hidden = YES;
+                    [self.loadingIndicator stopAnimating];
                 } completion:^(BOOL finished) {
                     
                 }];
@@ -73,6 +78,8 @@
         {
             [self.pictureView setAlpha:1.0f];
             [self.pictureView setImage:img];
+            self.loadingIndicator.hidden = YES;
+            [self.loadingIndicator stopAnimating];
         }
         
     });

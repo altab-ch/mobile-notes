@@ -1,6 +1,5 @@
 platform :ios, '5.1'
 pod 'SSKeychain', '~> 1.1.0'
-pod 'MNMPullToRefresh', '~> 0.0.1'
 pod 'UI7Kit', '~> 0.9.17'
 pod 'MCSwipeTableViewCell', '~> 2.1.0'
 
