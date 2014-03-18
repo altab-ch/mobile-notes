@@ -819,7 +819,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
      {
 #warning Something is wrong with the SDK loading. New method signature is not found (MDJ)
          [connection createEvent:self.event requestType:PYRequestTypeAsync
-          successHandler:^(NSString *newEventId, NSString *stoppedId)
+          successHandler:^(NSString *newEventId, NSString *stoppedId, PYEvent* event)
 //                  successHandler:^(NSString *newEventId, NSString *stoppedId, PYEvent *event)
           {
               BOOL shouldTakePictureFlag = NO;
