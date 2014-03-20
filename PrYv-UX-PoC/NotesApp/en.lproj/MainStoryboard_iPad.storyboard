@@ -233,18 +233,15 @@
         <!--Browse Events View Controller - Title-->
         <scene sceneID="V0s-wy-K5g">
             <objects>
-                <viewController id="MUU-PT-dPm" customClass="BrowseEventsViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BrowseEventsViewController_ID_new" id="MUU-PT-dPm" customClass="BrowseEventsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cga-wa-Noz">
                         <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="nq4-Ar-wyD">
-                                <rect key="frame" x="0.0" y="66" width="768" height="938"/>
+                                <rect key="frame" x="0.0" y="20" width="768" height="984"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="938" id="bSu-vX-0EP"/>
-                                </constraints>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="326" id="W2c-gO-RVc" customClass="UnkownCell">
                                         <rect key="frame" x="0.0" y="22" width="768" height="326"/>
@@ -475,20 +472,87 @@ height=123312</string>
                                             <constraint firstItem="Jgo-I2-sVu" firstAttribute="top" secondItem="e72-Va-rfb" secondAttribute="top" type="default" id="vLb-jf-ZNA"/>
                                         </constraints>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="57" id="Wyl-BK-38o" customClass="ValueCell">
-                                        <rect key="frame" x="0.0" y="924" width="768" height="57"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="288" id="Wyl-BK-38o" customClass="ValueCell">
+                                        <rect key="frame" x="0.0" y="924" width="768" height="288"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="768" height="56"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="768" height="287"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aKr-lu-AET">
+                                                    <rect key="frame" x="20" y="20" width="364" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="AQD-Ja-ZES"/>
+                                                        <constraint firstAttribute="width" constant="364" id="KhI-qW-YIJ"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Stream" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n2E-ib-ccK">
+                                                    <rect key="frame" x="384" y="20" width="364" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="364" id="rTj-JF-9m5"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="25kg" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cUf-Kk-zqw">
+                                                    <rect key="frame" x="20" y="111" width="728" height="65"/>
+                                                    <autoresizingMask key="autoresizingMask" heightSizable="YES"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="56"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Comment maximum two ligne Comment maximum two ligne Comment maximum two ligne Comment maximum two ligne" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="303" translatesAutoresizingMaskIntoConstraints="NO" id="uE5-2L-RnO">
+                                                    <rect key="frame" x="20" y="209" width="303" height="29"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.40000000596046448" contentMode="left" fixedFrame="YES" text="Energy meter per seconds" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zfR-gv-yIw" userLabel="Label - format description">
+                                                    <rect key="frame" x="304" y="184" width="160" height="17"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NJb-FE-cYX" userLabel="tag container">
+                                                    <rect key="frame" x="25" y="255" width="728" height="32"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                </view>
+                                            </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
+                                        <constraints>
+                                            <constraint firstItem="NJb-FE-cYX" firstAttribute="top" secondItem="Wyl-BK-38o" secondAttribute="top" constant="255" id="1u9-kk-LC7"/>
+                                            <constraint firstItem="cUf-Kk-zqw" firstAttribute="leading" secondItem="uE5-2L-RnO" secondAttribute="leading" type="default" id="2Ur-5H-qwl"/>
+                                            <constraint firstItem="cUf-Kk-zqw" firstAttribute="leading" secondItem="Wyl-BK-38o" secondAttribute="leading" constant="20" type="default" id="5yp-kQ-wMY"/>
+                                            <constraint firstAttribute="trailing" secondItem="n2E-ib-ccK" secondAttribute="trailing" constant="20" type="default" id="ImX-B4-2jG"/>
+                                            <constraint firstItem="n2E-ib-ccK" firstAttribute="top" secondItem="aKr-lu-AET" secondAttribute="top" type="default" id="Ki0-Xb-WfG"/>
+                                            <constraint firstItem="aKr-lu-AET" firstAttribute="leading" secondItem="cUf-Kk-zqw" secondAttribute="leading" type="default" id="Lac-Sy-4Zb"/>
+                                            <constraint firstItem="zfR-gv-yIw" firstAttribute="centerX" secondItem="cUf-Kk-zqw" secondAttribute="centerX" type="default" id="MST-0R-1Bs"/>
+                                            <constraint firstItem="zfR-gv-yIw" firstAttribute="top" secondItem="cUf-Kk-zqw" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="Noh-1t-A2k"/>
+                                            <constraint firstItem="uE5-2L-RnO" firstAttribute="top" secondItem="zfR-gv-yIw" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="Q4u-UM-I2o"/>
+                                            <constraint firstAttribute="trailing" secondItem="NJb-FE-cYX" secondAttribute="trailing" constant="15" id="VMg-b1-W3H"/>
+                                            <constraint firstItem="n2E-ib-ccK" firstAttribute="trailing" secondItem="cUf-Kk-zqw" secondAttribute="trailing" type="default" id="XDx-Oc-FIF"/>
+                                            <constraint firstItem="n2E-ib-ccK" firstAttribute="baseline" secondItem="aKr-lu-AET" secondAttribute="baseline" type="default" id="bmd-17-3JX"/>
+                                            <constraint firstItem="NJb-FE-cYX" firstAttribute="leading" secondItem="Wyl-BK-38o" secondAttribute="leading" constant="25" id="dFJ-cE-pwa"/>
+                                            <constraint firstAttribute="bottom" secondItem="NJb-FE-cYX" secondAttribute="bottom" constant="1" type="default" id="faB-AI-XNf"/>
+                                            <constraint firstItem="cUf-Kk-zqw" firstAttribute="centerY" secondItem="Wyl-BK-38o" secondAttribute="centerY" constant="-0.5" type="default" id="q6Z-Ye-0kD"/>
+                                            <constraint firstItem="aKr-lu-AET" firstAttribute="top" secondItem="Wyl-BK-38o" secondAttribute="top" constant="20" type="default" id="qcV-l2-mj6"/>
+                                        </constraints>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="nq4-Ar-wyD" firstAttribute="top" secondItem="cga-wa-Noz" secondAttribute="top" constant="20" symbolic="YES" type="default" id="4BC-8x-oNX"/>
                             <constraint firstItem="nq4-Ar-wyD" firstAttribute="leading" secondItem="cga-wa-Noz" secondAttribute="leading" type="default" id="Ima-ji-da3"/>
                             <constraint firstAttribute="trailing" secondItem="nq4-Ar-wyD" secondAttribute="trailing" type="default" id="UA5-bv-kjT"/>
                             <constraint firstAttribute="bottom" secondItem="nq4-Ar-wyD" secondAttribute="bottom" type="default" id="lGB-5h-hci"/>

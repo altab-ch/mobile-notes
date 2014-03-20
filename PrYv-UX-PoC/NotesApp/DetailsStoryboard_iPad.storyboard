@@ -269,6 +269,47 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
             <point key="canvasLocation" x="2341" y="613"/>
         </scene>
         <!--Event Details View Controller-->
+        <scene sceneID="XQK-x0-Fwc">
+            <objects>
+                <tableViewController storyboardIdentifier="EventDetailsViewController_ID_new" id="0Xe-aT-och" customClass="EventDetailsViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="kDX-7T-BfF">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="VOP-vv-zFM">
+                                <rect key="frame" x="0.0" y="22" width="768" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VOP-vv-zFM" id="a2o-LM-xE1">
+                                    <rect key="frame" x="0.0" y="0.0" width="768" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="0Xe-aT-och" id="2Yv-eP-LQD"/>
+                            <outlet property="delegate" destination="0Xe-aT-och" id="zGh-7M-2QY"/>
+                        </connections>
+                    </tableView>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="adP-iH-cP5">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="d9E-FR-c4s"/>
+                        <barButtonItem key="rightBarButtonItem" title="Edit" id="PvJ-Ip-vOl">
+                            <connections>
+                                <action selector="editButtonTouched:" destination="Xzk-hf-GX3" id="E1O-IQ-yug"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="editButton" destination="PvJ-Ip-vOl" id="TxG-1v-4YW"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7Lf-3e-dw8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-605" y="419"/>
+        </scene>
+        <!--Event Details View Controller-->
         <scene sceneID="gZX-N6-o8I">
             <objects>
                 <tableViewController storyboardIdentifier="EventDetailsViewController_ID" id="Xzk-hf-GX3" customClass="EventDetailsViewController" sceneMemberID="viewController">
@@ -758,7 +799,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KMK-nb-AnG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="695" y="-877"/>
+            <point key="canvasLocation" x="218" y="419"/>
         </scene>
         <!--Add Numerical Value View Controller-->
         <scene sceneID="1OI-XX-jwP">
