@@ -34,8 +34,8 @@
 #define IS_LRU_SECTION self.isMenuOpen
 #define IS_BROWSE_SECTION !self.isMenuOpen
 
-#define kFilterInitialLimit 5
-#define kFilterIncrement 5
+#define kFilterInitialLimit 200
+#define kFilterIncrement 50
 
 static NSString *browseCellIdentifier = @"BrowseEventsCell_ID";
 

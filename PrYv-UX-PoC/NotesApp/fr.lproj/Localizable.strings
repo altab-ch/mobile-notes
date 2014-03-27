@@ -11,6 +11,9 @@
 "Alert.Message.DeleteConfirmation" = "Effacer cet évènement?";
 "Alert.Message.PhotoSource" = "Choisir une source";
 
+
+"Alert.Error.SavingImageError" = "Error while saving the image to Camera roll!";
+
 "Camera" = "Appareil photo";
 "Library" = "Bibliothèque";
 "Settings" = "Paramètres";
@@ -27,6 +30,7 @@
 
 "ViewController.Streams.SelectStream" = "Choisir un stream";
 "ViewController.Streams.AddNewStream" = "Ajouter un stream";
+"ViewController.Streams.StreamName" = "Stream name:";
 "ViewController.TextContent.TapToAdd" = "Tap to add content";
 "ViewController.TextDescriptionContent.TapToAdd" = "Tap to add a description";
 "ViewController.Tags.TapToAdd" = "Tags";
