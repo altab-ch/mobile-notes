@@ -92,6 +92,11 @@
 		B61F38B017477DC700B94960 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B61F38AF17477DC700B94960 /* SettingsViewController.m */; };
 		B61F38CF17496A2800B94960 /* AddNumericalValueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B61F38CE17496A2800B94960 /* AddNumericalValueViewController.m */; };
 		B626A3B618610F8A00AD9AA6 /* NSString+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = B626A3B518610F8A00AD9AA6 /* NSString+Utils.m */; };
+		B62BF06B18D627E9007BD68E /* MNMPullToRefreshIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = B62BF06518D627E9007BD68E /* MNMPullToRefreshIcon.png */; };
+		B62BF06C18D627E9007BD68E /* MNMPullToRefreshIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B62BF06618D627E9007BD68E /* MNMPullToRefreshIcon@2x.png */; };
+		B62BF06D18D627E9007BD68E /* MNMPullToRefreshManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B62BF06818D627E9007BD68E /* MNMPullToRefreshManager.m */; };
+		B62BF06E18D627E9007BD68E /* MNMPullToRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = B62BF06A18D627E9007BD68E /* MNMPullToRefreshView.m */; };
+		B62BF07218D62D1A007BD68E /* LoadingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B62BF07118D62D1A007BD68E /* LoadingCell.m */; };
 		B64ACAC61750F21900E2F6F7 /* DataService.m in Sources */ = {isa = PBXBuildFile; fileRef = B64ACAC51750F21900E2F6F7 /* DataService.m */; };
 		B64ACAD71753F28D00E2F6F7 /* MeasurementSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B64ACAD61753F28D00E2F6F7 /* MeasurementSettingsViewController.m */; };
 		B64ACADA1753F76500E2F6F7 /* MeasurementController.m in Sources */ = {isa = PBXBuildFile; fileRef = B64ACAD91753F76500E2F6F7 /* MeasurementController.m */; };
@@ -303,13 +308,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = D658EE5CFDA94379AD31EC40;
 			remoteInfo = "Pods-cdebug";
-		};
-		B6DC81E0181E61BC00118ED9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4E37853717953BBD00ED94DF /* Pods.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 6F61754FFFE247F29B3BED68;
-			remoteInfo = "Pods-MNMPullToRefresh";
 		};
 		B6F207C717954F30006FC5B0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -557,6 +555,14 @@
 		B61F38CE17496A2800B94960 /* AddNumericalValueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddNumericalValueViewController.m; sourceTree = "<group>"; };
 		B626A3B418610F8A00AD9AA6 /* NSString+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Utils.h"; sourceTree = "<group>"; };
 		B626A3B518610F8A00AD9AA6 /* NSString+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Utils.m"; sourceTree = "<group>"; };
+		B62BF06518D627E9007BD68E /* MNMPullToRefreshIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MNMPullToRefreshIcon.png; path = MNMPullToRefresh/MNMPullToRefreshIcon.png; sourceTree = "<group>"; };
+		B62BF06618D627E9007BD68E /* MNMPullToRefreshIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "MNMPullToRefreshIcon@2x.png"; path = "MNMPullToRefresh/MNMPullToRefreshIcon@2x.png"; sourceTree = "<group>"; };
+		B62BF06718D627E9007BD68E /* MNMPullToRefreshManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MNMPullToRefreshManager.h; path = MNMPullToRefresh/MNMPullToRefreshManager.h; sourceTree = "<group>"; };
+		B62BF06818D627E9007BD68E /* MNMPullToRefreshManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MNMPullToRefreshManager.m; path = MNMPullToRefresh/MNMPullToRefreshManager.m; sourceTree = "<group>"; };
+		B62BF06918D627E9007BD68E /* MNMPullToRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MNMPullToRefreshView.h; path = MNMPullToRefresh/MNMPullToRefreshView.h; sourceTree = "<group>"; };
+		B62BF06A18D627E9007BD68E /* MNMPullToRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MNMPullToRefreshView.m; path = MNMPullToRefresh/MNMPullToRefreshView.m; sourceTree = "<group>"; };
+		B62BF07018D62D1A007BD68E /* LoadingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingCell.h; sourceTree = "<group>"; };
+		B62BF07118D62D1A007BD68E /* LoadingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingCell.m; sourceTree = "<group>"; };
 		B64ACAC41750F21900E2F6F7 /* DataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataService.h; sourceTree = "<group>"; };
 		B64ACAC51750F21900E2F6F7 /* DataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataService.m; sourceTree = "<group>"; };
 		B64ACAD51753F28D00E2F6F7 /* MeasurementSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementSettingsViewController.h; sourceTree = "<group>"; };
@@ -983,7 +989,6 @@
 				B6087DA2189F084200891C75 /* libPods-FoundationExtension.a */,
 				B6087DA4189F084200891C75 /* libPods-GIKPopoverBackgroundView.a */,
 				4EF4B19E18B4A96D009C8A64 /* libPods-MCSwipeTableViewCell.a */,
-				B6DC81E1181E61BC00118ED9 /* libPods-MNMPullToRefresh.a */,
 				96453C6B18B77DD00050618E /* libPods-PryvApiKit.a */,
 				B6F207C817954F30006FC5B0 /* libPods-SSKeychain.a */,
 				B6087DA6189F084200891C75 /* libPods-SevenSwitch.a */,
@@ -1263,6 +1268,19 @@
 			name = NumericalValues;
 			sourceTree = "<group>";
 		};
+		B62BF06F18D627F3007BD68E /* MNMPullToRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				B62BF06518D627E9007BD68E /* MNMPullToRefreshIcon.png */,
+				B62BF06618D627E9007BD68E /* MNMPullToRefreshIcon@2x.png */,
+				B62BF06718D627E9007BD68E /* MNMPullToRefreshManager.h */,
+				B62BF06818D627E9007BD68E /* MNMPullToRefreshManager.m */,
+				B62BF06918D627E9007BD68E /* MNMPullToRefreshView.h */,
+				B62BF06A18D627E9007BD68E /* MNMPullToRefreshView.m */,
+			);
+			name = MNMPullToRefresh;
+			sourceTree = "<group>";
+		};
 		B64ACAC31750F20700E2F6F7 /* DataService */ = {
 			isa = PBXGroup;
 			children = (
@@ -1447,6 +1465,7 @@
 		B6D8EA9F175A182000A3AA8F /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				B62BF06F18D627F3007BD68E /* MNMPullToRefresh */,
 				B6B59087178CBAF40009E413 /* KSAdvancedPicker */,
 				B6F1AEB81784740A000ECD60 /* JSTokenVIew */,
 				B6F1AEB417846CFD000ECD60 /* DALinedTextView */,
@@ -1468,6 +1487,8 @@
 				B6DC81F3181E667700118ED9 /* PictureCell.m */,
 				4E8AAFE51859EA440083DE8C /* UnkownCell.h */,
 				4E8AAFE61859EA440083DE8C /* UnkownCell.m */,
+				B62BF07018D62D1A007BD68E /* LoadingCell.h */,
+				B62BF07118D62D1A007BD68E /* LoadingCell.m */,
 			);
 			name = BrowseCell;
 			sourceTree = "<group>";
@@ -1814,13 +1835,6 @@
 			remoteRef = B6087DAB189F084200891C75 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		B6DC81E1181E61BC00118ED9 /* libPods-MNMPullToRefresh.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libPods-MNMPullToRefresh.a";
-			remoteRef = B6DC81E0181E61BC00118ED9 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		B6F207C817954F30006FC5B0 /* libPods-SSKeychain.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1880,6 +1894,7 @@
 				B6B59015178B60B60009E413 /* icon_back@2x.png in Resources */,
 				B6B59016178B60B60009E413 /* icon_disclosure.png in Resources */,
 				B6B59017178B60B60009E413 /* icon_disclosure@2x.png in Resources */,
+				B62BF06B18D627E9007BD68E /* MNMPullToRefreshIcon.png in Resources */,
 				B6B59018178B60B60009E413 /* length.png in Resources */,
 				B6B59019178B60B60009E413 /* length@2x.png in Resources */,
 				B6B5901A178B60B60009E413 /* money.png in Resources */,
@@ -1891,6 +1906,7 @@
 				B6B59020178B60B60009E413 /* icon_money.png in Resources */,
 				B6B59021178B60B60009E413 /* icon_money@2x.png in Resources */,
 				963B8DE2186455B300F7CBF7 /* icon_picture.png in Resources */,
+				B62BF06C18D627E9007BD68E /* MNMPullToRefreshIcon@2x.png in Resources */,
 				B6B59022178B60B60009E413 /* icon_photo.png in Resources */,
 				B6B59023178B60B60009E413 /* icon_photo@2x.png in Resources */,
 				B6B59024178B60B60009E413 /* icon_settings.png in Resources */,
@@ -2061,6 +2077,7 @@
 				B64ACAC61750F21900E2F6F7 /* DataService.m in Sources */,
 				4E41A62D18587EE000BC0C28 /* AddNumericalValueCellClass.m in Sources */,
 				B64ACAD71753F28D00E2F6F7 /* MeasurementSettingsViewController.m in Sources */,
+				B62BF06E18D627E9007BD68E /* MNMPullToRefreshView.m in Sources */,
 				B64ACADA1753F76500E2F6F7 /* MeasurementController.m in Sources */,
 				4E8AAFFB185A0EE40083DE8C /* SettingsController.m in Sources */,
 				B64ACAE9175544E100E2F6F7 /* CustomNumericalKeyboard.m in Sources */,
@@ -2075,6 +2092,7 @@
 				B6F1AEC117847420000ECD60 /* JSBackspaceReportingTextField.m in Sources */,
 				B69940371899C45A00D88127 /* DetailsBottomButtonsContainer.m in Sources */,
 				B6993FD21891C07700D88127 /* BaseDetailCell.m in Sources */,
+				B62BF07218D62D1A007BD68E /* LoadingCell.m in Sources */,
 				B61AE1E2188DD845004385D6 /* PhotoNoteViewController.m in Sources */,
 				B626A3B618610F8A00AD9AA6 /* NSString+Utils.m in Sources */,
 				B6D0ED851787755900665DE8 /* UIColor+PrYv.m in Sources */,
@@ -2099,6 +2117,7 @@
 				B6C9D468181ED7F200EB5FF9 /* UIDevice+Utils.m in Sources */,
 				B61A1940185A325C00E9F9BE /* ImagePreviewViewController.m in Sources */,
 				B61D55C017EEDEF00016D0C4 /* UIImage+PrYv.m in Sources */,
+				B62BF06D18D627E9007BD68E /* MNMPullToRefreshManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2217,7 +2236,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 91A9AE26FE674D77BDFC0299 /* Pods.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
@@ -2229,7 +2248,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "NotesApp/NotesApp-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					NotesApp/Vendor/TestFlightSDK2.1.4,
@@ -2243,7 +2262,7 @@
 					UIKit,
 				);
 				PRODUCT_NAME = Pryv;
-				PROVISIONING_PROFILE = "1746ED85-2DF0-464F-8B50-611AA317D1B6";
+				PROVISIONING_PROFILE = "7449F985-C358-4366-99E7-B940062CBF5E";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2253,7 +2272,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 91A9AE26FE674D77BDFC0299 /* Pods.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
@@ -2265,7 +2284,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "NotesApp/NotesApp-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					NotesApp/Vendor/TestFlightSDK2.1.4,
@@ -2279,7 +2298,7 @@
 					UIKit,
 				);
 				PRODUCT_NAME = Pryv;
-				PROVISIONING_PROFILE = "1746ED85-2DF0-464F-8B50-611AA317D1B6";
+				PROVISIONING_PROFILE = "7449F985-C358-4366-99E7-B940062CBF5E";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};

@@ -999,6 +999,8 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     [self.view setNeedsLayout];
     [UIView animateWithDuration:0.25 animations:^{
         [self.view layoutIfNeeded];
+    } completion:^(BOOL finished) {
+        [self.tableView reloadData];
     }];
 }
 
