@@ -817,7 +817,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 {
     [NotesAppController sharedConnectionWithID:nil noConnectionCompletionBlock:nil withCompletionBlock:^(PYConnection *connection)
      {
-#warning Something is wrong with the SDK loading. New method signature is not found (MDJ)
+//warning Something is wrong with the SDK loading. New method signature is not found (MDJ)
          [connection createEvent:self.event requestType:PYRequestTypeAsync
           successHandler:^(NSString *newEventId, NSString *stoppedId, PYEvent* event)
 //                  successHandler:^(NSString *newEventId, NSString *stoppedId, PYEvent *event)
@@ -857,8 +857,9 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
                  [[NSNotificationCenter defaultCenter] postNotificationName:kEventAddedNotification object:nil];
              });
          } errorHandler:^(NSError *error) {
-             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
-             [alert show];
+             /*UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
+             [alert show];*/
+             [self cancelButtonTouched:nil];
              [self hideLoadingOverlay];
          }];
          
