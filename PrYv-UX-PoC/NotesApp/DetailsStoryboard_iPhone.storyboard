@@ -981,11 +981,11 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GuQ-Iv-Aie">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GuQ-Iv-Aie">
                                 <rect key="frame" x="0.0" y="163" width="320" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Brt" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YOj-qc-V9a">
+                                    <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Brt" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YOj-qc-V9a">
                                         <rect key="frame" x="248" y="7" width="66" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -993,7 +993,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="24"/>
                                         <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="245" textAlignment="right" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="z2c-sZ-BVa">
+                                    <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="245" textAlignment="right" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="z2c-sZ-BVa">
                                         <rect key="frame" x="0.0" y="5" width="240" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1003,8 +1003,12 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                     </textField>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="z2c-sZ-BVa" firstAttribute="bottom" secondItem="YOj-qc-V9a" secondAttribute="bottom" constant="2" id="Cun-VC-lbl"/>
+                                    <constraint firstAttribute="centerY" secondItem="z2c-sZ-BVa" secondAttribute="centerY" id="w48-9C-muB"/>
+                                </constraints>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hkh-c8-baC">
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hkh-c8-baC">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="160"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
@@ -1019,7 +1023,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nFA-xO-ZZ3">
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nFA-xO-ZZ3">
                                 <rect key="frame" x="0.0" y="261" width="320" height="219"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
@@ -1224,7 +1228,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                         </connections>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="219" id="okX-0G-HWZ"/>
                                 </constraints>
@@ -1232,9 +1236,10 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="nFA-xO-ZZ3" firstAttribute="leading" secondItem="uGf-Vf-Ok7" secondAttribute="leading" id="CbG-X7-ZmJ"/>
-                            <constraint firstAttribute="trailing" secondItem="nFA-xO-ZZ3" secondAttribute="trailing" id="DAl-lX-wEq"/>
-                            <constraint firstItem="TAv-h9-XaI" firstAttribute="top" secondItem="nFA-xO-ZZ3" secondAttribute="bottom" id="gE0-jt-ZCE"/>
+                            <constraint firstItem="GuQ-Iv-Aie" firstAttribute="top" secondItem="hkh-c8-baC" secondAttribute="bottom" constant="3" id="56v-xl-WWs"/>
+                            <constraint firstItem="nFA-xO-ZZ3" firstAttribute="top" secondItem="GuQ-Iv-Aie" secondAttribute="bottom" id="GYE-W8-MgM"/>
+                            <constraint firstItem="TAv-h9-XaI" firstAttribute="top" secondItem="nFA-xO-ZZ3" secondAttribute="bottom" id="b4g-SR-B4D"/>
+                            <constraint firstItem="hkh-c8-baC" firstAttribute="top" secondItem="uGf-Vf-Ok7" secondAttribute="top" id="bFT-Mp-0IL"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="13x-uQ-vWL">

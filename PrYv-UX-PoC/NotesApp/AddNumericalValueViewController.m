@@ -24,6 +24,8 @@
 #define kGroupComponentProportionalWidth 0.5
 #define kGroupComponentHeight 77
 
+#define IS_IPHONE_5 ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
+
 @interface AddNumericalValueViewController () <KSAdvancedPickerDataSource, KSAdvancedPickerDelegate>
 
 @property (nonatomic, strong) IBOutlet CustomNumericalKeyboard *customKeyborad;
@@ -60,6 +62,13 @@
     UIButton *delBtn = (UIButton*)[self.customKeyborad viewWithTag:11];
     [delBtn setTitle:@"\u232B" forState:UIControlStateNormal];
     
+    if (IS_IPHONE_5){
+        [self.typeTextField setFont:[UIFont fontWithName:@"Helvetica Neue" size:40.0]];
+        [self.valueField setFont:[UIFont fontWithName:@"Helvetica Neue" size:46.0]];
+    }else{
+        [self.typeTextField setFont:[UIFont fontWithName:@"Helvetica Neue" size:22.0]];
+        [self.valueField setFont:[UIFont fontWithName:@"Helvetica Neue" size:28.0]];
+    }
     self.valueField.text = @"";
     
     [self updateMeasurementSets];
