@@ -36,7 +36,15 @@
     if (! unit) { unit = event.pyType.formatKey ; }
     
     
-    NSString *value = [NSString stringWithFormat:@"%@ %@",[event.eventContent description], unit];
+    NSNumberFormatter *numf = [[NSNumberFormatter alloc] init];
+    [numf setNumberStyle:NSNumberFormatterDecimalStyle];
+    if ([[numf stringFromNumber:event.eventContent] rangeOfString:@"."].length == 0) {
+        [numf setMaximumFractionDigits:0];
+    }else{
+        [numf setMinimumFractionDigits:2];
+    }
+    
+    NSString *value = [NSString stringWithFormat:@"%@ %@",[numf stringFromNumber:event.eventContent], unit];
     [self.valueLabel setText:value];
     
     NSString *formatDescription = [event.pyType localizedName];

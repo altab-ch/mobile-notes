@@ -29,11 +29,13 @@
 {
     [super viewDidLoad];
     
-	[self.scrollView setZoomScale:self.scrollView.minimumZoomScale];
+	//[self.scrollView setZoomScale:self.scrollView.minimumZoomScale];
     UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeButtonTouched:)];
     tapGR.numberOfTapsRequired = 1;
     tapGR.numberOfTouchesRequired = 1;
     [self.scrollView addGestureRecognizer:tapGR];
+    
+    [self.contentImageView setContentMode:UIViewContentModeScaleAspectFit];
     
     [self setupViewForImage:self.image];
     self.descriptionText.text = self.descText;
@@ -49,9 +51,9 @@
 //    CGFloat scaleHeight = scrollViewFrame.size.height / self.scrollView.contentSize.height;
 //    CGFloat minScale = MIN(scaleWidth, scaleHeight);
     
-    self.scrollView.minimumZoomScale = 1.0f;
+    //self.scrollView.minimumZoomScale = 1.0f;
     self.scrollView.maximumZoomScale = 4.0f;
-    self.scrollView.zoomScale = 1.0f;
+    //self.scrollView.zoomScale = 1.0f;
     
     [self centerScrollViewContents];
 }
@@ -93,9 +95,9 @@
 
 - (void)setupViewForImage:(UIImage *)image
 {
-    self.contentImageView.frame = CGRectMake(0, 0, image.size.width, image.size.height);
+    //self.contentImageView.frame = CGRectMake(0, 0, image.size.width, image.size.height);
     self.contentImageView.image = image;
-    self.scrollView.contentSize = self.contentImageView.frame.size;
+    //self.scrollView.contentSize = self.contentImageView.frame.size;
 }
 
 - (UIView*)viewForZoomingInScrollView:(UIScrollView*)scrollView
@@ -104,7 +106,7 @@
 }
 
 - (void)centerScrollViewContents {
-    CGSize boundsSize = self.scrollView.bounds.size;
+    /*CGSize boundsSize = self.scrollView.bounds.size;
     CGRect contentsFrame = self.contentImageView.frame;
     
     if (contentsFrame.size.width < boundsSize.width) {
@@ -117,9 +119,9 @@
         contentsFrame.origin.y = (boundsSize.height - contentsFrame.size.height) / 2.0f;
     } else {
         contentsFrame.origin.y = 0.0f;
-    }
+    }*/
     
-    self.contentImageView.frame = contentsFrame;
+    self.contentImageView.frame = self.scrollView.bounds;
 }
 
 -(void)scrollViewDidZoom:(UIScrollView *)scrollView
