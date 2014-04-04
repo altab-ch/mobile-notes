@@ -29,7 +29,7 @@
         {
             if([stream.streamId isEqualToString:streamId])
             {
-                return [stream breadcrumbsInStreamList:streams];
+                return [stream breadcrumbs];
             }
         }
     }

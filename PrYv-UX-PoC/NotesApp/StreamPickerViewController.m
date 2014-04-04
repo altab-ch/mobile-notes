@@ -95,7 +95,7 @@
 
 - (void)updateUIElements
 {
-    NSString *selectedText = [self.stream breadcrumbsInStreamList:self.streams];
+    NSString *selectedText = [self.stream breadcrumbs];
     if(!selectedText && [selectedText length] < 1)
     {
         selectedText = NSLocalizedString(@"ViewController.Streams.SelectStream", nil);
@@ -109,7 +109,7 @@
 
 - (IBAction)backButtonTouched:(id)sender
 {
-    self.stream = [self.stream parentStreamInList:self.streams];
+    self.stream = [self.stream parent];
     [self.tableView reloadData];
     [self updateUIElements];
     [self.delegate streamPickerDidSelectStream:self.stream];

@@ -10,8 +10,6 @@
 
 @interface PYStream (Helper)
 
-- (PYStream*)parentStreamInList:(NSArray*)streamList;
-- (NSString*)breadcrumbsInStreamList:(NSArray*)streamList;
-+ (NSString*)breadcrumsForStreamId:(NSString*)streamId inStreamList:(NSArray*)streamList;
+- (NSString*)breadcrumbs;
 
 @end
