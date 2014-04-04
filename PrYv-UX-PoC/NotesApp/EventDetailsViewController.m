@@ -266,7 +266,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
         {
             
             
-            self.streamsLabel.text = [self.event eventBreadcrumbsForStreamsList:object];
+            self.streamsLabel.text = [self.event eventBreadcrumbs];
             self.descriptionLabel.text = self.event.eventDescription;
             
             if([self.streamsLabel.text length] < 1)

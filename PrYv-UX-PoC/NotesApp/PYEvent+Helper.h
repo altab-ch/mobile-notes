@@ -12,8 +12,8 @@
 
 @property (nonatomic, readonly) NSString *eventContentAsString;
 
-- (NSString*)eventBreadcrumbsForStreamsList:(NSArray*)streams;
-- (NSString*)breadcrumbsForStream:(NSString*)streamId inStreamsList:(NSArray*)streams;
+- (NSString*)eventBreadcrumbs;
+
 
 - (EventDataType)eventDataType;
 - (NSInteger)cellStyle;

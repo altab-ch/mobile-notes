@@ -50,7 +50,7 @@
 {
     PYEvent *event = [entry reconstructEvent];
     [self updateTags:event.tags];
-    self.streamBreadcrumbs.text = [event eventBreadcrumbsForStreamsList:streams];
+    self.streamBreadcrumbs.text = [event eventBreadcrumbs];
     
     
     NSString* symbol = [self symbolRepresentationForEventType:event.pyType];
