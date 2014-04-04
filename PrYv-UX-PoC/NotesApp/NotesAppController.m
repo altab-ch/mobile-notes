@@ -123,7 +123,7 @@ NSString *const kUserShouldLoginNotification = @"kUserShouldLoginNotification";
         return ;
     }
     if (completionBlock) {
-        [me.connection ensureStreamAreFetched:^(NSError *error) {
+        [me.connection streamsEnsureFetched:^(NSError *error) {
             completionBlock(me.connection);
         }];
         
