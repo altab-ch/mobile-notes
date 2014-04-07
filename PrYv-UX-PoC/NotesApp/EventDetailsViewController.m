@@ -257,26 +257,16 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     if (date == nil) date = [NSDate date]; // now
     self.timeLabel.text = [[NotesAppController sharedInstance].dateFormatter stringFromDate:date];
     
-    [[DataService sharedInstance] fetchAllStreamsWithCompletionBlock:^(id object, NSError *error) {
-        if(error)
-        {
-            NSLog(@"ERROR!!!!!!!");
-        }
-        else
-        {
-            
-            
-            self.streamsLabel.text = [self.event eventBreadcrumbs];
-            self.descriptionLabel.text = self.event.eventDescription;
-            
-            if([self.streamsLabel.text length] < 1)
-            {
-                self.streamsLabel.text = NSLocalizedString(@"ViewController.Streams.SelectStream", nil);
-            }
-        }
-        [self updateTagsLabel];
-        [self.tableView reloadData];
-    }];
+    self.streamsLabel.text = [self.event eventBreadcrumbs];
+    self.descriptionLabel.text = self.event.eventDescription;
+    
+    if([self.streamsLabel.text length] < 1)
+    {
+        self.streamsLabel.text = NSLocalizedString(@"ViewController.Streams.SelectStream", nil);
+    }
+    
+    [self updateTagsLabel];
+    [self.tableView reloadData];
 }
 
 
@@ -340,14 +330,14 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 }
 
 /**
-- (void)showImagePreview:(id)sender
-{
-    
-    ImagePreviewViewController* imagePreviewVC = (ImagePreviewViewController *)[[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"ImagePreviewViewController_ID"];
-    imagePreviewVC.image = self.picture_ImageView.image;
-    //imagePreviewVC.descText = self.eventDescriptionLabel.text;
-    [self.navigationController pushViewController:imagePreviewVC animated:YES];
-}**/
+ - (void)showImagePreview:(id)sender
+ {
+ 
+ ImagePreviewViewController* imagePreviewVC = (ImagePreviewViewController *)[[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"ImagePreviewViewController_ID"];
+ imagePreviewVC.image = self.picture_ImageView.image;
+ //imagePreviewVC.descText = self.eventDescriptionLabel.text;
+ [self.navigationController pushViewController:imagePreviewVC animated:YES];
+ }**/
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -366,7 +356,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     
     switch (cellType) {
         case DetailCellTypeValue:
-
+            
             break;
         case DetailCellTypeImage:
             
@@ -445,7 +435,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
             [self closeStreamPicker];
             return;
         }
-    
+        
         if(!self.event.streamId && sender)
         {
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"ViewController.Streams.SelectStream", nil) message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -533,9 +523,9 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
                           duration:10.2f
                            options:UIViewAnimationOptionBeginFromCurrentState
                         animations:^(void) {
-                               [self.tableView reloadData];
+                            [self.tableView reloadData];
                         } completion:NULL];
-   
+        
     });
     
     //[self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
@@ -565,9 +555,9 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
 {
     /*if([identifier isEqualToString:kShowImagePreviewSegue]) {
-# warning -- please explain to Perki why this does work!!!
-        return NO;
-    }*/
+     # warning -- please explain to Perki why this does work!!!
+     return NO;
+     }*/
     return self.isInEditMode;
 }
 
@@ -641,7 +631,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 - (void)setupImagePreviewViewController:(ImagePreviewViewController*)imagePreviewVC
 {
-
+    
     imagePreviewVC.image = self.picture_ImageView.image;
     imagePreviewVC.descText = self.event.eventDescription;
 }
@@ -689,7 +679,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 - (void)closeStreamPickerAndRestorePreviousStreamId
 {
     if (self.previousStreamId) {
-       self.event.streamId = self.previousStreamId;
+        self.event.streamId = self.previousStreamId;
     }
 }
 
@@ -824,10 +814,10 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 {
     [NotesAppController sharedConnectionWithID:nil noConnectionCompletionBlock:nil withCompletionBlock:^(PYConnection *connection)
      {
-
+         
          [connection eventCreate:self.event
-          successHandler:^(NSString *newEventId, NSString *stoppedId, PYEvent* event)
-//                  successHandler:^(NSString *newEventId, NSString *stoppedId, PYEvent *event)
+                  successHandler:^(NSString *newEventId, NSString *stoppedId, PYEvent* event)
+          //                  successHandler:^(NSString *newEventId, NSString *stoppedId, PYEvent *event)
           {
               BOOL shouldTakePictureFlag = NO;
               if(self.eventDataType == EventDataTypeImage)
@@ -865,7 +855,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
              });
          } errorHandler:^(NSError *error) {
              /*UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
-             [alert show];*/
+              [alert show];*/
              [self cancelButtonTouched:nil];
              [self hideLoadingOverlay];
          }];
