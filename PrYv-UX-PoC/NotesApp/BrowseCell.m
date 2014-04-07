@@ -50,7 +50,7 @@
     }
 }
 
-- (void)updateWithEvent:(PYEvent *)event andListOfStreams:(NSArray *)streams
+- (void)updateWithEvent:(PYEvent *)event
 {
     self.event = event;
     self.commentLabel.text = event.eventDescription;

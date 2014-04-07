@@ -7,6 +7,7 @@
 //
 
 #import "UserHistoryEntry.h"
+#import "NotesAppController.h"
 #import "PYEvent+Helper.h"
 #import <PryvApiKit/PYEventTypes.h>
 
@@ -89,7 +90,8 @@
     event.streamId = self.streamId;
     event.tags = [NSMutableArray arrayWithArray:self.tags];
     event.type = self.typeString;
-    
+#pragma warning -- this is not compatible with mutiple connection app
+    event.connection = [[NotesAppController sharedInstance] connection];
     return event;
 }
 

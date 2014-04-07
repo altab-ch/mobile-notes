@@ -44,7 +44,7 @@ static NSString *browseCellIdentifier = @"BrowseEventsCell_ID";
 
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *events;
-@property (nonatomic, strong) NSMutableArray *streams;
+
 @property (nonatomic, strong) NSArray *shortcuts;
 @property (nonatomic, strong) MNMPullToRefreshManager *pullToRefreshManager;
 @property (nonatomic, strong) PYEvent *eventToShowOnAppear;
@@ -239,7 +239,6 @@ BOOL displayNonStandardEvents;
         [[DataService sharedInstance] fetchAllStreamsWithCompletionBlock:^(id streamsObject, NSError *error) {
             if(streamsObject)
             {
-                self.streams = streamsObject;
                 [self.tableView reloadData];
                 if(self.lastIndexPath)
                 {
@@ -350,14 +349,14 @@ BOOL displayNonStandardEvents;
         PYEvent *event = [_events objectAtIndex:row];
         CellStyleType cellStyleType = [event cellStyle];
         BrowseCell *cell = [self cellInTableView:tableView forCellStyleType:cellStyleType];
-        [cell updateWithEvent:event andListOfStreams:self.streams];
+        [cell updateWithEvent:event];
         [cell prepareForReuse];
         return cell;
     }
     BrowseEventsCell *cell = [tableView dequeueReusableCellWithIdentifier:browseCellIdentifier];
     UserHistoryEntry *entry = [_shortcuts objectAtIndex:row];
     [self configureCell:cell forRowAtIndexPath:indexPath];
-    [cell setupWithUserHistroyEntry:entry withStreams:self.streams];
+    [cell setupWithUserHistroyEntry:entry];
     return cell;
     
 }

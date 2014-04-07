@@ -30,7 +30,7 @@
  }
  */
 
-- (void)updateWithEvent:(PYEvent *)event andListOfStreams:(NSArray *)streams
+- (void)updateWithEvent:(PYEvent *)event
 {
     NSString *unit = [event.pyType symbol];
     if (! unit) { unit = event.pyType.formatKey ; }
@@ -52,7 +52,7 @@
     [self.formatDescriptionLabel setText:formatDescription];
     
     
-    [super updateWithEvent:event andListOfStreams:streams];
+    [super updateWithEvent:event];
 }
 
 @end

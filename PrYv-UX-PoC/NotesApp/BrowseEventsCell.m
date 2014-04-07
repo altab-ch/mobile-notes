@@ -46,7 +46,7 @@
     // Configure the view for the selected state
 }
 
-- (void)setupWithUserHistroyEntry:(UserHistoryEntry *)entry withStreams:(NSArray *)streams
+- (void)setupWithUserHistroyEntry:(UserHistoryEntry *)entry
 {
     PYEvent *event = [entry reconstructEvent];
     [self updateTags:event.tags];

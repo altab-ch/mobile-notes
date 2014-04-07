@@ -12,6 +12,7 @@
 #import "UserHistoryEntry.h"
 #import "StreamCell.h"
 #import "UIAlertView+PrYv.h"
+#import "NotesAppController.h"
 
 @interface StreamPickerViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -61,36 +62,36 @@
 
 - (void)initStreams
 {
-    [[DataService sharedInstance] fetchAllStreamsWithCompletionBlock:^(id object, NSError *error) {
-        if(error)
+    
+    PYConnection* connection = [[NotesAppController sharedInstance] connection];
+    if (connection == nil) {
+        NSLog(@"<ERROR> StreamPickerViewController.initStreams connection is nil");
+        return;
+    }
+    
+    self.streams = connection.fetchedStreamsRoots;
+    NSString *streamID = nil;
+    if((self.entry && self.entry.streamId))
+    {
+        streamID = self.entry.streamId;
+    }
+    else
+    {
+        streamID = self.streamId;
+    }
+    for(PYStream *stream in self.streams)
+    {
+        if([stream.streamId isEqualToString:streamID])
         {
-            NSLog(@"ERROR!!!!!!!");
+            self.stream = stream;
+            break;
         }
-        else
-        {
-            self.streams = object;
-            NSString *streamID = nil;
-            if((self.entry && self.entry.streamId))
-            {
-                streamID = self.entry.streamId;
-            }
-            else
-            {
-                streamID = self.streamId;
-            }
-            for(PYStream *stream in self.streams)
-            {
-                if([stream.streamId isEqualToString:streamID])
-                {
-                    self.stream = stream;
-                    break;
-                }
-            }
-            self.rootStreams = [self.streams filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"parentId = nil"]];
-        }
-        [self updateUIElements];
-        [self.tableView reloadData];
-    }];
+    }
+    self.rootStreams = [self.streams filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"parentId = nil"]];
+    
+    [self updateUIElements];
+    [self.tableView reloadData];
+    
 }
 
 - (void)updateUIElements
@@ -212,8 +213,8 @@
         stream.parentId = self.stream.streamId;
         
         [NotesAppController sharedConnectionWithID:nil
-                 noConnectionCompletionBlock:nil
-                         withCompletionBlock:^(PYConnection *connection)
+                       noConnectionCompletionBlock:nil
+                               withCompletionBlock:^(PYConnection *connection)
          {
              [connection streamCreate:stream successHandler:^(NSString *createdStreamId) {
                  

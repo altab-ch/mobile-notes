@@ -18,6 +18,6 @@
 
 - (void)updateTags:(NSArray*)tags;
 
-- (void)updateWithEvent:(PYEvent*)event andListOfStreams:(NSArray*)streams;
+- (void)updateWithEvent:(PYEvent*)event;
 
 @end

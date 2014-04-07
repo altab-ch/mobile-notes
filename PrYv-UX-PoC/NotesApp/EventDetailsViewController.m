@@ -698,8 +698,15 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 - (void)streamPickerDidSelectStream:(PYStream *)stream
 {
-    self.event.streamId = stream.streamId;
-    self.shouldUpdateEvent = YES;
+    if (self.event.connection == nil) {
+        self.event.connection = stream.connection;
+    }
+    if (self.event.connection != stream.connection) {
+        NSLog(@"<ERROR> EventDetailsViewController.streamPickerDidSelectStream cannot move an event to another connection");
+    } else {
+        self.event.streamId = stream.streamId;
+        self.shouldUpdateEvent = YES;
+    }
 }
 
 - (void)closeStreamPicker

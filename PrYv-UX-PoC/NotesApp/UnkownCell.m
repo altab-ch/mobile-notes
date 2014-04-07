@@ -29,11 +29,11 @@
  }
  */
 
-- (void)updateWithEvent:(PYEvent *)event andListOfStreams:(NSArray *)streams
+- (void)updateWithEvent:(PYEvent *)event
 {
     [self.contentLabel setText:[event.eventContent descriptionInStringsFileFormat]];
     [self.typeLabel setText:event.type];
-    [super updateWithEvent:event andListOfStreams:streams];
+    [super updateWithEvent:event];
 }
 
 
