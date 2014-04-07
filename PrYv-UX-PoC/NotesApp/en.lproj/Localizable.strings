@@ -28,6 +28,7 @@
 
 "ViewController.Streams.SelectStream" = "Select a stream";
 "ViewController.Streams.AddNewStream" = "Add new Stream";
+"ViewController.Streams.ErrorCreatingStream" = "An error occured while creating stream";
 "ViewController.Streams.StreamName" = "Stream name:";
 "ViewController.TextContent.TapToAdd" = "Tap to add content";
 "ViewController.TextDescriptionContent.TapToAdd" = "Add description";
