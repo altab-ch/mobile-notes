@@ -552,7 +552,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     UIColor *textColor = [UIColor blackColor];
     if(isEditingMode)
     {
-        textColor = [UIColor lightGrayColor];
+        textColor = [UIColor blackColor];
     }
     
     self.note_Label.textColor = textColor;
@@ -564,10 +564,10 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
 {
-    if([identifier isEqualToString:kShowImagePreviewSegue]) {
+    /*if([identifier isEqualToString:kShowImagePreviewSegue]) {
 # warning -- please explain to Perki why this does work!!!
         return NO;
-    }
+    }*/
     return self.isInEditMode;
 }
 
