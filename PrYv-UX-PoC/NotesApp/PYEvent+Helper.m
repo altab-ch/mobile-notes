@@ -16,25 +16,13 @@
 
 @implementation PYEvent (Helper)
 
-- (NSString*)eventBreadcrumbsForStreamsList:(NSArray *)streams
+- (NSString*)eventBreadcrumbs
 {
-    return [self breadcrumbsForStream:self.streamId inStreamsList:streams];
+    NSString* breadCrumb = [self.stream breadcrumbs];
+    return breadCrumb;
 }
 
-- (NSString*)breadcrumbsForStream:(NSString *)streamId inStreamsList:(NSArray *)streams
-{
-    if(streamId)
-    {
-        for(PYStream* stream in streams)
-        {
-            if([stream.streamId isEqualToString:streamId])
-            {
-                return [stream breadcrumbsInStreamList:streams];
-            }
-        }
-    }
-    return nil;
-}
+
 
 - (EventDataType)eventDataType
 {

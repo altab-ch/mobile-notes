@@ -31,8 +31,8 @@ NSString *const kEventAddedNotification = @"kEventAddedNotification";
     [self setupUI];
     
     // testFlight
-    NSString *deviceToken = [[UIDevice currentDevice] performSelector:@selector(uniqueIdentifier)];
-    [TestFlight setDeviceIdentifier:deviceToken];
+  //  NSString *deviceToken = [[UIDevice currentDevice] performSelector:@selector(uniqueIdentifier)];
+    //[TestFlight setDeviceIdentifier:deviceToken];
     [TestFlight setOptions:@{ TFOptionDisableInAppUpdates : @YES }];
     [TestFlight takeOff:kPYAppConstantsPrivateTestFlightToken];
     TFLog(@"appStarted");

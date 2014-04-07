@@ -50,11 +50,11 @@
     }
 }
 
-- (void)updateWithEvent:(PYEvent *)event andListOfStreams:(NSArray *)streams
+- (void)updateWithEvent:(PYEvent *)event
 {
     self.event = event;
     self.commentLabel.text = event.eventDescription;
-    self.streamLabel.text = [event eventBreadcrumbsForStreamsList:streams];
+    self.streamLabel.text = [event eventBreadcrumbs];
     [self updateTags:event.tags];
     NSDate *date = [event eventDate];
     self.dateLabel.text = [[NotesAppController sharedInstance].dateFormatter stringFromDate:date];

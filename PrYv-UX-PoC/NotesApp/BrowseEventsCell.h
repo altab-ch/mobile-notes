@@ -13,6 +13,6 @@
 
 @interface BrowseEventsCell : MCSwipeTableViewCell
 
-- (void)setupWithUserHistroyEntry:(UserHistoryEntry*)entry withStreams:(NSArray*)streams;
+- (void)setupWithUserHistroyEntry:(UserHistoryEntry*)entry;
 
 @end

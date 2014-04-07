@@ -78,6 +78,7 @@ NSString *const kUserShouldLoginNotification = @"kUserShouldLoginNotification";
     }
     if(_connection)
     {
+       
         [[NSNotificationCenter defaultCenter] postNotificationName:kAppDidReceiveAccessTokenNotification object:nil];
     }
     else
@@ -121,7 +122,12 @@ NSString *const kUserShouldLoginNotification = @"kUserShouldLoginNotification";
         if (noConnectionCompletionBlock) noConnectionCompletionBlock();
         return ;
     }
-    if (completionBlock) completionBlock(me.connection);
+    if (completionBlock) {
+        [me.connection streamsEnsureFetched:^(NSError *error) {
+            completionBlock(me.connection);
+        }];
+        
+    };
 }
 
 - (NSDateFormatter*)dateFormatter

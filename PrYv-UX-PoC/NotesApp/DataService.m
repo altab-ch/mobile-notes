@@ -67,7 +67,7 @@ NSString *const kSavingEventActionFinishedNotification = @"kSavingEventActionFin
          }
          else
          {
-             [connection getAllStreamsWithRequestType:PYRequestTypeAsync gotCachedStreams:^(NSArray *cachedStreamsList) {
+             [connection streamsFromCache:^(NSArray *cachedStreamsList) {
                  //if(![[NotesAppController sharedInstance] isOnline])
                  //{
                  NSMutableArray *streams = [NSMutableArray array] ;
@@ -75,7 +75,7 @@ NSString *const kSavingEventActionFinishedNotification = @"kSavingEventActionFin
                  completionBlock(streams, nil);
                  //}
                  
-             } gotOnlineStreams:^(NSArray *onlineStreamList) {
+             } andOnline:^(NSArray *onlineStreamList) {
                  //if([[NotesAppController sharedInstance] isOnline])
                  //{
                  NSMutableArray *streams = [NSMutableArray array];

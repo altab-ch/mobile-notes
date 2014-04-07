@@ -28,10 +28,10 @@
 }
 */
 
-- (void)updateWithEvent:(PYEvent *)event andListOfStreams:(NSArray *)streams
+- (void)updateWithEvent:(PYEvent *)event
 {
     [self.noteLabel setText:[event.eventContent description]];
-    [super updateWithEvent:event andListOfStreams:streams];
+    [super updateWithEvent:event];
 }
 
 @end

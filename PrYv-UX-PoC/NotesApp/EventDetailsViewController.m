@@ -266,7 +266,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
         {
             
             
-            self.streamsLabel.text = [self.event eventBreadcrumbsForStreamsList:object];
+            self.streamsLabel.text = [self.event eventBreadcrumbs];
             self.descriptionLabel.text = self.event.eventDescription;
             
             if([self.streamsLabel.text length] < 1)
@@ -483,7 +483,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
         [self saveEvent];
     } else if(self.shouldUpdateEvent)
     {
-        [self updateEvent];
+        [self eventSaveModifications];
     }
     else
     {
@@ -698,8 +698,15 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 - (void)streamPickerDidSelectStream:(PYStream *)stream
 {
-    self.event.streamId = stream.streamId;
-    self.shouldUpdateEvent = YES;
+    if (self.event.connection == nil) {
+        self.event.connection = stream.connection;
+    }
+    if (self.event.connection != stream.connection) {
+        NSLog(@"<ERROR> EventDetailsViewController.streamPickerDidSelectStream cannot move an event to another connection");
+    } else {
+        self.event.streamId = stream.streamId;
+        self.shouldUpdateEvent = YES;
+    }
 }
 
 - (void)closeStreamPicker
@@ -817,8 +824,8 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 {
     [NotesAppController sharedConnectionWithID:nil noConnectionCompletionBlock:nil withCompletionBlock:^(PYConnection *connection)
      {
-//warning Something is wrong with the SDK loading. New method signature is not found (MDJ)
-         [connection createEvent:self.event requestType:PYRequestTypeAsync
+
+         [connection eventCreate:self.event
           successHandler:^(NSString *newEventId, NSString *stoppedId, PYEvent* event)
 //                  successHandler:^(NSString *newEventId, NSString *stoppedId, PYEvent *event)
           {
@@ -849,7 +856,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     
     [NotesAppController sharedConnectionWithID:nil noConnectionCompletionBlock:nil withCompletionBlock:^(PYConnection *connection)
      {
-         [connection trashOrDeleteEvent:self.event withRequestType:PYRequestTypeAsync successHandler:^{
+         [connection eventTrashOrDelete:self.event successHandler:^{
              [self.navigationController popViewControllerAnimated:YES];
              double delayInSeconds = 0.3;
              dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
@@ -866,14 +873,14 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
      }];
 }
 
-- (void)updateEvent
+- (void)eventSaveModifications
 {
     [self showLoadingOverlay];
     [NotesAppController sharedConnectionWithID:nil
                    noConnectionCompletionBlock:nil
                            withCompletionBlock:^(PYConnection *connection)
      {
-         [connection updateEvent:self.event successHandler:^(NSString *stoppedId)
+         [connection eventSaveModifications:self.event successHandler:^(NSString *stoppedId)
           {
               [self.navigationController popViewControllerAnimated:YES];
               double delayInSeconds = 0.3;

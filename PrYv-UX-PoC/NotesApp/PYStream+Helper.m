@@ -10,27 +10,12 @@
 
 @implementation PYStream (Helper)
 
-- (PYStream*)parentStreamInList:(NSArray *)streamList
-{
-    if(self.parentId)
-    {
-        for(PYStream* stream in streamList)
-        {
-            if([stream.streamId isEqualToString:self.parentId])
-            {
-                return stream;
-            }
-        }
-    }
-    return nil;
-}
 
-- (NSString*)breadcrumbsInStreamList:(NSArray *)streamList
+- (NSString*)breadcrumbs
 {
-    PYStream *parent = [self parentStreamInList:streamList];
-    if(parent)
+    if([self parent])
     {
-        NSString *breadcrumb = [parent breadcrumbsInStreamList:streamList];
+        NSString *breadcrumb = [self.parent breadcrumbs];
         if([breadcrumb length] > 0)
         {
             return [[breadcrumb stringByAppendingString:@"/"] stringByAppendingString:self.name];
@@ -41,18 +26,6 @@
         }
     }
     return self.name;
-}
-
-+ (NSString*)breadcrumsForStreamId:(NSString *)streamId inStreamList:(NSArray *)streamList
-{
-    for(PYStream *stream in streamList)
-    {
-        if([stream.streamId isEqualToString:streamId])
-        {
-            return [stream breadcrumbsInStreamList:streamList];
-        }
-    }
-    return streamId;
 }
 
 @end
