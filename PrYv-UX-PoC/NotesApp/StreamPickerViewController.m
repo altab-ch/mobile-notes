@@ -215,7 +215,7 @@
                  noConnectionCompletionBlock:nil
                          withCompletionBlock:^(PYConnection *connection)
          {
-             [connection createStream:stream withRequestType:PYRequestTypeAsync successHandler:^(NSString *createdStreamId) {
+             [connection streamCreate:stream successHandler:^(NSString *createdStreamId) {
                  
                  // TODO replace this with Stream update notifications
                  [[DataService sharedInstance] invalidateStreamListCache];
