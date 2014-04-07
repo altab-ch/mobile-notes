@@ -25,6 +25,10 @@
     return self;
 }
 
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -39,7 +43,7 @@
     
     [self setupViewForImage:self.image];
     self.descriptionText.text = self.descText;
-    [self showNavigationBar:NO];
+    //[self showNavigationBar:NO];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -52,10 +56,10 @@
 //    CGFloat minScale = MIN(scaleWidth, scaleHeight);
     
     //self.scrollView.minimumZoomScale = 1.0f;
-    self.scrollView.maximumZoomScale = 4.0f;
+    //self.scrollView.maximumZoomScale = 4.0f;
     //self.scrollView.zoomScale = 1.0f;
     
-    [self centerScrollViewContents];
+    //[self centerScrollViewContents];
 }
 
 - (void)didReceiveMemoryWarning
@@ -66,14 +70,14 @@
 
 - (void)toggleNavigationBar:(id)sender
 {
-   BOOL showViews = self.navigationController.navigationBarHidden;
-    [self showNavigationBar:!showViews];
+   //BOOL showViews = self.navigationController.navigationBarHidden;
+    //[self showNavigationBar:!showViews];
     
 }
 
 
 - (void)showNavigationBar:(BOOL)showViews {
-    if (self.navigationController.navigationBarHidden == !showViews) return;
+    /*if (self.navigationController.navigationBarHidden == !showViews) return;
     [self.navigationController setNavigationBarHidden:!showViews animated:YES];
     [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
         if(showViews)
@@ -90,7 +94,7 @@
         }
     } completion:^(BOOL finished) {
         
-    }];
+    }];*/
 }
 
 - (void)setupViewForImage:(UIImage *)image
@@ -126,15 +130,17 @@
 
 -(void)scrollViewDidZoom:(UIScrollView *)scrollView
 {
-    [self centerScrollViewContents];
+    //[self centerScrollViewContents];
 }
 
 #pragma mark - Actions
 
 - (IBAction)closeButtonTouched:(id)sender
 {
-    [self showNavigationBar:YES];
-    [self.navigationController popViewControllerAnimated:YES];
+    //[self showNavigationBar:YES];
+    //[self.navigationController popViewControllerAnimated:YES];
+    //[self.navigationController popViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
