@@ -61,13 +61,13 @@
         [self addMeasurementSetWithKey:@"money-most-used"];
         
         if ([[[NSLocale currentLocale] objectForKey:NSLocaleUsesMetricSystem] boolValue]) { // ismetric
-            [self addMeasurementSetWithKey:@"generic-measurements-metric"];
+            [self addMeasurementSetWithKey:@"basic-measurements-metric"];
             
         } else {
-            [self addMeasurementSetWithKey:@"generic-measurements-imperial"];
+            [self addMeasurementSetWithKey:@"basic-measurements-imperial"];
         }
         if ([[[NSLocale currentLocale] objectForKey:NSLocaleMeasurementSystem] isEqualToString:@"U.S."]) {
-            [self addMeasurementSetWithKey:@"generic-measurements-us"];
+            [self addMeasurementSetWithKey:@"basic-measurements-us"];
         }
         
         if([_userMeasurementSets count] < 1)

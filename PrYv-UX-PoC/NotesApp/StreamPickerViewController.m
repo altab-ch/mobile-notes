@@ -158,8 +158,11 @@
     }];
 }
 
+
+
 - (void)showAddNewStreamDialog
 {
+    
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"ViewController.Streams.StreamName", nil) message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"Add", nil), nil];
     alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
     [alertView showWithCompletionBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
@@ -240,7 +243,11 @@
                  
              } errorHandler:^(NSError *error) {
                  [self hideLoadingOverlay];
-                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                 NSString* message = [error localizedDescription];
+                 if (error.userInfo && [error.userInfo objectForKey:@"message"]) {
+                     message = [error.userInfo objectForKey:@"message"];
+                 }
+                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"ViewController.Streams.ErrorCreatingStream", nil) message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                  [alert show];
              }];
          }];

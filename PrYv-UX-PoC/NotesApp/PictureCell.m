@@ -30,13 +30,13 @@
 }
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect
+ {
+ // Drawing code
+ }
+ */
 
 - (void)prepareForReuse
 {
@@ -91,18 +91,20 @@
     [super updateWithEvent:event];
     self.startLoadTime = [NSDate date];
     self.currentEventId = event.eventId;
-    if ([event hasFirstAttachmentFileDataInMemory]) {
-        [event firstAttachmentAsImage:^(UIImage *image) {
-            [self updateWithImage:image andEventId:event.eventId animated:[PictureCell shouldAnimateImagePresentationForStartLoadTime:self.startLoadTime]];
-        } errorHandler:nil];
-    } else {
-        [event preview:^(UIImage *image) {
-            
-            [self updateWithImage:image andEventId:event.eventId animated:[PictureCell shouldAnimateImagePresentationForStartLoadTime:self.startLoadTime]];
-        } failure:^(NSError *error) {
-            NSLog(@"*1432 Failed loading preview for event %@ \n %@", error, event);
-        }];
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([event hasFirstAttachmentFileDataInMemory]) {
+            [event firstAttachmentAsImage:^(UIImage *image) {
+                [self updateWithImage:image andEventId:event.eventId animated:[PictureCell shouldAnimateImagePresentationForStartLoadTime:self.startLoadTime]];
+            } errorHandler:nil];
+        } else {
+            [event preview:^(UIImage *image) {
+                
+                [self updateWithImage:image andEventId:event.eventId animated:[PictureCell shouldAnimateImagePresentationForStartLoadTime:self.startLoadTime]];
+            } failure:^(NSError *error) {
+                NSLog(@"*1432 Failed loading preview for event %@ \n %@", error, event);
+            }];
+        }
+    });
 }
 
 + (BOOL)shouldAnimateImagePresentationForStartLoadTime:(NSDate*)startLoadTime

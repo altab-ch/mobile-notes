@@ -30,6 +30,7 @@
 
 "ViewController.Streams.SelectStream" = "Choisir un stream";
 "ViewController.Streams.AddNewStream" = "Ajouter un stream";
+"ViewController.Streams.ErrorCreatingStream" = "Erreur en créant un stream";
 "ViewController.Streams.StreamName" = "Stream name:";
 "ViewController.TextContent.TapToAdd" = "Tap to add content";
 "ViewController.TextDescriptionContent.TapToAdd" = "Tap to add a description";

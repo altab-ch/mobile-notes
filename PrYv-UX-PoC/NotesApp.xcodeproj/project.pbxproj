@@ -13,13 +13,11 @@
 		4E37857617953BBD00ED94DF /* Pods-acknowledgements.markdown in Resources */ = {isa = PBXBuildFile; fileRef = 4E37853017953BBD00ED94DF /* Pods-acknowledgements.markdown */; };
 		4E37857717953BBD00ED94DF /* Pods-acknowledgements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4E37853117953BBD00ED94DF /* Pods-acknowledgements.plist */; };
 		4E37857917953BBD00ED94DF /* Pods-resources.sh in Resources */ = {isa = PBXBuildFile; fileRef = 4E37853517953BBD00ED94DF /* Pods-resources.sh */; };
-		4E37857A17953BBD00ED94DF /* Pods.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 4E37853617953BBD00ED94DF /* Pods.xcconfig */; };
 		4E41A62D18587EE000BC0C28 /* AddNumericalValueCellClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E41A62C18587EE000BC0C28 /* AddNumericalValueCellClass.m */; };
 		4E41A63618587F1700BC0C28 /* AddNumericalValueCellClass.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E41A63518587F1700BC0C28 /* AddNumericalValueCellClass.xib */; };
 		4E41A63A1858998F00BC0C28 /* pickercenter.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E41A6371858998F00BC0C28 /* pickercenter.png */; };
 		4E41A63B1858998F00BC0C28 /* pickercenter-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E41A6381858998F00BC0C28 /* pickercenter-568h@2x.png */; };
 		4E41A63C1858998F00BC0C28 /* pickercenter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E41A6391858998F00BC0C28 /* pickercenter@2x.png */; };
-		4E4D4C21189F8E3A00A81A9F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 4E4D4C20189F8E3A00A81A9F /* README.md */; };
 		4E713D3918965EEE00CDB397 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E713D3318965EEE00CDB397 /* libTestFlight.a */; };
 		4E713D3A18965EEE00CDB397 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 4E713D3418965EEE00CDB397 /* README.md */; };
 		4E713D3B18965EEE00CDB397 /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 4E713D3518965EEE00CDB397 /* release_notes.md */; };
@@ -252,13 +250,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 5C5AF9C366E34997909F0C72;
 			remoteInfo = "Pods-MCSwipeTableViewCell";
-		};
-		96453C6818B77DD00050618E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4E37853717953BBD00ED94DF /* Pods.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = FA2E62527A68443386DFDA5D;
-			remoteInfo = "Pods-AnyJSON";
 		};
 		96453C6A18B77DD00050618E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -985,7 +976,6 @@
 			isa = PBXGroup;
 			children = (
 				B6F207CA17954F30006FC5B0 /* libPods.a */,
-				96453C6918B77DD00050618E /* libPods-AnyJSON.a */,
 				B6087DA2189F084200891C75 /* libPods-FoundationExtension.a */,
 				B6087DA4189F084200891C75 /* libPods-GIKPopoverBackgroundView.a */,
 				4EF4B19E18B4A96D009C8A64 /* libPods-MCSwipeTableViewCell.a */,
@@ -1739,7 +1729,7 @@
 		B6016BA5172873D30056CD3F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0460;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = PrYv;
 				TargetAttributes = {
 					B6016BAC172873D30056CD3F = {
@@ -1777,13 +1767,6 @@
 			fileType = archive.ar;
 			path = "libPods-MCSwipeTableViewCell.a";
 			remoteRef = 4EF4B19D18B4A96D009C8A64 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		96453C6918B77DD00050618E /* libPods-AnyJSON.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libPods-AnyJSON.a";
-			remoteRef = 96453C6818B77DD00050618E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		96453C6B18B77DD00050618E /* libPods-PryvApiKit.a */ = {
@@ -1974,7 +1957,6 @@
 				4E0900FD185763DF00A2F044 /* AddNumericalValueCellFormat.xib in Resources */,
 				96D2063418B3899D00CF5A69 /* icon_small_photo_grey@2x.png in Resources */,
 				B6B59050178B60B60009E413 /* segment_sel_uns@2x.png in Resources */,
-				4E4D4C21189F8E3A00A81A9F /* README.md in Resources */,
 				B6B59051178B60B60009E413 /* segment_uns_uns.png in Resources */,
 				B6B59052178B60B60009E413 /* segment_uns_uns@2x.png in Resources */,
 				B6B59066178C752E0009E413 /* cell_right_5@2x.png in Resources */,
@@ -2005,7 +1987,6 @@
 				B6B7CE5818B2BDC30001CA28 /* cross@2x.png in Resources */,
 				963B8DE3186455B300F7CBF7 /* icon_picture@2x.png in Resources */,
 				4E37857917953BBD00ED94DF /* Pods-resources.sh in Resources */,
-				4E37857A17953BBD00ED94DF /* Pods.xcconfig in Resources */,
 				B61D55CB17EF238A0016D0C4 /* trash-icon.png in Resources */,
 				B61D55CC17EF238A0016D0C4 /* trash-icon@2x.png in Resources */,
 				960FE0B21806B3270074D24E /* icon-time.png in Resources */,
@@ -2198,7 +2179,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
-				PROVISIONING_PROFILE = "ADC272F3-B4B0-4137-B271-3DDB0FD90CE3";
+				PROVISIONING_PROFILE = "7449F985-C358-4366-99E7-B940062CBF5E";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -2225,7 +2206,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = "-ObjC";
-				PROVISIONING_PROFILE = "ADC272F3-B4B0-4137-B271-3DDB0FD90CE3";
+				PROVISIONING_PROFILE = "7449F985-C358-4366-99E7-B940062CBF5E";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
@@ -2236,7 +2217,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 91A9AE26FE674D77BDFC0299 /* Pods.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
@@ -2262,7 +2242,6 @@
 					UIKit,
 				);
 				PRODUCT_NAME = Pryv;
-				PROVISIONING_PROFILE = "7449F985-C358-4366-99E7-B940062CBF5E";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2272,7 +2251,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 91A9AE26FE674D77BDFC0299 /* Pods.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
@@ -2298,7 +2276,6 @@
 					UIKit,
 				);
 				PRODUCT_NAME = Pryv;
-				PROVISIONING_PROFILE = "7449F985-C358-4366-99E7-B940062CBF5E";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
