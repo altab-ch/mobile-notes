@@ -22,6 +22,7 @@
 #import "DetailsBottomButtonsContainer.h"
 #import "UIAlertView+PrYv.h"
 #import "ImagePreviewViewController.h"
+#import "ImageViewController.h"
 
 #define kLineCellHeight 54
 #define kValueCellHeight 100
@@ -344,7 +345,10 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 {
     DetailCellType cellType = indexPath.row;
     if (cellType == DetailCellTypeImage) {
-        [self performSegueWithIdentifier:kShowImagePreviewSegue sender:nil];
+        ImageViewController *imagePreview = [[ImageViewController alloc] initWithNibName:@"ImageViewController" bundle:nil];
+        imagePreview.image = self.picture_ImageView.image;
+        [self presentViewController:imagePreview animated:YES completion:nil];
+        //[self performSegueWithIdentifier:kShowImagePreviewSegue sender:nil];
         return;
     }
     

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2912175918F6A01E000AC905 /* ImagePreview.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2912175818F6A01E000AC905 /* ImagePreview.xib */; };
+		2912176F18F6C4A6000AC905 /* ImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2912176D18F6C4A6000AC905 /* ImageViewController.m */; };
+		2912177018F6C4A6000AC905 /* ImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2912176E18F6C4A6000AC905 /* ImageViewController.xib */; };
 		4E0900FD185763DF00A2F044 /* AddNumericalValueCellFormat.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E0900FC185763DF00A2F044 /* AddNumericalValueCellFormat.xib */; };
 		4E0901071857640400A2F044 /* AddNumericalValueCellFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0901061857640400A2F044 /* AddNumericalValueCellFormat.m */; };
 		4E37857517953BBD00ED94DF /* Manifest.lock in Resources */ = {isa = PBXBuildFile; fileRef = 4E37852F17953BBD00ED94DF /* Manifest.lock */; };
@@ -244,6 +247,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		2912176518F6A01E000AC905 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4E37853717953BBD00ED94DF /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6B996F299F094635A07C5E2D;
+			remoteInfo = "Pods-AnyJSON";
+		};
 		4EF4B19D18B4A96D009C8A64 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4E37853717953BBD00ED94DF /* Pods.xcodeproj */;
@@ -318,6 +328,10 @@
 
 /* Begin PBXFileReference section */
 		27B10024CC6440FBBB338C05 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		2912175818F6A01E000AC905 /* ImagePreview.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImagePreview.xib; sourceTree = "<group>"; };
+		2912176C18F6C4A6000AC905 /* ImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageViewController.h; sourceTree = "<group>"; };
+		2912176D18F6C4A6000AC905 /* ImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageViewController.m; sourceTree = "<group>"; };
+		2912176E18F6C4A6000AC905 /* ImageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageViewController.xib; sourceTree = "<group>"; };
 		4E0900FC185763DF00A2F044 /* AddNumericalValueCellFormat.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddNumericalValueCellFormat.xib; sourceTree = "<group>"; };
 		4E0901051857640400A2F044 /* AddNumericalValueCellFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddNumericalValueCellFormat.h; sourceTree = "<group>"; };
 		4E0901061857640400A2F044 /* AddNumericalValueCellFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddNumericalValueCellFormat.m; sourceTree = "<group>"; };
@@ -976,6 +990,7 @@
 			isa = PBXGroup;
 			children = (
 				B6F207CA17954F30006FC5B0 /* libPods.a */,
+				2912176618F6A01E000AC905 /* libPods-AnyJSON.a */,
 				B6087DA2189F084200891C75 /* libPods-FoundationExtension.a */,
 				B6087DA4189F084200891C75 /* libPods-GIKPopoverBackgroundView.a */,
 				4EF4B19E18B4A96D009C8A64 /* libPods-MCSwipeTableViewCell.a */,
@@ -1314,6 +1329,9 @@
 			isa = PBXGroup;
 			children = (
 				B61A1945185A64CB00E9F9BE /* Cells */,
+				2912176C18F6C4A6000AC905 /* ImageViewController.h */,
+				2912176D18F6C4A6000AC905 /* ImageViewController.m */,
+				2912176E18F6C4A6000AC905 /* ImageViewController.xib */,
 				B681B68118552E940067DF37 /* DatePickerViewController.h */,
 				B681B68218552E940067DF37 /* DatePickerViewController.m */,
 				B681B684185543240067DF37 /* TextEditorViewController.h */,
@@ -1340,6 +1358,7 @@
 			children = (
 				B6994025189736B900D88127 /* BrowseEventCell.xib */,
 				B69940301899C41A00D88127 /* DetailsBottomButtonsContainer.xib */,
+				2912175818F6A01E000AC905 /* ImagePreview.xib */,
 			);
 			name = Nibs;
 			sourceTree = "<group>";
@@ -1762,6 +1781,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		2912176618F6A01E000AC905 /* libPods-AnyJSON.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libPods-AnyJSON.a";
+			remoteRef = 2912176518F6A01E000AC905 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		4EF4B19E18B4A96D009C8A64 /* libPods-MCSwipeTableViewCell.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1861,6 +1887,7 @@
 				963B8DD418644B0F00F7CBF7 /* icon_pryv.png in Resources */,
 				96D2061F18B385C000CF5A69 /* square_border.png in Resources */,
 				B6B5900C178B60B60009E413 /* add_circle@2x.png in Resources */,
+				2912175918F6A01E000AC905 /* ImagePreview.xib in Resources */,
 				B6B7CE5718B2BDC30001CA28 /* cross.png in Resources */,
 				B6B5900D178B60B60009E413 /* app_bg-h568@2x.png in Resources */,
 				B6B5900E178B60B60009E413 /* app_bg.png in Resources */,
@@ -1986,6 +2013,7 @@
 				4E37857717953BBD00ED94DF /* Pods-acknowledgements.plist in Resources */,
 				B6B7CE5818B2BDC30001CA28 /* cross@2x.png in Resources */,
 				963B8DE3186455B300F7CBF7 /* icon_picture@2x.png in Resources */,
+				2912177018F6C4A6000AC905 /* ImageViewController.xib in Resources */,
 				4E37857917953BBD00ED94DF /* Pods-resources.sh in Resources */,
 				B61D55CB17EF238A0016D0C4 /* trash-icon.png in Resources */,
 				B61D55CC17EF238A0016D0C4 /* trash-icon@2x.png in Resources */,
@@ -2070,6 +2098,7 @@
 				B6F1AEBF17847420000ECD60 /* JSTokenField.m in Sources */,
 				B6087DB3189F088800891C75 /* ConditionallyAnimatedPushSegue.m in Sources */,
 				B6F1AEC017847420000ECD60 /* JSTokenButton.m in Sources */,
+				2912176F18F6C4A6000AC905 /* ImageViewController.m in Sources */,
 				B6F1AEC117847420000ECD60 /* JSBackspaceReportingTextField.m in Sources */,
 				B69940371899C45A00D88127 /* DetailsBottomButtonsContainer.m in Sources */,
 				B6993FD21891C07700D88127 /* BaseDetailCell.m in Sources */,

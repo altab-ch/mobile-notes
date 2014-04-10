@@ -8,7 +8,7 @@
 
 #import "BaseViewController.h"
 
-@interface ImagePreviewViewController : BaseViewController
+@interface ImagePreviewViewController : UIViewController//BaseViewController
 
 @property (nonatomic, weak) IBOutlet UITextView *descriptionText;
 @property (nonatomic, weak) IBOutlet UIScrollView *scrollView;
