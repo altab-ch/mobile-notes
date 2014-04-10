@@ -44,6 +44,8 @@
 {
     [[NSUserDefaults standardUserDefaults] setObject:_userMeasurementSets forKey:kPYAppSettingMeasurementSetsKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    NSMutableArray *test = [(NSMutableArray*)[[NSUserDefaults standardUserDefaults] objectForKey:kPYAppSettingMeasurementSetsKey] mutableCopy];
+    NSLog(@"test : %@", test);
 }
 
 
