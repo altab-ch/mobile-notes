@@ -43,9 +43,11 @@
 
 
 - (void)loadDefault {
-    NSDictionary* ensureClass =
+    //A revoir : lors d'un changement de version, nettoyer le NSUserDefaults
+    
+    /*NSDictionary* ensureClass =
     @{
-      kPYAppSettingMeasurementSetsKey : [NSMutableArray class]
+      kPYAppSettingMeasurementSetsKey : [NSArray class]
       };
     
     NSDictionary* defaults =
@@ -70,7 +72,7 @@
     NSLog(@"<DEBUG Settings> %@",[_userDefaults dictionaryRepresentation]);
     
     
-    
+    */
 }
 
 
