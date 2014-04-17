@@ -247,13 +247,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		2912176518F6A01E000AC905 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4E37853717953BBD00ED94DF /* Pods.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 6B996F299F094635A07C5E2D;
-			remoteInfo = "Pods-AnyJSON";
-		};
 		4EF4B19D18B4A96D009C8A64 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4E37853717953BBD00ED94DF /* Pods.xcodeproj */;
@@ -990,7 +983,6 @@
 			isa = PBXGroup;
 			children = (
 				B6F207CA17954F30006FC5B0 /* libPods.a */,
-				2912176618F6A01E000AC905 /* libPods-AnyJSON.a */,
 				B6087DA2189F084200891C75 /* libPods-FoundationExtension.a */,
 				B6087DA4189F084200891C75 /* libPods-GIKPopoverBackgroundView.a */,
 				4EF4B19E18B4A96D009C8A64 /* libPods-MCSwipeTableViewCell.a */,
@@ -1781,13 +1773,6 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		2912176618F6A01E000AC905 /* libPods-AnyJSON.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libPods-AnyJSON.a";
-			remoteRef = 2912176518F6A01E000AC905 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		4EF4B19E18B4A96D009C8A64 /* libPods-MCSwipeTableViewCell.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -2271,7 +2256,7 @@
 					UIKit,
 				);
 				PRODUCT_NAME = Pryv;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2305,7 +2290,7 @@
 					UIKit,
 				);
 				PRODUCT_NAME = Pryv;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
