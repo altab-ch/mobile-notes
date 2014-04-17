@@ -56,8 +56,6 @@
 	<string>2014040801</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSMainNibFile~ipad</key>
-	<string>MainStoryboard_iPhone-iPad</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>museo300-regular-webfont.ttf</string>
