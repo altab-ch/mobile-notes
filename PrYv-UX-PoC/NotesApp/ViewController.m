@@ -59,6 +59,7 @@
         
         [PYWebLoginViewController requestConnectionWithAppId:@"pryv-ios-app"
                                               andPermissions:permissions
+                                                 andBarStyle:BarStyleTypeHome
                                                     delegate:self];
         
     }
