@@ -301,8 +301,16 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     NSString *unit = [self.event.pyType symbol];
     if (! unit) { unit = self.event.pyType.formatKey ; }
     
+    NSNumberFormatter *numf = [[NSNumberFormatter alloc] init];
+    [numf setNumberStyle:NSNumberFormatterDecimalStyle];
+    if (([[numf stringFromNumber:self.event.eventContent] rangeOfString:@"."].length != 0) || ([[numf stringFromNumber:self.event.eventContent] rangeOfString:@","].length != 0)) {
+        [numf setMinimumFractionDigits:2];
+    }else{
+        [numf setMaximumFractionDigits:0];
+    }
+    //
     
-    NSString *value = [NSString stringWithFormat:@"%@ %@",self.event.eventContentAsString, unit];
+    NSString *value = [NSString stringWithFormat:@"%@ %@",[numf stringFromNumber:self.event.eventContent], unit];
     [self.numericalValue_Label setText:value];
     
     NSString *formatDescription = [self.event.pyType localizedName];
