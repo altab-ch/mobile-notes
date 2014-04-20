@@ -87,7 +87,10 @@
             break;
         }
     }
-    self.rootStreams = [self.streams filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"parentId = nil"]];
+    
+    self.rootStreams = [[self.streams filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"parentId = nil"]] sortedArrayUsingComparator:^NSComparisonResult(PYStream* ev1, PYStream* ev2) {
+            return [ev1.name compare:ev2.name options:NSCaseInsensitiveSearch];
+    }];
     
     [self updateUIElements];
     [self.tableView reloadData];
