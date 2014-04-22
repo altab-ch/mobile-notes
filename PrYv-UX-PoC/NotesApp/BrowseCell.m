@@ -66,11 +66,12 @@
 {
     CGRect descLabelFrame = self.commentLabel.frame;
     
-    if([self.event.tags count] > 0)
+    /*if([self.event.tags count] > 0)
     {
         descLabelFrame.origin.y = 92;
     }
-    else
+    else*/
+    if([self.event.tags count] <= 0)
     {
         descLabelFrame.origin.y = self.bounds.size.height - descLabelFrame.size.height;
     }

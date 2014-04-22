@@ -107,6 +107,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 - (BOOL) shouldCreateEvent;
 
 - (void)closeStreamPickerAndRestorePreviousStreamId;
+- (NSString*) getNumericalValueFormatted;
 @end
 
 @implementation EventDetailsViewController
@@ -287,7 +288,23 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     } errorHandler:nil];
 }
 
-
+-(NSString*) getNumericalValueFormatted{
+    NSString *value = NULL;
+    if ([self.event.eventContent isKindOfClass:[NSNumber class]]) {
+        NSNumberFormatter *numf = [[NSNumberFormatter alloc] init];
+        [numf setNumberStyle:NSNumberFormatterDecimalStyle];
+        if (([[numf stringFromNumber:self.event.eventContent] rangeOfString:@"."].length != 0) || ([[numf stringFromNumber:self.event.eventContent] rangeOfString:@","].length != 0)) {
+            [numf setMinimumFractionDigits:2];
+        }else{
+            [numf setMaximumFractionDigits:0];
+        }
+        
+        value = [numf stringFromNumber:self.event.eventContent];
+    }else{
+        value = self.event.eventContentAsString;
+    }
+    return value;
+}
 
 
 - (void)updateUIForValueEventType
@@ -301,8 +318,8 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     NSString *unit = [self.event.pyType symbol];
     if (! unit) { unit = self.event.pyType.formatKey ; }
     
+    NSString *value = [NSString stringWithFormat:@"%@ %@",self.getNumericalValueFormatted, unit];
     
-    NSString *value = [NSString stringWithFormat:@"%@ %@",self.event.eventContentAsString, unit];
     [self.numericalValue_Label setText:value];
     
     NSString *formatDescription = [self.event.pyType localizedName];
@@ -647,7 +664,8 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
         NSArray *components = [self.event.type componentsSeparatedByString:@"/"];
         if([components count] > 1)
         {
-            addNumericalValueVC.value = self.event.eventContentAsString;
+            addNumericalValueVC.value = self.getNumericalValueFormatted;
+            //addNumericalValueVC.value = self.event.eventContentAsString;
             addNumericalValueVC.valueClass = [components objectAtIndex:0];
             addNumericalValueVC.valueType = [components objectAtIndex:1];
         }
