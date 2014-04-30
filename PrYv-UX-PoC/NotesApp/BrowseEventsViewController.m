@@ -244,6 +244,15 @@ BOOL displayNonStandardEvents;
                 [self.tableView reloadData];
                 if(self.lastIndexPath)
                 {
+                    if (self.lastIndexPath.row <0) {
+                        self.lastIndexPath = [NSIndexPath indexPathForRow:0 inSection:self.lastIndexPath.section];
+                    }
+                    NSInteger numRows = [self tableView:self.tableView numberOfRowsInSection:self.lastIndexPath.section];
+                    if (self.lastIndexPath.row >= numRows) {
+                        self.lastIndexPath = [NSIndexPath indexPathForRow:numRows - 1  inSection:0];
+                    }
+                    
+                    
                     [self.tableView scrollToRowAtIndexPath:self.lastIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
                 }
                 [UIView animateWithDuration:0.2 animations:^{
@@ -391,6 +400,7 @@ BOOL displayNonStandardEvents;
     }
     else
     {
+        self.lastIndexPath = indexPath;
         PYEvent *event = [_events objectAtIndex:indexPath.row];
         [self showEventDetailsForEvent:event andUserHistoryEntry:nil];
     }
