@@ -195,16 +195,19 @@ BOOL displayNonStandardEvents;
 {
     if (self.filter == nil) {
         [self clearCurrentData];
-        [NotesAppController sharedConnectionWithID:nil noConnectionCompletionBlock:^{
+        
+                [NotesAppController sharedConnectionWithID:nil noConnectionCompletionBlock:^{
             [self showWelcomeWebView:YES];
         } withCompletionBlock:^(PYConnection *connection) {
-      
+            
             self.filter = [[PYEventFilter alloc] initWithConnection:connection
                                                            fromTime:PYEventFilter_UNDEFINED_FROMTIME
                                                              toTime:PYEventFilter_UNDEFINED_TOTIME
                                                               limit:kFilterInitialLimit
                                                      onlyStreamsIDs:nil
-                                                               tags:nil];
+                                                               tags:nil
+                                                              types:nil
+                           ];
             
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(filterEventUpdate:)
                                                          name:kPYNotificationEvents object:self.filter];
@@ -222,7 +225,6 @@ BOOL displayNonStandardEvents;
     if (self.filter != nil) {
         [[NSNotificationCenter defaultCenter] removeObserver:self name:kPYNotificationEvents object:self.filter];
         self.filter = nil;
-        
     }
 }
 
