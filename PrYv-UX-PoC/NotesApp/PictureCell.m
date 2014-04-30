@@ -42,17 +42,19 @@
 {
     [super prepareForReuse];
     self.pictureView.image = nil;
-    self.loadingIndicator.hidden = NO;
-    [self.loadingIndicator startAnimating];
+   
 }
 
 
 - (void)updateWithImage:(UIImage*)img andEventId:(NSString*)eventId animated:(BOOL)animated
 {
-    if(![eventId isEqualToString:self.currentEventId] && self.pictureView.image)
+    // maybe called sevral times while the picture was loading.
+    // so the cell may have been reused for another event or picture already loaded by a previous call
+    if(![eventId isEqualToString:self.currentEventId] || self.pictureView.image)
     {
         return;
     }
+    
     CGSize newSize = img.size;
     CGFloat maxSide = MAX(newSize.width, newSize.height);
     CGFloat ratio = maxSide / [self pictureView].bounds.size.width;
@@ -97,6 +99,8 @@
                 [self updateWithImage:image andEventId:event.eventId animated:[PictureCell shouldAnimateImagePresentationForStartLoadTime:self.startLoadTime]];
             } errorHandler:nil];
         } else {
+            self.loadingIndicator.hidden = NO;
+            [self.loadingIndicator startAnimating];
             [event preview:^(UIImage *image) {
                 
                 [self updateWithImage:image andEventId:event.eventId animated:[PictureCell shouldAnimateImagePresentationForStartLoadTime:self.startLoadTime]];
@@ -107,6 +111,7 @@
     });
 }
 
+// animate only if loading took more than...
 + (BOOL)shouldAnimateImagePresentationForStartLoadTime:(NSDate*)startLoadTime
 {
     return fabs([startLoadTime timeIntervalSinceNow]) > 0.2f;
