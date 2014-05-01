@@ -30,6 +30,9 @@ NSString *const kEventAddedNotification = @"kEventAddedNotification";
     [MeasurementController sharedInstance];
     [self setupUI];
     
+    UIViewController * leftDrawer = [[UIViewController alloc] init];
+    UIViewController * center = [self.storyboard instantiateViewControllerWithIdentifier:@"FirstTop"];
+    
     // testFlight
   //  NSString *deviceToken = [[UIDevice currentDevice] performSelector:@selector(uniqueIdentifier)];
     //[TestFlight setDeviceIdentifier:deviceToken];
