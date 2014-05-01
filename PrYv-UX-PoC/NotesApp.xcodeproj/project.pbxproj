@@ -10,6 +10,7 @@
 		2912175918F6A01E000AC905 /* ImagePreview.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2912175818F6A01E000AC905 /* ImagePreview.xib */; };
 		2912176F18F6C4A6000AC905 /* ImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2912176D18F6C4A6000AC905 /* ImageViewController.m */; };
 		2912177018F6C4A6000AC905 /* ImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2912176E18F6C4A6000AC905 /* ImageViewController.xib */; };
+		291ED16619128589009A9B3D /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 291ED16519128589009A9B3D /* MainMenuViewController.m */; };
 		4E0900FD185763DF00A2F044 /* AddNumericalValueCellFormat.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E0900FC185763DF00A2F044 /* AddNumericalValueCellFormat.xib */; };
 		4E0901071857640400A2F044 /* AddNumericalValueCellFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0901061857640400A2F044 /* AddNumericalValueCellFormat.m */; };
 		4E37857517953BBD00ED94DF /* Manifest.lock in Resources */ = {isa = PBXBuildFile; fileRef = 4E37852F17953BBD00ED94DF /* Manifest.lock */; };
@@ -247,6 +248,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		291ED16219128561009A9B3D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4E37853717953BBD00ED94DF /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D33B138F3AAF48EB930EE91D;
+			remoteInfo = "Pods-MMDrawerController";
+		};
 		4EF4B19D18B4A96D009C8A64 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4E37853717953BBD00ED94DF /* Pods.xcodeproj */;
@@ -325,6 +333,8 @@
 		2912176C18F6C4A6000AC905 /* ImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageViewController.h; sourceTree = "<group>"; };
 		2912176D18F6C4A6000AC905 /* ImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageViewController.m; sourceTree = "<group>"; };
 		2912176E18F6C4A6000AC905 /* ImageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageViewController.xib; sourceTree = "<group>"; };
+		291ED16419128589009A9B3D /* MainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuViewController.h; sourceTree = "<group>"; };
+		291ED16519128589009A9B3D /* MainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuViewController.m; sourceTree = "<group>"; };
 		4E0900FC185763DF00A2F044 /* AddNumericalValueCellFormat.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddNumericalValueCellFormat.xib; sourceTree = "<group>"; };
 		4E0901051857640400A2F044 /* AddNumericalValueCellFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddNumericalValueCellFormat.h; sourceTree = "<group>"; };
 		4E0901061857640400A2F044 /* AddNumericalValueCellFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddNumericalValueCellFormat.m; sourceTree = "<group>"; };
@@ -772,6 +782,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		291ED15619128561009A9B3D /* SideMenu */ = {
+			isa = PBXGroup;
+			children = (
+				291ED16419128589009A9B3D /* MainMenuViewController.h */,
+				291ED16519128589009A9B3D /* MainMenuViewController.m */,
+			);
+			name = SideMenu;
+			sourceTree = "<group>";
+		};
 		4E3784D217953BBD00ED94DF /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -986,6 +1005,7 @@
 				B6087DA2189F084200891C75 /* libPods-FoundationExtension.a */,
 				B6087DA4189F084200891C75 /* libPods-GIKPopoverBackgroundView.a */,
 				4EF4B19E18B4A96D009C8A64 /* libPods-MCSwipeTableViewCell.a */,
+				291ED16319128561009A9B3D /* libPods-MMDrawerController.a */,
 				96453C6B18B77DD00050618E /* libPods-PryvApiKit.a */,
 				B6F207C817954F30006FC5B0 /* libPods-SSKeychain.a */,
 				B6087DA6189F084200891C75 /* libPods-SevenSwitch.a */,
@@ -1561,6 +1581,7 @@
 		B6F9A2491729BF55009C8BAA /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				291ED15619128561009A9B3D /* SideMenu */,
 				B6B58FBF178B5F1B0009E413 /* BaseViewController */,
 				B61AE1DF188DD80E004385D6 /* Photo */,
 				B61F38C917496A0400B94960 /* NumericalValues */,
@@ -1773,6 +1794,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		291ED16319128561009A9B3D /* libPods-MMDrawerController.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libPods-MMDrawerController.a";
+			remoteRef = 291ED16219128561009A9B3D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		4EF4B19E18B4A96D009C8A64 /* libPods-MCSwipeTableViewCell.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -2062,6 +2090,7 @@
 				4E8AAFF8185A07A30083DE8C /* AppConstants.m in Sources */,
 				4E713D3F18965FBD00CDB397 /* AppConstantsPrivate.m in Sources */,
 				B6BA3E881733D0A000464C2F /* UIStoryboard+Main.m in Sources */,
+				291ED16619128589009A9B3D /* MainMenuViewController.m in Sources */,
 				B6BA3E921733E30800464C2F /* DataGroupingManager.m in Sources */,
 				B6BA3E961733E4F500464C2F /* StreamGroupingManager.m in Sources */,
 				B6783A3D174178FB0083AE50 /* NotesAppController.m in Sources */,

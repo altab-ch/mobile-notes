@@ -1,10 +1,46 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="BvD-kb-Ra6">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Azc-a0-r1v">
     <dependencies>
         <deployment defaultVersion="1552" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
+        <!--Main Menu View Controller-->
+        <scene sceneID="vQJ-Cc-WSL">
+            <objects>
+                <viewController storyboardIdentifier="Main_Menu_ID" id="KCD-95-ynf" customClass="MainMenuViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="N3C-WC-G6F"/>
+                        <viewControllerLayoutGuide type="bottom" id="Z6M-VQ-RNI"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="mD0-dt-0Fy">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Menu" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="asY-o8-Y25">
+                                <rect key="frame" x="126" y="243" width="85" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HIr-Gg-lwG">
+                                <rect key="frame" x="126" y="160" width="85" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Settings">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="btSettingsPressed:" destination="KCD-95-ynf" eventType="touchUpInside" id="DHu-3H-VXE"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="J40-b0-mqk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-992" y="-66"/>
+        </scene>
         <!--Settings View Controller - Settings-->
         <scene sceneID="KWY-EL-Wpf">
             <objects>
@@ -233,7 +269,7 @@
         <!--View Controller-->
         <scene sceneID="iEF-pH-F1s">
             <objects>
-                <viewController id="jxF-yp-AcH" customClass="ViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="center_vc_id" id="jxF-yp-AcH" customClass="ViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="3T5-Rg-2TS"/>
                         <viewControllerLayoutGuide type="bottom" id="rbS-kc-gjd"/>
@@ -526,10 +562,28 @@ height=123312</string>
             </objects>
             <point key="canvasLocation" x="-341" y="-1413"/>
         </scene>
+        <!--Drawer Controller-->
+        <scene sceneID="gP8-lx-KqF">
+            <objects>
+                <viewController storyboardIdentifier="drawer_controler_id" id="Azc-a0-r1v" customClass="MMDrawerController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Drr-bH-V8h"/>
+                        <viewControllerLayoutGuide type="bottom" id="hma-SW-egi"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="waY-zL-GFo">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="m13-6P-jM5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-850" y="602"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="HPs-gM-Zcx">
             <objects>
-                <navigationController id="BvD-kb-Ra6" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="main_nav_c" id="BvD-kb-Ra6" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="IBK-NY-9yf">

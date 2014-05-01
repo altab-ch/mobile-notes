@@ -13,6 +13,8 @@
 #import "MeasurementController.h"
 #import "TestFlight.h"
 #import "AppConstantsPrivate.h"
+#import "MMDrawerController.h"
+
 
 NSString *const kEventAddedNotification = @"kEventAddedNotification";
 
@@ -30,8 +32,13 @@ NSString *const kEventAddedNotification = @"kEventAddedNotification";
     [MeasurementController sharedInstance];
     [self setupUI];
     
-    UIViewController * leftDrawer = [[UIViewController alloc] init];
-    UIViewController * center = [self.storyboard instantiateViewControllerWithIdentifier:@"FirstTop"];
+    UIViewController * leftDrawer = [[UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil] instantiateViewControllerWithIdentifier:@"Main_Menu_ID"];
+    UINavigationController * center = [[UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil] instantiateViewControllerWithIdentifier:@"main_nav_c"];
+    
+    MMDrawerController* drawerController = (MMDrawerController *)self.window.rootViewController;
+    
+    [drawerController setCenterViewController:center];
+    [drawerController setLeftDrawerViewController:leftDrawer];
     
     // testFlight
   //  NSString *deviceToken = [[UIDevice currentDevice] performSelector:@selector(uniqueIdentifier)];
