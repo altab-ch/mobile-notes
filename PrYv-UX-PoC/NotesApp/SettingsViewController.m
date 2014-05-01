@@ -44,7 +44,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        
     }
     return self;
 }
@@ -139,7 +139,17 @@
      forKey:kPYAppSettingUIDisplayNonStandardEvents];
 }
 
-- (void)popVC:(id)sender
+- (IBAction)popViewController:(id)sender
+{
+    [UIView transitionWithView:self.parentViewController.view
+                      duration:0.75
+                       options:UIViewAnimationOptionTransitionFlipFromLeft
+                    animations:nil
+                    completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)popVC:(id)sender
 {
     [UIView transitionWithView:self.navigationController.view
                       duration:0.75
@@ -148,7 +158,6 @@
                     completion:nil];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-
 
 
 

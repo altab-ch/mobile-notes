@@ -10,5 +10,5 @@
 #import <MessageUI/MessageUI.h>
 
 @interface SettingsViewController : UITableViewController <MFMailComposeViewControllerDelegate>
-
+- (IBAction)popViewController:(id)sender;
 @end
