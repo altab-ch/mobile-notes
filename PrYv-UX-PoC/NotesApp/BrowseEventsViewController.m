@@ -32,6 +32,7 @@
 #import "MCSwipeTableViewCell.h"
 #import "MMDrawerController.h"
 #import "MMDrawerBarButtonItem.h"
+#import "MenuNavController.h"
 
 #define IS_LRU_SECTION self.isMenuOpen
 #define IS_BROWSE_SECTION !self.isMenuOpen
@@ -101,7 +102,12 @@ BOOL displayNonStandardEvents;
 }
 
 -(void)leftDrawerButtonPress:(id)sender{
+    
     [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
+    if ([self.mm_drawerController openSide]==MMDrawerSideLeft) {
+        MenuNavController* menuNavController = (MenuNavController*)[self.mm_drawerController leftDrawerViewController];
+        [menuNavController resetMenu];
+    }
 }
 
 - (void)viewDidLoad

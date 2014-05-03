@@ -139,24 +139,16 @@
      forKey:kPYAppSettingUIDisplayNonStandardEvents];
 }
 
-- (IBAction)popViewController:(id)sender
-{
-    [UIView transitionWithView:self.parentViewController.view
-                      duration:0.75
-                       options:UIViewAnimationOptionTransitionFlipFromLeft
-                    animations:nil
-                    completion:nil];
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
 -(void)popVC:(id)sender
 {
-    [UIView transitionWithView:self.navigationController.view
+    /*[UIView transitionWithView:self.navigationController.view
                       duration:0.75
                        options:UIViewAnimationOptionTransitionFlipFromLeft
                     animations:nil
                     completion:nil];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    */
+    [self.navigationController popViewControllerAnimated:YES];
+     //[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 

@@ -32,11 +32,11 @@ NSString *const kEventAddedNotification = @"kEventAddedNotification";
     [MeasurementController sharedInstance];
     [self setupUI];
     
-    UIViewController * leftDrawer = [[UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil] instantiateViewControllerWithIdentifier:@"Main_Menu_ID"];
+    UINavigationController * leftDrawer = [[UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil] instantiateViewControllerWithIdentifier:@"menu_nav_id"];
     UINavigationController * center = [[UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil] instantiateViewControllerWithIdentifier:@"main_nav_c"];
     
     MMDrawerController* drawerController = (MMDrawerController *)self.window.rootViewController;
-    
+    [drawerController setMaximumLeftDrawerWidth:260.0];
     [drawerController setCenterViewController:center];
     [drawerController setLeftDrawerViewController:leftDrawer];
     

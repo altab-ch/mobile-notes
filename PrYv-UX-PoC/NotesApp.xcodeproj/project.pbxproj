@@ -10,7 +10,8 @@
 		2912175918F6A01E000AC905 /* ImagePreview.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2912175818F6A01E000AC905 /* ImagePreview.xib */; };
 		2912176F18F6C4A6000AC905 /* ImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2912176D18F6C4A6000AC905 /* ImageViewController.m */; };
 		2912177018F6C4A6000AC905 /* ImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2912176E18F6C4A6000AC905 /* ImageViewController.xib */; };
-		291ED16619128589009A9B3D /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 291ED16519128589009A9B3D /* MainMenuViewController.m */; };
+		291ED1711913CF44009A9B3D /* MenuNavController.m in Sources */ = {isa = PBXBuildFile; fileRef = 291ED1701913CF44009A9B3D /* MenuNavController.m */; };
+		291ED17F1913E717009A9B3D /* MenuTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 291ED17E1913E717009A9B3D /* MenuTableViewController.m */; };
 		4E0900FD185763DF00A2F044 /* AddNumericalValueCellFormat.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E0900FC185763DF00A2F044 /* AddNumericalValueCellFormat.xib */; };
 		4E0901071857640400A2F044 /* AddNumericalValueCellFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0901061857640400A2F044 /* AddNumericalValueCellFormat.m */; };
 		4E37857517953BBD00ED94DF /* Manifest.lock in Resources */ = {isa = PBXBuildFile; fileRef = 4E37852F17953BBD00ED94DF /* Manifest.lock */; };
@@ -333,8 +334,10 @@
 		2912176C18F6C4A6000AC905 /* ImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageViewController.h; sourceTree = "<group>"; };
 		2912176D18F6C4A6000AC905 /* ImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageViewController.m; sourceTree = "<group>"; };
 		2912176E18F6C4A6000AC905 /* ImageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageViewController.xib; sourceTree = "<group>"; };
-		291ED16419128589009A9B3D /* MainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuViewController.h; sourceTree = "<group>"; };
-		291ED16519128589009A9B3D /* MainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuViewController.m; sourceTree = "<group>"; };
+		291ED16F1913CF44009A9B3D /* MenuNavController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuNavController.h; sourceTree = "<group>"; };
+		291ED1701913CF44009A9B3D /* MenuNavController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuNavController.m; sourceTree = "<group>"; };
+		291ED17D1913E717009A9B3D /* MenuTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuTableViewController.h; sourceTree = "<group>"; };
+		291ED17E1913E717009A9B3D /* MenuTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuTableViewController.m; sourceTree = "<group>"; };
 		4E0900FC185763DF00A2F044 /* AddNumericalValueCellFormat.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddNumericalValueCellFormat.xib; sourceTree = "<group>"; };
 		4E0901051857640400A2F044 /* AddNumericalValueCellFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddNumericalValueCellFormat.h; sourceTree = "<group>"; };
 		4E0901061857640400A2F044 /* AddNumericalValueCellFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddNumericalValueCellFormat.m; sourceTree = "<group>"; };
@@ -785,8 +788,10 @@
 		291ED15619128561009A9B3D /* SideMenu */ = {
 			isa = PBXGroup;
 			children = (
-				291ED16419128589009A9B3D /* MainMenuViewController.h */,
-				291ED16519128589009A9B3D /* MainMenuViewController.m */,
+				291ED16F1913CF44009A9B3D /* MenuNavController.h */,
+				291ED1701913CF44009A9B3D /* MenuNavController.m */,
+				291ED17D1913E717009A9B3D /* MenuTableViewController.h */,
+				291ED17E1913E717009A9B3D /* MenuTableViewController.m */,
 			);
 			name = SideMenu;
 			sourceTree = "<group>";
@@ -2090,7 +2095,6 @@
 				4E8AAFF8185A07A30083DE8C /* AppConstants.m in Sources */,
 				4E713D3F18965FBD00CDB397 /* AppConstantsPrivate.m in Sources */,
 				B6BA3E881733D0A000464C2F /* UIStoryboard+Main.m in Sources */,
-				291ED16619128589009A9B3D /* MainMenuViewController.m in Sources */,
 				B6BA3E921733E30800464C2F /* DataGroupingManager.m in Sources */,
 				B6BA3E961733E4F500464C2F /* StreamGroupingManager.m in Sources */,
 				B6783A3D174178FB0083AE50 /* NotesAppController.m in Sources */,
@@ -2113,6 +2117,7 @@
 				B6087DB3189F088800891C75 /* ConditionallyAnimatedPushSegue.m in Sources */,
 				B6F1AEC017847420000ECD60 /* JSTokenButton.m in Sources */,
 				2912176F18F6C4A6000AC905 /* ImageViewController.m in Sources */,
+				291ED17F1913E717009A9B3D /* MenuTableViewController.m in Sources */,
 				B6F1AEC117847420000ECD60 /* JSBackspaceReportingTextField.m in Sources */,
 				B69940371899C45A00D88127 /* DetailsBottomButtonsContainer.m in Sources */,
 				B6993FD21891C07700D88127 /* BaseDetailCell.m in Sources */,
@@ -2140,6 +2145,7 @@
 				B61D55B517EC68C80016D0C4 /* UIAlertView+PrYv.m in Sources */,
 				B6C9D468181ED7F200EB5FF9 /* UIDevice+Utils.m in Sources */,
 				B61A1940185A325C00E9F9BE /* ImagePreviewViewController.m in Sources */,
+				291ED1711913CF44009A9B3D /* MenuNavController.m in Sources */,
 				B61D55C017EEDEF00016D0C4 /* UIImage+PrYv.m in Sources */,
 				B62BF06D18D627E9007BD68E /* MNMPullToRefreshManager.m in Sources */,
 			);
