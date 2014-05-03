@@ -30,6 +30,9 @@
 #import "TextEditorViewController.h"
 #import <PryvApiKit/PYConstants.h>
 #import "MCSwipeTableViewCell.h"
+#import "MMDrawerController.h"
+#import "MMDrawerBarButtonItem.h"
+#import "MenuNavController.h"
 
 #define IS_LRU_SECTION self.isMenuOpen
 #define IS_BROWSE_SECTION !self.isMenuOpen
@@ -64,7 +67,7 @@ static NSString *browseCellIdentifier = @"BrowseEventsCell_ID";
 
 - (void)refreshFilter;
 - (void)unsetFilter;
-
+- (MMDrawerController*)mm_drawerController;
 - (void)showWelcomeWebView:(BOOL)visible;
 
 @end
@@ -82,6 +85,31 @@ BOOL displayNonStandardEvents;
     return self;
 }
 
+-(MMDrawerController*)mm_drawerController{
+    UIViewController *parentViewController = self.parentViewController;
+    while (parentViewController != nil) {
+        if([parentViewController isKindOfClass:[MMDrawerController class]]){
+            return (MMDrawerController *)parentViewController;
+        }
+        parentViewController = parentViewController.parentViewController;
+    }
+    return nil;
+}
+
+-(void)setupLeftMenuButton{
+    MMDrawerBarButtonItem * leftDrawerButton = [[MMDrawerBarButtonItem alloc] initWithTarget:self action:@selector(leftDrawerButtonPress:)];
+    [self.navigationItem setLeftBarButtonItem:leftDrawerButton animated:YES];
+}
+
+-(void)leftDrawerButtonPress:(id)sender{
+    
+    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
+    if ([self.mm_drawerController openSide]==MMDrawerSideLeft) {
+        MenuNavController* menuNavController = (MenuNavController*)[self.mm_drawerController leftDrawerViewController];
+        [menuNavController resetMenu];
+    }
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -94,7 +122,7 @@ BOOL displayNonStandardEvents;
 	self.tableView.allowsMultipleSelectionDuringEditing = YES;
     
     //self.navigationItem.title = @"Pryv";
-    self.navigationItem.leftBarButtonItem = [UIBarButtonItem flatBarItemWithImage:[UIImage imageNamed:@"icon_pryv"] target:self action:@selector(settingButtonTouched:)];
+    //self.navigationItem.leftBarButtonItem = [UIBarButtonItem flatBarItemWithImage:[UIImage imageNamed:@"icon_pryv"] target:self action:@selector(settingButtonTouched:)];
     
 
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -122,6 +150,7 @@ BOOL displayNonStandardEvents;
     
     
     self.tableView.alpha = 0.0f;
+    [self setupLeftMenuButton];
     [self loadData];
 }
 
