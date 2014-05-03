@@ -27,11 +27,9 @@ static int kPickerTag = 10;
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
 @property (nonatomic) float pickerCellRowHeight;
 @property (nonatomic, strong) NSArray *streams;
+@property (nonatomic, strong) NSMutableArray *streamIDs;
 
 - (IBAction)dateChanged:(UIDatePicker *)sender;
-- (void)createDateFormatter;
-- (UITableViewCell *)createDateCell;
-- (UITableViewCell *)createPickerCell;
 
 @end
 
@@ -202,19 +200,24 @@ static int kPickerTag = 10;
 {
     
     [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
-    if (![self datePickerIsHidden]) {
-        [self hidePicker];
-    }
+    if (![self datePickerIsHidden])
+        [self hidePickerReset];
+}
+
+- (void)hidePickerReset {
+    
+    [self.tableView beginUpdates];
+    [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:DATE_PICKER_ROW inSection:DATE_SECTION]] withRowAnimation:UITableViewRowAnimationFade];
+    
+    [self setDatePickerIsHidden:YES];
+    [self.tableView endUpdates];
 }
 
 - (void)hidePicker {
     
-    [self.tableView beginUpdates];
-    [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:DATE_PICKER_ROW inSection:DATE_SECTION]]
-                          withRowAnimation:UITableViewRowAnimationFade];
+    [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:DATE_PICKER_ROW inSection:DATE_SECTION]] withRowAnimation:UITableViewRowAnimationFade];
     
     [self setDatePickerIsHidden:YES];
-    [self.tableView endUpdates];
 }
 
 - (void)showPicker{
@@ -253,6 +256,11 @@ static int kPickerTag = 10;
     targetedLabel.text = stream_name;
     
     return cell;
+}
+
+- (NSArray*) getStreamIDs
+{
+    return nil;
 }
 
 /*

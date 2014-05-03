@@ -12,5 +12,5 @@
 @property (strong, nonatomic) NSDate *date;
 
 - (void)resetMenu;
-
+- (NSArray*) getStreamIDs;
 @end
