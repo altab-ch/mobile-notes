@@ -10,5 +10,4 @@
 #import <MessageUI/MessageUI.h>
 
 @interface SettingsViewController : UITableViewController <MFMailComposeViewControllerDelegate>
-
 @end
