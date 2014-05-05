@@ -23,6 +23,7 @@
 #import "UIAlertView+PrYv.h"
 #import "ImagePreviewViewController.h"
 #import "ImageViewController.h"
+#import "NotesAppController.h"
 
 #define kLineCellHeight 54
 #define kValueCellHeight 100
@@ -680,8 +681,11 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 - (void)setupStreamPickerViewController:(StreamPickerViewController*)streamPickerVC
 {
+    
+    
+    
     self.previousStreamId = [self.event.streamId copy];
-    streamPickerVC.streamId = self.event.streamId;
+    streamPickerVC.stream = [self.event stream];
     streamPickerVC.delegate = self;
     self.streamPickerVC = streamPickerVC;
     [self.streamPickerVC.view.subviews[0] removeFromSuperview];
@@ -695,6 +699,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
             
         }];
     }];
+    
     
 }
 

@@ -5,7 +5,6 @@
 //  Created by Mladen Djordjevic on 12/12/13.
 //  Copyright (c) 2013 PrYv. All rights reserved.
 //
-
 #import "StreamPickerViewController.h"
 #import "PYStream+Helper.h"
 #import "DataService.h"
@@ -19,9 +18,6 @@
 
 @property (nonatomic) BOOL visible;
 @property (nonatomic, strong) IBOutlet UIButton *listBackButton;
-@property (nonatomic, strong) NSArray *streams;
-@property (nonatomic, strong) NSArray *rootStreams;
-@property (nonatomic, strong) PYStream *stream;
 
 @end
 
@@ -45,7 +41,7 @@
     UITapGestureRecognizer *streamTapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(streamsLabelTouched:)];
     self.streamLabel.userInteractionEnabled = YES;
     [self.streamLabel addGestureRecognizer:streamTapGR];
-    [self initStreams];
+    [self updateUIElements];
     
 }
 
@@ -61,42 +57,6 @@
     [self.delegate closeStreamPicker];
 }
 
-- (void)initStreams
-{
-    
-    PYConnection* connection = [[NotesAppController sharedInstance] connection];
-    if (connection == nil) {
-        NSLog(@"<ERROR> StreamPickerViewController.initStreams connection is nil");
-        return;
-    }
-    
-    self.streams = connection.fetchedStreamsRoots;
-    NSString *streamID = nil;
-    if((self.entry && self.entry.streamId))
-    {
-        streamID = self.entry.streamId;
-    }
-    else
-    {
-        streamID = self.streamId;
-    }
-    for(PYStream *stream in self.streams)
-    {
-        if([stream.streamId isEqualToString:streamID])
-        {
-            self.stream = stream;
-            break;
-        }
-    }
-    
-    self.rootStreams = [[self.streams filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"parentId = nil"]] sortedArrayUsingComparator:^NSComparisonResult(PYStream* ev1, PYStream* ev2) {
-            return [ev1.name compare:ev2.name options:NSCaseInsensitiveSearch];
-    }];
-    
-    [self updateUIElements];
-    [self.tableView reloadData];
-    
-}
 
 - (void)updateUIElements
 {
@@ -108,6 +68,7 @@
     self.streamLabel.text = selectedText;
     
     self.listBackButton.hidden = (self.stream == nil);
+    [self.tableView reloadData];
 }
 
 #pragma mark - Actions
@@ -217,33 +178,20 @@
         [self showLoadingOverlay];
         PYStream *stream = [[PYStream alloc] init];
         stream.name = streamName;
-        stream.parentId = self.stream.streamId;
-        
+        if (self.stream) {
+            stream.parentId = self.stream.streamId;
+        }
+            
         [NotesAppController sharedConnectionWithID:nil
                        noConnectionCompletionBlock:nil
                                withCompletionBlock:^(PYConnection *connection)
          {
              [connection streamCreate:stream successHandler:^(NSString *createdStreamId) {
+                
                  
-                 // TODO replace this with Stream update notifications
-                 [[DataService sharedInstance] invalidateStreamListCache];
-                 [[DataService sharedInstance] fetchAllStreamsWithCompletionBlock:^(id object, NSError *error) {
-                     self.streams = object;
-                     self.rootStreams = [self.streams filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"parentId = nil"]];
-                     for(PYStream *st in self.streams)
-                     {
-                         if([st.name isEqualToString:stream.name] && ([st.parentId isEqualToString:stream.parentId] || stream.parentId == nil))
-                         {
-                             self.stream = st;
-                             break;
-                         }
-                     }
-                     [self.tableView reloadData];
-                     [self updateUIElements];
-                     [self hideLoadingOverlay];
-                     [self.delegate streamPickerDidSelectStream:self.stream];
-                 }];
-                 
+                 [self updateUIElements];
+                 [self hideLoadingOverlay];
+                 [self.delegate streamPickerDidSelectStream:stream];
                  
              } errorHandler:^(NSError *error) {
                  [self hideLoadingOverlay];
@@ -263,7 +211,11 @@
 {
     if(!self.stream)
     {
-        return self.rootStreams;
+        if (! [NotesAppController sharedInstance].connection ||
+            ! [NotesAppController sharedInstance].connection.fetchedStreamsRoots) {
+            return [[NSArray alloc] init];
+        }
+        return [NotesAppController sharedInstance].connection.fetchedStreamsRoots;
     }
     else
     {
