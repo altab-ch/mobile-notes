@@ -7,6 +7,7 @@
 //
 
 #import "MenuTableViewController.h"
+#import "StreamCheckButton.h"
 
 #define DATE_SECTION 0
 #define DATE_LABEL_ROW 0
@@ -16,6 +17,9 @@ static NSString *kPickerCellID = @"picker_cell";
 static NSString *kDateCellID = @"date_cell";
 static NSString *kStreamCellID = @"stream_cell";
 static NSString *kSectionCellID = @"section_cell";
+static int kCheckTag = 15;
+static int kDisclosureTag = 14;
+static int kBackTag = 16;
 static int kSectionTag = 13;
 static int kStreamTag = 11;
 static int kDateTag = 12;
@@ -27,10 +31,13 @@ static int kPickerTag = 10;
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
 @property (nonatomic) float pickerCellRowHeight;
 @property (nonatomic, strong) NSArray *streams;
-@property (nonatomic, strong) NSMutableArray *streamIDs;
+@property (nonatomic, strong) NSMutableArray *selectedStreamIDs;
 
 - (IBAction)dateChanged:(UIDatePicker *)sender;
-
+- (IBAction)btBackStreamPressed:(UIButton *)sender;
+- (BOOL)isChild;
+- (void)btCheckPressed:(StreamCheckButton*)sender;
+- (BOOL)hasChild:(PYStream*)stre;
 @end
 
 @implementation MenuTableViewController
@@ -48,6 +55,7 @@ static int kPickerTag = 10;
 {
     [super viewDidLoad];
     [self createDateFormatter];
+    self.selectedStreamIDs = [NSMutableArray array];
     [self setDatePickerIsHidden:true];
     UITableViewCell *pickerViewCellToCheck = [self.tableView dequeueReusableCellWithIdentifier: kPickerCellID];
     self.pickerCellRowHeight = pickerViewCellToCheck.frame.size.height;
@@ -118,7 +126,7 @@ static int kPickerTag = 10;
                 break;
         }
     }else{
-        cell = [self createStreamCell:[[self.streams objectAtIndex:indexPath.row] name]];
+        cell = [self createStreamCell:[self.streams objectAtIndex:indexPath.row]];
     }
     
     return cell;
@@ -130,9 +138,15 @@ static int kPickerTag = 10;
     UILabel *targetedLabel = (UILabel *)[headerCell viewWithTag:kSectionTag];
     if (section==DATE_SECTION) {
         targetedLabel.text = @"Date";
-    }else
+        UIView *backIm = (UIView *)[headerCell viewWithTag:kBackTag];
+        [backIm setHidden:YES];
+    }else{
         targetedLabel.text = @"Streams";
-    
+        if (![self isChild]) {
+            UIView *backIm = (UIView *)[headerCell viewWithTag:kBackTag];
+            [backIm setHidden:YES];
+        }
+    }
     
     return headerCell.contentView;
 }
@@ -163,6 +177,13 @@ static int kPickerTag = 10;
     
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self.tableView endUpdates];
+    
+    if (indexPath.section!=DATE_SECTION) {
+        if ([self hasChild:[self.streams objectAtIndex:indexPath.row]]) {
+            [self setStreams:[[self.streams objectAtIndex:indexPath.row] children]];
+            [self.tableView reloadData];
+        }
+    }
 }
 
 #pragma mark - IB method
@@ -173,6 +194,41 @@ static int kPickerTag = 10;
     UILabel *targetedLabel = (UILabel *)[cell viewWithTag:kDateTag];
     targetedLabel.text = [self.dateFormatter stringFromDate:sender.date];
     [self setDate:sender.date];
+}
+
+- (IBAction)btBackStreamPressed:(UIButton *)sender
+{
+    if ([[[self.streams objectAtIndex:0] parent] parent]) {
+        self.streams = [[[[[self.streams objectAtIndex:0] parent] parent] children] sortedArrayUsingComparator:^NSComparisonResult(PYStream* ev1, PYStream* ev2) {
+            return [ev1.name compare:ev2.name options:NSCaseInsensitiveSearch];
+        }];
+    }else{
+        PYConnection* connection = [[NotesAppController sharedInstance] connection];
+        if (connection == nil) {
+            NSLog(@"<ERROR> StreamPickerViewController.initStreams connection is nil");
+            return;
+        }
+        
+        self.streams = [connection.fetchedStreamsRoots sortedArrayUsingComparator:^NSComparisonResult(PYStream* ev1, PYStream* ev2) {
+            return [ev1.name compare:ev2.name options:NSCaseInsensitiveSearch];
+        }];
+    }
+    [self.tableView reloadData];
+}
+
+- (void)btCheckPressed:(StreamCheckButton*)sender
+{
+    if ([self.selectedStreamIDs containsObject:[sender.stream streamId]] || [self getParentSelected:[sender stream]]){
+        [sender setImage:[UIImage imageNamed:@"checkbox_default"] forState:UIControlStateNormal];
+        [self.selectedStreamIDs removeObject:[sender.stream streamId]];
+    }else{
+        [sender setImage:[UIImage imageNamed:@"checkbox_selected"] forState:UIControlStateNormal];
+        [self.selectedStreamIDs addObject:[sender.stream streamId]];
+        
+        NSArray* childs = [self descendantsIds:sender.stream];
+        for (NSString* child in childs)
+            [self.selectedStreamIDs removeObject:child];
+    }
 }
 
 #pragma mark - misc
@@ -186,7 +242,9 @@ static int kPickerTag = 10;
         return;
     }
     
-    self.streams = connection.fetchedStreamsRoots;
+    self.streams = [connection.fetchedStreamsRoots sortedArrayUsingComparator:^NSComparisonResult(PYStream* ev1, PYStream* ev2) {
+        return [ev1.name compare:ev2.name options:NSCaseInsensitiveSearch];
+    }];
 }
 
 - (void)createDateFormatter {
@@ -249,18 +307,86 @@ static int kPickerTag = 10;
     return cell;
 }
 
-- (UITableViewCell *)createStreamCell:(NSString*)stream_name{
+- (UITableViewCell *)createStreamCell:(PYStream*)stream_{
     
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kStreamCellID];
     UILabel *targetedLabel = (UILabel *)[cell viewWithTag:kStreamTag];
-    targetedLabel.text = stream_name;
+    targetedLabel.text = [stream_ name];
+    StreamCheckButton *bt = (StreamCheckButton *)[cell viewWithTag:kCheckTag];
+    [bt addTarget:self action:@selector(btCheckPressed:) forControlEvents:UIControlEventTouchUpInside];
+    if ([self.selectedStreamIDs containsObject:[stream_ streamId]] || [self getParentSelected:stream_])
+        [bt setImage:[UIImage imageNamed:@"checkbox_selected"] forState:UIControlStateNormal];
+    else if ([self hasChildInSelectedStreams:stream_])
+        [bt setImage:[UIImage imageNamed:@"checkbox_undefined"] forState:UIControlStateNormal];
+    else
+        [bt setImage:[UIImage imageNamed:@"checkbox_default"] forState:UIControlStateNormal];
+    [bt setStream:stream_];
     
+    if (![self hasChild:stream_]) {
+        UIImageView *im = (UIImageView *)[cell viewWithTag:kDisclosureTag];
+        [im setHidden:YES];
+    }
     return cell;
+}
+
+-(PYStream*)getParentSelected:(PYStream*)stream{
+    if (![stream parentId] || ![stream parent])
+        return nil;
+    
+    if(([[self selectedStreamIDs] containsObject:[stream parentId]]))
+        return [stream parent];
+    else return [self getParentSelected:[stream parent]];
+    return nil;
+}
+
+-(BOOL)hasChildInSelectedStreams:(PYStream*)stream
+{
+    if (![self hasChild:stream])
+        return NO;
+    
+    NSArray *childs = [self descendantsIds:stream];
+    for (NSString* child in childs)
+        if ([self.selectedStreamIDs containsObject:child])
+            return YES;
+    
+    return NO;
+}
+
+- (NSArray*)descendantsIds:(PYStream*)stream
+{
+    NSMutableArray* result = [[NSMutableArray alloc] init];
+    [self fillNSMutableArray:result withIdAndChildrensIdsOf:stream];
+    return result;
+}
+
+- (void)fillNSMutableArray:(NSMutableArray*)array withIdAndChildrensIdsOf:(PYStream*)stream {
+    if (stream.children) {
+        for (PYStream *child in stream.children) {
+            [array addObject:child.streamId];
+            [self fillNSMutableArray:array withIdAndChildrensIdsOf:child];
+        }
+    }
+}
+
+- (BOOL)isChild
+{
+    if ((self.streams) && ([self.streams objectAtIndex:0]) && ([(PYStream*)[self.streams objectAtIndex:0] parentId]) && !([[(PYStream*)[self.streams objectAtIndex:0] parentId] isEqualToString:@""]))
+        return YES;
+    
+    return NO;
+}
+
+- (BOOL)hasChild:(PYStream*)stre
+{
+    if (([stre children]) && ([[stre children] count]>0)) {
+        return YES;
+    }
+    return NO;
 }
 
 - (NSArray*) getStreamIDs
 {
-    return nil;
+    return self.selectedStreamIDs;
 }
 
 /*

@@ -13,6 +13,7 @@
 #import "StreamCell.h"
 #import "UIAlertView+PrYv.h"
 #import "NotesAppController.h"
+#import "PYStream+Utils.h"
 
 @interface StreamPickerViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -100,7 +101,7 @@
 - (void)updateUIElements
 {
     NSString *selectedText = [self.stream breadcrumbs];
-    if(!selectedText && [selectedText length] < 1)
+    if(!selectedText || [selectedText length] < 1)
     {
         selectedText = NSLocalizedString(@"ViewController.Streams.SelectStream", nil);
     }
