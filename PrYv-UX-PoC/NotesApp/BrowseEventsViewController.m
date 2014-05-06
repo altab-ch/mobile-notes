@@ -289,6 +289,14 @@ BOOL displayNonStandardEvents;
     }
     isLoading = NO;
     
+    // refresh stream.. can be done asynchronously
+    [NotesAppController sharedConnectionWithID:nil noConnectionCompletionBlock:^{
+        
+    } withCompletionBlock:^(PYConnection *connection) {
+        [connection streamsOnlineWithFilterParams:nil successHandler:nil errorHandler:nil];
+    }];
+    
+    
     [self refreshFilter];
 }
 
