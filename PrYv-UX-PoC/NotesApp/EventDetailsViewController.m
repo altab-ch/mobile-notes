@@ -281,10 +281,19 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     {
         return;
     }
+    [self.event preview:^(UIImage *img) {
+        if(self.picture_ImageView.image) return;
+        self.picture_ImageView.image = img;
+        [self.tableView beginUpdates];
+       // [self updateUIForEvent];
+        [self.tableView endUpdates];
+    } failure:nil];
+    
+    
     [self.event firstAttachmentAsImage:^(UIImage *image) {
         self.picture_ImageView.image = image;
         [self.tableView beginUpdates];
-        [self updateUIForEvent];
+      //  [self updateUIForEvent];
         [self.tableView endUpdates];
     } errorHandler:nil];
 }
