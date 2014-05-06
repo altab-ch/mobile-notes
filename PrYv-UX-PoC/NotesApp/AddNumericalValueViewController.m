@@ -9,7 +9,7 @@
 #import "AddNumericalValueViewController.h"
 #import <PryvApiKit/PYMeasurementSet.h>
 #import <PryvApiKit/PYEventTypes.h>
-#import <PryvApiKit/PYEventTypesGroup.h>
+#import <PryvApiKit/PYMeasurementTypesGroup.h>
 #import "MeasurementController.h"
 #import "PhotoNoteViewController.h"
 #import "KSAdvancedPicker.h"
@@ -107,13 +107,13 @@
             {
                 // --- for each event group put them in a new PYGroup
                 for (int i = 0; i < set.measurementGroups.count ; i++) {
-                    PYEventTypesGroup *pyGroupSrc = [set.measurementGroups objectAtIndex:i];
+                    PYMeasurementTypesGroup *pyGroupSrc = [set.measurementGroups objectAtIndex:i];
                     
                     if (! pyGroupSrc.classKey) { continue; } // should not happend
                     
-                    PYEventTypesGroup *pyGroupDest = [tempDictionary objectForKey:pyGroupSrc.classKey];
+                    PYMeasurementTypesGroup *pyGroupDest = [tempDictionary objectForKey:pyGroupSrc.classKey];
                     if (! pyGroupDest) {
-                        pyGroupDest = [[PYEventTypesGroup alloc] initWithClassKey:pyGroupSrc.classKey
+                        pyGroupDest = [[PYMeasurementTypesGroup alloc] initWithClassKey:pyGroupSrc.classKey
                                                                  andListOfFormats:pyGroupSrc.formatKeyList
                                                                  andPYEventsTypes:nil];
                         [tempDictionary setObject:pyGroupDest forKey:pyGroupSrc.classKey];
@@ -134,7 +134,7 @@
     
     // order
     [_measurementGroups sortUsingComparator:^NSComparisonResult(id a, id b) {
-        return [[(PYEventTypesGroup*)a localizedName] caseInsensitiveCompare:[(PYEventTypesGroup*)b localizedName]];
+        return [[(PYMeasurementTypesGroup*)a localizedName] caseInsensitiveCompare:[(PYMeasurementTypesGroup*)b localizedName]];
     }];
     
 }
@@ -142,7 +142,7 @@
 - (void)selectRightMeasurementGroupForMeasurementClassKey:(NSString *)classKey andMeasurementType:(NSString *)measurementType
 {
     __block BOOL typeIsFound = NO;
-    [self.measurementGroups enumerateObjectsUsingBlock:^(PYEventTypesGroup *mGroup, NSUInteger idx1, BOOL *stop1) {
+    [self.measurementGroups enumerateObjectsUsingBlock:^(PYMeasurementTypesGroup *mGroup, NSUInteger idx1, BOOL *stop1) {
         if([mGroup.classKey isEqualToString:classKey])
         {
             [self.typePicker selectRow:[self.measurementGroups indexOfObject:mGroup] inComponent:0 animated:NO];
@@ -179,7 +179,7 @@
 
 - (void)updateView:(UIImageView *)view forRow:(NSInteger)row
 {
-    PYEventTypesGroup *group = [_measurementGroups objectAtIndex:row];
+    PYMeasurementTypesGroup *group = [_measurementGroups objectAtIndex:row];
     [view setImage:[UIImage imageNamed:[group classKey]]];
 }
 
@@ -214,7 +214,7 @@
     }
     NSInteger selectedGroup = [_typePicker selectedRowInComponent:0];
     NSInteger selectedType = [_typePicker selectedRowInComponent:1];
-    PYEventTypesGroup *group = [_measurementGroups objectAtIndex:selectedGroup];
+    PYMeasurementTypesGroup *group = [_measurementGroups objectAtIndex:selectedGroup];
     NSString *formatKey = [group.formatKeys objectAtIndex:selectedType];
     if(self.valueDidChangeBlock)
     {
@@ -267,13 +267,13 @@
         //UILabel *label = (UILabel*)view;
         UILabel *label = [(AddNumericalValueCellClass*)view classLabel];
         
-        PYEventTypesGroup *group = [_measurementGroups objectAtIndex:row];
+        PYMeasurementTypesGroup *group = [_measurementGroups objectAtIndex:row];
         [label setText:group.localizedName];
     }
     else
     {
         NSInteger selectedGroup = [_typePicker selectedRowInComponent:0];
-        PYEventTypesGroup *group = [_measurementGroups objectAtIndex:selectedGroup];
+        PYMeasurementTypesGroup *group = [_measurementGroups objectAtIndex:selectedGroup];
         
         PYEventType *pyType = [group pyTypeAtIndex:row];
         NSString *symbolText = pyType.type;
@@ -319,7 +319,7 @@
     else if(component == 1)
     {
         NSInteger selectedGroup = [_typePicker selectedRowInComponent:0];
-        PYEventTypesGroup *group = [_measurementGroups objectAtIndex:selectedGroup];
+        PYMeasurementTypesGroup *group = [_measurementGroups objectAtIndex:selectedGroup];
         PYEventType *pyType = [group pyTypeAtIndex:row];
         NSString *descLabel = pyType.key;
         if (pyType && pyType.symbol) {
