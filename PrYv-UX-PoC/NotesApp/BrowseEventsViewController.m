@@ -34,11 +34,36 @@
 #import "MMDrawerBarButtonItem.h"
 #import "MenuNavController.h"
 
+
+#pragma mark - MySection
+
+
+@interface MySection : NSObject
+@property (nonatomic) NSTimeInterval time;
+@property (nonatomic, strong) NSString* title;
+@property (nonatomic, strong) NSString* key;
+@end
+
+@implementation MySection {
+    
+}
+@end
+
+#pragma mark - BrowseEventsVC
+
+
 #define IS_LRU_SECTION self.isMenuOpen
 #define IS_BROWSE_SECTION !self.isMenuOpen
 
 #define kFilterInitialLimit 200
 #define kFilterIncrement 50
+
+typedef enum {
+    AggregationStepDay = 1,
+    AggregationStepMonth,
+    AggregationStepYear
+} AggregationStep;
+
 
 static NSString *browseCellIdentifier = @"BrowseEventsCell_ID";
 
@@ -59,6 +84,8 @@ static NSString *browseCellIdentifier = @"BrowseEventsCell_ID";
 @property (nonatomic, strong) NSNumber *isSourceTypePicked;
 @property (nonatomic, strong) UserHistoryEntry *tempEntry;
 @property (nonatomic, strong) NSIndexPath *lastIndexPath;
+
+@property (nonatomic) AggregationStep aggregationStep;
 
 - (void)settingButtonTouched:(id)sender;
 - (void)loadData;
@@ -82,7 +109,7 @@ BOOL displayNonStandardEvents;
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        self.aggregationStep = AggregationStepDay;
     }
     return self;
 }
@@ -321,15 +348,57 @@ BOOL displayNonStandardEvents;
 }
 
 - (void)addToSectionMapEvent:(PYEvent*)event {
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy-MM-dd"];
-    NSString* sectionKey = [formatter stringFromDate:event.eventDate];
+    NSDateFormatter *sectionKeyFormatter = [[NSDateFormatter alloc] init];
+    
+    
+    NSDateFormatter *sectionTitleFormatter = [[NSDateFormatter alloc] init];
+    [sectionTitleFormatter setDateStyle:NSDateFormatterShortStyle];
+    [sectionTitleFormatter setDoesRelativeDateFormatting:YES];
+    
+    switch (self.aggregationStep) {
+        case AggregationStepMonth:
+            [sectionKeyFormatter setDateFormat:@"yyyy-MM"];
+            break;
+        case AggregationStepYear:
+            [sectionKeyFormatter setDateFormat:@"yyyy"];
+            break;
+        default:
+            [sectionKeyFormatter setDateFormat:@"yyyy-MM-dd"];
+            [sectionTitleFormatter setTimeStyle:NSDateFormatterNoStyle];
+            break;
+    }
+    
+    
+    
+    
+    NSString* sectionKey = [sectionKeyFormatter stringFromDate:event.eventDate];
     
     NSMutableOrderedSet* eventList = [self.sectionsMap objectForKey:sectionKey];
     if (eventList == nil) {
         eventList = [[NSMutableOrderedSet alloc] init];
         [self.sectionsMap setValue:eventList forKey:sectionKey];
-        [self.sectionsMapTitles addObject:sectionKey];
+        MySection* mySection = [[MySection alloc] init];
+        mySection.time = [event.eventDate timeIntervalSince1970];
+        mySection.key = sectionKey;
+        mySection.title = [sectionTitleFormatter stringFromDate:event.eventDate];
+        
+        
+        // find the right place for this section
+        MySection* kSection = nil;
+        BOOL found = false;
+        if (self.sectionsMapTitles.count > 0) {
+            for (int k = 0; k < self.sectionsMapTitles.count; k++) {
+                kSection = [self.sectionsMapTitles objectAtIndex:k];
+                if ([kSection time] < [mySection time]) {
+                    [self.sectionsMapTitles insertObject:mySection atIndex:k];
+                    found = true;
+                    break;
+                }
+            }
+        }
+        if (! found) {
+            [self.sectionsMapTitles addObject:mySection];
+        }
     }
     
     PYEvent* kEvent = nil;
@@ -346,7 +415,7 @@ BOOL displayNonStandardEvents;
 }
 
 - (NSMutableOrderedSet*) sectionDataAtIndex:(NSInteger)index {
-    NSString* sectionKey = [self.sectionsMapTitles objectAtIndex:index];
+    NSString* sectionKey = [[self.sectionsMapTitles objectAtIndex:index] key];
     return [self.sectionsMap objectForKey:sectionKey];
 }
 
@@ -360,21 +429,30 @@ BOOL displayNonStandardEvents;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    if(IS_LRU_SECTION || [tableView isEqual:self.menuTableView])
+    {
+        return 1;
+    }
     if (! self.sectionsMap) {
         [self rebuildSectionMap];
     }
     NSInteger count = [self.sectionsMapTitles count];
     [self showWelcomeWebView:(count == 0)];
     return count;
-}
-
-- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
-    return [self.sectionsMapTitles array];
+    
+    
+    
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-   return [self.sectionsMapTitles objectAtIndex:section];
+    if(IS_LRU_SECTION || [tableView isEqual:self.menuTableView])
+    {
+        return nil;
+    }
+    return [[self.sectionsMapTitles objectAtIndex:section] title];
+    
+    
 }
 
 
@@ -924,4 +1002,6 @@ BOOL displayNonStandardEvents;
 
 
 @end
+
+
 
