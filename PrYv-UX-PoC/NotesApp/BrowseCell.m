@@ -56,8 +56,10 @@
     self.commentLabel.text = event.eventDescription;
     self.streamLabel.text = [event eventBreadcrumbs];
     [self updateTags:event.tags];
+    
     NSDate *date = [event eventDate];
     self.dateLabel.text = [[NotesAppController sharedInstance].dateFormatter stringFromDate:date];
+    
     [self setNeedsLayout];
     [self layoutIfNeeded];
 }

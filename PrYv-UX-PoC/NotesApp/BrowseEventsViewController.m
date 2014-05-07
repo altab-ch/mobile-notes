@@ -352,7 +352,8 @@ BOOL displayNonStandardEvents;
     
     
     NSDateFormatter *sectionTitleFormatter = [[NSDateFormatter alloc] init];
-    [sectionTitleFormatter setDateStyle:NSDateFormatterShortStyle];
+    //[sectionTitleFormatter setDateStyle:NSDateFormatterShortStyle];
+    [sectionTitleFormatter setDateStyle:NSDateFormatterLongStyle];
     [sectionTitleFormatter setDoesRelativeDateFormatting:YES];
     
     switch (self.aggregationStep) {
@@ -364,7 +365,6 @@ BOOL displayNonStandardEvents;
             break;
         default:
             [sectionKeyFormatter setDateFormat:@"yyyy-MM-dd"];
-            [sectionTitleFormatter setTimeStyle:NSDateFormatterNoStyle];
             break;
     }
     
