@@ -47,6 +47,8 @@ static NSString *browseCellIdentifier = @"BrowseEventsCell_ID";
 
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *events;
+@property (nonatomic, strong) NSMutableDictionary *sectionsMap;
+@property (nonatomic, strong) NSMutableOrderedSet *sectionsMapTitles;
 
 @property (nonatomic, strong) NSArray *shortcuts;
 @property (nonatomic, strong) MNMPullToRefreshManager *pullToRefreshManager;
@@ -301,8 +303,80 @@ BOOL displayNonStandardEvents;
 }
 
 
+#pragma mark - Sections manipulations
+
+
+- (void)rebuildSectionMap {
+    if (self.sectionsMap == nil) {
+        self.sectionsMap = [[NSMutableDictionary alloc] init];
+        self.sectionsMapTitles = [[NSMutableOrderedSet alloc] init];
+    } else {
+        [self.sectionsMap removeAllObjects];
+    }
+    
+    // go thru all events and set one section per date
+    for (PYEvent* event in self.events) {
+        [self addToSectionMapEvent:event];
+    }
+}
+
+- (void)addToSectionMapEvent:(PYEvent*)event {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd"];
+    NSString* sectionKey = [formatter stringFromDate:event.eventDate];
+    
+    NSMutableOrderedSet* eventList = [self.sectionsMap objectForKey:sectionKey];
+    if (eventList == nil) {
+        eventList = [[NSMutableOrderedSet alloc] init];
+        [self.sectionsMap setValue:eventList forKey:sectionKey];
+        [self.sectionsMapTitles addObject:sectionKey];
+    }
+    
+    PYEvent* kEvent = nil;
+    if (eventList.count > 0) {
+        for (int k = 0; k < eventList.count; k++) {
+            kEvent = [self.events objectAtIndex:k];
+            if ([kEvent getEventServerTime] < [event getEventServerTime]) {
+                [eventList insertObject:event atIndex:k];
+                return;
+            }
+        }
+    }
+    [eventList addObject:event];
+}
+
+- (NSMutableOrderedSet*) sectionDataAtIndex:(NSInteger)index {
+    NSString* sectionKey = [self.sectionsMapTitles objectAtIndex:index];
+    return [self.sectionsMap objectForKey:sectionKey];
+}
+
+- (PYEvent*) eventAtIndexPath:(NSIndexPath *)indexPath {
+    return [[self sectionDataAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+}
+
 
 #pragma mark - UITableViewDelegate and UITableViewDataSource methods
+
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    if (! self.sectionsMap) {
+        [self rebuildSectionMap];
+    }
+    NSInteger count = [self.sectionsMapTitles count];
+    [self showWelcomeWebView:(count == 0)];
+    return count;
+}
+
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
+    return [self.sectionsMapTitles array];
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+   return [self.sectionsMapTitles objectAtIndex:section];
+}
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -312,9 +386,8 @@ BOOL displayNonStandardEvents;
     }
     if(IS_BROWSE_SECTION)
     {
-        int count = [self.events count];
-        [self showWelcomeWebView:(count == 0)];
-        return count;
+        
+        return [[self sectionDataAtIndex:section] count];
     }
     if(IS_LRU_SECTION)
     {
@@ -387,16 +460,17 @@ BOOL displayNonStandardEvents;
         return [super tableView:tableView cellForRowAtIndexPath:indexPath];
     }
     
-    NSInteger row = indexPath.row;
+    
     if(IS_BROWSE_SECTION)
     {
-        PYEvent *event = [_events objectAtIndex:row];
+        PYEvent *event = [self eventAtIndexPath:indexPath];
         CellStyleType cellStyleType = [event cellStyle];
         BrowseCell *cell = [self cellInTableView:tableView forCellStyleType:cellStyleType];
         [cell updateWithEvent:event];
         [cell prepareForReuse];
         return cell;
     }
+    NSInteger row = indexPath.row;
     BrowseEventsCell *cell = [tableView dequeueReusableCellWithIdentifier:browseCellIdentifier];
     UserHistoryEntry *entry = [_shortcuts objectAtIndex:row];
     [self configureCell:cell forRowAtIndexPath:indexPath];
@@ -434,7 +508,7 @@ BOOL displayNonStandardEvents;
     else
     {
         self.lastIndexPath = indexPath;
-        PYEvent *event = [_events objectAtIndex:indexPath.row];
+        PYEvent *event = [self eventAtIndexPath:indexPath];
         [self showEventDetailsForEvent:event andUserHistoryEntry:nil];
     }
 }
@@ -745,7 +819,7 @@ BOOL displayNonStandardEvents;
     }
     
     
-    
+    [self rebuildSectionMap];
     
     
     // [_tableView endUpdates];
@@ -850,3 +924,4 @@ BOOL displayNonStandardEvents;
 
 
 @end
+
