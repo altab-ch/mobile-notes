@@ -103,7 +103,6 @@
     [self.browseEventsVC clearCurrentData];
     [[LRUManager sharedInstance] clearAllLRUEntries];
     [self.browseEventsVC dismissViewControllerAnimated:YES completion:^{
-        [[DataService sharedInstance] invalidateStreamListCache];
         [self initSignIn];
     }];
     

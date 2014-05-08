@@ -46,16 +46,15 @@
 - (NSInteger)cellStyle
 {
     
-    NSString *eventClassKey = self.pyType.classKey;
-    if([eventClassKey isEqualToString:@"note"])
+    if([self.pyType.key isEqualToString:@"note/txt"])
     {
         return CellStyleTypeText;
     }
-    else if([eventClassKey isEqualToString:@"money"])
+    else if([self.pyType.classKey isEqualToString:@"money"])
     {
         return CellStyleTypeMoney;
     }
-    else if([eventClassKey isEqualToString:@"picture"])
+    else if([self.pyType.key isEqualToString:@"picture/attached"])
     {
         return CellStyleTypePhoto;
     }

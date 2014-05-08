@@ -127,7 +127,7 @@ BOOL displayNonStandardEvents;
     //self.navigationItem.title = @"Pryv";
     //self.navigationItem.leftBarButtonItem = [UIBarButtonItem flatBarItemWithImage:[UIImage imageNamed:@"icon_pryv"] target:self action:@selector(settingButtonTouched:)];
     
-
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(didReceiveEventAddedNotification:)
                                                  name:kEventAddedNotification
@@ -142,8 +142,8 @@ BOOL displayNonStandardEvents;
                                                object:nil];
     // Monitor changes of option "show non standard events"
     [[NSUserDefaults standardUserDefaults] addObserver:self
-                    forKeyPath:kPYAppSettingUIDisplayNonStandardEvents
-                       options:(NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld) context:nil];
+                                            forKeyPath:kPYAppSettingUIDisplayNonStandardEvents
+                                               options:(NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld) context:nil];
     
     self.pullToRefreshManager = [[MNMPullToRefreshManager alloc] initWithPullToRefreshViewHeight:60 tableView:self.tableView withClient:self];
     
@@ -205,7 +205,7 @@ BOOL displayNonStandardEvents;
 
 - (void)loadSettings
 {
-  displayNonStandardEvents = [[NSUserDefaults standardUserDefaults] boolForKey:kPYAppSettingUIDisplayNonStandardEvents];
+    displayNonStandardEvents = [[NSUserDefaults standardUserDefaults] boolForKey:kPYAppSettingUIDisplayNonStandardEvents];
 }
 
 #pragma mark - setup
@@ -228,7 +228,7 @@ BOOL displayNonStandardEvents;
     if (self.filter == nil) {
         [self clearCurrentData];
         
-                [NotesAppController sharedConnectionWithID:nil noConnectionCompletionBlock:^{
+        [NotesAppController sharedConnectionWithID:nil noConnectionCompletionBlock:^{
             [self showWelcomeWebView:YES];
         } withCompletionBlock:^(PYConnection *connection) {
             
@@ -291,33 +291,37 @@ BOOL displayNonStandardEvents;
     {
         isLoading = YES;
         [self showLoadingOverlay];
-        [[DataService sharedInstance] fetchAllStreamsWithCompletionBlock:^(id streamsObject, NSError *error) {
-            if(streamsObject)
-            {
-                [self.tableView reloadData];
-                if(self.lastIndexPath)
-                {
-                    if (self.lastIndexPath.row <0) {
-                        self.lastIndexPath = [NSIndexPath indexPathForRow:0 inSection:self.lastIndexPath.section];
-                    }
-                    NSInteger numRows = [self tableView:self.tableView numberOfRowsInSection:self.lastIndexPath.section];
-                    if (self.lastIndexPath.row >= numRows) {
-                        self.lastIndexPath = [NSIndexPath indexPathForRow:numRows - 1  inSection:0];
-                    }
-                    
-                    
-                    [self.tableView scrollToRowAtIndexPath:self.lastIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
-                }
-                [UIView animateWithDuration:0.2 animations:^{
-                    self.tableView.alpha = 1.0f;
-                }];
-                [self hideLoadingOverlay];
-                [self.pullToRefreshManager tableViewReloadFinishedAnimated:YES];
+        
+        [self.tableView reloadData];
+        if(self.lastIndexPath)
+        {
+            if (self.lastIndexPath.row <0) {
+                self.lastIndexPath = [NSIndexPath indexPathForRow:0 inSection:self.lastIndexPath.section];
             }
-            isLoading = NO;
+            NSInteger numRows = [self tableView:self.tableView numberOfRowsInSection:self.lastIndexPath.section];
+            if (self.lastIndexPath.row >= numRows) {
+                self.lastIndexPath = [NSIndexPath indexPathForRow:numRows - 1  inSection:0];
+            }
+            
+            [self.tableView scrollToRowAtIndexPath:self.lastIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+        }
+        [UIView animateWithDuration:0.2 animations:^{
+            self.tableView.alpha = 1.0f;
         }];
-        [self refreshFilter];
+        [self hideLoadingOverlay];
+        [self.pullToRefreshManager tableViewReloadFinishedAnimated:YES];
     }
+    isLoading = NO;
+    
+    // refresh stream.. can be done asynchronously
+    [NotesAppController sharedConnectionWithID:nil noConnectionCompletionBlock:^{
+        
+    } withCompletionBlock:^(PYConnection *connection) {
+        [connection streamsOnlineWithFilterParams:nil successHandler:nil errorHandler:nil];
+    }];
+    
+    
+    [self refreshFilter];
 }
 
 
@@ -520,10 +524,10 @@ BOOL displayNonStandardEvents;
     EventDataType eventType = [eventDetailVC.event eventDataType];
     
     /**
-    TextEditorViewController *textVC = [[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"TextEditorViewController_ID"];
-    
-    [eventDetailVC setupDescriptionEditorViewController:textVC];
-    **/
+     TextEditorViewController *textVC = [[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"TextEditorViewController_ID"];
+     
+     [eventDetailVC setupDescriptionEditorViewController:textVC];
+     **/
     
     if(eventType == EventDataTypeImage)
     {

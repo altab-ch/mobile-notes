@@ -8,18 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-@class PYEvent, PYStream;
-
-typedef void (^DataServiceCompletionBlock)(id object, NSError *error);
-
-extern NSString *const kSavingEventActionFinishedNotification;
+@class PYEvent;
 
 @interface DataService : NSObject
 
 + (DataService*)sharedInstance;
-- (void)fetchAllStreamsWithCompletionBlock:(DataServiceCompletionBlock)completionBlock;
 
-- (void)invalidateStreamListCache;
 - (void)saveEventAsShortcut:(PYEvent*)event andShouldTakePictureFlag:(BOOL)shouldTakePictureFlag;
 
 @end
