@@ -615,14 +615,14 @@ BOOL displayNonStandardEvents;
 
 #pragma mark - Actions
 
-- (void)settingButtonTouched:(id)sender
+/*- (void)settingButtonTouched:(id)sender
 {
     SettingsViewController *settingsVC = [UIStoryboard instantiateViewControllerWithIdentifier:@"SettingsViewController_ID"];
     settingsVC.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:settingsVC];
     navVC.navigationBar.translucent = NO;
     [self presentViewController:navVC animated:YES completion:nil];
-}
+}*/
 
 
 #pragma mark - Event List manipulations

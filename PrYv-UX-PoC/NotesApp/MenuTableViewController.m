@@ -238,8 +238,6 @@ static int kPickerTag = 10;
         
         [self recursiveAggregationFromChild:[sender stream]];
     }
-    
-    NSLog(@"%@", [self selectedStreamIDs]);
 }
 
 -(void) recursiveAggregationFromChild:(PYStream*)child
