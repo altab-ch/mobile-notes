@@ -218,17 +218,71 @@ static int kPickerTag = 10;
 
 - (void)btCheckPressed:(StreamCheckButton*)sender
 {
-    if ([self.selectedStreamIDs containsObject:[sender.stream streamId]] || [self getParentSelected:[sender stream]]){
+    if ([self.selectedStreamIDs containsObject:[sender.stream streamId]] && ![self getParentSelected:[sender stream]]){
         [sender setImage:[UIImage imageNamed:@"checkbox_default"] forState:UIControlStateNormal];
         [self.selectedStreamIDs removeObject:[sender.stream streamId]];
+    }else if (![self.selectedStreamIDs containsObject:[sender.stream streamId]] && [self getParentSelected:[sender stream]]){
+        PYStream* parent = [self getParentSelected:[sender stream]];
+        [[self selectedStreamIDs] removeObject:[parent streamId]];
+        NSArray* listParents = [self listParent:[sender stream]];
+        [self recursiveSelectionBetween:parent andChild:[sender stream] withChildParents:listParents];
+        [sender setImage:[UIImage imageNamed:@"checkbox_default"] forState:UIControlStateNormal];
+        
     }else{
         [sender setImage:[UIImage imageNamed:@"checkbox_selected"] forState:UIControlStateNormal];
         [self.selectedStreamIDs addObject:[sender.stream streamId]];
         
-        NSArray* childs = [self descendantsIds:sender.stream];
-        for (NSString* child in childs)
+        NSArray* children = [self descendantsIds:sender.stream];
+        for (NSString* child in children)
             [self.selectedStreamIDs removeObject:child];
+        
+        [self recursiveAggregationFromChild:[sender stream]];
     }
+    
+    NSLog(@"%@", [self selectedStreamIDs]);
+}
+
+-(void) recursiveAggregationFromChild:(PYStream*)child
+{
+    if ([child parent]) {
+        if ([self allChildrenSelected:[child parent]]) {
+            for (PYStream* st in [child.parent children]){
+                [self.selectedStreamIDs removeObject:[st streamId]];
+            }
+            [self.selectedStreamIDs addObject:[child.parent streamId]];
+        }
+        [self recursiveAggregationFromChild:[child parent]];
+    }
+}
+
+-(BOOL) allChildrenSelected:(PYStream*)parent
+{
+    for (PYStream* st in [parent children])
+        if (![self.selectedStreamIDs containsObject:[st streamId]])
+            return NO;
+    
+    return YES;
+}
+
+-(void) recursiveSelectionBetween:(PYStream*)parent andChild:(PYStream*)child withChildParents:(NSArray*)parents
+{
+    for (PYStream* st in [parent children]) {
+        if ([parents containsObject:[st streamId]]) {
+            [self recursiveSelectionBetween:st andChild:child withChildParents:parents];
+        }else if (![[st streamId] isEqualToString:[child streamId]])
+            [[self selectedStreamIDs] addObject:[st streamId]];
+    }
+}
+
+-(NSArray*) listParent:(PYStream*)child
+{
+    NSMutableArray* result = [NSMutableArray array];
+    PYStream* tmp = child;
+    while ([tmp parent]) {
+        tmp = [tmp parent];
+        [result addObject:[tmp streamId]];
+    }
+    return result;
 }
 
 #pragma mark - misc
@@ -251,7 +305,7 @@ static int kPickerTag = 10;
     
     self.dateFormatter = [[NSDateFormatter alloc] init];
     [self.dateFormatter setDateStyle:NSDateFormatterShortStyle];
-    [self.dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+    [self.dateFormatter setTimeStyle:NSDateFormatterNoStyle];
 }
 
 - (void)resetMenu
@@ -322,10 +376,11 @@ static int kPickerTag = 10;
         [bt setImage:[UIImage imageNamed:@"checkbox_default"] forState:UIControlStateNormal];
     [bt setStream:stream_];
     
-    if (![self hasChild:stream_]) {
-        UIImageView *im = (UIImageView *)[cell viewWithTag:kDisclosureTag];
+    UIImageView *im = (UIImageView *)[cell viewWithTag:kDisclosureTag];
+    if (![self hasChild:stream_])
         [im setHidden:YES];
-    }
+    else
+        [im setHidden:NO];
     return cell;
 }
 
@@ -387,6 +442,11 @@ static int kPickerTag = 10;
 - (NSArray*) getStreamIDs
 {
     return self.selectedStreamIDs;
+}
+
+- (NSDate*) getDate
+{
+    return [self date];
 }
 
 /*

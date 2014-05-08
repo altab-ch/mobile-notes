@@ -107,7 +107,10 @@ BOOL displayNonStandardEvents;
     if ([self.mm_drawerController openSide]==MMDrawerSideLeft) {
         MenuNavController* menuNavController = (MenuNavController*)[self.mm_drawerController leftDrawerViewController];
         [menuNavController resetMenu];
+        [self unsetFilter];
+        [self loadData];
     }
+    
 }
 
 - (void)viewDidLoad
@@ -230,10 +233,10 @@ BOOL displayNonStandardEvents;
         } withCompletionBlock:^(PYConnection *connection) {
             
             self.filter = [[PYEventFilter alloc] initWithConnection:connection
-                                                           fromTime:PYEventFilter_UNDEFINED_FROMTIME
-                                                             toTime:PYEventFilter_UNDEFINED_TOTIME
+                                                           fromTime:[self fromTime]
+                                                             toTime:[self toTime]
                                                               limit:kFilterInitialLimit
-                                                     onlyStreamsIDs:nil
+                                                     onlyStreamsIDs:[self listStreamFilter]
                                                                tags:nil
                                                               types:nil
                            ];
@@ -247,6 +250,27 @@ BOOL displayNonStandardEvents;
     } else {
         [self.filter update];
     }
+}
+
+-(NSTimeInterval) fromTime
+{
+    MenuNavController* menuNavController = (MenuNavController*)[self.mm_drawerController leftDrawerViewController];
+    return [[[menuNavController getDate] dateByAddingTimeInterval:-60*60*24*15] timeIntervalSince1970];
+}
+
+-(NSTimeInterval) toTime
+{
+    MenuNavController* menuNavController = (MenuNavController*)[self.mm_drawerController leftDrawerViewController];
+    return [[[menuNavController getDate] dateByAddingTimeInterval:60*60*24*15] timeIntervalSince1970];
+}
+
+-(NSArray*) listStreamFilter
+{
+    MenuNavController* menuNavController = (MenuNavController*)[self.mm_drawerController leftDrawerViewController];
+    NSArray* streams = [menuNavController getMenuStreams];
+    if ([streams count]==0)
+        return nil;
+    return streams;
 }
 
 - (void)unsetFilter // called by clearData
