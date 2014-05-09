@@ -11,6 +11,7 @@
 @interface MenuTableViewController : UITableViewController
 @property (strong, nonatomic) NSDate *date;
 
+- (NSDate*) getDate;
 - (void)resetMenu;
 - (NSArray*) getStreamIDs;
 @end

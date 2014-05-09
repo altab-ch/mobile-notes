@@ -55,7 +55,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="162"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <datePicker tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="gwS-pI-LD6">
+                                        <datePicker tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="gwS-pI-LD6">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="162"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                             <date key="date" timeIntervalSinceReferenceDate="420733917.92529303">
@@ -63,7 +63,7 @@
                                             </date>
                                             <locale key="locale" localeIdentifier="fr_CH"/>
                                             <timeZone key="timeZone" name="America/Los_Angeles">
-                                                <mutableData key="data">
+                                                <data key="data">
 VFppZgAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABAAAAAAAAAC5AAAABAAAABCepkign7sVkKCGKqChmveQ
 y4kaoNIj9HDSYSYQ1v50INiArZDa/tGg28CQENzes6DdqayQ3r6VoN+JjpDgnneg4WlwkOJ+WaDjSVKQ
 5F47oOUpNJDmR1gg5xJREOgnOiDo8jMQ6gccIOrSFRDr5v4g7LH3EO3G4CDukdkQ76/8oPBxuxDxj96g
@@ -81,7 +81,7 @@ f5gqkAABAAECAwEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
 AQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
 AQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
 AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
-</mutableData>
+</data>
                                             </timeZone>
                                             <connections>
                                                 <action selector="dateChanged:" destination="j0P-Sp-1x4" eventType="valueChanged" id="dpF-ay-Ph9"/>
@@ -103,21 +103,40 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="11" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Stream" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Kd-em-3a4">
-                                            <rect key="frame" x="43" y="11" width="222" height="21"/>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="11" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stream" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Kd-em-3a4">
+                                            <rect key="frame" x="59" y="11" width="222" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" tag="15" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="circle-chevron-right.png" translatesAutoresizingMaskIntoConstraints="NO" id="B11-Qk-hdN">
-                                            <rect key="frame" x="264" y="2" width="47" height="41"/>
+                                        <imageView userInteractionEnabled="NO" tag="14" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle-chevron-right.png" translatesAutoresizingMaskIntoConstraints="NO" id="B11-Qk-hdN">
+                                            <rect key="frame" x="284" y="5" width="36" height="32"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="36" id="gpe-Ug-TvR"/>
+                                            </constraints>
                                         </imageView>
-                                        <imageView userInteractionEnabled="NO" tag="14" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icon_add.png" translatesAutoresizingMaskIntoConstraints="NO" id="4Pu-uP-ELP">
-                                            <rect key="frame" x="8" y="10" width="27" height="22"/>
+                                        <button opaque="NO" tag="15" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3kF-4q-DD1" customClass="StreamCheckButton">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="44"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        </imageView>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="50" id="nWt-Hc-l7f"/>
+                                            </constraints>
+                                            <state key="normal">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                        </button>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="B11-Qk-hdN" secondAttribute="trailing" id="DyO-6C-y6H"/>
+                                        <constraint firstItem="B11-Qk-hdN" firstAttribute="leading" secondItem="4Kd-em-3a4" secondAttribute="trailing" constant="3" id="FTR-jy-noF"/>
+                                        <constraint firstItem="4Kd-em-3a4" firstAttribute="centerY" secondItem="B11-Qk-hdN" secondAttribute="centerY" id="Fd9-c0-aOp"/>
+                                        <constraint firstItem="B11-Qk-hdN" firstAttribute="centerY" secondItem="zIs-0j-RPA" secondAttribute="centerY" id="LUe-Gz-Qob"/>
+                                        <constraint firstItem="3kF-4q-DD1" firstAttribute="leading" secondItem="zIs-0j-RPA" secondAttribute="leading" id="SCw-xx-JY5"/>
+                                        <constraint firstItem="4Kd-em-3a4" firstAttribute="leading" secondItem="3kF-4q-DD1" secondAttribute="trailing" constant="9" id="euq-g1-ZQR"/>
+                                        <constraint firstAttribute="bottom" secondItem="3kF-4q-DD1" secondAttribute="bottom" constant="-1" id="lSj-Z2-qmo"/>
+                                        <constraint firstItem="3kF-4q-DD1" firstAttribute="top" secondItem="zIs-0j-RPA" secondAttribute="top" id="w0V-9U-ODm"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="section_cell" id="Eja-c8-MuK">
@@ -128,11 +147,21 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="13" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="section" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IuZ-m9-veD">
-                                            <rect key="frame" x="20" y="11" width="226" height="21"/>
+                                            <rect key="frame" x="54" y="11" width="217" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
+                                        <button opaque="NO" tag="16" contentMode="center" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fsm-tk-Mnh">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="44"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" image="icon_back.png">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="btBackStreamPressed:" destination="j0P-Sp-1x4" eventType="touchUpInside" id="g4u-DB-G96"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" red="0.0" green="0.66666666669999997" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
                                 </tableViewCellContentView>
@@ -736,7 +765,7 @@ height=123312</string>
     </scenes>
     <resources>
         <image name="circle-chevron-right.png" width="32" height="32"/>
-        <image name="icon_add.png" width="32" height="32"/>
+        <image name="icon_back.png" width="32" height="32"/>
         <image name="icon_picture.png" width="31" height="29"/>
         <image name="icon_settings.png" width="32" height="32"/>
         <image name="picture_overlay.png" width="640" height="90"/>

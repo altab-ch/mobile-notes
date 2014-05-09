@@ -11,5 +11,7 @@
 @interface MenuNavController : UINavigationController
 
 -(void) resetMenu;
+-(NSArray*) getMenuStreams;
+- (NSDate*) getDate;
 
 @end
