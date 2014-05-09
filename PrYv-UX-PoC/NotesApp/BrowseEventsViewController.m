@@ -136,6 +136,7 @@ BOOL displayNonStandardEvents;
     if ([self.mm_drawerController openSide]==MMDrawerSideLeft) {
         MenuNavController* menuNavController = (MenuNavController*)[self.mm_drawerController leftDrawerViewController];
         [menuNavController resetMenu];
+        //self.filter.onlyStreamsIDs = [self listStreamFilter];
         [self unsetFilter];
         [self loadData];
     }
@@ -283,12 +284,14 @@ BOOL displayNonStandardEvents;
 
 -(NSTimeInterval) fromTime
 {
+    return PYEventFilter_UNDEFINED_FROMTIME;
     MenuNavController* menuNavController = (MenuNavController*)[self.mm_drawerController leftDrawerViewController];
     return [[[menuNavController getDate] dateByAddingTimeInterval:-60*60*24*15] timeIntervalSince1970];
 }
 
 -(NSTimeInterval) toTime
 {
+    return PYEventFilter_UNDEFINED_TOTIME;
     MenuNavController* menuNavController = (MenuNavController*)[self.mm_drawerController leftDrawerViewController];
     return [[[menuNavController getDate] dateByAddingTimeInterval:60*60*24*15] timeIntervalSince1970];
 }
