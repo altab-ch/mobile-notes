@@ -366,6 +366,7 @@ BOOL displayNonStandardEvents;
         self.sectionsMapTitles = [[NSMutableOrderedSet alloc] init];
     } else {
         [self.sectionsMap removeAllObjects];
+        [self.sectionsMapTitles removeAllObjects];
     }
     
     // go thru all events and set one section per date
