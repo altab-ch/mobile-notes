@@ -58,7 +58,13 @@
     [self updateTags:event.tags];
     
     NSDate *date = [event eventDate];
+    //ajouter variable enum et définir à la création de la cell dans browser
+    /*if (aggregation==jour) {
+        [[NotesAppController sharedInstance].dateFormatter setDateStyle:NSDateFormatterNoStyle];
+    }*/
     self.dateLabel.text = [[NotesAppController sharedInstance].dateFormatter stringFromDate:date];
+    
+    [[NotesAppController sharedInstance].dateFormatter setDateStyle:NSDateFormatterShortStyle];
     
     [self setNeedsLayout];
     [self layoutIfNeeded];

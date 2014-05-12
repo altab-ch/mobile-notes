@@ -87,7 +87,6 @@ static NSString *browseCellIdentifier = @"BrowseEventsCell_ID";
 
 @property (nonatomic) AggregationStep aggregationStep;
 
-- (void)settingButtonTouched:(id)sender;
 - (void)loadData;
 - (void)didReceiveEventAddedNotification:(NSNotification*)notification;
 - (void)userDidReceiveAccessTokenNotification:(NSNotification*)notification;
@@ -136,7 +135,7 @@ BOOL displayNonStandardEvents;
     if ([self.mm_drawerController openSide]==MMDrawerSideLeft) {
         MenuNavController* menuNavController = (MenuNavController*)[self.mm_drawerController leftDrawerViewController];
         [menuNavController resetMenu];
-        //self.filter.onlyStreamsIDs = [self listStreamFilter];
+
         [self unsetFilter];
         [self loadData];
     }
@@ -771,14 +770,14 @@ BOOL displayNonStandardEvents;
 
 #pragma mark - Actions
 
-- (void)settingButtonTouched:(id)sender
+/*- (void)settingButtonTouched:(id)sender
 {
     SettingsViewController *settingsVC = [UIStoryboard instantiateViewControllerWithIdentifier:@"SettingsViewController_ID"];
     settingsVC.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:settingsVC];
     navVC.navigationBar.translucent = NO;
     [self presentViewController:navVC animated:YES completion:nil];
-}
+}*/
 
 
 #pragma mark - Event List manipulations
