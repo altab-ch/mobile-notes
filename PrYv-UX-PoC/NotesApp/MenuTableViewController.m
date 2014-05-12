@@ -137,7 +137,7 @@ static int kPickerTag = 10;
     UITableViewCell *headerCell = [tableView dequeueReusableCellWithIdentifier:kSectionCellID];
     UILabel *targetedLabel = (UILabel *)[headerCell viewWithTag:kSectionTag];
     if (section==DATE_SECTION) {
-        targetedLabel.text = @"Date";
+        targetedLabel.text = @"Jump to date";
         UIView *backIm = (UIView *)[headerCell viewWithTag:kBackTag];
         [backIm setHidden:YES];
     }else{
