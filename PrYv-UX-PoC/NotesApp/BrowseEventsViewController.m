@@ -58,7 +58,7 @@ static NSString *browseCellIdentifier = @"BrowseEventsCell_ID";
 @property (nonatomic, strong) UserHistoryEntry *tempEntry;
 @property (nonatomic, strong) NSIndexPath *lastIndexPath;
 
-- (void)settingButtonTouched:(id)sender;
+//- (void)settingButtonTouched:(id)sender;
 - (void)loadData;
 - (void)didReceiveEventAddedNotification:(NSNotification*)notification;
 - (void)userDidReceiveAccessTokenNotification:(NSNotification*)notification;
@@ -107,8 +107,8 @@ BOOL displayNonStandardEvents;
     if ([self.mm_drawerController openSide]==MMDrawerSideLeft) {
         MenuNavController* menuNavController = (MenuNavController*)[self.mm_drawerController leftDrawerViewController];
         [menuNavController resetMenu];
-        [self unsetFilter];
-        [self loadData];
+        [self refreshFilter];
+        //[self loadData];
     }
     
 }
