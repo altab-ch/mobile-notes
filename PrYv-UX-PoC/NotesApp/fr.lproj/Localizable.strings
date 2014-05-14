@@ -25,15 +25,17 @@
 "OK" = "OK";
 "Cancel" = "Annuler";
 "Back" = "Retour";
-
+"Delete" = "Effacer";
+"Done" = "OK";
+"Edit" = "Modifier";
 
 
 "ViewController.Streams.SelectStream" = "Choisir un stream";
 "ViewController.Streams.AddNewStream" = "Ajouter un stream";
 "ViewController.Streams.ErrorCreatingStream" = "Erreur en créant un stream";
 "ViewController.Streams.StreamName" = "Stream name:";
-"ViewController.TextContent.TapToAdd" = "Tap to add content";
-"ViewController.TextDescriptionContent.TapToAdd" = "Tap to add a description";
+"ViewController.TextContent.TapToAdd" = "Editer le texte";
+"ViewController.TextDescriptionContent.TapToAdd" = "Ajouter une description";
 "ViewController.Tags.TapToAdd" = "Tags";
 
 "Settings.User.LogoutFormat" = "Logout (%@)";

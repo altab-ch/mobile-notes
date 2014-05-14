@@ -353,7 +353,7 @@
 - (void)setupCustomCancelButton
 {
     UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc]
-                                     initWithTitle: @"Cancel"
+                                     initWithTitle: NSLocalizedString(@"Cancel", nil)
                                      style: UIBarButtonItemStyleBordered
                                      target:self action: @selector(cancelButtonTouched:)];
     

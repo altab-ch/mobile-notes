@@ -25,6 +25,9 @@
 "Cancel" = "Cancel";
 "Back" = "Back";
 "Add" = "Add";
+"Delete" = "Delete";
+"Done" = "Done";
+"Edit" = "Edit";
 
 "ViewController.Streams.SelectStream" = "Select a stream";
 "ViewController.Streams.AddNewStream" = "Add new Stream";

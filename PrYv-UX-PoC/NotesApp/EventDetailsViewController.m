@@ -153,6 +153,8 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
                                                  name:JSTokenFieldFrameDidChangeNotification
                                                object:nil];
     
+   
+    [self.tokendDoneButton setTitle:NSLocalizedString(@"Done", nil) forState:UIControlStateNormal];
     if(self.event.isDraft)
     {
         [self editButtonTouched:nil];
@@ -268,6 +270,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
         self.streamsLabel.text = NSLocalizedString(@"ViewController.Streams.SelectStream", nil);
     }
     
+    self.editButton.title = NSLocalizedString(@"Edit", nil);
     [self updateTagsLabel];
     [self.tableView reloadData];
 }
@@ -513,7 +516,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     
     [self updateLabelsTextColorForEditingMode:NO];
     
-    self.editButton.title = @"Edit";
+    self.editButton.title = NSLocalizedString(@"Edit", nil);
     dispatch_async(dispatch_get_main_queue(), ^{
         [UIView transitionWithView:self.tableView
                           duration:0.1f
@@ -534,7 +537,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 - (void)switchToEditingMode
 {
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc]
-                                   initWithTitle: @"Cancel"
+                                   initWithTitle: NSLocalizedString(@"Cancel", nil)
                                    style: UIBarButtonItemStyleBordered
                                    target:self action: @selector(cancelButtonTouched:)];
     
@@ -548,7 +551,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     
     [self updateLabelsTextColorForEditingMode:YES];
     
-    self.editButton.title = @"Done";
+    self.editButton.title = NSLocalizedString(@"Done", nil);
     dispatch_async(dispatch_get_main_queue(), ^{
         [UIView transitionWithView:self.tableView
                           duration:10.2f

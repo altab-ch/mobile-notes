@@ -21,6 +21,7 @@
 @property (nonatomic, weak) IBOutlet UILabel *streamLabel;
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 @property (nonatomic, weak) IBOutlet UIImageView *arrowImageView;
+@property (nonatomic, weak) IBOutlet UIButton *cancelButton;
 
 @end
 

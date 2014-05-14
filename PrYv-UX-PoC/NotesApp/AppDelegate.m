@@ -32,6 +32,8 @@ NSString *const kEventAddedNotification = @"kEventAddedNotification";
     [MeasurementController sharedInstance];
     [self setupUI];
     
+    NSLog(@"Language: %@",[[NSBundle mainBundle] preferredLocalizations]);
+    
     UINavigationController * leftDrawer = [[UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil] instantiateViewControllerWithIdentifier:@"menu_nav_id"];
     UINavigationController * center = [[UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil] instantiateViewControllerWithIdentifier:@"main_nav_c"];
     

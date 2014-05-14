@@ -126,7 +126,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="DsI-aj-NNz">
-                        <barButtonItem key="rightBarButtonItem" title="Done" id="JmR-RO-29i">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="JmR-RO-29i">
                             <connections>
                                 <action selector="doneButtonTouched:" destination="Aad-FO-PXE" id="ZEC-0B-d8p"/>
                             </connections>
@@ -704,8 +704,8 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="JIw-b4-P0f">
-                        <barButtonItem key="backBarButtonItem" title="Back" id="dl4-hE-weE"/>
-                        <barButtonItem key="rightBarButtonItem" title="Done" id="WeC-ta-8Ah">
+                        <barButtonItem key="backBarButtonItem" systemItem="cancel" id="dl4-hE-weE"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="WeC-ta-8Ah">
                             <connections>
                                 <action selector="doneButtonTouched:" destination="hqK-Lr-rTO" id="kHg-dE-h78"/>
                             </connections>
@@ -764,8 +764,8 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="0i6-pa-Yfm">
-                        <barButtonItem key="backBarButtonItem" title="Back" id="xLi-xb-dKj"/>
-                        <barButtonItem key="rightBarButtonItem" title="Done" id="mEq-Kf-NL6">
+                        <barButtonItem key="backBarButtonItem" systemItem="cancel" id="xLi-xb-dKj"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="mEq-Kf-NL6">
                             <connections>
                                 <action selector="doneButtonTouched:" destination="njd-vn-YfY" id="N8e-oi-ul2"/>
                             </connections>
@@ -816,7 +816,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="PfM-7r-SaU">
-                        <barButtonItem key="rightBarButtonItem" title="Done" id="Gcb-42-T0P">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="Gcb-42-T0P">
                             <connections>
                                 <action selector="closeButtonTouched:" destination="26P-Ld-DD1" id="fBi-P5-Skr"/>
                             </connections>
@@ -955,6 +955,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                     <toolbarItems/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
+                        <outlet property="cancelButton" destination="dla-VY-nZc" id="hAL-wT-UtH"/>
                         <outlet property="listBackButton" destination="SB1-yA-p84" id="NAQ-Lm-XqY"/>
                         <outlet property="streamLabel" destination="bwn-gH-eim" id="7On-iP-Rep"/>
                         <outlet property="tableView" destination="Bei-8M-BE1" id="XkO-oW-KZt"/>
@@ -1246,8 +1247,8 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="13x-uQ-vWL">
-                        <barButtonItem key="backBarButtonItem" title="Back" id="adx-bH-PHf"/>
-                        <barButtonItem key="rightBarButtonItem" title="Done" id="fY9-md-u3A">
+                        <barButtonItem key="backBarButtonItem" systemItem="cancel" id="adx-bH-PHf"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="fY9-md-u3A">
                             <connections>
                                 <action selector="doneButtonTouched:" destination="Yop-F5-1lm" id="9r1-qA-VG4"/>
                             </connections>

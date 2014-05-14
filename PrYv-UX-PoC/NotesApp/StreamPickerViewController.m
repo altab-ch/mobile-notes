@@ -41,6 +41,7 @@
     UITapGestureRecognizer *streamTapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(streamsLabelTouched:)];
     self.streamLabel.userInteractionEnabled = YES;
     [self.streamLabel addGestureRecognizer:streamTapGR];
+    [self.cancelButton setTitle: NSLocalizedString(@"Cancel", nil) forState:UIControlStateNormal];
     [self updateUIElements];
     
 }
