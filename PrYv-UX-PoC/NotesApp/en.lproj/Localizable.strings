@@ -1,11 +1,3 @@
-/* 
-  Localizable.strings
-  NotesApp
-
-  Created by Mladen Djordjevic on 5/25/13.
-  Copyright (c) 2013 PrYv. All rights reserved.
-*/
-
 "MeasurementSetLocalizedKey" = "en";
 
 "Alert.Message.DeleteConfirmation" = "Confirm delete?";
@@ -18,7 +10,6 @@
 "Library" = "Library";
 "Settings" = "Settings";
 
-
 "YES" = "Yes";
 "NO" = "No";
 "Error" = "Error";
@@ -29,6 +20,10 @@
 "Delete" = "Delete";
 "Done" = "Done";
 "Edit" = "Edit";
+
+"DetailViewController.TitleNote" = "Note";
+"DetailViewController.TitlePicture" = "Picture";
+"DetailViewController.TitleMeasure" = "Measurement";
 
 "AddNumericalViewController.Title" = "Measurement";
 

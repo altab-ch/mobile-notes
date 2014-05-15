@@ -9,7 +9,7 @@
 #import "EventDetailsViewController.h"
 #import "BaseDetailCell.h"
 #import "PYEvent+Helper.h"
-#import <PryvApiKit/PYEvent.h>
+#import <PryvApiKit/PYEvent.h>"D
 #import <PryvApiKit/PYEventType.h>
 #import <PryvApiKit/PYConnection+DataManagement.h>
 #import "TextEditorViewController.h"
@@ -296,6 +296,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 - (void)updateUIForEventImageType
 {
+    self.navigationItem.title =  NSLocalizedString(@"DetailViewController.TitlePicture", nil);
     if(self.picture_ImageView.image)
     {
         return;
@@ -338,6 +339,8 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 - (void)updateUIForValueEventType
 {
+    
+    self.navigationItem.title =  NSLocalizedString(@"DetailViewController.TitleMeasure", nil);
     if(self.event.isDraft && !self.event.type)
     {
         self.numericalValue_Label.text = @"";
@@ -358,6 +361,8 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 - (void)updateUIForNoteEventType
 {
+    
+    self.navigationItem.title =  NSLocalizedString(@"DetailViewController.TitleNote", nil);
     self.note_Label.text = self.event.eventContentAsString;
 }
 

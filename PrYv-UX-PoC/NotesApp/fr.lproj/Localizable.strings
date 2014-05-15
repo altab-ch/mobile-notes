@@ -1,24 +1,14 @@
-/* 
-  Localizable.strings
-  NotesApp
-
-  Created by Mladen Djordjevic on 5/25/13.
-  Copyright (c) 2013 PrYv. All rights reserved.
-*/
-
 "MeasurementSetLocalizedKey" = "fr";
 
 "Alert.Message.DeleteConfirmation" = "Effacer?";
 "Alert.Message.CancelConfirmation" = "Annuler?";
 "Alert.Message.PhotoSource" = "Choisir une source";
 
-
 "Alert.Error.SavingImageError" = "Erreur lors de la sauvergarde de l'image";
 
 "Camera" = "Appareil photo";
 "Library" = "Bibliothèque";
 "Settings" = "Paramètres";
-
 
 "YES" = "Oui";
 "NO" = "Non";
@@ -30,6 +20,9 @@
 "Done" = "OK";
 "Edit" = "Modifier";
 
+"DetailViewController.TitleNote" = "Note";
+"DetailViewController.TitlePicture" = "Photo";
+"DetailViewController.TitleMeasure" = "Mesure";
 
 "AddNumericalViewController.Title" = "Mesure";
 
