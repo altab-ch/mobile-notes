@@ -161,7 +161,9 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
         [self editButtonTouched:nil];
     }
     
-    [self.deleteButton setTitle:NSLocalizedString(@"Delete", nil) forState:UIControlStateNormal];
+
+    
+    
     
     self.deleteButton.layer.borderColor = [UIColor colorWithRed:169.0f/255.0f green:169.0f/255.0f blue:169.0f/255.0f alpha:1].CGColor;
     self.deleteButton.layer.borderWidth = 1.0f;
@@ -276,6 +278,15 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     } else {
         self.editButton.title = NSLocalizedString(@"Edit", nil);
     }
+    
+    [self.deleteButton setTitle:NSLocalizedString(@"Delete", nil) forState:UIControlStateNormal];
+    if(self.shouldCreateEvent)
+    {
+        [self.deleteButton setTitle:NSLocalizedString(@"Cancel", nil) forState:UIControlStateNormal];
+    }
+    
+    
+    
     [self updateTagsLabel];
     [self.tableView reloadData];
 }
@@ -431,7 +442,14 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 
 - (IBAction)deleteButtonTouched:(id)sender {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Alert.Message.DeleteConfirmation", nil) message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"NO", nil) otherButtonTitles:NSLocalizedString(@"YES", nil), nil];
+    NSString* title = NSLocalizedString(@"Alert.Message.DeleteConfirmation", nil);
+    if(self.shouldCreateEvent)
+    {
+        title = NSLocalizedString(@"Alert.Message.CancelConfirmation", nil);
+    }
+    
+    
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"NO", nil) otherButtonTitles:NSLocalizedString(@"YES", nil), nil];
     [alertView showWithCompletionBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
         if(alertView.cancelButtonIndex != buttonIndex)
         {
@@ -552,6 +570,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     if([self.descriptionLabel.text length] == 0)
     {
         self.descriptionLabel.text = NSLocalizedString(@"ViewController.TextDescriptionContent.TapToAdd", nil);
+        
     }
     
     [self updateLabelsTextColorForEditingMode:YES];

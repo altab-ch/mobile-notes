@@ -8,7 +8,8 @@
 
 "MeasurementSetLocalizedKey" = "en";
 
-"Alert.Message.DeleteConfirmation" = "Are you sure you want to delete this event?";
+"Alert.Message.DeleteConfirmation" = "Confirm delete?";
+"Alert.Message.CancelConfirmation" = "Confirm cancel?";
 "Alert.Message.PhotoSource" = "Choose photo source";
 
 "Alert.Error.SavingImageError" = "Error while saving the image to Camera roll!";

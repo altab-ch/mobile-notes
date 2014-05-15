@@ -8,11 +8,12 @@
 
 "MeasurementSetLocalizedKey" = "fr";
 
-"Alert.Message.DeleteConfirmation" = "Effacer cet évènement?";
+"Alert.Message.DeleteConfirmation" = "Effacer?";
+"Alert.Message.CancelConfirmation" = "Annuler?";
 "Alert.Message.PhotoSource" = "Choisir une source";
 
 
-"Alert.Error.SavingImageError" = "Error while saving the image to Camera roll!";
+"Alert.Error.SavingImageError" = "Erreur lors de la sauvergarde de l'image";
 
 "Camera" = "Appareil photo";
 "Library" = "Bibliothèque";
