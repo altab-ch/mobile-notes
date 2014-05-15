@@ -8,6 +8,7 @@
 
 #import "MenuTableViewController.h"
 #import "StreamCheckButton.h"
+#import "PYStream+Helper.h"
 
 #define DATE_SECTION 0
 #define DATE_LABEL_ROW 0
@@ -40,6 +41,7 @@ static int kPickerTag = 10;
 - (BOOL)isChild;
 - (void)btCheckPressed:(StreamCheckButton*)sender;
 - (BOOL)hasChild:(PYStream*)stre;
+
 @end
 
 @implementation MenuTableViewController
@@ -138,11 +140,15 @@ static int kPickerTag = 10;
     UITableViewCell *headerCell = [tableView dequeueReusableCellWithIdentifier:kSectionCellID];
     UILabel *targetedLabel = (UILabel *)[headerCell viewWithTag:kSectionTag];
     if (section==DATE_SECTION) {
-        targetedLabel.text = @"Jump to date";
+        targetedLabel.text = NSLocalizedString(@"Jump to date",nil);
         UIView *backIm = (UIView *)[headerCell viewWithTag:kBackTag];
         [backIm setHidden:YES];
     }else{
-        targetedLabel.text = @"Streams";
+        if ([self getParent])
+            targetedLabel.text = [[self getParent] breadcrumbs];
+        else
+            targetedLabel.text = NSLocalizedString(@"Viewed streams",nil);
+        
         if (![self isChild]) {
             UIView *backIm = (UIView *)[headerCell viewWithTag:kBackTag];
             [backIm setHidden:YES];
@@ -305,13 +311,6 @@ static int kPickerTag = 10;
     }*/
 }
 
--(void) reinitStreams
-{
-    //[self.tableView beginUpdates];
-    [self initStreams];
-    //[self.tableView endUpdates];
-}
-
 - (void)createDateFormatter {
     
     self.dateFormatter = [[NSDateFormatter alloc] init];
@@ -440,6 +439,14 @@ static int kPickerTag = 10;
         return YES;
     
     return NO;
+}
+
+- (PYStream*)getParent
+{
+    if ((self.streams) && ([self.streams objectAtIndex:0]) && ([(PYStream*)[self.streams objectAtIndex:0] parentId]) && !([[(PYStream*)[self.streams objectAtIndex:0] parentId] isEqualToString:@""]))
+        return [(PYStream*)[self.streams objectAtIndex:0] parent];
+    
+    return nil;
 }
 
 - (BOOL)hasChild:(PYStream*)stre

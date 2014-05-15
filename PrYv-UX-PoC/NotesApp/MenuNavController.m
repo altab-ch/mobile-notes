@@ -39,7 +39,7 @@
 -(void) initStreams
 {
     MenuTableViewController* child = (MenuTableViewController*)[self topViewController];
-    [child reinitStreams];
+    [child initStreams];
 }
 
 -(NSArray*) getMenuStreams
