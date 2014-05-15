@@ -136,9 +136,10 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     }
     
     [self initTags];
+    self.isInEditMode = NO;
     [self updateUIForEvent];
     
-    self.isInEditMode = NO;
+    
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShown:)
@@ -270,7 +271,11 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
         self.streamsLabel.text = NSLocalizedString(@"ViewController.Streams.SelectStream", nil);
     }
     
-    self.editButton.title = NSLocalizedString(@"Edit", nil);
+    if (self.isInEditMode) {
+        self.editButton.title = NSLocalizedString(@"Done", nil);
+    } else {
+        self.editButton.title = NSLocalizedString(@"Edit", nil);
+    }
     [self updateTagsLabel];
     [self.tableView reloadData];
 }
