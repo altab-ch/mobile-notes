@@ -62,9 +62,8 @@
     /*if (aggregation==jour) {
         [[NotesAppController sharedInstance].dateFormatter setDateStyle:NSDateFormatterNoStyle];
     }*/
-    self.dateLabel.text = [[NotesAppController sharedInstance].dateFormatter stringFromDate:date];
+    self.dateLabel.text = [self.dateFormatter stringFromDate:date];
     
-    [[NotesAppController sharedInstance].dateFormatter setDateStyle:NSDateFormatterShortStyle];
     
     [self setNeedsLayout];
     [self layoutIfNeeded];

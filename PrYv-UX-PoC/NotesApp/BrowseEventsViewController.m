@@ -72,8 +72,14 @@ static NSString *browseCellIdentifier = @"BrowseEventsCell_ID";
 
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *events;
+
+
 @property (nonatomic, strong) NSMutableDictionary *sectionsMap;
 @property (nonatomic, strong) NSMutableOrderedSet *sectionsMapTitles;
+
+@property (nonatomic, strong) NSDateFormatter *sectionsKeyFormatter;
+@property (nonatomic, strong) NSDateFormatter *sectionsTitleFormatter;
+@property (nonatomic, strong) NSDateFormatter *cellDateFormatter;
 
 @property (nonatomic, strong) NSArray *shortcuts;
 @property (nonatomic, strong) MNMPullToRefreshManager *pullToRefreshManager;
@@ -93,6 +99,7 @@ static NSString *browseCellIdentifier = @"BrowseEventsCell_ID";
 - (void)filterEventUpdate:(NSNotification*)notification;
 - (int)addEventToList:(PYEvent*)eventToAdd;
 
+- (void)resetDateFormatters;
 - (void)refreshFilter;
 - (void)unsetFilter;
 - (MMDrawerController*)mm_drawerController;
@@ -147,7 +154,7 @@ BOOL displayNonStandardEvents;
     [super viewDidLoad];
     
     [self loadSettings];
-    
+    [self resetDateFormatters];
     [self.tableView registerNib:[UINib nibWithNibName:@"BrowseEventCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:browseCellIdentifier];
     
     self.tableView.allowsSelectionDuringEditing = YES;
@@ -358,6 +365,32 @@ BOOL displayNonStandardEvents;
 
 #pragma mark - Sections manipulations
 
+- (void)resetDateFormatters {
+    if (self.sectionsKeyFormatter == nil) { self.sectionsKeyFormatter = [[NSDateFormatter alloc] init]; }
+    if (self.sectionsTitleFormatter == nil) { self.sectionsTitleFormatter = [[NSDateFormatter alloc] init];}
+    if (self.cellDateFormatter == nil) { self.cellDateFormatter = [[NSDateFormatter alloc] init];}
+    
+    [self.cellDateFormatter setDateStyle:NSDateFormatterShortStyle];
+    [self.cellDateFormatter setTimeStyle:NSDateFormatterShortStyle];
+    [self.cellDateFormatter setDoesRelativeDateFormatting:YES];
+    
+    
+    [self.sectionsTitleFormatter setDateStyle:NSDateFormatterLongStyle];
+    [self.sectionsTitleFormatter setDoesRelativeDateFormatting:YES];
+    
+    switch (self.aggregationStep) {
+        case AggregationStepMonth:
+            [self.sectionsKeyFormatter setDateFormat:@"yyyy-MM"];
+            break;
+        case AggregationStepYear:
+            [self.sectionsKeyFormatter setDateFormat:@"yyyy"];
+            break;
+        default:
+            [self.sectionsKeyFormatter setDateFormat:@"yyyy-MM-dd"];
+            [self.cellDateFormatter setDateStyle:NSDateFormatterNoStyle];
+            break;
+    }
+}
 
 - (void)rebuildSectionMap {
     if (self.sectionsMap == nil) {
@@ -375,30 +408,8 @@ BOOL displayNonStandardEvents;
 }
 
 - (void)addToSectionMapEvent:(PYEvent*)event {
-    NSDateFormatter *sectionKeyFormatter = [[NSDateFormatter alloc] init];
-    
-    
-    NSDateFormatter *sectionTitleFormatter = [[NSDateFormatter alloc] init];
-    //[sectionTitleFormatter setDateStyle:NSDateFormatterShortStyle];
-    [sectionTitleFormatter setDateStyle:NSDateFormatterLongStyle];
-    [sectionTitleFormatter setDoesRelativeDateFormatting:YES];
-    
-    switch (self.aggregationStep) {
-        case AggregationStepMonth:
-            [sectionKeyFormatter setDateFormat:@"yyyy-MM"];
-            break;
-        case AggregationStepYear:
-            [sectionKeyFormatter setDateFormat:@"yyyy"];
-            break;
-        default:
-            [sectionKeyFormatter setDateFormat:@"yyyy-MM-dd"];
-            break;
-    }
-    
-    
-    
-    
-    NSString* sectionKey = [sectionKeyFormatter stringFromDate:event.eventDate];
+
+    NSString* sectionKey = [self.sectionsKeyFormatter stringFromDate:event.eventDate];
     
     NSMutableOrderedSet* eventList = [self.sectionsMap objectForKey:sectionKey];
     if (eventList == nil) {
@@ -407,7 +418,7 @@ BOOL displayNonStandardEvents;
         MySection* mySection = [[MySection alloc] init];
         mySection.time = [event.eventDate timeIntervalSince1970];
         mySection.key = sectionKey;
-        mySection.title = [sectionTitleFormatter stringFromDate:event.eventDate];
+        mySection.title = [self.sectionsTitleFormatter stringFromDate:event.eventDate];
         
         
         // find the right place for this section
@@ -571,6 +582,7 @@ BOOL displayNonStandardEvents;
         PYEvent *event = [self eventAtIndexPath:indexPath];
         CellStyleType cellStyleType = [event cellStyle];
         BrowseCell *cell = [self cellInTableView:tableView forCellStyleType:cellStyleType];
+        [cell setDateFormatter:self.cellDateFormatter];
         [cell updateWithEvent:event];
         [cell prepareForReuse];
         return cell;
