@@ -36,6 +36,12 @@
     [child resetMenu];
 }
 
+-(void) initStreams
+{
+    MenuTableViewController* child = (MenuTableViewController*)[self topViewController];
+    [child reinitStreams];
+}
+
 -(NSArray*) getMenuStreams
 {
     MenuTableViewController* child = (MenuTableViewController*)[self topViewController];
@@ -46,6 +52,12 @@
 {
     MenuTableViewController* child = (MenuTableViewController*)[self topViewController];
     return [child getDate];
+}
+
+- (void) reload
+{
+    MenuTableViewController* child = (MenuTableViewController*)[self topViewController];
+    [child reload];
 }
 
 - (void)didReceiveMemoryWarning
