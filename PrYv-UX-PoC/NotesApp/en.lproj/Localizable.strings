@@ -29,6 +29,8 @@
 "Done" = "Done";
 "Edit" = "Edit";
 
+"AddNumericalViewController.Title" = "Measurement";
+
 "ViewController.Streams.SelectStream" = "Select a stream";
 "ViewController.Streams.AddNewStream" = "Add new Stream";
 "ViewController.Streams.ErrorCreatingStream" = "An error occured while creating stream";

@@ -30,6 +30,8 @@
 "Edit" = "Modifier";
 
 
+"AddNumericalViewController.Title" = "Mesure";
+
 "ViewController.Streams.SelectStream" = "Choisir un stream";
 "ViewController.Streams.AddNewStream" = "Ajouter un stream";
 "ViewController.Streams.ErrorCreatingStream" = "Erreur en créant un stream";
