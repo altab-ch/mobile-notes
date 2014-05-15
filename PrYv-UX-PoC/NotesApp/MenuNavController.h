@@ -10,8 +10,9 @@
 
 @interface MenuNavController : UINavigationController
 
--(void) resetMenu;
--(NSArray*) getMenuStreams;
+- (void) resetMenu;
+- (NSArray*) getMenuStreams;
 - (NSDate*) getDate;
-
+- (void) initStreams;
+- (void) reload;
 @end

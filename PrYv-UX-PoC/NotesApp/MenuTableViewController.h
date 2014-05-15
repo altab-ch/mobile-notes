@@ -14,4 +14,6 @@
 - (NSDate*) getDate;
 - (void)resetMenu;
 - (NSArray*) getStreamIDs;
+- (void) reinitStreams;
+- (void) reload;
 @end

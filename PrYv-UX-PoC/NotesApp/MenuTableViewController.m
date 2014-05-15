@@ -12,6 +12,8 @@
 #define DATE_SECTION 0
 #define DATE_LABEL_ROW 0
 #define DATE_PICKER_ROW 1
+#define Date_Menu_Default @"date_menu_default"
+#define Stream_Menu_Default @"stream_menu_default"
 
 static NSString *kPickerCellID = @"picker_cell";
 static NSString *kDateCellID = @"date_cell";
@@ -42,11 +44,12 @@ static int kPickerTag = 10;
 
 @implementation MenuTableViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
+-(id) initWithCoder:(NSCoder *)aDecoder
 {
-    self = [super initWithStyle:style];
+    self = [super initWithCoder:aDecoder];
     if (self) {
-        
+        [self loadUserDefault];
+
     }
     return self;
 }
@@ -55,13 +58,11 @@ static int kPickerTag = 10;
 {
     [super viewDidLoad];
     [self createDateFormatter];
-    self.selectedStreamIDs = [NSMutableArray array];
     [self setDatePickerIsHidden:true];
     UITableViewCell *pickerViewCellToCheck = [self.tableView dequeueReusableCellWithIdentifier: kPickerCellID];
     self.pickerCellRowHeight = pickerViewCellToCheck.frame.size.height;
     [self initStreams];
-#warning todo
-    [self setDate:[NSDate dateWithTimeIntervalSinceNow:0]];
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -287,9 +288,8 @@ static int kPickerTag = 10;
 
 - (void)initStreams
 {
-    
     PYConnection* connection = [[NotesAppController sharedInstance] connection];
-    if (connection == nil) {
+    if (connection == nil || !connection.fetchedStreamsRoots ) {
         NSLog(@"<ERROR> StreamPickerViewController.initStreams connection is nil");
         return;
     }
@@ -297,6 +297,19 @@ static int kPickerTag = 10;
     self.streams = [connection.fetchedStreamsRoots sortedArrayUsingComparator:^NSComparisonResult(PYStream* ev1, PYStream* ev2) {
         return [ev1.name compare:ev2.name options:NSCaseInsensitiveSearch];
     }];
+    
+    /*if ([[self selectedStreamIDs] count] == 0) {
+        for (PYStream* st in self.streams) {
+            [[self selectedStreamIDs] addObject:[st streamId]];
+        }
+    }*/
+}
+
+-(void) reinitStreams
+{
+    //[self.tableView beginUpdates];
+    [self initStreams];
+    //[self.tableView endUpdates];
 }
 
 - (void)createDateFormatter {
@@ -308,7 +321,7 @@ static int kPickerTag = 10;
 
 - (void)resetMenu
 {
-    
+    [self saveUserDefault];
     [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
     if (![self datePickerIsHidden])
         [self hidePickerReset];
@@ -445,6 +458,30 @@ static int kPickerTag = 10;
 - (NSDate*) getDate
 {
     return [self date];
+}
+
+-(void) loadUserDefault
+{
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:Date_Menu_Default])
+        self.date = [[NSUserDefaults standardUserDefaults] objectForKey:Date_Menu_Default];
+    else
+        self.date = [NSDate date];
+    
+    self.selectedStreamIDs = [NSMutableArray array];
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:Stream_Menu_Default])
+        [self.selectedStreamIDs addObjectsFromArray:[[NSUserDefaults standardUserDefaults] objectForKey:Stream_Menu_Default]];
+}
+
+-(void) saveUserDefault
+{
+    [[NSUserDefaults standardUserDefaults] setObject:self.date forKey:Date_Menu_Default];
+    [[NSUserDefaults standardUserDefaults] setObject:self.selectedStreamIDs forKey:Stream_Menu_Default];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void) reload
+{
+    [[self tableView] reloadData];
 }
 
 /*

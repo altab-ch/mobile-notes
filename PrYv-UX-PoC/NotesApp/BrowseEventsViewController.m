@@ -138,12 +138,16 @@ BOOL displayNonStandardEvents;
 -(void)leftDrawerButtonPress:(id)sender{
     
     [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
+    MenuNavController* menuNavController = (MenuNavController*)[self.mm_drawerController leftDrawerViewController];
     if ([self.mm_drawerController openSide]==MMDrawerSideLeft) {
-        MenuNavController* menuNavController = (MenuNavController*)[self.mm_drawerController leftDrawerViewController];
         [menuNavController resetMenu];
 
         [self unsetFilter];
         [self loadData];
+    }else{
+        [menuNavController initStreams];
+        [menuNavController reload];
+        
     }
     
 }
@@ -178,10 +182,7 @@ BOOL displayNonStandardEvents;
     
     self.pullToRefreshManager = [[MNMPullToRefreshManager alloc] initWithPullToRefreshViewHeight:60 tableView:self.tableView withClient:self];
     
-    
     self.events = [[NSMutableArray alloc] init];
-    
-    
     
     self.tableView.alpha = 0.0f;
     [self setupLeftMenuButton];
@@ -286,23 +287,21 @@ BOOL displayNonStandardEvents;
 -(NSTimeInterval) fromTime
 {
     return PYEventFilter_UNDEFINED_FROMTIME;
-    MenuNavController* menuNavController = (MenuNavController*)[self.mm_drawerController leftDrawerViewController];
-    return [[[menuNavController getDate] dateByAddingTimeInterval:-60*60*24*15] timeIntervalSince1970];
+    /*MenuNavController* menuNavController = (MenuNavController*)[self.mm_drawerController leftDrawerViewController];
+    return [[[menuNavController getDate] dateByAddingTimeInterval:-60*60*24*15] timeIntervalSince1970];*/
 }
 
 -(NSTimeInterval) toTime
 {
-    return PYEventFilter_UNDEFINED_TOTIME;
+    //return PYEventFilter_UNDEFINED_TOTIME;
     MenuNavController* menuNavController = (MenuNavController*)[self.mm_drawerController leftDrawerViewController];
-    return [[[menuNavController getDate] dateByAddingTimeInterval:60*60*24*15] timeIntervalSince1970];
+    return [[menuNavController getDate] timeIntervalSince1970];
 }
 
 -(NSArray*) listStreamFilter
 {
     MenuNavController* menuNavController = (MenuNavController*)[self.mm_drawerController leftDrawerViewController];
     NSArray* streams = [menuNavController getMenuStreams];
-    if ([streams count]==0)
-        return nil;
     return streams;
 }
 
