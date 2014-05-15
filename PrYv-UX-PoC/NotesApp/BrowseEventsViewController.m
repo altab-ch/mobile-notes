@@ -520,13 +520,27 @@ BOOL displayNonStandardEvents;
     }
     if(IS_BROWSE_SECTION)
     {
-        return 160;
+        return [self heightForCell:indexPath];
     }
     if(IS_LRU_SECTION)
     {
         return 70;
     }
     return 0;
+}
+
+-(CGFloat) heightForCell:(NSIndexPath *)indexPath
+{
+    CGFloat result = 100.0;
+    PYEvent *event = [self eventAtIndexPath:indexPath];
+    CellStyleType cellStyleType = [event cellStyle];
+    if (cellStyleType == CellStyleTypePhoto)
+        result = 160.0;
+    else if (cellStyleType == CellStyleTypeText)
+        result = 90.0;
+    else if (cellStyleType == CellStyleTypeMeasure)
+        result = 65.0;
+    return result;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
