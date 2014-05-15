@@ -15,6 +15,7 @@
 @property (nonatomic, strong) IBOutlet UILabel *streamLabel;
 @property (nonatomic, strong) IBOutlet UILabel *commentLabel;
 @property (nonatomic, strong) IBOutlet UIView *tagContainer;
+@property (nonatomic, strong) NSDateFormatter *dateFormatter;
 
 - (void)updateTags:(NSArray*)tags;
 
