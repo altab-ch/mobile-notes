@@ -447,6 +447,14 @@ BOOL displayNonStandardEvents;
 }
 
 - (NSMutableOrderedSet*) sectionDataAtIndex:(NSInteger)index {
+    if (! self.sectionsMapTitles) {
+        NSLog(@"<WARNING> BrowseEventsViewController.sectionDataAtIndex empty sectionsMapTitles");
+        return nil;
+    }
+    if (index > self.sectionsMapTitles.count + 1) {
+        NSLog(@"<WARNING> BrowseEventsViewController.sectionDataAtIndex index not reachable: %ld",(long)index);
+        return nil;
+    }
     NSString* sectionKey = [[self.sectionsMapTitles objectAtIndex:index] key];
     return [self.sectionsMap objectForKey:sectionKey];
 }
