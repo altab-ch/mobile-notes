@@ -94,7 +94,6 @@ static NSString *browseCellIdentifier = @"BrowseEventsCell_ID";
 @property (nonatomic) AggregationStep aggregationStep;
 
 - (void)loadData;
-- (void)didReceiveEventAddedNotification:(NSNotification*)notification;
 - (void)userDidReceiveAccessTokenNotification:(NSNotification*)notification;
 - (void)filterEventUpdate:(NSNotification*)notification;
 - (int)addEventToList:(PYEvent*)eventToAdd;
@@ -164,10 +163,6 @@ BOOL displayNonStandardEvents;
     //self.navigationItem.leftBarButtonItem = [UIBarButtonItem flatBarItemWithImage:[UIImage imageNamed:@"icon_pryv"] target:self action:@selector(settingButtonTouched:)];
     
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(didReceiveEventAddedNotification:)
-                                                 name:kEventAddedNotification
-                                               object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(userDidReceiveAccessTokenNotification:)
                                                  name:kAppDidReceiveAccessTokenNotification
@@ -847,11 +842,6 @@ BOOL displayNonStandardEvents;
 
 #pragma mark - Notifications
 
-- (void)didReceiveEventAddedNotification:(NSNotification*)notification
-{
-    [self.navigationController popToViewController:self animated:YES];
-    [self loadData];
-}
 
 - (void)userDidReceiveAccessTokenNotification:(NSNotification *)notification
 {

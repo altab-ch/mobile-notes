@@ -46,11 +46,11 @@
 }
 
 
-- (void)updateWithImage:(UIImage*)img andEventId:(NSString*)eventId animated:(BOOL)animated
+- (void)updateWithImage:(UIImage*)img andEventId:(NSString*)clientId animated:(BOOL)animated
 {
     // maybe called sevral times while the picture was loading.
     // so the cell may have been reused for another event or picture already loaded by a previous call
-    if(![eventId isEqualToString:self.currentEventId] || self.pictureView.image)
+    if(![clientId isEqualToString:self.currentEventId] || self.pictureView.image)
     {
         return;
     }
@@ -92,18 +92,18 @@
 {
     [super updateWithEvent:event];
     self.startLoadTime = [NSDate date];
-    self.currentEventId = event.eventId;
+    self.currentEventId = event.clientId;
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([event hasFirstAttachmentFileDataInMemory]) {
             [event firstAttachmentAsImage:^(UIImage *image) {
-                [self updateWithImage:image andEventId:event.eventId animated:[PictureCell shouldAnimateImagePresentationForStartLoadTime:self.startLoadTime]];
+                [self updateWithImage:image andEventId:event.clientId animated:[PictureCell shouldAnimateImagePresentationForStartLoadTime:self.startLoadTime]];
             } errorHandler:nil];
         } else {
             self.loadingIndicator.hidden = NO;
             [self.loadingIndicator startAnimating];
             [event preview:^(UIImage *image) {
                 
-                [self updateWithImage:image andEventId:event.eventId animated:[PictureCell shouldAnimateImagePresentationForStartLoadTime:self.startLoadTime]];
+                [self updateWithImage:image andEventId:event.clientId animated:[PictureCell shouldAnimateImagePresentationForStartLoadTime:self.startLoadTime]];
             } failure:^(NSError *error) {
                 NSLog(@"*1432 Failed loading preview for event %@ \n %@", error, event);
             }];

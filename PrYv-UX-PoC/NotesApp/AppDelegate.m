@@ -16,7 +16,6 @@
 #import "MMDrawerController.h"
 
 
-NSString *const kEventAddedNotification = @"kEventAddedNotification";
 
 @interface AppDelegate ()
 

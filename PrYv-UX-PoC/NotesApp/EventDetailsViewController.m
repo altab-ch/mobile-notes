@@ -154,14 +154,14 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
                                                  name:JSTokenFieldFrameDidChangeNotification
                                                object:nil];
     
-   
+    
     [self.tokendDoneButton setTitle:NSLocalizedString(@"Done", nil) forState:UIControlStateNormal];
     if(self.event.isDraft)
     {
         [self editButtonTouched:nil];
     }
     
-
+    
     
     
     
@@ -305,7 +305,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
         if(self.picture_ImageView.image) return;
         self.picture_ImageView.image = img;
         [self.tableView beginUpdates];
-       // [self updateUIForEvent];
+        // [self updateUIForEvent];
         [self.tableView endUpdates];
     } failure:nil];
     
@@ -313,7 +313,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     [self.event firstAttachmentAsImage:^(UIImage *image) {
         self.picture_ImageView.image = image;
         [self.tableView beginUpdates];
-      //  [self updateUIForEvent];
+        //  [self updateUIForEvent];
         [self.tableView endUpdates];
     } errorHandler:nil];
 }
@@ -474,17 +474,18 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
         return;
     }
     
-    if(self.event.isDraft)
-    {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
-    else
-    {
-        [self.event resetFromCache];
-        [self updateUIForEvent];
-        self.shouldUpdateEvent = NO;
-        [self editButtonTouched:nil];
-    }
+    /**
+     if(self.event.isDraft)
+     {
+     [self.navigationController popViewControllerAnimated:YES];
+     }
+     else
+     {**/
+    [self.event resetFromCache];
+    [self updateUIForEvent];
+    self.shouldUpdateEvent = NO;
+    [self editButtonTouched:nil];
+    /**}**/
 }
 
 - (IBAction)editButtonTouched:(id)sender
@@ -537,10 +538,11 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     {
         [self eventSaveModifications];
     }
-    else
-    {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
+    /**
+     else
+     {
+     [self.navigationController popViewControllerAnimated:YES];
+     }**/
     
     [self updateLabelsTextColorForEditingMode:NO];
     
@@ -880,12 +882,13 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 - (void)saveEvent
 {
-    [NotesAppController sharedConnectionWithID:nil noConnectionCompletionBlock:nil withCompletionBlock:^(PYConnection *connection)
+    [self showLoadingOverlay];
+    [NotesAppController sharedConnectionWithID:nil noConnectionCompletionBlock:nil
+                           withCompletionBlock:^(PYConnection *connection)
      {
          
          [connection eventCreate:self.event
                   successHandler:^(NSString *newEventId, NSString *stoppedId, PYEvent* event)
-          //                  successHandler:^(NSString *newEventId, NSString *stoppedId, PYEvent *event)
           {
               BOOL shouldTakePictureFlag = NO;
               if(self.eventDataType == EventDataTypeImage)
@@ -893,10 +896,9 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
                   shouldTakePictureFlag = self.imagePickerType == UIImagePickerControllerSourceTypeCamera;
               }
               [[DataService sharedInstance] saveEventAsShortcut:self.event andShouldTakePictureFlag:shouldTakePictureFlag];
-              [self.navigationController dismissViewControllerAnimated:YES completion:^{
-                  [[NSNotificationCenter defaultCenter] postNotificationName:kEventAddedNotification object:nil];
-              }];
+              [self hideLoadingOverlay];
           } errorHandler:^(NSError *error) {
+              [self hideLoadingOverlay];
               UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
                                                               message:[error localizedDescription]
                                                              delegate:nil
@@ -916,11 +918,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
      {
          [connection eventTrashOrDelete:self.event successHandler:^{
              [self.navigationController popViewControllerAnimated:YES];
-             double delayInSeconds = 0.3;
-             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-             dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                 [[NSNotificationCenter defaultCenter] postNotificationName:kEventAddedNotification object:nil];
-             });
+             [self hideLoadingOverlay];
          } errorHandler:^(NSError *error) {
              /*UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
               [alert show];*/
@@ -940,12 +938,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
      {
          [connection eventSaveModifications:self.event successHandler:^(NSString *stoppedId)
           {
-              [self.navigationController popViewControllerAnimated:YES];
-              double delayInSeconds = 0.3;
-              dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-              dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                  [[NSNotificationCenter defaultCenter] postNotificationName:kEventAddedNotification object:nil];
-              });
+              [self hideLoadingOverlay];
           } errorHandler:^(NSError *error) {
               UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
                                                               message:[error localizedDescription]
