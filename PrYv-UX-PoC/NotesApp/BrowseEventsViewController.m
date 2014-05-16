@@ -293,7 +293,7 @@ BOOL displayNonStandardEvents;
 
 -(NSTimeInterval) toTime
 {
-    //return PYEventFilter_UNDEFINED_TOTIME;
+    return PYEventFilter_UNDEFINED_TOTIME;
     MenuNavController* menuNavController = (MenuNavController*)[self.mm_drawerController leftDrawerViewController];
     return [[menuNavController getDate] timeIntervalSince1970];
 }

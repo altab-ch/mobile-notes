@@ -30,14 +30,14 @@
 		4E41A63A1858998F00BC0C28 /* pickercenter.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E41A6371858998F00BC0C28 /* pickercenter.png */; };
 		4E41A63B1858998F00BC0C28 /* pickercenter-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E41A6381858998F00BC0C28 /* pickercenter-568h@2x.png */; };
 		4E41A63C1858998F00BC0C28 /* pickercenter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E41A6391858998F00BC0C28 /* pickercenter@2x.png */; };
-		4E713D3918965EEE00CDB397 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E713D3318965EEE00CDB397 /* libTestFlight.a */; };
-		4E713D3A18965EEE00CDB397 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 4E713D3418965EEE00CDB397 /* README.md */; };
-		4E713D3B18965EEE00CDB397 /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 4E713D3518965EEE00CDB397 /* release_notes.md */; };
 		4E713D3F18965FBD00CDB397 /* AppConstantsPrivate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E713D3E18965FBD00CDB397 /* AppConstantsPrivate.m */; };
 		4E713D41189661B000CDB397 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E713D40189661B000CDB397 /* libz.dylib */; };
 		4E8AAFE71859EA440083DE8C /* UnkownCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AAFE61859EA440083DE8C /* UnkownCell.m */; };
 		4E8AAFF8185A07A30083DE8C /* AppConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AAFF7185A07A30083DE8C /* AppConstants.m */; };
 		4E8AAFFB185A0EE40083DE8C /* SettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AAFFA185A0EE40083DE8C /* SettingsController.m */; };
+		4EBB85EA1925EE5F00BBDB61 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EBB85E41925EE5F00BBDB61 /* libTestFlight.a */; };
+		4EBB85EB1925EE5F00BBDB61 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 4EBB85E51925EE5F00BBDB61 /* README.md */; };
+		4EBB85EC1925EE5F00BBDB61 /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 4EBB85E61925EE5F00BBDB61 /* release_notes.md */; };
 		4EBC55961897E67800C4A136 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EBC55951897E67800C4A136 /* MessageUI.framework */; };
 		4EBE04671844D5070031724A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4EBE04691844D5070031724A /* Localizable.strings */; };
 		4EEBE79018B647B800199E64 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 4EEBE78F18B647B800199E64 /* Podfile */; };
@@ -481,12 +481,6 @@
 		4E41A6381858998F00BC0C28 /* pickercenter-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pickercenter-568h@2x.png"; sourceTree = "<group>"; };
 		4E41A6391858998F00BC0C28 /* pickercenter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pickercenter@2x.png"; sourceTree = "<group>"; };
 		4E4D4C20189F8E3A00A81A9F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		4E713D3318965EEE00CDB397 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
-		4E713D3418965EEE00CDB397 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
-		4E713D3518965EEE00CDB397 /* release_notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.md; sourceTree = "<group>"; };
-		4E713D3618965EEE00CDB397 /* TestFlight+AsyncLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+AsyncLogging.h"; sourceTree = "<group>"; };
-		4E713D3718965EEE00CDB397 /* TestFlight+ManualSessions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+ManualSessions.h"; sourceTree = "<group>"; };
-		4E713D3818965EEE00CDB397 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		4E713D3D18965FBD00CDB397 /* AppConstantsPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppConstantsPrivate.h; sourceTree = "<group>"; };
 		4E713D3E18965FBD00CDB397 /* AppConstantsPrivate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppConstantsPrivate.m; sourceTree = "<group>"; };
 		4E713D40189661B000CDB397 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -496,6 +490,12 @@
 		4E8AAFF7185A07A30083DE8C /* AppConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppConstants.m; sourceTree = "<group>"; };
 		4E8AAFF9185A0EE40083DE8C /* SettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsController.h; sourceTree = "<group>"; };
 		4E8AAFFA185A0EE40083DE8C /* SettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsController.m; sourceTree = "<group>"; };
+		4EBB85E41925EE5F00BBDB61 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
+		4EBB85E51925EE5F00BBDB61 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		4EBB85E61925EE5F00BBDB61 /* release_notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.md; sourceTree = "<group>"; };
+		4EBB85E71925EE5F00BBDB61 /* TestFlight+AsyncLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+AsyncLogging.h"; sourceTree = "<group>"; };
+		4EBB85E81925EE5F00BBDB61 /* TestFlight+ManualSessions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+ManualSessions.h"; sourceTree = "<group>"; };
+		4EBB85E91925EE5F00BBDB61 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		4EBC55951897E67800C4A136 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		4EBE04681844D5070031724A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4EBE04711844D52C0031724A /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -782,10 +782,10 @@
 				B6B7CE4D18B29D3A0001CA28 /* ImageIO.framework in Frameworks */,
 				B6B7CE4B18B29C050001CA28 /* AssetsLibrary.framework in Frameworks */,
 				4EBC55961897E67800C4A136 /* MessageUI.framework in Frameworks */,
+				4EBB85EA1925EE5F00BBDB61 /* libTestFlight.a in Frameworks */,
 				4E713D41189661B000CDB397 /* libz.dylib in Frameworks */,
 				B6556DE2175B7DC7008DFCC9 /* Security.framework in Frameworks */,
 				B6783A37174168030083AE50 /* SystemConfiguration.framework in Frameworks */,
-				4E713D3918965EEE00CDB397 /* libTestFlight.a in Frameworks */,
 				B6F5B0C51732A9C4000BC60A /* CoreImage.framework in Frameworks */,
 				B6F5B0C21732A780000BC60A /* CoreLocation.framework in Frameworks */,
 				B6F5B0BF1732A650000BC60A /* MobileCoreServices.framework in Frameworks */,
@@ -1093,22 +1093,9 @@
 		4E713D2A18965EAD00CDB397 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
-				4E713D3218965EEE00CDB397 /* TestFlightSDK2.1.4 */,
+				4EBB85E31925EE5F00BBDB61 /* TestFlightSDK3.0.2 */,
 			);
 			path = Vendor;
-			sourceTree = "<group>";
-		};
-		4E713D3218965EEE00CDB397 /* TestFlightSDK2.1.4 */ = {
-			isa = PBXGroup;
-			children = (
-				4E713D3318965EEE00CDB397 /* libTestFlight.a */,
-				4E713D3418965EEE00CDB397 /* README.md */,
-				4E713D3518965EEE00CDB397 /* release_notes.md */,
-				4E713D3618965EEE00CDB397 /* TestFlight+AsyncLogging.h */,
-				4E713D3718965EEE00CDB397 /* TestFlight+ManualSessions.h */,
-				4E713D3818965EEE00CDB397 /* TestFlight.h */,
-			);
-			path = TestFlightSDK2.1.4;
 			sourceTree = "<group>";
 		};
 		4E8AAFEF1859FC640083DE8C /* Constants */ = {
@@ -1120,6 +1107,19 @@
 				4E713D3E18965FBD00CDB397 /* AppConstantsPrivate.m */,
 			);
 			path = Constants;
+			sourceTree = "<group>";
+		};
+		4EBB85E31925EE5F00BBDB61 /* TestFlightSDK3.0.2 */ = {
+			isa = PBXGroup;
+			children = (
+				4EBB85E41925EE5F00BBDB61 /* libTestFlight.a */,
+				4EBB85E51925EE5F00BBDB61 /* README.md */,
+				4EBB85E61925EE5F00BBDB61 /* release_notes.md */,
+				4EBB85E71925EE5F00BBDB61 /* TestFlight+AsyncLogging.h */,
+				4EBB85E81925EE5F00BBDB61 /* TestFlight+ManualSessions.h */,
+				4EBB85E91925EE5F00BBDB61 /* TestFlight.h */,
+			);
+			path = TestFlightSDK3.0.2;
 			sourceTree = "<group>";
 		};
 		963B8DDD18644F8100F7CBF7 /* Fonts */ = {
@@ -2015,14 +2015,12 @@
 				4E41A63B1858998F00BC0C28 /* pickercenter-568h@2x.png in Resources */,
 				B6B59042178B60B60009E413 /* numpad_button_active.png in Resources */,
 				B6B59043178B60B60009E413 /* numpad_button_active@2x.png in Resources */,
-				4E713D3B18965EEE00CDB397 /* release_notes.md in Resources */,
 				B6B59044178B60B60009E413 /* numpad_button.png in Resources */,
 				B6B59045178B60B60009E413 /* numpad_button@2x.png in Resources */,
 				96D2063718B3899D00CF5A69 /* square_border@2x.png in Resources */,
 				96088A981861F1230090ECC7 /* Icon-120.png in Resources */,
 				B6B59046178B60B60009E413 /* picker-568h@2x.png in Resources */,
 				B6B59047178B60B60009E413 /* picker.png in Resources */,
-				4E713D3A18965EEE00CDB397 /* README.md in Resources */,
 				96088A951861F1230090ECC7 /* Icon-72.png in Resources */,
 				B6B59048178B60B60009E413 /* picker@2x.png in Resources */,
 				B6B59049178B60B60009E413 /* segement_uns_sel.png in Resources */,
@@ -2050,6 +2048,7 @@
 				96453C5B18B77DD00050618E /* icon_stream.png in Resources */,
 				B6B5906C178C752E0009E413 /* cell_right_2@2x.png in Resources */,
 				B6B5906D178C752E0009E413 /* cell_right_2.png in Resources */,
+				4EBB85EB1925EE5F00BBDB61 /* README.md in Resources */,
 				B6B5906E178C752E0009E413 /* cell_right_1@2x.png in Resources */,
 				B6B5906F178C752E0009E413 /* cell_right_1.png in Resources */,
 				B6B59070178C752E0009E413 /* cell_left@2x.png in Resources */,
@@ -2079,6 +2078,7 @@
 				963B8DDF18644F9D00F7CBF7 /* museo300-regular-webfont.ttf in Resources */,
 				960FE0BF1806B8190074D24E /* picture_overlay_bottom.png in Resources */,
 				960FE0C11806BB240074D24E /* value_bg.png in Resources */,
+				4EBB85EC1925EE5F00BBDB61 /* release_notes.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2319,6 +2319,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					NotesApp/Vendor/TestFlightSDK2.1.4,
+					/Volumes/Temp/perki/Downloads/TestFlightSDK3.0.2,
+					"$(PROJECT_DIR)/NotesApp/Vendor/TestFlightSDK3.0.2",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -2353,6 +2355,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					NotesApp/Vendor/TestFlightSDK2.1.4,
+					/Volumes/Temp/perki/Downloads/TestFlightSDK3.0.2,
+					"$(PROJECT_DIR)/NotesApp/Vendor/TestFlightSDK3.0.2",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
