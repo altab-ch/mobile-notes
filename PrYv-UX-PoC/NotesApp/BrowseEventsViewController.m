@@ -33,6 +33,7 @@
 #import "MMDrawerController.h"
 #import "MMDrawerBarButtonItem.h"
 #import "MenuNavController.h"
+#import "PYEventTypes+Helper.h"
 
 
 #pragma mark - MySection
@@ -55,7 +56,7 @@
 #define IS_LRU_SECTION self.isMenuOpen
 #define IS_BROWSE_SECTION !self.isMenuOpen
 
-#define kFilterInitialLimit 200
+#define kFilterInitialLimit 300
 #define kFilterIncrement 50
 
 #define kSectionCell @"section_cell_id"
@@ -261,6 +262,10 @@ BOOL displayNonStandardEvents;
 
 - (void)refreshFilter // called be loadData
 {
+    
+    NSMutableArray* typeFilter = [NSMutableArray arrayWithObjects:@"note/txt", @"picture/attached", nil];
+    [typeFilter addObjectsFromArray:[[PYEventTypes sharedInstance] classesFilterWithNumericalValues]];
+    
     if (self.filter == nil) {
         [self clearCurrentData];
         
@@ -274,7 +279,7 @@ BOOL displayNonStandardEvents;
                                                               limit:kFilterInitialLimit
                                                      onlyStreamsIDs:[self listStreamFilter]
                                                                tags:nil
-                                                              types:nil
+                                                              types:typeFilter
                            ];
             
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(filterEventUpdate:)
@@ -304,10 +309,11 @@ BOOL displayNonStandardEvents;
 
 -(NSArray*) listStreamFilter
 {
-    /*MenuNavController* menuNavController = (MenuNavController*)[self.mm_drawerController leftDrawerViewController];
+       //return nil;
+    MenuNavController* menuNavController = (MenuNavController*)[self.mm_drawerController leftDrawerViewController];
     NSArray* streams = [menuNavController getMenuStreams];
-    return streams;*/
-    return nil;
+    return streams;
+ 
 }
 
 - (void)unsetFilter // called by clearData
