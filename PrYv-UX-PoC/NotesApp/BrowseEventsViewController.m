@@ -148,7 +148,7 @@ BOOL displayNonStandardEvents;
     if ([self.mm_drawerController openSide]==MMDrawerSideLeft) {
         [menuNavController resetMenu];
 
-        [self unsetFilter];
+        //[self unsetFilter];
         [self loadData];
     }else{
         [menuNavController initStreams];
@@ -281,6 +281,7 @@ BOOL displayNonStandardEvents;
                                                                tags:nil
                                                               types:typeFilter
                            ];
+            self.filter.state = PYEventFilter_kStateAll;
             
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(filterEventUpdate:)
                                                          name:kPYNotificationEvents object:self.filter];
