@@ -90,7 +90,13 @@
 
 - (void)updateWithEvent:(PYEvent *)event
 {
+    CGSize lbSize = [[event eventBreadcrumbs] sizeWithFont:self.streamLabel.font];
+    [self.streamLabel setFrame:CGRectMake(18, 0, lbSize.width, 16)];
+    [self.streamContainer setFrame:CGRectMake(5, 5, lbSize.width+22, 16)];
+    [self setNeedsDisplay];
+    [self setNeedsLayout];
     [super updateWithEvent:event];
+    
     self.startLoadTime = [NSDate date];
     self.currentEventId = event.clientId;
     dispatch_async(dispatch_get_main_queue(), ^{
