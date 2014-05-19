@@ -58,6 +58,10 @@
 #define kFilterInitialLimit 200
 #define kFilterIncrement 50
 
+#define kSectionCell @"section_cell_id"
+#define kSectionLabel 10
+
+
 typedef enum {
     AggregationStepDay = 1,
     AggregationStepMonth,
@@ -114,6 +118,7 @@ BOOL displayNonStandardEvents;
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+#warning perki !! aggregationStep 0 au start, initWithNib pas appelé, voir initWithCoder
         self.aggregationStep = AggregationStepDay;
     }
     return self;
@@ -155,7 +160,6 @@ BOOL displayNonStandardEvents;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     [self loadSettings];
     [self resetDateFormatters];
     [self.tableView registerNib:[UINib nibWithNibName:@"BrowseEventCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:browseCellIdentifier];
@@ -293,16 +297,17 @@ BOOL displayNonStandardEvents;
 
 -(NSTimeInterval) toTime
 {
-    //return PYEventFilter_UNDEFINED_TOTIME;
-    MenuNavController* menuNavController = (MenuNavController*)[self.mm_drawerController leftDrawerViewController];
-    return [[menuNavController getDate] timeIntervalSince1970];
+    return PYEventFilter_UNDEFINED_TOTIME;
+    /*MenuNavController* menuNavController = (MenuNavController*)[self.mm_drawerController leftDrawerViewController];
+    return [[menuNavController getDate] timeIntervalSince1970];*/
 }
 
 -(NSArray*) listStreamFilter
 {
-    MenuNavController* menuNavController = (MenuNavController*)[self.mm_drawerController leftDrawerViewController];
+    /*MenuNavController* menuNavController = (MenuNavController*)[self.mm_drawerController leftDrawerViewController];
     NSArray* streams = [menuNavController getMenuStreams];
-    return streams;
+    return streams;*/
+    return nil;
 }
 
 - (void)unsetFilter // called by clearData
@@ -360,7 +365,8 @@ BOOL displayNonStandardEvents;
 #pragma mark - Sections manipulations
 
 - (void)resetDateFormatters {
-    if (self.sectionsKeyFormatter == nil) { self.sectionsKeyFormatter = [[NSDateFormatter alloc] init]; }
+    if (self.sectionsKeyFormatter == nil) {
+        self.sectionsKeyFormatter = [[NSDateFormatter alloc] init]; }
     if (self.sectionsTitleFormatter == nil) { self.sectionsTitleFormatter = [[NSDateFormatter alloc] init];}
     if (self.cellDateFormatter == nil) { self.cellDateFormatter = [[NSDateFormatter alloc] init];}
     
@@ -368,9 +374,11 @@ BOOL displayNonStandardEvents;
     [self.cellDateFormatter setTimeStyle:NSDateFormatterShortStyle];
     [self.cellDateFormatter setDoesRelativeDateFormatting:YES];
     
+#warning Perki ! section key and section title : what's the difference ?
     
-    [self.sectionsTitleFormatter setDateStyle:NSDateFormatterLongStyle];
-    [self.sectionsTitleFormatter setDoesRelativeDateFormatting:YES];
+    [self.sectionsTitleFormatter setDateStyle:NSDateFormatterShortStyle];
+    [self.sectionsTitleFormatter setDateFormat:@"dd.MM.yyyy"];
+    //[self.sectionsTitleFormatter setDoesRelativeDateFormatting:YES];
     
     switch (self.aggregationStep) {
         case AggregationStepMonth:
@@ -484,7 +492,7 @@ BOOL displayNonStandardEvents;
     
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+/*- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     if(IS_LRU_SECTION || [tableView isEqual:self.menuTableView])
     {
@@ -493,6 +501,27 @@ BOOL displayNonStandardEvents;
     return [[self.sectionsMapTitles objectAtIndex:section] title];
     
     
+}*/
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 14;
+}
+
+-(UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    
+    
+    if(![tableView isEqual:self.menuTableView])
+    {
+        UITableViewCell *headerCell = [tableView dequeueReusableCellWithIdentifier:kSectionCell];
+        UILabel *targetedLabel = (UILabel *)[headerCell viewWithTag:kSectionLabel];
+        [targetedLabel setText:[[self.sectionsMapTitles objectAtIndex:section] title]];
+        return headerCell.contentView;
+    }
+    if(IS_BROWSE_SECTION)
+    {
+    }
+    return nil;
 }
 
 
