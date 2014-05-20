@@ -11,5 +11,5 @@
 @interface PYStream (Helper)
 
 - (NSString*)breadcrumbs;
-
+- (UIColor*)getColor;
 @end
