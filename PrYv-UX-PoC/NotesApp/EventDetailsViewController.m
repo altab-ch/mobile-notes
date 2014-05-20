@@ -9,7 +9,8 @@
 #import "EventDetailsViewController.h"
 #import "BaseDetailCell.h"
 #import "PYEvent+Helper.h"
-#import <PryvApiKit/PYEvent.h>"D
+#import "PYStream+Helper.h"
+#import <PryvApiKit/PYEvent.h>
 #import <PryvApiKit/PYEventType.h>
 #import <PryvApiKit/PYConnection+DataManagement.h>
 #import "TextEditorViewController.h"
@@ -40,8 +41,8 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     DetailCellTypeValue,
     DetailCellTypeImage,
     DetailCellTypeNote,
-    DetailCellTypeTime,
     DetailCellTypeStreams,
+    DetailCellTypeTime,
     DetailCellTypeTags,
     DetailCellTypeDescription,
     DetailCellTypeSpacer
@@ -78,6 +79,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 // -- common properties
 
+@property (nonatomic, weak) IBOutlet UIView *pastille;
 @property (nonatomic, weak) IBOutlet UILabel *tagsLabel;
 @property (nonatomic, weak) IBOutlet JSTokenField *tokenField;
 @property (nonatomic, weak) IBOutlet UIButton *tokendDoneButton;
@@ -161,9 +163,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
         [self editButtonTouched:nil];
     }
     
-    
-    
-    
+    [self.tokenField setUserInteractionEnabled:NO];
     
     self.deleteButton.layer.borderColor = [UIColor colorWithRed:169.0f/255.0f green:169.0f/255.0f blue:169.0f/255.0f alpha:1].CGColor;
     self.deleteButton.layer.borderWidth = 1.0f;
@@ -266,6 +266,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     self.timeLabel.text = [[NotesAppController sharedInstance].dateFormatter stringFromDate:date];
     
     self.streamsLabel.text = [self.event eventBreadcrumbs];
+    [self.pastille setBackgroundColor:[[self.event stream] getColor]];
     self.descriptionLabel.text = self.event.eventDescription;
     
     if([self.streamsLabel.text length] < 1)
@@ -284,8 +285,6 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     {
         [self.deleteButton setTitle:NSLocalizedString(@"Cancel", nil) forState:UIControlStateNormal];
     }
-    
-    
     
     [self updateTagsLabel];
     [self.tableView reloadData];
@@ -546,6 +545,8 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     
     [self updateLabelsTextColorForEditingMode:NO];
     
+    [self.tokenField setUserInteractionEnabled:NO];
+    
     self.editButton.title = NSLocalizedString(@"Edit", nil);
     dispatch_async(dispatch_get_main_queue(), ^{
         [UIView transitionWithView:self.tableView
@@ -556,12 +557,12 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
                         } completion:NULL];
         
     });
-    [UIView animateWithDuration:2.25 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+    /*[UIView animateWithDuration:2.25 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
         self.tagsLabel.alpha = 1.0f;
         self.tokenContainer.alpha = 0.0f;
     } completion:^(BOOL finished) {
         
-    }];
+    }];*/
 }
 
 - (void)switchToEditingMode
@@ -580,7 +581,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
         
     }
     
-    [self updateLabelsTextColorForEditingMode:YES];
+    [self.tokenField setUserInteractionEnabled:YES];
     
     self.editButton.title = NSLocalizedString(@"Done", nil);
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -594,12 +595,12 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     });
     
     //[self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
-    [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+    /*[UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
         self.tagsLabel.alpha = 0.0f;
         self.tokenContainer.alpha = 1.0f;
     } completion:^(BOOL finished) {
         
-    }];
+    }];*/
 }
 
 - (void)updateLabelsTextColorForEditingMode:(BOOL)isEditingMode
@@ -724,9 +725,6 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 - (void)setupStreamPickerViewController:(StreamPickerViewController*)streamPickerVC
 {
-    
-    
-    
     self.previousStreamId = [self.event.streamId copy];
     streamPickerVC.stream = [self.event stream];
     streamPickerVC.delegate = self;

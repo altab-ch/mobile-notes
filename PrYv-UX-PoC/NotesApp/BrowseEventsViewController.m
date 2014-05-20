@@ -119,7 +119,7 @@ BOOL displayNonStandardEvents;
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-#warning perki !! aggregationStep 0 au start, initWithNib pas appelé, voir initWithCoder
+#warning perki !! aggregationStep 0 au start, initWithNib pas appelé, voir initWithCoder, initialiser variables dans viewdidload.
         self.aggregationStep = AggregationStepDay;
     }
     return self;
@@ -383,9 +383,9 @@ BOOL displayNonStandardEvents;
     
 #warning Perki ! section key and section title : what's the difference ?
     
-    [self.sectionsTitleFormatter setDateStyle:NSDateFormatterShortStyle];
-    [self.sectionsTitleFormatter setDateFormat:@"dd.MM.yyyy"];
-    //[self.sectionsTitleFormatter setDoesRelativeDateFormatting:YES];
+    [self.sectionsTitleFormatter setDateStyle:NSDateFormatterMediumStyle];
+    //[self.sectionsTitleFormatter setDateFormat:@"dd.MM.yyyy"];
+    [self.sectionsTitleFormatter setDoesRelativeDateFormatting:YES];
     
     switch (self.aggregationStep) {
         case AggregationStepMonth:
@@ -680,6 +680,8 @@ BOOL displayNonStandardEvents;
         PYEvent *event = [self eventAtIndexPath:indexPath];
         [self showEventDetailsForEvent:event andUserHistoryEntry:nil];
     }
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (void)topMenuDidSelectOptionAtIndex:(NSInteger)index
