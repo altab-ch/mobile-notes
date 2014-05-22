@@ -867,7 +867,7 @@ BOOL displayNonStandardEvents;
         }
     }
     [self.events addObject:eventToAdd];
-    return self.events.count;
+    return (int)self.events.count;
 }
 
 
@@ -930,13 +930,13 @@ BOOL displayNonStandardEvents;
     
     // events are sent ordered by time
     if (toRemove) {
-        NSLog(@"*262 REMOVE %i", toRemove.count);
+        NSLog(@"*262 REMOVE %lu", (unsigned long)toRemove.count);
         
         PYEvent* kEvent = nil;
         PYEvent* eventToRemove = nil;
-        for (int i = toRemove.count -1 ; i >= 0; i--) {
+        for (long i = toRemove.count -1 ; i >= 0; i--) {
             eventToRemove = [toRemove objectAtIndex:i];
-            for (int k =  (self.events.count - 1) ; k >= 0 ; k--) {
+            for (long k =  (self.events.count - 1) ; k >= 0 ; k--) {
                 kEvent = [self.events objectAtIndex:k];
                 if ([eventToRemove.eventId isEqualToString:kEvent.eventId]) {
                     [self.events removeObjectAtIndex:k];
@@ -948,14 +948,14 @@ BOOL displayNonStandardEvents;
     }
     
     if (modify) {
-        NSLog(@"*262 MODIFY %i", modify.count);
+        NSLog(@"*262 MODIFY %lu", modify.count);
         // remove events marked as trashed
         PYEvent* kEvent = nil;
         PYEvent* eventToCheck = nil;
-        for (int i = modify.count -1 ; i >= 0; i--) {
+        for (long i = modify.count -1 ; i >= 0; i--) {
             eventToCheck = [modify objectAtIndex:i];
             if (eventToCheck.trashed) {
-                for (int k =  (self.events.count - 1) ; k >= 0 ; k--) {
+                for (long k =  (self.events.count - 1) ; k >= 0 ; k--) {
                     kEvent = [self.events objectAtIndex:k];
                     if ([eventToCheck.eventId isEqualToString:kEvent.eventId]) {
                         [self.events removeObjectAtIndex:k];
@@ -969,9 +969,9 @@ BOOL displayNonStandardEvents;
     // events are sent ordered by time
     if (toAdd && toAdd.count > 0) {
         
-        NSLog(@"*262 ADD %i", toAdd.count);
+        NSLog(@"*262 ADD %lu", toAdd.count);
         
-        for (int i = toAdd.count - 1 ; i >= 0; i--) {
+        for (long i = toAdd.count - 1 ; i >= 0; i--) {
             [self addEventToList:[toAdd objectAtIndex:i]];
         }
         
