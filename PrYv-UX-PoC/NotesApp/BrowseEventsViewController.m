@@ -94,7 +94,10 @@ static NSString *browseCellIdentifier = @"BrowseEventsCell_ID";
 @property (nonatomic, strong) PYEventFilter *filter;
 @property (nonatomic, strong) NSNumber *isSourceTypePicked;
 @property (nonatomic, strong) UserHistoryEntry *tempEntry;
+
 @property (nonatomic, strong) NSIndexPath *lastIndexPath;
+
+@property (nonatomic) NSTimeInterval *lastTimeFocus;
 
 @property (nonatomic) AggregationStep aggregationStep;
 
@@ -337,18 +340,13 @@ BOOL displayNonStandardEvents;
         [self showLoadingOverlay];
         
         [self.tableView reloadData];
-        if(self.lastIndexPath)
+        /** bring back focus
+        if(self.lastTimeFocus )
         {
-            if (self.lastIndexPath.row <0) {
-                self.lastIndexPath = [NSIndexPath indexPathForRow:0 inSection:self.lastIndexPath.section];
-            }
-            NSInteger numRows = [self tableView:self.tableView numberOfRowsInSection:self.lastIndexPath.section];
-            if (self.lastIndexPath.row >= numRows) {
-                self.lastIndexPath = [NSIndexPath indexPathForRow:numRows - 1  inSection:0];
-            }
             
             [self.tableView scrollToRowAtIndexPath:self.lastIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
         }
+         **/
         [UIView animateWithDuration:0.2 animations:^{
             self.tableView.alpha = 1.0f;
         }];
@@ -466,7 +464,7 @@ BOOL displayNonStandardEvents;
         NSLog(@"<WARNING> BrowseEventsViewController.sectionDataAtIndex empty sectionsMapTitles");
         return nil;
     }
-    if (index > self.sectionsMapTitles.count + 1) {
+    if (index >= self.sectionsMapTitles.count) {
         NSLog(@"<WARNING> BrowseEventsViewController.sectionDataAtIndex index not reachable: %ld",(long)index);
         return nil;
     }
@@ -522,7 +520,13 @@ BOOL displayNonStandardEvents;
     {
         UITableViewCell *headerCell = [tableView dequeueReusableCellWithIdentifier:kSectionCell];
         UILabel *targetedLabel = (UILabel *)[headerCell viewWithTag:kSectionLabel];
-        [targetedLabel setText:[[self.sectionsMapTitles objectAtIndex:section] title]];
+        
+        if (section >= self.sectionsMapTitles.count) {
+            NSLog(@"<WARNING> BrowseEventsViewController.tableView  index not reachable: %ld",(long)index);
+            [targetedLabel setText:@"..."];
+        } else {
+            [targetedLabel setText:[[self.sectionsMapTitles objectAtIndex:section] title]];
+        }
         return headerCell.contentView;
     }
     if(IS_BROWSE_SECTION)

@@ -48,8 +48,14 @@
     NSArray *sortedTags = [self.tags sortedArrayWithOptions:NSSortStable usingComparator:^NSComparisonResult(NSString *obj1, NSString *obj2) {
         return [obj1 compare:obj2];
     }];
-    NSMutableString *toReturn = [NSMutableString stringWithString:self.streamId];
-    [toReturn appendFormat:@" %d",self.dataType];
+    NSMutableString *toReturn;
+    if (! self.streamId) {
+        toReturn = [NSMutableString stringWithString:@""];
+        NSLog(@"<WARNING> UserHistoryEntry.comparableString How comes the streamId is empty!");
+    } else {
+        toReturn = [NSMutableString stringWithString:self.streamId];
+    }
+    [toReturn appendFormat:@" %ld", (long)self.dataType];
     [toReturn appendString:[sortedTags componentsJoinedByString:@" "]];
     if(self.measurementGroupName)
     {
