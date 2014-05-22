@@ -21,6 +21,8 @@
 "Edit" = "Modifier";
 "Details" = "Details";
 
+"LastUsedShortcut.Title" = "Accès rapide";
+
 "MenuTableViewController.DateSelect" = "Date";
 "MenuTableViewController.StreamSelect" = "Choisir des streams";
 

@@ -56,8 +56,8 @@
 #define IS_LRU_SECTION self.isMenuOpen
 #define IS_BROWSE_SECTION !self.isMenuOpen
 
-#define kFilterInitialLimit 500
-#define kFilterIncrement 0
+#define kFilterInitialLimit 100000
+#define kFilterIncrement 30
 
 #define kSectionCell @"section_cell_id"
 #define kSectionLabel 10
@@ -449,6 +449,10 @@ BOOL displayNonStandardEvents;
 }
 
 - (NSMutableOrderedSet*) sectionDataAtIndex:(NSInteger)index {
+    if(IS_LRU_SECTION)
+    {
+        return nil;
+    }
     if (! self.sectionsMapTitles) {
         NSLog(@"<WARNING> BrowseEventsViewController.sectionDataAtIndex empty sectionsMapTitles");
         return nil;
@@ -502,7 +506,13 @@ BOOL displayNonStandardEvents;
 }
 
 -(UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    
+    if(IS_LRU_SECTION)
+    {
+        UITableViewCell *headerCell = [tableView dequeueReusableCellWithIdentifier:kSectionCell];
+        UILabel *targetedLabel = (UILabel *)[headerCell viewWithTag:kSectionLabel];
+        [targetedLabel setText:NSLocalizedString(@"LastUsedShortcut.Title", nil)];
+        return headerCell.contentView;
+    }
     
     
     if(![tableView isEqual:self.menuTableView])
