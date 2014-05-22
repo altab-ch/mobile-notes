@@ -46,7 +46,7 @@
             break;
         default:
             if (dot.location == NSNotFound || self.textField.text.length <= dot.location + 8) {
-                self.textField.text = [NSString stringWithFormat:@"%@%d",self.textField.text,sender.tag];
+                self.textField.text = [NSString stringWithFormat:@"%@%ld",self.textField.text,sender.tag];
             }
             break;
     }

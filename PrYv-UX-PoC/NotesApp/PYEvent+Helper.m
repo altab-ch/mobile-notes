@@ -43,7 +43,7 @@
     return EventDataTypeNote;
 }
 
-- (NSInteger)cellStyle
+- (long)cellStyle
 {
     
     if([self.pyType.key isEqualToString:@"note/txt"])

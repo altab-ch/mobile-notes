@@ -320,7 +320,7 @@
     {
         NSInteger selectedGroup = [_typePicker selectedRowInComponent:0];
         PYMeasurementTypesGroup *group = [_measurementGroups objectAtIndex:selectedGroup];
-        PYEventType *pyType = [group pyTypeAtIndex:row];
+        PYEventType *pyType = [group pyTypeAtIndex:(int)row];
         NSString *descLabel = pyType.key;
         if (pyType && pyType.symbol) {
             descLabel = pyType.symbol;

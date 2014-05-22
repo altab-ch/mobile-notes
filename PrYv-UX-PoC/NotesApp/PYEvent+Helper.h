@@ -16,7 +16,7 @@
 
 
 - (EventDataType)eventDataType;
-- (NSInteger)cellStyle;
+- (long)cellStyle;
 
 - (void)firstAttachmentAsImage:(void (^) (UIImage *image))attachmentAsImage
              errorHandler:(void(^) (NSError *error))failure;
