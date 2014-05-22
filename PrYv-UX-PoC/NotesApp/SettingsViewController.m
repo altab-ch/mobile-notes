@@ -122,12 +122,12 @@
     if(connection)
     {
         [[NotesAppController sharedInstance] setConnection:nil];
-    }
-    else
-    {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kUserShouldLoginNotification object:nil];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+        /**
         [self.navigationController dismissViewControllerAnimated:YES completion:^{
             [[NSNotificationCenter defaultCenter] postNotificationName:kUserShouldLoginNotification object:nil];
-        }];
+        }];**/
         
     }
 }

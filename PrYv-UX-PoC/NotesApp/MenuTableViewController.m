@@ -42,6 +42,8 @@ static int kPickerTag = 10;
 - (void)btCheckPressed:(StreamCheckButton*)sender;
 - (BOOL)hasChild:(PYStream*)stre;
 
+- (void)userDidLogoutNotification:(NSNotification *)notification;
+
 @end
 
 @implementation MenuTableViewController
@@ -70,6 +72,11 @@ static int kPickerTag = 10;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(userDidLogoutNotification:)
+                                                 name:kUserDidLogoutNotification
+                                               object:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -290,12 +297,22 @@ static int kPickerTag = 10;
     return result;
 }
 
+#pragma mark - notification
+
+- (void)userDidLogoutNotification:(NSNotification *)notification
+{
+    // TODO reset all data and eventually close the menu
+    NSLog(@"<WARNING> MenuTableViewController need to be cleaned");
+}
+
+
 #pragma mark - misc
 
 - (void)initStreams
 {
     PYConnection* connection = [[NotesAppController sharedInstance] connection];
     if (connection == nil || !connection.fetchedStreamsRoots ) {
+        self.streams = [[NSArray alloc] initWithObjects:nil];
         NSLog(@"<ERROR> StreamPickerViewController.initStreams connection is nil");
         return;
     }
@@ -435,7 +452,11 @@ static int kPickerTag = 10;
 
 - (BOOL)isChild
 {
-    if ((self.streams) && ([self.streams objectAtIndex:0]) && ([(PYStream*)[self.streams objectAtIndex:0] parentId]) && !([[(PYStream*)[self.streams objectAtIndex:0] parentId] isEqualToString:@""]))
+    if ((self.streams)
+        && (self.streams.count > 0)
+        && ([self.streams objectAtIndex:0])
+        && ([(PYStream*)[self.streams objectAtIndex:0] parentId])
+        && !([[(PYStream*)[self.streams objectAtIndex:0] parentId] isEqualToString:@""]))
         return YES;
     
     return NO;
@@ -443,7 +464,11 @@ static int kPickerTag = 10;
 
 - (PYStream*)getParent
 {
-    if ((self.streams) && ([self.streams objectAtIndex:0]) && ([(PYStream*)[self.streams objectAtIndex:0] parentId]) && !([[(PYStream*)[self.streams objectAtIndex:0] parentId] isEqualToString:@""]))
+    if ((self.streams)
+        && (self.streams.count > 0)
+        && ([self.streams objectAtIndex:0])
+        && ([(PYStream*)[self.streams objectAtIndex:0] parentId])
+        && !([[(PYStream*)[self.streams objectAtIndex:0] parentId] isEqualToString:@""]))
         return [(PYStream*)[self.streams objectAtIndex:0] parent];
     
     return nil;
