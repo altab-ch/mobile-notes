@@ -347,15 +347,22 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
         return;
     }
     NSString *unit = [self.event.pyType symbol];
-    if (! unit) { unit = self.event.pyType.formatKey ; }
+    
+    NSString *formatDescription = [self.event.pyType localizedName];
+    
+    if (! unit) {
+        unit = formatDescription ;
+        [self.numericalValue_TypeLabel setText:@""];
+    } else {
+        [self.numericalValue_TypeLabel setText:formatDescription];
+    }
+    
+    
     
     NSString *value = [NSString stringWithFormat:@"%@ %@",self.getNumericalValueFormatted, unit];
     
     [self.numericalValue_Label setText:value];
     
-    NSString *formatDescription = [self.event.pyType localizedName];
-    if (! formatDescription) { unit = self.event.pyType.key ; }
-    [self.numericalValue_TypeLabel setText:formatDescription];
 }
 
 - (void)updateUIForNoteEventType

@@ -32,8 +32,7 @@
 
 - (void)updateWithEvent:(PYEvent *)event
 {
-    NSString *unit = [event.pyType symbol];
-    if (! unit) { unit = event.pyType.formatKey ; }
+   
     
     
     NSNumberFormatter *numf = [[NSNumberFormatter alloc] init];
@@ -44,12 +43,20 @@
         [numf setMaximumFractionDigits:0];
     }
     
+    NSString *unit = [event.pyType symbol];
+     NSString *formatDescription = [event.pyType localizedName];
+    if (! unit) {
+        unit = formatDescription ;
+    [self.formatDescriptionLabel setText:@""];
+    } else {
+      [self.formatDescriptionLabel setText:formatDescription];
+    }
+    
     NSString *value = [NSString stringWithFormat:@"%@ %@",[numf stringFromNumber:event.eventContent], unit];
     [self.valueLabel setText:value];
     
-    NSString *formatDescription = [event.pyType localizedName];
-    if (! formatDescription) { unit = event.pyType.key ; }
-    [self.formatDescriptionLabel setText:formatDescription];
+
+    
     
     
     [super updateWithEvent:event];

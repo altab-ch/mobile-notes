@@ -25,7 +25,7 @@
 "MenuTableViewController.StreamSelect" = "Choisir des streams";
 
 "BrowserViewController.Title" = "Pryv";
-"BrowserViewController.TitleMenuOpen" = "Ajouter un ...";
+"BrowserViewController.TitleMenuOpen" = "Ajouter une ...";
 
 "DetailViewController.TitleNote" = "Note";
 "DetailViewController.TitlePicture" = "Photo";

@@ -302,6 +302,7 @@ static int kPickerTag = 10;
 - (void)userDidLogoutNotification:(NSNotification *)notification
 {
     // TODO reset all data and eventually close the menu
+    [self.navigationController popToRootViewControllerAnimated:NO];
     NSLog(@"<WARNING> MenuTableViewController need to be cleaned");
 }
 

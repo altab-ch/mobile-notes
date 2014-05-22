@@ -279,12 +279,17 @@
         NSString *symbolText = pyType.type;
         
         NSString *nameText = @"";
-        if (pyType && pyType.localizedName) {
-            nameText = pyType.localizedName;
+        
+        if (pyType) {
+            if (! pyType.symbol) {
+                symbolText = pyType.localizedName;
+                nameText = @"";
+            } else {
+                symbolText = pyType.symbol;
+                nameText = pyType.localizedName;
+            }
         }
-        if (pyType && pyType.symbol) {
-            symbolText = pyType.symbol;
-        }
+        
         
         AddNumericalValueCellFormat *cell = (AddNumericalValueCellFormat*)view;
         [cell.nameLabel setText:nameText];
