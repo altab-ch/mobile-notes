@@ -33,6 +33,10 @@
 "DetailViewController.TitlePicture" = "Picture";
 "DetailViewController.TitleMeasure" = "Measurement";
 
+
+"TextEditorViewController.Title" = "Take a note";
+
+
 "AddNumericalViewController.Title" = "Measurement";
 
 "ViewController.Streams.SelectStream" = "Select a stream";
