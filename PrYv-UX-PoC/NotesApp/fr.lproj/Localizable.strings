@@ -19,6 +19,13 @@
 "Delete" = "Effacer";
 "Done" = "OK";
 "Edit" = "Modifier";
+"Details" = "Details";
+
+"MenuTableViewController.DateSelect" = "Date";
+"MenuTableViewController.StreamSelect" = "Choisir des streams";
+
+"BrowserViewController.Title" = "Pryv";
+"BrowserViewController.TitleMenuOpen" = "Ajouter un ...";
 
 "DetailViewController.TitleNote" = "Note";
 "DetailViewController.TitlePicture" = "Photo";

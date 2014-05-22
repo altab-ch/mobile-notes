@@ -140,14 +140,14 @@ static int kPickerTag = 10;
     UITableViewCell *headerCell = [tableView dequeueReusableCellWithIdentifier:kSectionCellID];
     UILabel *targetedLabel = (UILabel *)[headerCell viewWithTag:kSectionTag];
     if (section==DATE_SECTION) {
-        targetedLabel.text = NSLocalizedString(@"Jump to date",nil);
+        targetedLabel.text = NSLocalizedString(@"MenuTableViewController.DateSelect",nil);
         UIView *backIm = (UIView *)[headerCell viewWithTag:kBackTag];
         [backIm setHidden:YES];
     }else{
         if ([self getParent])
             targetedLabel.text = [[self getParent] breadcrumbs];
         else
-            targetedLabel.text = NSLocalizedString(@"Viewed streams",nil);
+            targetedLabel.text = NSLocalizedString(@"MenuTableViewController.StreamSelect",nil);
         
         if (![self isChild]) {
             UIView *backIm = (UIView *)[headerCell viewWithTag:kBackTag];

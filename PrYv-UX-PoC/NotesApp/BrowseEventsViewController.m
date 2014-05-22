@@ -56,8 +56,8 @@
 #define IS_LRU_SECTION self.isMenuOpen
 #define IS_BROWSE_SECTION !self.isMenuOpen
 
-#define kFilterInitialLimit 300
-#define kFilterIncrement 50
+#define kFilterInitialLimit 500
+#define kFilterIncrement 0
 
 #define kSectionCell @"section_cell_id"
 #define kSectionLabel 10
@@ -197,7 +197,7 @@ BOOL displayNonStandardEvents;
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.title = @"Pryv";
+    self.title = NSLocalizedString(@"BrowserViewController.Title", nil);
     [self loadShortcuts];
 }
 
@@ -741,7 +741,7 @@ BOOL displayNonStandardEvents;
     EventDetailsViewController *eventDetailVC = (EventDetailsViewController*)[[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"EventDetailsViewController_ID"];
     eventDetailVC.event = event;
     
-    self.title = NSLocalizedString(@"Back", nil);
+    self.title = NSLocalizedString(@"Details", nil);
     EventDataType eventType = [eventDetailVC.event eventDataType];
     
     /**

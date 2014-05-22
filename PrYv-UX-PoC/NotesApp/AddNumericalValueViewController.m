@@ -61,7 +61,7 @@
     [self.typePicker reloadData];
     UIButton *delBtn = (UIButton*)[self.customKeyborad viewWithTag:11];
     [delBtn setTitle:@"\u232B" forState:UIControlStateNormal];
-    self.navigationItem.title = NSLocalizedString(@"AddNumericalViewController.Title", nil);;
+    self.navigationItem.title = NSLocalizedString(@"AddNumericalViewController.Title", nil);
     if (IS_IPHONE_5){
         [self.typeTextField setFont:[UIFont fontWithName:@"Helvetica Neue" size:40.0]];
         [self.valueField setFont:[UIFont fontWithName:@"Helvetica Neue" size:46.0]];
