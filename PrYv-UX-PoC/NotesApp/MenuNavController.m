@@ -45,6 +45,7 @@
 -(NSArray*) getMenuStreams
 {
     MenuTableViewController* child = (MenuTableViewController*)[self topViewController];
+    if (child.getStreamIDs.count == 0) return nil;
     return [child getStreamIDs];
 }
 
