@@ -307,6 +307,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
         if(self.picture_ImageView.image) return;
         self.picture_ImageView.image = img;
         [self.tableView beginUpdates];
+        [self.tableView reloadData];
         // [self updateUIForEvent];
         [self.tableView endUpdates];
     } failure:nil];
@@ -315,6 +316,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     [self.event firstAttachmentAsImage:^(UIImage *image) {
         self.picture_ImageView.image = image;
         [self.tableView beginUpdates];
+         [self.tableView reloadData];
         //  [self updateUIForEvent];
         [self.tableView endUpdates];
     } errorHandler:nil];
