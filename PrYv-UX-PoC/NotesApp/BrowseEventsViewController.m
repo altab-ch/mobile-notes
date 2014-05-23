@@ -884,6 +884,7 @@ BOOL displayNonStandardEvents;
 - (void)clearCurrentData
 {
     [self.events removeAllObjects];
+    [self rebuildSectionMap];
     [self unsetFilter];
     [self.tableView reloadData];
 }
@@ -908,12 +909,16 @@ BOOL displayNonStandardEvents;
 - (void)userDidReceiveAccessTokenNotification:(NSNotification *)notification
 {
     [self.pullToRefreshManager setPullToRefreshViewVisible:YES];
+    [self clearCurrentData];
+    [self refreshFilter];
     [self loadData];
 }
 
 - (void)userDidLogoutNotification:(NSNotification *)notification
 {
-    [self.pullToRefreshManager setPullToRefreshViewVisible:NO];
+    [self clearCurrentData];
+
+    //[self.pullToRefreshManager setPullToRefreshViewVisible:NO];
 }
 
 - (void)filterEventUpdate:(NSNotification *)notification

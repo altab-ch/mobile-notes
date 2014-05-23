@@ -302,6 +302,8 @@ static int kPickerTag = 10;
 - (void)userDidLogoutNotification:(NSNotification *)notification
 {
     // TODO reset all data and eventually close the menu
+    [self.selectedStreamIDs removeAllObjects];
+    [self saveUserDefault];
     [self.navigationController popToRootViewControllerAnimated:NO];
     NSLog(@"<WARNING> MenuTableViewController need to be cleaned");
 }
@@ -322,11 +324,11 @@ static int kPickerTag = 10;
         return [ev1.name compare:ev2.name options:NSCaseInsensitiveSearch];
     }];
     
-    /*if ([[self selectedStreamIDs] count] == 0) {
+    if ([[self selectedStreamIDs] count] == 0) {
         for (PYStream* st in self.streams) {
             [[self selectedStreamIDs] addObject:[st streamId]];
         }
-    }*/
+    }
 }
 
 - (void)createDateFormatter {
