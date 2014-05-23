@@ -744,7 +744,6 @@ BOOL displayNonStandardEvents;
     EventDetailsViewController *eventDetailVC = (EventDetailsViewController*)[[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"EventDetailsViewController_ID"];
     eventDetailVC.event = event;
     
-    self.title = NSLocalizedString(@"Details", nil);
     EventDataType eventType = [eventDetailVC.event eventDataType];
     
     /**
