@@ -17,7 +17,6 @@
 @interface SettingsViewController ()
 
 
-@property (nonatomic, strong) IBOutlet UILabel *versionTitle;
 @property (nonatomic, strong) IBOutlet UILabel *versionLabel;
 
 
