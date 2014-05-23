@@ -163,7 +163,10 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
         [self editButtonTouched:nil];
     }
     
-    [self.tokenField setUserInteractionEnabled:NO];
+#warning - Mathieu, I deactivated this line, you added in commit: f842b9be347529a749aca243fd5dc6d27c389430
+    // Otherwise the tag filed was off when creating a new event, maybe you add a good reason.. but I don't get it
+    
+    //[self.tokenField setUserInteractionEnabled:NO];
     
     self.deleteButton.layer.borderColor = [UIColor colorWithRed:169.0f/255.0f green:169.0f/255.0f blue:169.0f/255.0f alpha:1].CGColor;
     self.deleteButton.layer.borderWidth = 1.0f;
