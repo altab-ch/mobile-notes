@@ -32,13 +32,13 @@
 
 "DetailViewController.TitleNote" = "Note";
 "DetailViewController.TitlePicture" = "Picture";
-"DetailViewController.TitleMeasure" = "Measurement";
+"DetailViewController.TitleMeasure" = "Value";
 
 
 "TextEditorViewController.Title" = "Take a note";
 
 
-"AddNumericalViewController.Title" = "Measurement";
+"AddNumericalViewController.Title" = "Value";
 
 "ViewController.Streams.SelectStream" = "Select a stream";
 "ViewController.Streams.AddNewStream" = "Add new Stream";
@@ -48,5 +48,5 @@
 "ViewController.TextDescriptionContent.TapToAdd" = "Add description";
 "ViewController.Tags.TapToAdd" = "Add tags";
 
-"Settings.User.LogoutFormat" = "Logout (%@)";
-"Settings.User.Login" = "Login";
+"Settings.User.LogoutFormat" = "Sign out (%@)";
+"Settings.User.Login" = "Sign in";
