@@ -38,6 +38,7 @@
 		4EBB85EA1925EE5F00BBDB61 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EBB85E41925EE5F00BBDB61 /* libTestFlight.a */; };
 		4EBB85EB1925EE5F00BBDB61 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 4EBB85E51925EE5F00BBDB61 /* README.md */; };
 		4EBB85EC1925EE5F00BBDB61 /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 4EBB85E61925EE5F00BBDB61 /* release_notes.md */; };
+		4EBB85F3192A4B2300BBDB61 /* PYEventTypes+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB85F2192A4B2300BBDB61 /* PYEventTypes+Helper.m */; };
 		4EBC55961897E67800C4A136 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EBC55951897E67800C4A136 /* MessageUI.framework */; };
 		4EBE04671844D5070031724A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4EBE04691844D5070031724A /* Localizable.strings */; };
 		4EEBE79018B647B800199E64 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 4EEBE78F18B647B800199E64 /* Podfile */; };
@@ -496,6 +497,8 @@
 		4EBB85E71925EE5F00BBDB61 /* TestFlight+AsyncLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+AsyncLogging.h"; sourceTree = "<group>"; };
 		4EBB85E81925EE5F00BBDB61 /* TestFlight+ManualSessions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+ManualSessions.h"; sourceTree = "<group>"; };
 		4EBB85E91925EE5F00BBDB61 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
+		4EBB85F1192A4B2300BBDB61 /* PYEventTypes+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PYEventTypes+Helper.h"; sourceTree = "<group>"; };
+		4EBB85F2192A4B2300BBDB61 /* PYEventTypes+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PYEventTypes+Helper.m"; sourceTree = "<group>"; };
 		4EBC55951897E67800C4A136 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		4EBE04681844D5070031724A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4EBE04711844D52C0031724A /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1267,6 +1270,8 @@
 				B61D55AD17EC51480016D0C4 /* PYStream+Helper.m */,
 				B61D55AF17EC51B80016D0C4 /* PYEvent+Helper.h */,
 				B61D55B017EC51B80016D0C4 /* PYEvent+Helper.m */,
+				4EBB85F1192A4B2300BBDB61 /* PYEventTypes+Helper.h */,
+				4EBB85F2192A4B2300BBDB61 /* PYEventTypes+Helper.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -2171,6 +2176,7 @@
 				B6B5907F178C8BC70009E413 /* TopMenuCell.m in Sources */,
 				B6DC81E9181E63F500118ED9 /* BrowseCell.m in Sources */,
 				B6B59082178C8FD50009E413 /* UIBarButtonItem+PrYv.m in Sources */,
+				4EBB85F3192A4B2300BBDB61 /* PYEventTypes+Helper.m in Sources */,
 				B6DC81F1181E666C00118ED9 /* ValueCell.m in Sources */,
 				B6B5908B178CBB030009E413 /* KSAdvancedPicker.m in Sources */,
 				B6F207B5179358E6006FC5B0 /* TagView.m in Sources */,
@@ -2266,7 +2272,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
-				PROVISIONING_PROFILE = "E9DDC19B-BD54-41B2-8DA2-9B1CA24C7848";
+				PROVISIONING_PROFILE = "62A4611F-D154-4E3C-9FD3-0271D8C622D4";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -2293,7 +2299,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = "-ObjC";
-				PROVISIONING_PROFILE = "E9DDC19B-BD54-41B2-8DA2-9B1CA24C7848";
+				PROVISIONING_PROFILE = "62A4611F-D154-4E3C-9FD3-0271D8C622D4";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
@@ -2318,8 +2324,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					NotesApp/Vendor/TestFlightSDK2.1.4,
-					/Volumes/Temp/perki/Downloads/TestFlightSDK3.0.2,
 					"$(PROJECT_DIR)/NotesApp/Vendor/TestFlightSDK3.0.2",
 				);
 				OTHER_LDFLAGS = (
@@ -2354,8 +2358,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					NotesApp/Vendor/TestFlightSDK2.1.4,
-					/Volumes/Temp/perki/Downloads/TestFlightSDK3.0.2,
 					"$(PROJECT_DIR)/NotesApp/Vendor/TestFlightSDK3.0.2",
 				);
 				OTHER_LDFLAGS = (

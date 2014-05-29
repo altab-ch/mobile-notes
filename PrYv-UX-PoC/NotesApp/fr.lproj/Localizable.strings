@@ -20,11 +20,21 @@
 "Done" = "OK";
 "Edit" = "Modifier";
 
+"LastUsedShortcut.Title" = "Accès rapide";
+
+"MenuTableViewController.DateSelect" = "Date";
+"MenuTableViewController.StreamSelect" = "Choisir des streams";
+
+"BrowserViewController.Title" = "Pryv";
+"BrowserViewController.TitleMenuOpen" = "Ajouter une ...";
+
 "DetailViewController.TitleNote" = "Note";
 "DetailViewController.TitlePicture" = "Photo";
-"DetailViewController.TitleMeasure" = "Mesure";
+"DetailViewController.TitleMeasure" = "Valeur";
 
-"AddNumericalViewController.Title" = "Mesure";
+"TextEditorViewController.Title" = "Prendre une note";
+
+"AddNumericalViewController.Title" = "Valeur";
 
 "ViewController.Streams.SelectStream" = "Choisir un stream";
 "ViewController.Streams.AddNewStream" = "Ajouter un stream";

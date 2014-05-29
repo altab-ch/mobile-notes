@@ -120,6 +120,7 @@
     if(!visible)
     {
         self.menuOpen = NO;
+        self.title = NSLocalizedString(@"BrowserViewController.Title", nil);
         [self topMenuVisibilityDidChange];
         self.menuTableView.userInteractionEnabled = NO;
     }
@@ -130,6 +131,7 @@
         if(visible)
         {
             self.menuOpen = YES;
+            self.title = NSLocalizedString(@"BrowserViewController.TitleMenuOpen", nil);
             [self topMenuVisibilityDidChange];
             self.menuTableView.userInteractionEnabled = YES;
         }
@@ -138,6 +140,7 @@
             completionBlock();
         }
     }];
+    
 }
 
 - (void)topMenuDidSelectOptionAtIndex:(NSInteger)index

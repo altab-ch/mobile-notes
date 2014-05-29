@@ -42,6 +42,8 @@ static int kPickerTag = 10;
 - (void)btCheckPressed:(StreamCheckButton*)sender;
 - (BOOL)hasChild:(PYStream*)stre;
 
+- (void)userDidLogoutNotification:(NSNotification *)notification;
+
 @end
 
 @implementation MenuTableViewController
@@ -70,6 +72,11 @@ static int kPickerTag = 10;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(userDidLogoutNotification:)
+                                                 name:kUserDidLogoutNotification
+                                               object:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -140,14 +147,14 @@ static int kPickerTag = 10;
     UITableViewCell *headerCell = [tableView dequeueReusableCellWithIdentifier:kSectionCellID];
     UILabel *targetedLabel = (UILabel *)[headerCell viewWithTag:kSectionTag];
     if (section==DATE_SECTION) {
-        targetedLabel.text = NSLocalizedString(@"Jump to date",nil);
+        targetedLabel.text = NSLocalizedString(@"MenuTableViewController.DateSelect",nil);
         UIView *backIm = (UIView *)[headerCell viewWithTag:kBackTag];
         [backIm setHidden:YES];
     }else{
         if ([self getParent])
             targetedLabel.text = [[self getParent] breadcrumbs];
         else
-            targetedLabel.text = NSLocalizedString(@"Viewed streams",nil);
+            targetedLabel.text = NSLocalizedString(@"MenuTableViewController.StreamSelect",nil);
         
         if (![self isChild]) {
             UIView *backIm = (UIView *)[headerCell viewWithTag:kBackTag];
@@ -290,12 +297,25 @@ static int kPickerTag = 10;
     return result;
 }
 
+#pragma mark - notification
+
+- (void)userDidLogoutNotification:(NSNotification *)notification
+{
+    // TODO reset all data and eventually close the menu
+    [self.selectedStreamIDs removeAllObjects];
+    [self saveUserDefault];
+    [self.navigationController popToRootViewControllerAnimated:NO];
+    NSLog(@"<WARNING> MenuTableViewController need to be cleaned");
+}
+
+
 #pragma mark - misc
 
 - (void)initStreams
 {
     PYConnection* connection = [[NotesAppController sharedInstance] connection];
     if (connection == nil || !connection.fetchedStreamsRoots ) {
+        self.streams = [[NSArray alloc] initWithObjects:nil];
         NSLog(@"<ERROR> StreamPickerViewController.initStreams connection is nil");
         return;
     }
@@ -304,11 +324,11 @@ static int kPickerTag = 10;
         return [ev1.name compare:ev2.name options:NSCaseInsensitiveSearch];
     }];
     
-    /*if ([[self selectedStreamIDs] count] == 0) {
+    if ([[self selectedStreamIDs] count] == 0) {
         for (PYStream* st in self.streams) {
             [[self selectedStreamIDs] addObject:[st streamId]];
         }
-    }*/
+    }
 }
 
 - (void)createDateFormatter {
@@ -435,7 +455,11 @@ static int kPickerTag = 10;
 
 - (BOOL)isChild
 {
-    if ((self.streams) && ([self.streams objectAtIndex:0]) && ([(PYStream*)[self.streams objectAtIndex:0] parentId]) && !([[(PYStream*)[self.streams objectAtIndex:0] parentId] isEqualToString:@""]))
+    if ((self.streams)
+        && (self.streams.count > 0)
+        && ([self.streams objectAtIndex:0])
+        && ([(PYStream*)[self.streams objectAtIndex:0] parentId])
+        && !([[(PYStream*)[self.streams objectAtIndex:0] parentId] isEqualToString:@""]))
         return YES;
     
     return NO;
@@ -443,7 +467,11 @@ static int kPickerTag = 10;
 
 - (PYStream*)getParent
 {
-    if ((self.streams) && ([self.streams objectAtIndex:0]) && ([(PYStream*)[self.streams objectAtIndex:0] parentId]) && !([[(PYStream*)[self.streams objectAtIndex:0] parentId] isEqualToString:@""]))
+    if ((self.streams)
+        && (self.streams.count > 0)
+        && ([self.streams objectAtIndex:0])
+        && ([(PYStream*)[self.streams objectAtIndex:0] parentId])
+        && !([[(PYStream*)[self.streams objectAtIndex:0] parentId] isEqualToString:@""]))
         return [(PYStream*)[self.streams objectAtIndex:0] parent];
     
     return nil;

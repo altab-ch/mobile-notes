@@ -33,6 +33,7 @@
 #import "MMDrawerController.h"
 #import "MMDrawerBarButtonItem.h"
 #import "MenuNavController.h"
+#import "PYEventTypes+Helper.h"
 
 
 #pragma mark - MySection
@@ -55,8 +56,8 @@
 #define IS_LRU_SECTION self.isMenuOpen
 #define IS_BROWSE_SECTION !self.isMenuOpen
 
-#define kFilterInitialLimit 200
-#define kFilterIncrement 50
+#define kFilterInitialLimit 100000
+#define kFilterIncrement 30
 
 #define kSectionCell @"section_cell_id"
 #define kSectionLabel 10
@@ -93,7 +94,10 @@ static NSString *browseCellIdentifier = @"BrowseEventsCell_ID";
 @property (nonatomic, strong) PYEventFilter *filter;
 @property (nonatomic, strong) NSNumber *isSourceTypePicked;
 @property (nonatomic, strong) UserHistoryEntry *tempEntry;
+
 @property (nonatomic, strong) NSIndexPath *lastIndexPath;
+
+@property (nonatomic) NSTimeInterval *lastTimeFocus;
 
 @property (nonatomic) AggregationStep aggregationStep;
 
@@ -137,7 +141,7 @@ BOOL displayNonStandardEvents;
     if ([self.mm_drawerController openSide]==MMDrawerSideLeft) {
         [menuNavController resetMenu];
 
-        [self unsetFilter];
+        //[self unsetFilter];
         [self loadData];
     }else{
         [menuNavController initStreams];
@@ -187,7 +191,7 @@ BOOL displayNonStandardEvents;
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.title = @"Pryv";
+    self.title = NSLocalizedString(@"BrowserViewController.Title", nil);
     [self loadShortcuts];
 }
 
@@ -252,6 +256,10 @@ BOOL displayNonStandardEvents;
 
 - (void)refreshFilter // called be loadData
 {
+    
+    NSMutableArray* typeFilter = [NSMutableArray arrayWithObjects:@"note/txt", @"picture/attached", nil];
+    [typeFilter addObjectsFromArray:[[PYEventTypes sharedInstance] classesFilterWithNumericalValues]];
+    
     if (self.filter == nil) {
         [self clearCurrentData];
         
@@ -265,8 +273,9 @@ BOOL displayNonStandardEvents;
                                                               limit:kFilterInitialLimit
                                                      onlyStreamsIDs:[self listStreamFilter]
                                                                tags:nil
-                                                              types:nil
+                                                              types:typeFilter
                            ];
+            self.filter.state = PYEventFilter_kStateAll;
             
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(filterEventUpdate:)
                                                          name:kPYNotificationEvents object:self.filter];
@@ -321,18 +330,13 @@ BOOL displayNonStandardEvents;
         [self showLoadingOverlay];
         
         [self.tableView reloadData];
-        if(self.lastIndexPath)
+        /** bring back focus
+        if(self.lastTimeFocus )
         {
-            if (self.lastIndexPath.row <0) {
-                self.lastIndexPath = [NSIndexPath indexPathForRow:0 inSection:self.lastIndexPath.section];
-            }
-            NSInteger numRows = [self tableView:self.tableView numberOfRowsInSection:self.lastIndexPath.section];
-            if (self.lastIndexPath.row >= numRows) {
-                self.lastIndexPath = [NSIndexPath indexPathForRow:numRows - 1  inSection:0];
-            }
             
             [self.tableView scrollToRowAtIndexPath:self.lastIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
         }
+         **/
         [UIView animateWithDuration:0.2 animations:^{
             self.tableView.alpha = 1.0f;
         }];
@@ -364,7 +368,7 @@ BOOL displayNonStandardEvents;
     [self.cellDateFormatter setDateStyle:NSDateFormatterShortStyle];
     [self.cellDateFormatter setTimeStyle:NSDateFormatterShortStyle];
     [self.cellDateFormatter setDoesRelativeDateFormatting:YES];
-        
+
     [self.sectionsTitleFormatter setDateStyle:NSDateFormatterMediumStyle];
     //[self.sectionsTitleFormatter setDateFormat:@"dd.MM.yyyy"];
     [self.sectionsTitleFormatter setDoesRelativeDateFormatting:YES];
@@ -444,11 +448,15 @@ BOOL displayNonStandardEvents;
 }
 
 - (NSMutableOrderedSet*) sectionDataAtIndex:(NSInteger)index {
+    if(IS_LRU_SECTION)
+    {
+        return nil;
+    }
     if (! self.sectionsMapTitles) {
         NSLog(@"<WARNING> BrowseEventsViewController.sectionDataAtIndex empty sectionsMapTitles");
         return nil;
     }
-    if (index > self.sectionsMapTitles.count + 1) {
+    if (index >= self.sectionsMapTitles.count) {
         NSLog(@"<WARNING> BrowseEventsViewController.sectionDataAtIndex index not reachable: %ld",(long)index);
         return nil;
     }
@@ -497,14 +505,26 @@ BOOL displayNonStandardEvents;
 }
 
 -(UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    
+    if(IS_LRU_SECTION)
+    {
+        UITableViewCell *headerCell = [tableView dequeueReusableCellWithIdentifier:kSectionCell];
+        UILabel *targetedLabel = (UILabel *)[headerCell viewWithTag:kSectionLabel];
+        [targetedLabel setText:NSLocalizedString(@"LastUsedShortcut.Title", nil)];
+        return headerCell.contentView;
+    }
     
     
     if(![tableView isEqual:self.menuTableView])
     {
         UITableViewCell *headerCell = [tableView dequeueReusableCellWithIdentifier:kSectionCell];
         UILabel *targetedLabel = (UILabel *)[headerCell viewWithTag:kSectionLabel];
-        [targetedLabel setText:[[self.sectionsMapTitles objectAtIndex:section] title]];
+        
+        if (section >= self.sectionsMapTitles.count) {
+            NSLog(@"<WARNING> BrowseEventsViewController.tableView  index not reachable: %ld",(long)index);
+            [targetedLabel setText:@"..."];
+        } else {
+            [targetedLabel setText:[[self.sectionsMapTitles objectAtIndex:section] title]];
+        }
         return headerCell.contentView;
     }
     if(IS_BROWSE_SECTION)
@@ -723,7 +743,6 @@ BOOL displayNonStandardEvents;
     EventDetailsViewController *eventDetailVC = (EventDetailsViewController*)[[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"EventDetailsViewController_ID"];
     eventDetailVC.event = event;
     
-    self.title = NSLocalizedString(@"Back", nil);
     EventDataType eventType = [eventDetailVC.event eventDataType];
     
     /**
@@ -856,13 +875,14 @@ BOOL displayNonStandardEvents;
         }
     }
     [self.events addObject:eventToAdd];
-    return self.events.count;
+    return (int)self.events.count;
 }
 
 
 - (void)clearCurrentData
 {
     [self.events removeAllObjects];
+    [self rebuildSectionMap];
     [self unsetFilter];
     [self.tableView reloadData];
 }
@@ -887,12 +907,16 @@ BOOL displayNonStandardEvents;
 - (void)userDidReceiveAccessTokenNotification:(NSNotification *)notification
 {
     [self.pullToRefreshManager setPullToRefreshViewVisible:YES];
+    [self clearCurrentData];
+    [self refreshFilter];
     [self loadData];
 }
 
 - (void)userDidLogoutNotification:(NSNotification *)notification
 {
-    [self.pullToRefreshManager setPullToRefreshViewVisible:NO];
+    [self clearCurrentData];
+
+    //[self.pullToRefreshManager setPullToRefreshViewVisible:NO];
 }
 
 - (void)filterEventUpdate:(NSNotification *)notification
@@ -919,13 +943,13 @@ BOOL displayNonStandardEvents;
     
     // events are sent ordered by time
     if (toRemove) {
-        NSLog(@"*262 REMOVE %i", toRemove.count);
+        NSLog(@"*262 REMOVE %lu", (unsigned long)toRemove.count);
         
         PYEvent* kEvent = nil;
         PYEvent* eventToRemove = nil;
-        for (int i = toRemove.count -1 ; i >= 0; i--) {
+        for (long i = toRemove.count -1 ; i >= 0; i--) {
             eventToRemove = [toRemove objectAtIndex:i];
-            for (int k =  (self.events.count - 1) ; k >= 0 ; k--) {
+            for (long k =  (self.events.count - 1) ; k >= 0 ; k--) {
                 kEvent = [self.events objectAtIndex:k];
                 if ([eventToRemove.eventId isEqualToString:kEvent.eventId]) {
                     [self.events removeObjectAtIndex:k];
@@ -937,14 +961,14 @@ BOOL displayNonStandardEvents;
     }
     
     if (modify) {
-        NSLog(@"*262 MODIFY %i", modify.count);
+        NSLog(@"*262 MODIFY %d", modify.count);
         // remove events marked as trashed
         PYEvent* kEvent = nil;
         PYEvent* eventToCheck = nil;
-        for (int i = modify.count -1 ; i >= 0; i--) {
+        for (long i = modify.count -1 ; i >= 0; i--) {
             eventToCheck = [modify objectAtIndex:i];
             if (eventToCheck.trashed) {
-                for (int k =  (self.events.count - 1) ; k >= 0 ; k--) {
+                for (long k =  (self.events.count - 1) ; k >= 0 ; k--) {
                     kEvent = [self.events objectAtIndex:k];
                     if ([eventToCheck.eventId isEqualToString:kEvent.eventId]) {
                         [self.events removeObjectAtIndex:k];
@@ -958,9 +982,9 @@ BOOL displayNonStandardEvents;
     // events are sent ordered by time
     if (toAdd && toAdd.count > 0) {
         
-        NSLog(@"*262 ADD %i", toAdd.count);
+        NSLog(@"*262 ADD %d", toAdd.count);
         
-        for (int i = toAdd.count - 1 ; i >= 0; i--) {
+        for (long i = toAdd.count - 1 ; i >= 0; i--) {
             [self addEventToList:[toAdd objectAtIndex:i]];
         }
         

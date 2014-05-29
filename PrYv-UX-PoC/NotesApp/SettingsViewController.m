@@ -17,7 +17,6 @@
 @interface SettingsViewController ()
 
 
-@property (nonatomic, strong) IBOutlet UILabel *versionTitle;
 @property (nonatomic, strong) IBOutlet UILabel *versionLabel;
 
 
@@ -122,12 +121,12 @@
     if(connection)
     {
         [[NotesAppController sharedInstance] setConnection:nil];
-    }
-    else
-    {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kUserShouldLoginNotification object:nil];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+        /**
         [self.navigationController dismissViewControllerAnimated:YES completion:^{
             [[NSNotificationCenter defaultCenter] postNotificationName:kUserShouldLoginNotification object:nil];
-        }];
+        }];**/
         
     }
 }

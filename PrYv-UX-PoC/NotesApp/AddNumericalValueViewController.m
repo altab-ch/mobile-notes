@@ -61,7 +61,7 @@
     [self.typePicker reloadData];
     UIButton *delBtn = (UIButton*)[self.customKeyborad viewWithTag:11];
     [delBtn setTitle:@"\u232B" forState:UIControlStateNormal];
-    self.navigationItem.title = NSLocalizedString(@"AddNumericalViewController.Title", nil);;
+    self.navigationItem.title = NSLocalizedString(@"AddNumericalViewController.Title", nil);
     if (IS_IPHONE_5){
         [self.typeTextField setFont:[UIFont fontWithName:@"Helvetica Neue" size:40.0]];
         [self.valueField setFont:[UIFont fontWithName:@"Helvetica Neue" size:46.0]];
@@ -275,16 +275,21 @@
         NSInteger selectedGroup = [_typePicker selectedRowInComponent:0];
         PYMeasurementTypesGroup *group = [_measurementGroups objectAtIndex:selectedGroup];
         
-        PYEventType *pyType = [group pyTypeAtIndex:row];
+        PYEventType *pyType = [group pyTypeAtIndex:(int)row];
         NSString *symbolText = pyType.type;
         
         NSString *nameText = @"";
-        if (pyType && pyType.localizedName) {
-            nameText = pyType.localizedName;
+        
+        if (pyType) {
+            if (! pyType.symbol) {
+                symbolText = pyType.localizedName;
+                nameText = @"";
+            } else {
+                symbolText = pyType.symbol;
+                nameText = pyType.localizedName;
+            }
         }
-        if (pyType && pyType.symbol) {
-            symbolText = pyType.symbol;
-        }
+        
         
         AddNumericalValueCellFormat *cell = (AddNumericalValueCellFormat*)view;
         [cell.nameLabel setText:nameText];
@@ -320,7 +325,7 @@
     {
         NSInteger selectedGroup = [_typePicker selectedRowInComponent:0];
         PYMeasurementTypesGroup *group = [_measurementGroups objectAtIndex:selectedGroup];
-        PYEventType *pyType = [group pyTypeAtIndex:row];
+        PYEventType *pyType = [group pyTypeAtIndex:(int)row];
         NSString *descLabel = pyType.key;
         if (pyType && pyType.symbol) {
             descLabel = pyType.symbol;

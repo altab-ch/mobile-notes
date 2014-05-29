@@ -163,7 +163,10 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
         [self editButtonTouched:nil];
     }
     
-    [self.tokenField setUserInteractionEnabled:NO];
+#warning - Mathieu, I deactivated this line, you added in commit: f842b9be347529a749aca243fd5dc6d27c389430
+    // Otherwise the tag filed was off when creating a new event, maybe you add a good reason.. but I don't get it
+    
+    //[self.tokenField setUserInteractionEnabled:NO];
     
     self.deleteButton.layer.borderColor = [UIColor colorWithRed:169.0f/255.0f green:169.0f/255.0f blue:169.0f/255.0f alpha:1].CGColor;
     self.deleteButton.layer.borderWidth = 1.0f;
@@ -304,6 +307,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
         if(self.picture_ImageView.image) return;
         self.picture_ImageView.image = img;
         [self.tableView beginUpdates];
+        [self.tableView reloadData];
         // [self updateUIForEvent];
         [self.tableView endUpdates];
     } failure:nil];
@@ -312,6 +316,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     [self.event firstAttachmentAsImage:^(UIImage *image) {
         self.picture_ImageView.image = image;
         [self.tableView beginUpdates];
+         [self.tableView reloadData];
         //  [self updateUIForEvent];
         [self.tableView endUpdates];
     } errorHandler:nil];
@@ -347,15 +352,22 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
         return;
     }
     NSString *unit = [self.event.pyType symbol];
-    if (! unit) { unit = self.event.pyType.formatKey ; }
+    
+    NSString *formatDescription = [self.event.pyType localizedName];
+    
+    if (! unit) {
+        unit = formatDescription ;
+        [self.numericalValue_TypeLabel setText:@""];
+    } else {
+        [self.numericalValue_TypeLabel setText:formatDescription];
+    }
+    
+    
     
     NSString *value = [NSString stringWithFormat:@"%@ %@",self.getNumericalValueFormatted, unit];
     
     [self.numericalValue_Label setText:value];
     
-    NSString *formatDescription = [self.event.pyType localizedName];
-    if (! formatDescription) { unit = self.event.pyType.key ; }
-    [self.numericalValue_TypeLabel setText:formatDescription];
 }
 
 - (void)updateUIForNoteEventType
@@ -395,6 +407,8 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 {
     DetailCellType cellType = indexPath.row;
     if (cellType == DetailCellTypeImage) {
+        return;
+#warning - deactivated imagePreview as it is too buggy for now
         ImageViewController *imagePreview = [[ImageViewController alloc] initWithNibName:@"ImageViewController" bundle:nil];
         imagePreview.image = self.picture_ImageView.image;
         [self presentViewController:imagePreview animated:YES completion:nil];
