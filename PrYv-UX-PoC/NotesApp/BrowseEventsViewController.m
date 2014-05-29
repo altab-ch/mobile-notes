@@ -114,16 +114,6 @@ static NSString *browseCellIdentifier = @"BrowseEventsCell_ID";
 
 BOOL displayNonStandardEvents;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-#warning perki !! aggregationStep 0 au start, initWithNib pas appelé, voir initWithCoder, initialiser variables dans viewdidload.
-        self.aggregationStep = AggregationStepDay;
-    }
-    return self;
-}
-
 -(MMDrawerController*)mm_drawerController{
     UIViewController *parentViewController = self.parentViewController;
     while (parentViewController != nil) {
@@ -160,6 +150,7 @@ BOOL displayNonStandardEvents;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.aggregationStep = AggregationStepDay;
     [self loadSettings];
     [self resetDateFormatters];
     [self.tableView registerNib:[UINib nibWithNibName:@"BrowseEventCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:browseCellIdentifier];
@@ -298,16 +289,16 @@ BOOL displayNonStandardEvents;
 -(NSTimeInterval) toTime
 {
     return PYEventFilter_UNDEFINED_TOTIME;
-    /*MenuNavController* menuNavController = (MenuNavController*)[self.mm_drawerController leftDrawerViewController];
-    return [[menuNavController getDate] timeIntervalSince1970];*/
+    MenuNavController* menuNavController = (MenuNavController*)[self.mm_drawerController leftDrawerViewController];
+    return [[menuNavController getDate] timeIntervalSince1970];
 }
 
 -(NSArray*) listStreamFilter
 {
-    /*MenuNavController* menuNavController = (MenuNavController*)[self.mm_drawerController leftDrawerViewController];
+    MenuNavController* menuNavController = (MenuNavController*)[self.mm_drawerController leftDrawerViewController];
     NSArray* streams = [menuNavController getMenuStreams];
-    return streams;*/
-    return nil;
+    return streams;
+    //return nil;
 }
 
 - (void)unsetFilter // called by clearData
@@ -373,9 +364,7 @@ BOOL displayNonStandardEvents;
     [self.cellDateFormatter setDateStyle:NSDateFormatterShortStyle];
     [self.cellDateFormatter setTimeStyle:NSDateFormatterShortStyle];
     [self.cellDateFormatter setDoesRelativeDateFormatting:YES];
-    
-#warning Perki ! section key and section title : what's the difference ?
-    
+        
     [self.sectionsTitleFormatter setDateStyle:NSDateFormatterMediumStyle];
     //[self.sectionsTitleFormatter setDateFormat:@"dd.MM.yyyy"];
     [self.sectionsTitleFormatter setDoesRelativeDateFormatting:YES];
