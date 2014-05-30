@@ -9,6 +9,8 @@
 #import "PictureCell.h"
 #import "UIImage+PrYv.h"
 #import <PryvApiKit/PYEvent+Utils.h>
+#import "StreamAccessory.h"
+#import "PYStream+Helper.h"
 
 @interface PictureCell ()
 
@@ -90,12 +92,22 @@
 
 - (void)updateWithEvent:(PYEvent *)event
 {
-    CGSize lbSize = [[event eventBreadcrumbs] sizeWithFont:self.streamLabel.font];
-    [self.streamLabel setFrame:CGRectMake(18, 0, lbSize.width, 16)];
-    [self.streamContainer setFrame:CGRectMake(5, 5, lbSize.width+22, 16)];
-    [self setNeedsDisplay];
-    [self setNeedsLayout];
     [super updateWithEvent:event];
+    
+    for (UIView *vi in self.subviews) {
+        for (UIView *vi2 in vi.subviews) {
+            if ([vi2 isKindOfClass:[StreamAccessory class]]) {
+                [vi2 removeFromSuperview];
+            }
+        }
+    }
+    
+    StreamAccessory *st = [[StreamAccessory alloc] initText:[event eventBreadcrumbs] color:[[event stream] getColor]];
+    [self addSubview:st];
+    
+    NSDate *d = [event eventDate];
+    StreamAccessory *date = [[StreamAccessory alloc] initText:[self.dateFormatter stringFromDate:d] color:nil];
+    [self addSubview:date];
     
     self.startLoadTime = [NSDate date];
     self.currentEventId = event.clientId;

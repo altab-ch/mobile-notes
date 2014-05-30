@@ -79,13 +79,14 @@
 - (void)pyWebLoginSuccess:(PYConnection *)pyConnection
 {
     [pyConnection synchronizeTimeWithSuccessHandler:nil errorHandler:nil];
-    self.browseEventsVC.enabled = YES;
+    //self.browseEventsVC.enabled = YES;
+    [self.browseEventsVC.view setHidden:NO];
     [[NotesAppController sharedInstance] setConnection:pyConnection];
 }
 
 - (void)pyWebLoginAborted:(NSString*)reason
 {
-    self.browseEventsVC.enabled = NO;
+    //self.browseEventsVC.enabled = NO;
     [self.browseEventsVC hideLoadingOverlay];
     NSLog(@"Login aborted with reason: %@",reason);
 }
@@ -99,13 +100,14 @@
 
 - (void)userDidLogoutNotification:(NSNotification *)notification
 {
-    self.browseEventsVC.enabled = NO;
+    //self.browseEventsVC.enabled = NO;
     [self.browseEventsVC clearCurrentData];
     [[LRUManager sharedInstance] clearAllLRUEntries];
     
-    [self.browseEventsVC dismissViewControllerAnimated:YES completion:^{
+    /*[self.browseEventsVC dismissViewControllerAnimated:YES completion:^{
         [self initSignIn];
-    }];
+    }];*/
+    [self.browseEventsVC.view setHidden:YES];
     
 }
 

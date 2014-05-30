@@ -15,6 +15,7 @@
 @property (nonatomic, strong) NSDate *pickedImageTimestamp;
 @property (nonatomic) UIImagePickerControllerSourceType imagePickerType;
 
+- (void)toggleSlider;
 - (void)clearCurrentData;
 
 @end

@@ -61,6 +61,12 @@
     [child reload];
 }
 
+- (void) addStream:(NSString*)streamName
+{
+    MenuTableViewController* child = (MenuTableViewController*)[self topViewController];
+    [child addStream:streamName];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		290042A21938111400436A4B /* StreamAccessory.m in Sources */ = {isa = PBXBuildFile; fileRef = 290042A11938111400436A4B /* StreamAccessory.m */; };
 		2912175918F6A01E000AC905 /* ImagePreview.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2912175818F6A01E000AC905 /* ImagePreview.xib */; };
 		2912176F18F6C4A6000AC905 /* ImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2912176D18F6C4A6000AC905 /* ImageViewController.m */; };
 		2912177018F6C4A6000AC905 /* ImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2912176E18F6C4A6000AC905 /* ImageViewController.xib */; };
@@ -338,6 +339,8 @@
 
 /* Begin PBXFileReference section */
 		27B10024CC6440FBBB338C05 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		290042A01938111400436A4B /* StreamAccessory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamAccessory.h; sourceTree = "<group>"; };
+		290042A11938111400436A4B /* StreamAccessory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamAccessory.m; sourceTree = "<group>"; };
 		2912175818F6A01E000AC905 /* ImagePreview.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImagePreview.xib; sourceTree = "<group>"; };
 		2912176C18F6C4A6000AC905 /* ImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageViewController.h; sourceTree = "<group>"; };
 		2912176D18F6C4A6000AC905 /* ImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageViewController.m; sourceTree = "<group>"; };
@@ -803,6 +806,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		29004294193810DA00436A4B /* Accessory */ = {
+			isa = PBXGroup;
+			children = (
+				290042A01938111400436A4B /* StreamAccessory.h */,
+				290042A11938111400436A4B /* StreamAccessory.m */,
+			);
+			name = Accessory;
+			sourceTree = "<group>";
+		};
 		291ED15619128561009A9B3D /* SideMenu */ = {
 			isa = PBXGroup;
 			children = (
@@ -1601,6 +1613,7 @@
 		B6F5AFFC173260E5000BC60A /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				29004294193810DA00436A4B /* Accessory */,
 				B6993FC81891C05100D88127 /* DetailCells */,
 				B6DC81E6181E63E000118ED9 /* BrowseCell */,
 				B6D8EAAB175A2A4F00A3AA8F /* CategoryCell.h */,
@@ -2161,6 +2174,7 @@
 				B6F1AEC017847420000ECD60 /* JSTokenButton.m in Sources */,
 				2912176F18F6C4A6000AC905 /* ImageViewController.m in Sources */,
 				291ED17F1913E717009A9B3D /* MenuTableViewController.m in Sources */,
+				290042A21938111400436A4B /* StreamAccessory.m in Sources */,
 				B6F1AEC117847420000ECD60 /* JSBackspaceReportingTextField.m in Sources */,
 				B69940371899C45A00D88127 /* DetailsBottomButtonsContainer.m in Sources */,
 				B6993FD21891C07700D88127 /* BaseDetailCell.m in Sources */,

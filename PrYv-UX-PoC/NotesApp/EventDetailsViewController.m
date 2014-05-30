@@ -35,6 +35,7 @@
 #define kShowNoteEditorSegue @"ShowNoteEditorSegue_ID"
 #define kShowDatePickerSegue @"kShowDatePickerSegue_ID"
 #define kShowDescriptionEditorSegue @"ShowDescriptionEditorSegue_ID"
+#define isiPhone5 ([UIScreen mainScreen].bounds.size.height == 568.0f)
 
 typedef NS_ENUM(NSUInteger, DetailCellType)
 {
@@ -162,11 +163,6 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     {
         [self editButtonTouched:nil];
     }
-    
-#warning - Mathieu, I deactivated this line, you added in commit: f842b9be347529a749aca243fd5dc6d27c389430
-    // Otherwise the tag filed was off when creating a new event, maybe you add a good reason.. but I don't get it
-    
-    //[self.tokenField setUserInteractionEnabled:NO];
     
     self.deleteButton.layer.borderColor = [UIColor colorWithRed:169.0f/255.0f green:169.0f/255.0f blue:169.0f/255.0f alpha:1].CGColor;
     self.deleteButton.layer.borderWidth = 1.0f;
@@ -327,7 +323,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     if ([self.event.eventContent isKindOfClass:[NSNumber class]]) {
         NSNumberFormatter *numf = [[NSNumberFormatter alloc] init];
         [numf setNumberStyle:NSNumberFormatterDecimalStyle];
-        if (([[numf stringFromNumber:self.event.eventContent] rangeOfString:@"."].length != 0) || ([[numf stringFromNumber:self.event.eventContent] rangeOfString:@","].length != 0)) {
+        if ([[numf stringFromNumber:self.event.eventContent] rangeOfString:@"."].length != 0){
             [numf setMinimumFractionDigits:2];
         }else{
             [numf setMaximumFractionDigits:0];
@@ -416,7 +412,6 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
         return;
     }
     
-    
     if(!self.isInEditMode)
     {
         return;
@@ -446,6 +441,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
             else
             {
                 StreamPickerViewController *streamPickerVC = [[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"StreamPickerViewController_ID"];
+                
                 [self setupStreamPickerViewController:streamPickerVC];
             }
         }
@@ -743,18 +739,18 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     streamPickerVC.stream = [self.event stream];
     streamPickerVC.delegate = self;
     self.streamPickerVC = streamPickerVC;
-    [self.streamPickerVC.view.subviews[0] removeFromSuperview];
-    CGPoint center = self.streamPickerVC.view.center;
-    self.navigationController.modalPresentationStyle = UIModalPresentationCurrentContext;
-    [self.navigationController presentViewController:self.streamPickerVC animated:NO completion:^{
+    //[self.streamPickerVC.view.subviews[0] removeFromSuperview];
+    //CGPoint center = self.streamPickerVC.view.center;
+    //self.navigationController.modalPresentationStyle = UIModalPresentationCurrentContext;
+    [self.navigationController presentViewController:streamPickerVC animated:YES completion:nil];
+    /*[self.navigationController presentViewController:self.streamPickerVC animated:YES completion:^{
         self.streamPickerVC.view.center = CGPointMake(self.streamPickerVC.view.center.x, self.streamPickerVC.view.center.y + self.view.bounds.size.height);
         [UIView animateWithDuration:0.25f delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
             self.streamPickerVC.view.center = center;
         } completion:^(BOOL finished) {
             
         }];
-    }];
-    
+    }nil];*/
     
 }
 
@@ -857,9 +853,9 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
                 CGSize textSize = [self.descriptionLabel.text sizeWithFont:self.descriptionLabel.font constrainedToSize:CGSizeMake(300, FLT_MAX)];
                 CGFloat height = textSize.height + 20;
                 height = fmaxf(height, 54);
-                self.descriptionLabelConstraint1.constant = fmaxf(height - 10,0);
-                self.descriptionLabelConstraint2.constant = fmaxf(height - 10,0);
-                self.descriptionLabelConstraint3.constant = fmaxf(height - 20,0);
+                self.descriptionLabelConstraint1.constant = height;//fmaxf(height - 10,0);
+                self.descriptionLabelConstraint2.constant = height;//fmaxf(height - 10,0);
+                self.descriptionLabelConstraint3.constant = height;//fmaxf(height - 20,0);
                 return height;
             }
             return 0;
@@ -894,7 +890,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 - (void)saveEvent
 {
-    [self showLoadingOverlay];
+    //[self showLoadingOverlay];
     [NotesAppController sharedConnectionWithID:nil noConnectionCompletionBlock:nil
                            withCompletionBlock:^(PYConnection *connection)
      {
@@ -908,9 +904,9 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
                   shouldTakePictureFlag = self.imagePickerType == UIImagePickerControllerSourceTypeCamera;
               }
               [[DataService sharedInstance] saveEventAsShortcut:self.event andShouldTakePictureFlag:shouldTakePictureFlag];
-              [self hideLoadingOverlay];
+              //[self hideLoadingOverlay];
           } errorHandler:^(NSError *error) {
-              [self hideLoadingOverlay];
+              //[self hideLoadingOverlay];
               UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
                                                               message:[error localizedDescription]
                                                              delegate:nil
@@ -924,18 +920,18 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 - (void)deleteEvent
 {
-    [self showLoadingOverlay];
+    //[self showLoadingOverlay];
     
     [NotesAppController sharedConnectionWithID:nil noConnectionCompletionBlock:nil withCompletionBlock:^(PYConnection *connection)
      {
          [connection eventTrashOrDelete:self.event successHandler:^{
              [self.navigationController popViewControllerAnimated:YES];
-             [self hideLoadingOverlay];
+             //[self hideLoadingOverlay];
          } errorHandler:^(NSError *error) {
              /*UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
               [alert show];*/
              [self cancelButtonTouched:nil];
-             [self hideLoadingOverlay];
+             //[self hideLoadingOverlay];
          }];
          
      }];
@@ -943,14 +939,14 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 - (void)eventSaveModifications
 {
-    [self showLoadingOverlay];
+    //[self showLoadingOverlay];
     [NotesAppController sharedConnectionWithID:nil
                    noConnectionCompletionBlock:nil
                            withCompletionBlock:^(PYConnection *connection)
      {
          [connection eventSaveModifications:self.event successHandler:^(NSString *stoppedId)
           {
-              [self hideLoadingOverlay];
+              //[self hideLoadingOverlay];
           } errorHandler:^(NSError *error) {
               UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
                                                               message:[error localizedDescription]
@@ -958,7 +954,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
                                                     cancelButtonTitle:@"OK"
                                                     otherButtonTitles:nil];
               [alert show];
-              [self hideLoadingOverlay];
+              //[self hideLoadingOverlay];
           }];
      }];
 }

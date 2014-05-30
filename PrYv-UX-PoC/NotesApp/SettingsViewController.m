@@ -11,8 +11,11 @@
 #import "DataService.h"
 #import <QuartzCore/QuartzCore.h>
 #import "AppConstants.h"
+#import "MMDrawerController.h"
+#import "MenuNavController.h"
+#import "BrowseEventsViewController.h"
 
-
+#define Stream_Menu_Default @"stream_menu_default"
 
 @interface SettingsViewController ()
 
@@ -115,14 +118,40 @@
     }
 }
 
+-(MMDrawerController*)mm_drawerController{
+    UIViewController *parentViewController = self.parentViewController;
+    while (parentViewController != nil) {
+        if([parentViewController isKindOfClass:[MMDrawerController class]]){
+            return (MMDrawerController *)parentViewController;
+        }
+        parentViewController = parentViewController.parentViewController;
+    }
+    return nil;
+}
+
 - (void)loginOrLogoutUser
 {
+    MenuNavController* menuNavController = (MenuNavController*)[self.mm_drawerController leftDrawerViewController];
+    [menuNavController resetMenu];
+    [menuNavController reload];
+    [[NSUserDefaults standardUserDefaults] setObject:[NSArray array] forKey:Stream_Menu_Default];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    [[self mm_drawerController] closeDrawerAnimated:NO completion:nil];
+    
+    /*UINavigationController *center = (UINavigationController*)[self.mm_drawerController centerViewController];
+    for (UIViewController *vc in center.viewControllers) {
+        if ([vc isKindOfClass:[BrowseEventsViewController class]]) {
+            [(BrowseEventsViewController*)vc toggleSlider];
+        }
+    }*/
+    
     PYConnection *connection = [[NotesAppController sharedInstance] connection];
     if(connection)
     {
         [[NotesAppController sharedInstance] setConnection:nil];
         [[NSNotificationCenter defaultCenter] postNotificationName:kUserShouldLoginNotification object:nil];
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        //[self.navigationController popToRootViewControllerAnimated:YES];
         /**
         [self.navigationController dismissViewControllerAnimated:YES completion:^{
             [[NSNotificationCenter defaultCenter] postNotificationName:kUserShouldLoginNotification object:nil];

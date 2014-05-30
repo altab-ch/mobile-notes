@@ -135,12 +135,20 @@ BOOL displayNonStandardEvents;
 }
 
 -(void)leftDrawerButtonPress:(id)sender{
-    
     [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
+    [self toggleSlider];
+}
+
+-(void) toggleSlider{
+    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:NO completion:nil];
+}
+
+-(void) togSlider{
+    
     MenuNavController* menuNavController = (MenuNavController*)[self.mm_drawerController leftDrawerViewController];
     if ([self.mm_drawerController openSide]==MMDrawerSideLeft) {
         [menuNavController resetMenu];
-
+        
         //[self unsetFilter];
         [self loadData];
     }else{
@@ -148,7 +156,6 @@ BOOL displayNonStandardEvents;
         [menuNavController reload];
         
     }
-    
 }
 
 - (void)viewDidLoad
@@ -758,7 +765,8 @@ BOOL displayNonStandardEvents;
     
     if(event.isDraft)
     {
-        [eventDetailVC view];
+#warning recoder : navigation presentviewcontroller
+        //[eventDetailVC view];
         NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:self.navigationController.viewControllers];
         [viewControllers addObject:eventDetailVC];
         if(eventType == EventDataTypeNote && eventDetailVC.event.type != nil)

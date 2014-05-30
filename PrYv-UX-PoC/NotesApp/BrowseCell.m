@@ -9,6 +9,7 @@
 #import "BrowseCell.h"
 #import "TagView.h"
 #import "PYStream+Helper.h"
+#import "PictureCell.h"
 
 @interface BrowseCell ()
 
@@ -55,9 +56,12 @@
 {
     self.event = event;
     self.commentLabel.text = event.eventDescription;
-    self.streamLabel.text = [event eventBreadcrumbs];
+    if (self.streamLabel)
+        self.streamLabel.text = [event eventBreadcrumbs];
+    if (self.pastille)
+        [[self pastille] setBackgroundColor:[[event stream] getColor]];
     
-    [[self pastille] setBackgroundColor:[[event stream] getColor]];
+    
     
     [self updateTags:event.tags];
     
@@ -66,28 +70,29 @@
     /*if (aggregation==jour) {
         [[NotesAppController sharedInstance].dateFormatter setDateStyle:NSDateFormatterNoStyle];
     }*/
-    self.dateLabel.text = [self.dateFormatter stringFromDate:date];
+    if (self.dateLabel)
+        self.dateLabel.text = [self.dateFormatter stringFromDate:date];
     
-    
-    [self setNeedsLayout];
-    [self layoutIfNeeded];
+    /*[self setNeedsLayout];
+    [self layoutIfNeeded];*/
 }
 
-- (void)layoutSubviews
+/*- (void)layoutSubviews
 {
+    
     CGRect descLabelFrame = self.commentLabel.frame;
     
-    /*if([self.event.tags count] > 0)
+    if([self.event.tags count] > 0)
     {
         descLabelFrame.origin.y = 92;
     }
-    else*/
+    else
     if([self.event.tags count] <= 0)
     {
         descLabelFrame.origin.y = self.bounds.size.height - descLabelFrame.size.height;
     }
     
     self.commentLabel.frame = descLabelFrame;
-}
+}*/
 
 @end

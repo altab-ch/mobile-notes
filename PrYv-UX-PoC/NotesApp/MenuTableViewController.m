@@ -23,6 +23,7 @@ static NSString *kSectionCellID = @"section_cell";
 static int kCheckTag = 15;
 static int kDisclosureTag = 14;
 static int kBackTag = 16;
+static int kAllTag = 17;
 static int kSectionTag = 13;
 static int kStreamTag = 11;
 static int kDateTag = 12;
@@ -38,6 +39,7 @@ static int kPickerTag = 10;
 
 - (IBAction)dateChanged:(UIDatePicker *)sender;
 - (IBAction)btBackStreamPressed:(UIButton *)sender;
+- (IBAction)btAllStreamPressed:(UIButton *)sender;
 - (BOOL)isChild;
 - (void)btCheckPressed:(StreamCheckButton*)sender;
 - (BOOL)hasChild:(PYStream*)stre;
@@ -66,7 +68,7 @@ static int kPickerTag = 10;
     UITableViewCell *pickerViewCellToCheck = [self.tableView dequeueReusableCellWithIdentifier: kPickerCellID];
     self.pickerCellRowHeight = pickerViewCellToCheck.frame.size.height;
     [self initStreams];
-    
+    //[self checkEmptyPick];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -150,6 +152,8 @@ static int kPickerTag = 10;
         targetedLabel.text = NSLocalizedString(@"MenuTableViewController.DateSelect",nil);
         UIView *backIm = (UIView *)[headerCell viewWithTag:kBackTag];
         [backIm setHidden:YES];
+        UIView *btAll = (UIView *)[headerCell viewWithTag:kAllTag];
+        [btAll setHidden:YES];
     }else{
         if ([self getParent])
             targetedLabel.text = [[self getParent] breadcrumbs];
@@ -228,6 +232,25 @@ static int kPickerTag = 10;
         }];
     }
     [self.tableView reloadData];
+}
+
+- (IBAction)btAllStreamPressed:(UIButton *)sender
+{
+    if ([self.streams count] == [self.selectedStreamIDs count]) {
+        [self.selectedStreamIDs removeAllObjects];
+    }else{
+        [self.selectedStreamIDs removeAllObjects];
+        [self checkEmptyPick];
+    }
+    [self reload];
+}
+
+- (void) checkEmptyPick{
+    if ([[self selectedStreamIDs] count] == 0) {
+        for (PYStream* st in self.streams) {
+            [[self selectedStreamIDs] addObject:[st streamId]];
+        }
+    }
 }
 
 - (void)btCheckPressed:(StreamCheckButton*)sender
@@ -323,12 +346,6 @@ static int kPickerTag = 10;
     self.streams = [connection.fetchedStreamsRoots sortedArrayUsingComparator:^NSComparisonResult(PYStream* ev1, PYStream* ev2) {
         return [ev1.name compare:ev2.name options:NSCaseInsensitiveSearch];
     }];
-    
-    if ([[self selectedStreamIDs] count] == 0) {
-        for (PYStream* st in self.streams) {
-            [[self selectedStreamIDs] addObject:[st streamId]];
-        }
-    }
 }
 
 - (void)createDateFormatter {
@@ -487,7 +504,20 @@ static int kPickerTag = 10;
 
 - (NSArray*) getStreamIDs
 {
-    return self.selectedStreamIDs;
+    return [self selectedStreamIDs];
+}
+
+- (void) addStream:(NSString*)name
+{
+    NSArray* tmp = [self.streams copy];
+    [self initStreams];
+    for (PYStream *st in self.streams) {
+        if (![tmp containsObject:st]) {
+            [self.selectedStreamIDs addObject:st.streamId];
+            [self.tableView reloadData];
+        }
+    }
+    
 }
 
 - (NSDate*) getDate

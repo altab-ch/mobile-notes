@@ -32,12 +32,9 @@
 
 - (void)updateWithEvent:(PYEvent *)event
 {
-   
-    
-    
     NSNumberFormatter *numf = [[NSNumberFormatter alloc] init];
     [numf setNumberStyle:NSNumberFormatterDecimalStyle];
-    if (([[numf stringFromNumber:event.eventContent] rangeOfString:@"."].length != 0) || ([[numf stringFromNumber:event.eventContent] rangeOfString:@","].length != 0)) {
+    if ([[numf stringFromNumber:event.eventContent] rangeOfString:@"."].length != 0){
         [numf setMinimumFractionDigits:2];
     }else{
         [numf setMaximumFractionDigits:0];

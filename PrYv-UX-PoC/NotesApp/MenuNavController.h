@@ -15,4 +15,5 @@
 - (NSDate*) getDate;
 - (void) initStreams;
 - (void) reload;
+- (void) addStream:(NSString*)streamName;
 @end

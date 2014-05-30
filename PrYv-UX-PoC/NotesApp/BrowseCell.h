@@ -12,10 +12,10 @@
 @interface BrowseCell : UITableViewCell
 
 @property (nonatomic, strong) IBOutlet UILabel *dateLabel;
-@property (nonatomic, weak) IBOutlet UILabel *streamLabel;
+@property (nonatomic, strong) IBOutlet UILabel *streamLabel;
 @property (nonatomic, strong) IBOutlet UILabel *commentLabel;
 @property (nonatomic, strong) IBOutlet UIView *tagContainer;
-@property (nonatomic, weak) IBOutlet UIView *streamContainer;
+@property (nonatomic, strong) IBOutlet UIView *streamContainer;
 @property (nonatomic, weak) IBOutlet UIView *pastille;
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
 
