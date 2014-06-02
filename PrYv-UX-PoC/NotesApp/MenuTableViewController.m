@@ -46,16 +46,19 @@ static int kPickerTag = 10;
 - (BOOL)hasChild:(PYStream*)stre;
 
 - (void)userDidLogoutNotification:(NSNotification *)notification;
+- (void)userDidReceiveAccessTokenNotification:(NSNotification *)notification;
 
 @end
 
 @implementation MenuTableViewController
 
+
+#warning a supprimer si pas de bug
 -(id) initWithCoder:(NSCoder *)aDecoder
 {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        [self loadUserDefault];
+        
 
     }
     return self;
@@ -64,17 +67,21 @@ static int kPickerTag = 10;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self loadUserDefault];
     [self createDateFormatter];
     [self setDatePickerIsHidden:true];
     UITableViewCell *pickerViewCellToCheck = [self.tableView dequeueReusableCellWithIdentifier: kPickerCellID];
     self.pickerCellRowHeight = pickerViewCellToCheck.frame.size.height;
     [self initStreams];
-    //[self checkEmptyPick];
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    [self loadUserDefault];
+    if (![self.selectedStreamIDs count])
+        [self checkEmptyPick];
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(userDidReceiveAccessTokenNotification:)
+                                                 name:kAppDidReceiveAccessTokenNotification
+                                               object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(userDidLogoutNotification:)
@@ -329,8 +336,18 @@ static int kPickerTag = 10;
     // TODO reset all data and eventually close the menu
     [self.selectedStreamIDs removeAllObjects];
     [self saveUserDefault];
-    [self.navigationController popToRootViewControllerAnimated:NO];
+    //[self.navigationController popToRootViewControllerAnimated:NO];
     NSLog(@"<WARNING> MenuTableViewController need to be cleaned");
+}
+
+- (void)userDidReceiveAccessTokenNotification:(NSNotification *)notification
+{
+    [self loadUserDefault];
+    [self initStreams];
+    if (![self.selectedStreamIDs count])
+        [self checkEmptyPick];
+    
+    [self reload];
 }
 
 

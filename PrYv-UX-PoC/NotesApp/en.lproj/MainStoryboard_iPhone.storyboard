@@ -670,6 +670,7 @@ height=123312</string>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="OCf-cb-bKI" firstAttribute="top" secondItem="tKO-ND-CN1" secondAttribute="bottom" id="Ohd-on-C3c"/>
+                            <constraint firstItem="tKO-ND-CN1" firstAttribute="top" secondItem="K6W-cn-ZXt" secondAttribute="top" id="z85-cX-yDe"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="llC-iG-XDe">

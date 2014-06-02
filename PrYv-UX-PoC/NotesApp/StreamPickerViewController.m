@@ -146,6 +146,7 @@
     cell.streamName.text = stream.name;
     BOOL isSelected = [stream.streamId isEqualToString:self.stream.streamId];
     [cell setSelected:isSelected animated:NO];
+    [[cell viewWithTag:10] setBackgroundColor:[stream getColor]];
 }
 
 - (void)setupRegularCell:(StreamCell*)cell
