@@ -592,6 +592,10 @@ BOOL displayNonStandardEvents;
         result = 90.0;
     else if (cellStyleType == CellStyleTypeMeasure)
         result = 65.0;
+    else if (cellStyleType == CellStyleTypeMoney)
+        result = 65.0;
+    else
+        NSLog(@"Warnign : type cell is not photo, text or measure.");
     return result;
 }
 

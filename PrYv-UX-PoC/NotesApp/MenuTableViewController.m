@@ -53,13 +53,11 @@ static int kPickerTag = 10;
 @implementation MenuTableViewController
 
 
-#warning a supprimer si pas de bug
 -(id) initWithCoder:(NSCoder *)aDecoder
 {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        
-
+        [self loadUserDefault];
     }
     return self;
 }
@@ -67,7 +65,6 @@ static int kPickerTag = 10;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self loadUserDefault];
     [self createDateFormatter];
     [self setDatePickerIsHidden:true];
     UITableViewCell *pickerViewCellToCheck = [self.tableView dequeueReusableCellWithIdentifier: kPickerCellID];

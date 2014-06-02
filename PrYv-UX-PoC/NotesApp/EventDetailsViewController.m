@@ -97,9 +97,9 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 // -- constraints
 
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *tagDoneButtonConstraint;
-@property (nonatomic, weak) IBOutlet NSLayoutConstraint *descriptionLabelConstraint1;
-@property (nonatomic, weak) IBOutlet NSLayoutConstraint *descriptionLabelConstraint2;
-@property (nonatomic, weak) IBOutlet NSLayoutConstraint *descriptionLabelConstraint3;
+//@property (nonatomic, weak) IBOutlet NSLayoutConstraint *descriptionLabelConstraint1;
+//@property (nonatomic, weak) IBOutlet NSLayoutConstraint *descriptionLabelConstraint2;
+//@property (nonatomic, weak) IBOutlet NSLayoutConstraint *descriptionLabelConstraint3;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *noteLabelConstraint1;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *noteLabelConstraint2;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *noteLabelConstraint3;
@@ -853,10 +853,10 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
             {
                 CGSize textSize = [self.descriptionLabel.text sizeWithFont:self.descriptionLabel.font constrainedToSize:CGSizeMake(300, FLT_MAX)];
                 CGFloat height = textSize.height + 20;
-                height = fmaxf(height, 54);
-                self.descriptionLabelConstraint1.constant = height;//fmaxf(height - 10,0);
-                self.descriptionLabelConstraint2.constant = height;//fmaxf(height - 10,0);
-                self.descriptionLabelConstraint3.constant = height;//fmaxf(height - 20,0);
+                height = fmaxf(height, 80);
+                //self.descriptionLabelConstraint1.constant = height;//fmaxf(height - 10,0);
+                //self.descriptionLabelConstraint2.constant = height;//fmaxf(height - 10,0);
+                //self.descriptionLabelConstraint3.constant = height;//fmaxf(height - 20,0);
                 return height;
             }
             return 0;
@@ -877,6 +877,8 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
         case DetailCellTypeStreams:
             return kLineCellHeight;
             
+        case DetailCellTypeSpacer:
+            return 10;
         default:
             break;
     }
