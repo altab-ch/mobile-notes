@@ -13,8 +13,6 @@
 #import "UIAlertView+PrYv.h"
 #import "NotesAppController.h"
 #import "PYStream+Utils.h"
-#import <MMDrawerController.h>
-#import "MenuNavController.h"
 
 @interface StreamPickerViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -170,18 +168,7 @@
     }];
 }
 
--(MMDrawerController*)mm_drawerController{
-    
-    return (MMDrawerController*)[[[[UIApplication sharedApplication] delegate] window]rootViewController];
-    /*UIViewController *parentViewController = self.parentViewController;
-    while (parentViewController != nil) {
-        if([parentViewController isKindOfClass:[MMDrawerController class]]){
-            return (MMDrawerController *)parentViewController;
-        }
-        parentViewController = parentViewController.parentViewController;
-    }*/
-    return nil;
-}
+
 
 #pragma mark - UITableViewDelegate methods
 
@@ -204,12 +191,6 @@
          {
              [connection streamCreate:stream successHandler:^(NSString *createdStreamId) {
                 
-                 
-                 
-                 MenuNavController* menuNavController = (MenuNavController*)[self.mm_drawerController leftDrawerViewController];
-                 
-                 [menuNavController addStream:streamName];
-                 
                  [self updateUIElements];
                  [self hideLoadingOverlay];
                  [self.delegate streamPickerDidSelectStream:stream];

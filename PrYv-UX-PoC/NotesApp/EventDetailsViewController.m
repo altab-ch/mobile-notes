@@ -25,6 +25,8 @@
 #import "ImagePreviewViewController.h"
 #import "ImageViewController.h"
 #import "NotesAppController.h"
+#import "MMDrawerController.h"
+#import "MenuNavController.h"
 
 #define kLineCellHeight 54
 #define kValueCellHeight 100
@@ -888,6 +890,11 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     return (self.event.eventId == nil);
 }
 
+-(MMDrawerController*)mm_drawerController{
+    
+    return (MMDrawerController*)[[[[UIApplication sharedApplication] delegate] window]rootViewController];
+}
+
 - (void)saveEvent
 {
     //[self showLoadingOverlay];
@@ -898,6 +905,9 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
          [connection eventCreate:self.event
                   successHandler:^(NSString *newEventId, NSString *stoppedId, PYEvent* event)
           {
+              MenuNavController* menuNavController = (MenuNavController*)[self.mm_drawerController leftDrawerViewController];
+              [menuNavController addStream:event.streamId];
+              
               BOOL shouldTakePictureFlag = NO;
               if(self.eventDataType == EventDataTypeImage)
               {

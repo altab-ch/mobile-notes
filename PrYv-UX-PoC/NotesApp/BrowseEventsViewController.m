@@ -136,7 +136,7 @@ BOOL displayNonStandardEvents;
 
 -(void)leftDrawerButtonPress:(id)sender{
     [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
-    [self toggleSlider];
+    [self togSlider];
 }
 
 -(void) toggleSlider{
@@ -149,7 +149,7 @@ BOOL displayNonStandardEvents;
     if ([self.mm_drawerController openSide]==MMDrawerSideLeft) {
         [menuNavController resetMenu];
         
-        //[self unsetFilter];
+        [self unsetFilter];
         [self loadData];
     }else{
         [menuNavController initStreams];

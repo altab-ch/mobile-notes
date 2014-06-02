@@ -324,6 +324,7 @@ static int kPickerTag = 10;
 
 - (void)userDidLogoutNotification:(NSNotification *)notification
 {
+#warning perki ?
     // TODO reset all data and eventually close the menu
     [self.selectedStreamIDs removeAllObjects];
     [self saveUserDefault];
@@ -509,15 +510,10 @@ static int kPickerTag = 10;
 
 - (void) addStream:(NSString*)name
 {
-    NSArray* tmp = [self.streams copy];
-    [self initStreams];
-    for (PYStream *st in self.streams) {
-        if (![tmp containsObject:st]) {
-            [self.selectedStreamIDs addObject:st.streamId];
-            [self.tableView reloadData];
-        }
+    if (![self.selectedStreamIDs containsObject:name]) {
+        [self.selectedStreamIDs addObject:name];
+        [self.tableView reloadData];
     }
-    
 }
 
 - (NSDate*) getDate
