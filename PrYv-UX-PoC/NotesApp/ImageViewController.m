@@ -33,7 +33,7 @@
     tapGR.numberOfTouchesRequired = 1;
     [self.scrollView addGestureRecognizer:tapGR];
     self.contentImageView.image = self.image;
-    [self.contentImageView setContentMode:UIViewContentModeScaleAspectFit];
+    //[self.contentImageView setContentMode:UIViewContentModeScaleAspectFit];
     self.navigationController.navigationBarHidden = YES;
     
 }
@@ -45,9 +45,6 @@
     }else{
         [self.contentImageView setFrame:CGRectMake(0, 0, 320.0, 480.0)];
     }
-    NSLog(@"view : %f, %f, %f, %f", self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.height, self.view.frame.size.width);
-    NSLog(@"scrollview : %f, %f, %f, %f", self.scrollView.frame.origin.x, self.scrollView.frame.origin.y, self.scrollView.frame.size.height, self.scrollView.frame.size.width);
-    NSLog(@"scrollview : %f, %f, %f, %f", self.contentImageView.frame.origin.x, self.contentImageView.frame.origin.y, self.contentImageView.frame.size.height, self.contentImageView.frame.size.width);
     
 }
 

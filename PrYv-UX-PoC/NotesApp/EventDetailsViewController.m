@@ -405,7 +405,6 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 {
     DetailCellType cellType = indexPath.row;
     if (cellType == DetailCellTypeImage) {
-        return;
 #warning - deactivated imagePreview as it is too buggy for now
         ImageViewController *imagePreview = [[ImageViewController alloc] initWithNibName:@"ImageViewController" bundle:nil];
         imagePreview.image = self.picture_ImageView.image;

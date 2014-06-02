@@ -99,9 +99,9 @@
 
 - (void)setupViewForImage:(UIImage *)image
 {
-    //self.contentImageView.frame = CGRectMake(0, 0, image.size.width, image.size.height);
+    self.contentImageView.frame = CGRectMake(0, 0, image.size.width, image.size.height);
     self.contentImageView.image = image;
-    //self.scrollView.contentSize = self.contentImageView.frame.size;
+    self.scrollView.contentSize = self.contentImageView.frame.size;
 }
 
 - (UIView*)viewForZoomingInScrollView:(UIScrollView*)scrollView

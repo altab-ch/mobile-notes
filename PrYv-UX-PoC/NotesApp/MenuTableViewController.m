@@ -24,6 +24,7 @@ static int kCheckTag = 15;
 static int kDisclosureTag = 14;
 static int kBackTag = 16;
 static int kAllTag = 17;
+static int kPastilleTag = 18;
 static int kSectionTag = 13;
 static int kStreamTag = 11;
 static int kDateTag = 12;
@@ -171,7 +172,7 @@ static int kPickerTag = 10;
 
 -(CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 44.0;
+    return 35.0;
 }
 
 #pragma mark - Table view delegate
@@ -423,6 +424,9 @@ static int kPickerTag = 10;
     else
         [bt setImage:[UIImage imageNamed:@"checkbox_default"] forState:UIControlStateNormal];
     [bt setStream:stream_];
+    
+    UIView *pastille = (UIView*)[cell viewWithTag:kPastilleTag];
+    [pastille setBackgroundColor:[stream_ getColor]];
     
     UIImageView *im = (UIImageView *)[cell viewWithTag:kDisclosureTag];
     if (![self hasChild:stream_])

@@ -261,6 +261,10 @@ BOOL displayNonStandardEvents;
     }
 }
 
+-(void) addStreamIdToFilter:(NSString*)streamId{
+#warning changeFilter to add a stream in onlyStreamIDs after adding a new event in "not visible" stream or new stream ?
+}
+
 - (void)refreshFilter // called be loadData
 {
     
