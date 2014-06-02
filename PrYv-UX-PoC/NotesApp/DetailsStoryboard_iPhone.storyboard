@@ -483,11 +483,6 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="79"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="12Q-3w-LVd">
-                                                    <rect key="frame" x="5" y="5" width="310" height="69"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                                </view>
                                                 <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hpg-e6-VRU">
                                                     <rect key="frame" x="5" y="5" width="310" height="69"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -504,8 +499,7 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstItem="Pu4-aJ-C35" firstAttribute="top" secondItem="ns8-gx-b64" secondAttribute="top" constant="10" id="Aib-fq-wdH"/>
-                                                <constraint firstItem="Hpg-e6-VRU" firstAttribute="top" secondItem="ns8-gx-b64" secondAttribute="top" constant="5" id="Udg-nr-Iva"/>
-                                                <constraint firstItem="12Q-3w-LVd" firstAttribute="top" secondItem="ns8-gx-b64" secondAttribute="top" constant="5" id="eI1-I3-P2y"/>
+                                                <constraint firstAttribute="bottom" secondItem="Pu4-aJ-C35" secondAttribute="bottom" constant="9" id="qBB-qy-K3f"/>
                                                 <constraint firstItem="Hpg-e6-VRU" firstAttribute="bottom" secondItem="Pu4-aJ-C35" secondAttribute="bottom" constant="4" id="ruY-MH-BUX"/>
                                             </constraints>
                                         </tableViewCellContentView>
