@@ -76,8 +76,6 @@ static NSString *browseCellIdentifier = @"BrowseEventsCell_ID";
 
 
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
-@property (nonatomic, strong) NSMutableArray *events;
-
 
 @property (nonatomic, strong) NSMutableDictionary *sectionsMap;
 @property (nonatomic, strong) NSMutableOrderedSet *sectionsMapTitles;
@@ -187,8 +185,6 @@ BOOL displayNonStandardEvents;
                                                options:(NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld) context:nil];
     
     self.pullToRefreshManager = [[MNMPullToRefreshManager alloc] initWithPullToRefreshViewHeight:60 tableView:self.tableView withClient:self];
-    
-    self.events = [[NSMutableArray alloc] init];
     
     self.tableView.alpha = 0.0f;
     [self setupLeftMenuButton];
@@ -356,6 +352,7 @@ BOOL displayNonStandardEvents;
     }
     isLoading = NO;
     
+    
     // refresh stream.. can be done asynchronously
     [NotesAppController sharedConnectionWithID:nil noConnectionCompletionBlock:^{
         
@@ -399,6 +396,10 @@ BOOL displayNonStandardEvents;
 }
 
 - (void)rebuildSectionMap {
+    
+    
+
+    
     if (self.sectionsMap == nil) {
         self.sectionsMap = [[NSMutableDictionary alloc] init];
         self.sectionsMapTitles = [[NSMutableOrderedSet alloc] init];
@@ -407,9 +408,20 @@ BOOL displayNonStandardEvents;
         [self.sectionsMapTitles removeAllObjects];
     }
     
+    
+    NSArray* events = nil;
+    if (self.filter != nil) {
+        events = [self.filter currentEventsSet];
+    }
+    
+    
+    if (events == nil) return;
+    
     // go thru all events and set one section per date
-    for (PYEvent* event in self.events) {
-        [self addToSectionMapEvent:event];
+    for (PYEvent* event in events) {
+        if ([self clientFilterMatchEvent:event]) {
+            [self addToSectionMapEvent:event];
+        }
     }
 }
 
@@ -448,7 +460,7 @@ BOOL displayNonStandardEvents;
     PYEvent* kEvent = nil;
     if (eventList.count > 0) {
         for (int k = 0; k < eventList.count; k++) {
-            kEvent = [self.events objectAtIndex:k];
+            kEvent = [eventList objectAtIndex:k];
             if ([kEvent getEventServerTime] < [event getEventServerTime]) {
                 [eventList insertObject:event atIndex:k];
                 return;
@@ -601,10 +613,12 @@ BOOL displayNonStandardEvents;
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
+#warning - here should go the next page down
+    /**
     if(indexPath.row == [self.events count] - 1)
     {
         [self loadMoreDataForIndexPath:indexPath];
-    }
+    }**/
 }
 
 - (void)loadMoreDataForIndexPath:(NSIndexPath*)indexPath
@@ -872,32 +886,11 @@ BOOL displayNonStandardEvents;
     return displayNonStandardEvents || ! ([event cellStyle] == CellStyleTypeUnkown );
 }
 
-/**
- * add an event to the list, will match it against current client filter
- * return index of event Added, -1 if not added
- */
-- (int)addEventToList:(PYEvent*) eventToAdd {
-    if (! [self clientFilterMatchEvent:eventToAdd]) {
-        return -1;
-    }
-    PYEvent* kEvent = nil;
-    if (self.events.count > 0) {
-        for (int k = 0; k < self.events.count; k++) {
-            kEvent = [self.events objectAtIndex:k];
-            if ([kEvent getEventServerTime] < [eventToAdd getEventServerTime]) {
-                [self.events insertObject:eventToAdd atIndex:k];
-                return k;
-            }
-        }
-    }
-    [self.events addObject:eventToAdd];
-    return (int)self.events.count;
-}
+
 
 
 - (void)clearCurrentData
 {
-    [self.events removeAllObjects];
     [self rebuildSectionMap];
     [self unsetFilter];
     [self.tableView reloadData];
@@ -950,49 +943,17 @@ BOOL displayNonStandardEvents;
     // ref : http://www.nsprogrammer.com/2013/07/updating-uitableview-with-dynamic-data.html
     // ref2 : http://stackoverflow.com/questions/4777683/how-do-i-efficiently-update-a-uitableview-with-animation
     
-    
-    // firstOfAll check event order and add them to toAdd array fo rearranging
-    [PYEventFilter sortNSMutableArrayOfPYEvents:self.events sortAscending:NO];
-    
-    
-    
+  
     
     // events are sent ordered by time
     if (toRemove) {
         NSLog(@"*262 REMOVE %lu", (unsigned long)toRemove.count);
         
-        PYEvent* kEvent = nil;
-        PYEvent* eventToRemove = nil;
-        for (long i = toRemove.count -1 ; i >= 0; i--) {
-            eventToRemove = [toRemove objectAtIndex:i];
-            for (long k =  (self.events.count - 1) ; k >= 0 ; k--) {
-                kEvent = [self.events objectAtIndex:k];
-                if ([eventToRemove.eventId isEqualToString:kEvent.eventId]) {
-                    [self.events removeObjectAtIndex:k];
-                    break; // assuming an event is only represented once in the list
-                }
-            }
-        }
-        
     }
     
     if (modify) {
         NSLog(@"*262 MODIFY %d", modify.count);
-        // remove events marked as trashed
-        PYEvent* kEvent = nil;
-        PYEvent* eventToCheck = nil;
-        for (long i = modify.count -1 ; i >= 0; i--) {
-            eventToCheck = [modify objectAtIndex:i];
-            if (eventToCheck.trashed) {
-                for (long k =  (self.events.count - 1) ; k >= 0 ; k--) {
-                    kEvent = [self.events objectAtIndex:k];
-                    if ([eventToCheck.eventId isEqualToString:kEvent.eventId]) {
-                        [self.events removeObjectAtIndex:k];
-                        break; // assuming an event is only represented once in the list
-                    }
-                }
-            }
-        }
+
     }
     
     // events are sent ordered by time
@@ -1000,9 +961,6 @@ BOOL displayNonStandardEvents;
         
         NSLog(@"*262 ADD %d", toAdd.count);
         
-        for (long i = toAdd.count - 1 ; i >= 0; i--) {
-            [self addEventToList:[toAdd objectAtIndex:i]];
-        }
         
     }
     
