@@ -149,7 +149,7 @@ BOOL displayNonStandardEvents;
     if ([self.mm_drawerController openSide]==MMDrawerSideLeft) {
         [menuNavController resetMenu];
         
-        [self unsetFilter];
+        //[self unsetFilter];
         [self loadData];
     }else{
         [menuNavController initStreams];

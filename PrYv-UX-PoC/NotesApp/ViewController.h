@@ -16,6 +16,7 @@
 
 @interface ViewController : BaseViewController <PYWebLoginDelegate>
 
+
 - (void)initSignIn;
 
 @end

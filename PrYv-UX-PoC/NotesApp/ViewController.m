@@ -14,8 +14,10 @@
 @interface ViewController ()
 
 @property (nonatomic, strong) BrowseEventsViewController *browseEventsVC;
+@property (nonatomic, strong) UIViewController* pyLoginViewController;
 
 - (void)userDidLogoutNotification:(NSNotification*)notification;
+- (void)closeLoginWebView;
 
 @end
 
@@ -71,9 +73,25 @@
 
 #pragma mark - PYWebLoginDelegate
 
+
+- (void)closeLoginWebView
+{
+    if (self.pyLoginViewController) {
+        [self.pyLoginViewController dismissViewControllerAnimated:YES completion:^{ }];
+        self.pyLoginViewController = nil;
+    }
+}
+
 - (UIViewController*)pyWebLoginGetController
 {
-    return self.browseEventsVC;
+    return nil;
+}
+
+- (BOOL)pyWebLoginShowUIViewController:(UIViewController*)loginViewController
+{
+    self.pyLoginViewController = loginViewController;
+    [self.browseEventsVC presentViewController:loginViewController animated:YES completion:nil];
+    return YES;
 }
 
 - (void)pyWebLoginSuccess:(PYConnection *)pyConnection
@@ -82,6 +100,7 @@
     //self.browseEventsVC.enabled = YES;
     [self.browseEventsVC.view setHidden:NO];
     [[NotesAppController sharedInstance] setConnection:pyConnection];
+    [self closeLoginWebView];
 }
 
 - (void)pyWebLoginAborted:(NSString*)reason
@@ -89,11 +108,14 @@
     //self.browseEventsVC.enabled = NO;
     [self.browseEventsVC hideLoadingOverlay];
     NSLog(@"Login aborted with reason: %@",reason);
+    [self closeLoginWebView];
+    
 }
 
 - (void)pyWebLoginError:(NSError *)error
 {
     NSLog(@"Login error: %@",error);
+    [self closeLoginWebView];
 }
 
 #pragma mark - Notifications
@@ -105,8 +127,8 @@
     [[LRUManager sharedInstance] clearAllLRUEntries];
     
     /*[self.browseEventsVC dismissViewControllerAnimated:YES completion:^{
-        [self initSignIn];
-    }];*/
+     [self initSignIn];
+     }];*/
     [self.browseEventsVC.view setHidden:YES];
     
 }
