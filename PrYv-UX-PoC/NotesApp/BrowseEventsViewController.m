@@ -56,7 +56,7 @@
 #define IS_LRU_SECTION self.isMenuOpen
 #define IS_BROWSE_SECTION !self.isMenuOpen
 
-#define kFilterInitialLimit 100000
+#define kFilterInitialLimit 20
 #define kFilterIncrement 30
 
 #define kSectionCell @"section_cell_id"
@@ -102,7 +102,6 @@ static NSString *browseCellIdentifier = @"BrowseEventsCell_ID";
 - (void)loadData;
 - (void)userDidReceiveAccessTokenNotification:(NSNotification*)notification;
 - (void)filterEventUpdate:(NSNotification*)notification;
-- (int)addEventToList:(PYEvent*)eventToAdd;
 
 - (void)resetDateFormatters;
 - (void)refreshFilter;
@@ -282,16 +281,31 @@ BOOL displayNonStandardEvents;
                                                                tags:nil
                                                               types:typeFilter
                            ];
-            self.filter.state = PYEventFilter_kStateAll;
+            self.filter.state = PYEventFilter_kStateDefault;
             
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(filterEventUpdate:)
                                                          name:kPYNotificationEvents object:self.filter];
+            
+            // get filter's data now ..
             [self.filter update];
+            
+            
+            
+            
+            
             
         }];
         
     } else {
+        
+        self.filter.fromTime = [self fromTime];
+        self.filter.toTime = [self toTime];
+        self.filter.limit = 100;
+        self.filter.onlyStreamsIDs = [self listStreamFilter];
+        
         [self.filter update];
+        
+        [[NotesAppController sharedInstance].connection updateCache:nil];
     }
 }
 
@@ -359,9 +373,8 @@ BOOL displayNonStandardEvents;
     } withCompletionBlock:^(PYConnection *connection) {
         [connection streamsOnlineWithFilterParams:nil successHandler:nil errorHandler:nil];
     }];
-    
-    
     [self refreshFilter];
+    
 }
 
 
@@ -1050,6 +1063,7 @@ BOOL displayNonStandardEvents;
 
 - (void)pullToRefreshTriggered:(MNMPullToRefreshManager *)manager
 {
+    
     [self loadData];
 }
 
