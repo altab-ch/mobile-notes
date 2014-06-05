@@ -54,6 +54,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 @interface EventDetailsViewController () <StreamsPickerDelegate,JSTokenFieldDelegate>
 
 @property (nonatomic, strong) NSString *previousStreamId;
+@property (nonatomic, strong) NSDictionary *initialEventValue;
 
 @property (nonatomic) BOOL isStreamExpanded;
 @property (nonatomic) BOOL isTagExpanded;
@@ -491,7 +492,9 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
      }
      else
      {**/
-    [self.event resetFromCache];
+    if (self.initialEventValue) {
+        [self.event resetFromCachingDictionary:self.initialEventValue];
+    }
     [self updateUIForEvent];
     self.shouldUpdateEvent = NO;
     [self editButtonTouched:nil];
@@ -520,6 +523,8 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     }
     else
     {
+        // take a snapshot of event's value
+        self.initialEventValue = [self.event cachingDictionary];
         [self switchToEditingMode];
     }
     self.isInEditMode = !self.isInEditMode;
