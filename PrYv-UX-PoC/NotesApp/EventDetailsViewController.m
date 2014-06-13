@@ -938,6 +938,8 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 {
     [self showLoadingOverlay];
     
+   
+    
     [NotesAppController sharedConnectionWithID:nil noConnectionCompletionBlock:nil withCompletionBlock:^(PYConnection *connection)
      {
          [connection eventTrashOrDelete:self.event successHandler:^{
