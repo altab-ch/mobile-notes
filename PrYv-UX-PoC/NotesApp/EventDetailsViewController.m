@@ -936,18 +936,18 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 - (void)deleteEvent
 {
-    //[self showLoadingOverlay];
+    [self showLoadingOverlay];
     
     [NotesAppController sharedConnectionWithID:nil noConnectionCompletionBlock:nil withCompletionBlock:^(PYConnection *connection)
      {
          [connection eventTrashOrDelete:self.event successHandler:^{
              [self.navigationController popViewControllerAnimated:YES];
-             //[self hideLoadingOverlay];
+             [self hideLoadingOverlay];
          } errorHandler:^(NSError *error) {
-             /*UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
-              [alert show];*/
+             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
+              [alert show];
              [self cancelButtonTouched:nil];
-             //[self hideLoadingOverlay];
+             [self hideLoadingOverlay];
          }];
          
      }];
