@@ -17,7 +17,7 @@
 @property (nonatomic, strong) UIViewController* pyLoginViewController;
 
 - (void)userDidLogoutNotification:(NSNotification*)notification;
-- (void)closeLoginWebView;
+- (void)closeLoginWebView:(BOOL)reopen;
 
 @end
 
@@ -74,10 +74,15 @@
 #pragma mark - PYWebLoginDelegate
 
 
-- (void)closeLoginWebView
+- (void)closeLoginWebView:(BOOL)reopen;
 {
     if (self.pyLoginViewController) {
-        [self.pyLoginViewController dismissViewControllerAnimated:YES completion:^{ }];
+        [self.pyLoginViewController dismissViewControllerAnimated:YES completion:^{
+            if (reopen) {
+                [self initSignIn];
+            }
+        
+        }];
         self.pyLoginViewController = nil;
     }
 }
@@ -96,11 +101,10 @@
 
 - (void)pyWebLoginSuccess:(PYConnection *)pyConnection
 {
-    [pyConnection synchronizeTimeWithSuccessHandler:nil errorHandler:nil];
     //self.browseEventsVC.enabled = YES;
     [self.browseEventsVC.view setHidden:NO];
     [[NotesAppController sharedInstance] setConnection:pyConnection];
-    [self closeLoginWebView];
+    [self closeLoginWebView:NO];
 }
 
 - (void)pyWebLoginAborted:(NSString*)reason
@@ -108,14 +112,14 @@
     //self.browseEventsVC.enabled = NO;
     [self.browseEventsVC hideLoadingOverlay];
     NSLog(@"Login aborted with reason: %@",reason);
-    [self closeLoginWebView];
+    [self closeLoginWebView:YES];
     
 }
 
 - (void)pyWebLoginError:(NSError *)error
 {
     NSLog(@"Login error: %@",error);
-    [self closeLoginWebView];
+    [self closeLoginWebView:YES];
 }
 
 #pragma mark - Notifications
