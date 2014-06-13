@@ -680,7 +680,7 @@ BOOL displayNonStandardEvents;
         BrowseCell *cell = [self cellInTableView:tableView forCellStyleType:cellStyleType];
         [cell setDateFormatter:self.cellDateFormatter];
         [cell updateWithEvent:event];
-        [cell prepareForReuse];
+        //[cell prepareForReuse];
         return cell;
     }
     NSInteger row = indexPath.row;

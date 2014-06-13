@@ -68,6 +68,7 @@
 - (BOOL)hasFirstAttachmentFileDataInMemory {
     if([self.attachments count] > 0) {
         PYAttachment *attachment = [self.attachments objectAtIndex:0];
+        NSLog(@"*45 %lu", (unsigned long)attachment.fileData.length);
         return ((attachment.fileData != nil) && attachment.fileData.length > 0);
     }
     return false;
