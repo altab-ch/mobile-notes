@@ -34,6 +34,7 @@
 #import "MMDrawerBarButtonItem.h"
 #import "MenuNavController.h"
 #import "PYEventTypes+Helper.h"
+#import "XMMDrawerController.h"
 
 
 #pragma mark - MySection
@@ -56,7 +57,7 @@
 #define IS_LRU_SECTION self.isMenuOpen
 #define IS_BROWSE_SECTION !self.isMenuOpen
 
-#define kFilterInitialLimit 20
+#define kFilterInitialLimit 200
 #define kFilterIncrement 30
 
 #define kSectionCell @"section_cell_id"
@@ -146,8 +147,6 @@ BOOL displayNonStandardEvents;
     if ([self.mm_drawerController openSide]==MMDrawerSideLeft) {
         [menuNavController resetMenu];
         
-        //[self unsetFilter];
-        [self loadData];
     }else{
         [menuNavController initStreams];
         [menuNavController reload];
@@ -178,6 +177,11 @@ BOOL displayNonStandardEvents;
                                              selector:@selector(userDidLogoutNotification:)
                                                  name:kUserDidLogoutNotification
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(drawerDidCloseNotification:)
+                                                 name:kDrawerDidCloseNotification
+                                               object:nil];
+    
     // Monitor changes of option "show non standard events"
     [[NSUserDefaults standardUserDefaults] addObserver:self
                                             forKeyPath:kPYAppSettingUIDisplayNonStandardEvents
@@ -256,9 +260,6 @@ BOOL displayNonStandardEvents;
     }
 }
 
--(void) addStreamIdToFilter:(NSString*)streamId{
-#warning changeFilter to add a stream in onlyStreamIDs after adding a new event in "not visible" stream or new stream ?
-}
 
 - (void)refreshFilter // called be loadData
 {
@@ -288,11 +289,6 @@ BOOL displayNonStandardEvents;
             
             // get filter's data now ..
             [self.filter update];
-            
-            
-            
-            
-            
             
         }];
         
@@ -924,6 +920,12 @@ BOOL displayNonStandardEvents;
 }
 
 #pragma mark - Notifications
+
+
+- (void)drawerDidCloseNotification:(NSNotification *)notification
+{
+    [self loadData];
+}
 
 
 - (void)userDidReceiveAccessTokenNotification:(NSNotification *)notification

@@ -26,6 +26,7 @@
 		4E37857617953BBD00ED94DF /* Pods-acknowledgements.markdown in Resources */ = {isa = PBXBuildFile; fileRef = 4E37853017953BBD00ED94DF /* Pods-acknowledgements.markdown */; };
 		4E37857717953BBD00ED94DF /* Pods-acknowledgements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4E37853117953BBD00ED94DF /* Pods-acknowledgements.plist */; };
 		4E37857917953BBD00ED94DF /* Pods-resources.sh in Resources */ = {isa = PBXBuildFile; fileRef = 4E37853517953BBD00ED94DF /* Pods-resources.sh */; };
+		4E3E4905194B2C5F00F238C1 /* XMMDrawerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E3E4904194B2C5F00F238C1 /* XMMDrawerController.m */; };
 		4E41A62D18587EE000BC0C28 /* AddNumericalValueCellClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E41A62C18587EE000BC0C28 /* AddNumericalValueCellClass.m */; };
 		4E41A63618587F1700BC0C28 /* AddNumericalValueCellClass.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E41A63518587F1700BC0C28 /* AddNumericalValueCellClass.xib */; };
 		4E41A63A1858998F00BC0C28 /* pickercenter.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E41A6371858998F00BC0C28 /* pickercenter.png */; };
@@ -478,6 +479,8 @@
 		4E37855717953BBD00ED94DF /* PSTGridLayoutSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTGridLayoutSection.h; sourceTree = "<group>"; };
 		4E37855817953BBD00ED94DF /* PSTGridLayoutSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTGridLayoutSection.m; sourceTree = "<group>"; };
 		4E37855917953BBD00ED94DF /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		4E3E4904194B2C5F00F238C1 /* XMMDrawerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMMDrawerController.m; sourceTree = "<group>"; };
+		4E3E4906194B38BB00F238C1 /* XMMDrawerController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XMMDrawerController.h; sourceTree = "<group>"; };
 		4E41A62B18587EE000BC0C28 /* AddNumericalValueCellClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddNumericalValueCellClass.h; sourceTree = "<group>"; };
 		4E41A62C18587EE000BC0C28 /* AddNumericalValueCellClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddNumericalValueCellClass.m; sourceTree = "<group>"; };
 		4E41A63518587F1700BC0C28 /* AddNumericalValueCellClass.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddNumericalValueCellClass.xib; sourceTree = "<group>"; };
@@ -1105,6 +1108,34 @@
 			path = PSTCollectionView;
 			sourceTree = "<group>";
 		};
+		4E3E4901194B2BD000F238C1 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				B6016BBF172873D40056CD3F /* AppDelegate.h */,
+				B6016BC0172873D40056CD3F /* AppDelegate.m */,
+				4E3E4906194B38BB00F238C1 /* XMMDrawerController.h */,
+				4E3E4904194B2C5F00F238C1 /* XMMDrawerController.m */,
+			);
+			name = Main;
+			sourceTree = "<group>";
+		};
+		4E3E4902194B2BDD00F238C1 /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				B6B5908E178DE4280009E413 /* Icon@2x.png */,
+				B6B5908F178DE42B0009E413 /* Icon.png */,
+				96088A8D1861F1230090ECC7 /* Icon-72.png */,
+				96088A8E1861F1230090ECC7 /* Icon-72@2x.png */,
+				96088A8F1861F1230090ECC7 /* Icon-80.png */,
+				96088A901861F1230090ECC7 /* Icon-120.png */,
+				96088A911861F1230090ECC7 /* Icon-Small-50.png */,
+				96088A921861F1230090ECC7 /* Icon-Small-50@2x.png */,
+				96088A931861F1230090ECC7 /* Icon-Small.png */,
+				96088A941861F1230090ECC7 /* Icon-Small@2x.png */,
+			);
+			name = Icons;
+			sourceTree = "<group>";
+		};
 		4E713D2A18965EAD00CDB397 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
@@ -1197,24 +1228,14 @@
 		B6016BB6172873D30056CD3F /* NotesApp */ = {
 			isa = PBXGroup;
 			children = (
+				4E3E4902194B2BDD00F238C1 /* Icons */,
 				9AF8035D18D2077100E73F62 /* iPad */,
 				4E713D2A18965EAD00CDB397 /* Vendor */,
-				96088A8D1861F1230090ECC7 /* Icon-72.png */,
-				96088A8E1861F1230090ECC7 /* Icon-72@2x.png */,
-				96088A8F1861F1230090ECC7 /* Icon-80.png */,
-				96088A901861F1230090ECC7 /* Icon-120.png */,
-				96088A911861F1230090ECC7 /* Icon-Small-50.png */,
-				96088A921861F1230090ECC7 /* Icon-Small-50@2x.png */,
-				96088A931861F1230090ECC7 /* Icon-Small.png */,
-				96088A941861F1230090ECC7 /* Icon-Small@2x.png */,
 				4E8AAFEF1859FC640083DE8C /* Constants */,
-				B6016BBF172873D40056CD3F /* AppDelegate.h */,
-				B6016BC0172873D40056CD3F /* AppDelegate.m */,
+				4E3E4901194B2BD000F238C1 /* Main */,
 				B6F9A24B1729BF87009C8BAA /* Classes */,
 				B6F9A24A1729BF74009C8BAA /* Storyboard */,
 				B6016BB7172873D40056CD3F /* Supporting Files */,
-				B6B5908E178DE4280009E413 /* Icon@2x.png */,
-				B6B5908F178DE42B0009E413 /* Icon.png */,
 			);
 			path = NotesApp;
 			sourceTree = "<group>";
@@ -2178,6 +2199,7 @@
 				B6F1AEC117847420000ECD60 /* JSBackspaceReportingTextField.m in Sources */,
 				B69940371899C45A00D88127 /* DetailsBottomButtonsContainer.m in Sources */,
 				B6993FD21891C07700D88127 /* BaseDetailCell.m in Sources */,
+				4E3E4905194B2C5F00F238C1 /* XMMDrawerController.m in Sources */,
 				B62BF07218D62D1A007BD68E /* LoadingCell.m in Sources */,
 				B61AE1E2188DD845004385D6 /* PhotoNoteViewController.m in Sources */,
 				B626A3B618610F8A00AD9AA6 /* NSString+Utils.m in Sources */,

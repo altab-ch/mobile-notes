@@ -124,6 +124,7 @@
 
 #pragma mark - Notifications
 
+
 - (void)userDidLogoutNotification:(NSNotification *)notification
 {
     //self.browseEventsVC.enabled = NO;
