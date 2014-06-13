@@ -40,9 +40,10 @@
     [drawerController setMaximumLeftDrawerWidth:260.0];
     [drawerController setCenterViewController:center];
     [drawerController setLeftDrawerViewController:leftDrawer];
+    [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModePanningCenterView | MMCloseDrawerGestureModeTapCenterView];
     
     // testFlight
-  //  NSString *deviceToken = [[UIDevice currentDevice] performSelector:@selector(uniqueIdentifier)];
+    // NSString *deviceToken = [[UIDevice currentDevice] performSelector:@selector(uniqueIdentifier)];
     //[TestFlight setDeviceIdentifier:deviceToken];
     [TestFlight setOptions:@{ TFOptionDisableInAppUpdates : @YES }];
     [TestFlight takeOff:kPYAppConstantsPrivateTestFlightToken];
