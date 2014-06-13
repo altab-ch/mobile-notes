@@ -346,7 +346,7 @@ BOOL displayNonStandardEvents;
         isLoading = YES;
         [self showLoadingOverlay];
         
-        [self.tableView reloadData];
+        //[self.tableView reloadData];
         /** bring back focus
         if(self.lastTimeFocus )
         {
@@ -977,6 +977,11 @@ BOOL displayNonStandardEvents;
         NSLog(@"*262 ADD %d", toAdd.count);
         
         
+    }
+    
+    
+    if ((toAdd.count + modify.count + toRemove.count) == 0) {
+        return;
     }
     
     
