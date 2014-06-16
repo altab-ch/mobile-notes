@@ -546,7 +546,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
         [self closeStreamPicker];
     }
     
-    if(self.shouldCreateEvent)
+    if(self.shouldCreateEvent && self.shouldUpdateEvent)
     {
         [self saveEvent];
     } else if(self.shouldUpdateEvent)
