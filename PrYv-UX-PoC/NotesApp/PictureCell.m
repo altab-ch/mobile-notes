@@ -119,9 +119,10 @@
     self.currentEventId = event.clientId;
     
     // anyway try to load the first attachement
-    [event firstAttachmentAsImage:^(UIImage *image) {
-        [self updateWithImage:image andEventId:event.clientId animated:NO];
-    } errorHandler:^(NSError *error) {
+    UIImage* image = [event firstAttachmentFromMemoryOrCache];
+    if (image) {
+         [self updateWithImage:image andEventId:event.clientId animated:NO];
+    } else {
         // then the preview
         dispatch_async(dispatch_get_main_queue(), ^{
             self.loadingIndicator.hidden = NO;
@@ -136,10 +137,7 @@
                 
             }];
         });
-        
-        
-    
-    }];
+    };
     
     
 }

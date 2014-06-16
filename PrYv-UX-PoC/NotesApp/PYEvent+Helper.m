@@ -12,6 +12,7 @@
 #import <PryvApiKit/PYMeasurementSet.h>
 #import <PryvApiKit/PYStream.h>
 #import <PryvApiKit/PYEvent.h>
+#import <PryvApiKit/PYCachingController+Event.h>
 #import "CellStyleModel.h"
 
 @implementation PYEvent (Helper)
@@ -65,13 +66,25 @@
     return CellStyleTypeUnkown;
 }
 
-- (BOOL)hasFirstAttachmentFileDataInMemory {
+- (UIImage*)firstAttachmentFromMemoryOrCache {
+    NSData* data = nil;
     if([self.attachments count] > 0) {
         PYAttachment *attachment = [self.attachments objectAtIndex:0];
         NSLog(@"*45 %lu", (unsigned long)attachment.fileData.length);
-        return ((attachment.fileData != nil) && attachment.fileData.length > 0);
+        if ((attachment.fileData != nil) && attachment.fileData.length > 0) {
+            data = attachment.fileData;
+        } else {
+        
+        NSData *cachedData = [self.connection.cache dataForAttachment:attachment onEvent:self];
+        if (cachedData && cachedData.length > 0) {
+            data = cachedData;
+        }
+        }
     }
-    return false;
+    if (data) {
+        return [UIImage imageWithData:data];
+    }
+    return nil;
 }
 
 
