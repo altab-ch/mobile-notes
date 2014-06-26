@@ -183,9 +183,9 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.navigationItem.backBarButtonItem = self.navigationItem.backBarButtonItem;
+    /*self.navigationItem.backBarButtonItem = self.navigationItem.backBarButtonItem;
     self.navigationItem.rightBarButtonItem = self.navigationItem.rightBarButtonItem;
-    self.navigationItem.leftBarButtonItem = self.navigationItem.leftBarButtonItem;
+    self.navigationItem.leftBarButtonItem = self.navigationItem.leftBarButtonItem;*/
 }
 
 - (BOOL)shouldAnimateViewController:(UIViewController *)vc
@@ -405,7 +405,6 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 {
     DetailCellType cellType = indexPath.row;
     if (cellType == DetailCellTypeImage) {
-#warning - deactivated imagePreview as it is too buggy for now
         ImageViewController *imagePreview = [[ImageViewController alloc] initWithNibName:@"ImageViewController" bundle:nil];
         imagePreview.image = self.picture_ImageView.image;
         [self presentViewController:imagePreview animated:YES completion:nil];

@@ -33,9 +33,9 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    self.navigationItem.backBarButtonItem = self.navigationItem.backBarButtonItem;
+    /*self.navigationItem.backBarButtonItem = self.navigationItem.backBarButtonItem;
     self.navigationItem.rightBarButtonItem = self.navigationItem.rightBarButtonItem;
-    self.navigationItem.leftBarButtonItem = self.navigationItem.leftBarButtonItem;
+    self.navigationItem.leftBarButtonItem = self.navigationItem.leftBarButtonItem;*/
     self.title = NSLocalizedString(@"TextEditorViewController.Title", nil);
 }
 

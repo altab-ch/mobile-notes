@@ -329,7 +329,6 @@ static int kPickerTag = 10;
 
 - (void)userDidLogoutNotification:(NSNotification *)notification
 {
-#warning perki ?
     // TODO reset all data and eventually close the menu
     [self.selectedStreamIDs removeAllObjects];
     [self saveUserDefault];
