@@ -6,7 +6,7 @@
   Copyright (c) 2014 PrYv. All rights reserved.
 */
 
-"TXT_MNM_PTR_PULL" = "Pull down to refresh.";
-"TXT_MNM_PTR_RELEASE" = "Release to refresh.";
-"TXT_MNM_PTR_LOADING" = "Loading";
-"TXT_MNM_PRT_LAST_UPDATE_FORMAT" = "Updated at: %@";
+"TXT_MNM_PTR_PULL" = "";
+"TXT_MNM_PTR_RELEASE" = "";
+"TXT_MNM_PTR_LOADING" = "...";
+"TXT_MNM_PRT_LAST_UPDATE_FORMAT" = "";

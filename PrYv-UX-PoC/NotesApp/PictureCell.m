@@ -17,6 +17,7 @@
 @property (nonatomic, copy) NSString *currentEventId;
 @property (nonatomic, strong) NSDate *startLoadTime;
 @property (nonatomic, weak) IBOutlet UIActivityIndicatorView *loadingIndicator;
+@property (nonatomic, strong) UIImage *currentImage;
 
 @end
 
@@ -44,18 +45,23 @@
 {
     [super prepareForReuse];
     self.pictureView.image = nil;
-   
+    self.currentImage = nil;
 }
 
 
 - (void)updateWithImage:(UIImage*)img andEventId:(NSString*)clientId animated:(BOOL)animated
 {
+    
+    
     // maybe called sevral times while the picture was loading.
     // so the cell may have been reused for another event or picture already loaded by a previous call
-    if(![clientId isEqualToString:self.currentEventId] || self.pictureView.image)
+    if([clientId isEqualToString:self.currentEventId] && self.currentImage)
     {
         return;
     }
+    self.currentImage = img;
+    
+    animated = NO;
     
     CGSize newSize = img.size;
     CGFloat maxSide = MAX(newSize.width, newSize.height);
@@ -68,22 +74,22 @@
             [UIView animateWithDuration:0.1f delay:0 options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseIn animations:^{
                 [self.pictureView setAlpha:0.0f];
             } completion:^(BOOL finished) {
-                [self.pictureView setImage:img];
+                [self.pictureView setImage:self.currentImage];
                 [UIView animateWithDuration:0.1f delay:0 options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseOut animations:^{
                     [self.pictureView setAlpha:1.0f];
                     self.loadingIndicator.hidden = YES;
                     [self.loadingIndicator stopAnimating];
                 } completion:^(BOOL finished) {
-                    
                 }];
             }];
         }
         else
         {
             [self.pictureView setAlpha:1.0f];
-            [self.pictureView setImage:img];
+            [self.pictureView setImage:self.currentImage];
             self.loadingIndicator.hidden = YES;
             [self.loadingIndicator stopAnimating];
+            
         }
         
     });
@@ -111,22 +117,29 @@
     
     self.startLoadTime = [NSDate date];
     self.currentEventId = event.clientId;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if ([event hasFirstAttachmentFileDataInMemory]) {
-            [event firstAttachmentAsImage:^(UIImage *image) {
-                [self updateWithImage:image andEventId:event.clientId animated:[PictureCell shouldAnimateImagePresentationForStartLoadTime:self.startLoadTime]];
-            } errorHandler:nil];
-        } else {
+    
+    // anyway try to load the first attachement
+    UIImage* image = [event firstAttachmentFromMemoryOrCache];
+    if (image) {
+         [self updateWithImage:image andEventId:event.clientId animated:NO];
+    } else {
+        // then the preview
+        dispatch_async(dispatch_get_main_queue(), ^{
             self.loadingIndicator.hidden = NO;
             [self.loadingIndicator startAnimating];
             [event preview:^(UIImage *image) {
                 
                 [self updateWithImage:image andEventId:event.clientId animated:[PictureCell shouldAnimateImagePresentationForStartLoadTime:self.startLoadTime]];
+                
             } failure:^(NSError *error) {
                 NSLog(@"*1432 Failed loading preview for event %@ \n %@", error, event);
+                [self updateWithImage:nil andEventId:event.clientId animated:NO];
+                
             }];
-        }
-    });
+        });
+    };
+    
+    
 }
 
 // animate only if loading took more than...

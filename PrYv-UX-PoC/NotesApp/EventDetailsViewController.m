@@ -54,6 +54,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 @interface EventDetailsViewController () <StreamsPickerDelegate,JSTokenFieldDelegate>
 
 @property (nonatomic, strong) NSString *previousStreamId;
+@property (nonatomic, strong) NSDictionary *initialEventValue;
 
 @property (nonatomic) BOOL isStreamExpanded;
 @property (nonatomic) BOOL isTagExpanded;
@@ -490,7 +491,9 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
      }
      else
      {**/
-    [self.event resetFromCache];
+    if (self.initialEventValue) {
+        [self.event resetFromCachingDictionary:self.initialEventValue];
+    }
     [self updateUIForEvent];
     self.shouldUpdateEvent = NO;
     [self editButtonTouched:nil];
@@ -519,6 +522,8 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     }
     else
     {
+        // take a snapshot of event's value
+        self.initialEventValue = [self.event cachingDictionary];
         [self switchToEditingMode];
     }
     self.isInEditMode = !self.isInEditMode;
@@ -540,7 +545,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
         [self closeStreamPicker];
     }
     
-    if(self.shouldCreateEvent)
+    if(self.shouldCreateEvent && self.shouldUpdateEvent)
     {
         [self saveEvent];
     } else if(self.shouldUpdateEvent)
@@ -930,18 +935,20 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 - (void)deleteEvent
 {
-    //[self showLoadingOverlay];
+    [self showLoadingOverlay];
+    
+   
     
     [NotesAppController sharedConnectionWithID:nil noConnectionCompletionBlock:nil withCompletionBlock:^(PYConnection *connection)
      {
          [connection eventTrashOrDelete:self.event successHandler:^{
              [self.navigationController popViewControllerAnimated:YES];
-             //[self hideLoadingOverlay];
+             [self hideLoadingOverlay];
          } errorHandler:^(NSError *error) {
-             /*UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
-              [alert show];*/
+             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
+              [alert show];
              [self cancelButtonTouched:nil];
-             //[self hideLoadingOverlay];
+             [self hideLoadingOverlay];
          }];
          
      }];

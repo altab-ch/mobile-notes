@@ -7,7 +7,6 @@
 //
 
 #import "DataService.h"
-#import <PryvApiKit/PYClient.h>
 #import <PryvApiKit/PYEventTypes.h>
 #import <PryvApiKit/PYMeasurementSet.h>
 #import <PryvApiKit/PYStream.h>

@@ -10,7 +10,7 @@
 #import "StreamCheckButton.h"
 #import "PYStream+Helper.h"
 
-#define DATE_SECTION 0
+#define DATE_SECTION -1  // set to 0 to show date_section
 #define DATE_LABEL_ROW 0
 #define DATE_PICKER_ROW 1
 #define Date_Menu_Default @"date_menu_default"
@@ -29,6 +29,7 @@ static int kSectionTag = 13;
 static int kStreamTag = 11;
 static int kDateTag = 12;
 static int kPickerTag = 10;
+
 
 @interface MenuTableViewController ()
 
@@ -94,8 +95,10 @@ static int kPickerTag = 10;
 
 #pragma mark - Table view data source
 
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    if (DATE_SECTION < 0) return 1;
     return 2;
 }
 

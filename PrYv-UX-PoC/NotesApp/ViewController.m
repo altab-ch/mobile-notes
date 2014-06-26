@@ -14,8 +14,10 @@
 @interface ViewController ()
 
 @property (nonatomic, strong) BrowseEventsViewController *browseEventsVC;
+@property (nonatomic, strong) UIViewController* pyLoginViewController;
 
 - (void)userDidLogoutNotification:(NSNotification*)notification;
+- (void)closeLoginWebView:(BOOL)reopen;
 
 @end
 
@@ -71,17 +73,38 @@
 
 #pragma mark - PYWebLoginDelegate
 
+
+- (void)closeLoginWebView:(BOOL)reopen;
+{
+    if (self.pyLoginViewController) {
+        [self.pyLoginViewController dismissViewControllerAnimated:YES completion:^{
+            if (reopen) {
+                [self initSignIn];
+            }
+        
+        }];
+        self.pyLoginViewController = nil;
+    }
+}
+
 - (UIViewController*)pyWebLoginGetController
 {
-    return self.browseEventsVC;
+    return nil;
+}
+
+- (BOOL)pyWebLoginShowUIViewController:(UIViewController*)loginViewController
+{
+    self.pyLoginViewController = loginViewController;
+    [self.browseEventsVC presentViewController:loginViewController animated:YES completion:nil];
+    return YES;
 }
 
 - (void)pyWebLoginSuccess:(PYConnection *)pyConnection
 {
-    [pyConnection synchronizeTimeWithSuccessHandler:nil errorHandler:nil];
     //self.browseEventsVC.enabled = YES;
     [self.browseEventsVC.view setHidden:NO];
     [[NotesAppController sharedInstance] setConnection:pyConnection];
+    [self closeLoginWebView:NO];
 }
 
 - (void)pyWebLoginAborted:(NSString*)reason
@@ -89,14 +112,18 @@
     //self.browseEventsVC.enabled = NO;
     [self.browseEventsVC hideLoadingOverlay];
     NSLog(@"Login aborted with reason: %@",reason);
+    [self closeLoginWebView:YES];
+    
 }
 
 - (void)pyWebLoginError:(NSError *)error
 {
     NSLog(@"Login error: %@",error);
+    [self closeLoginWebView:YES];
 }
 
 #pragma mark - Notifications
+
 
 - (void)userDidLogoutNotification:(NSNotification *)notification
 {
@@ -105,8 +132,8 @@
     [[LRUManager sharedInstance] clearAllLRUEntries];
     
     /*[self.browseEventsVC dismissViewControllerAnimated:YES completion:^{
-        [self initSignIn];
-    }];*/
+     [self initSignIn];
+     }];*/
     [self.browseEventsVC.view setHidden:YES];
     
 }
