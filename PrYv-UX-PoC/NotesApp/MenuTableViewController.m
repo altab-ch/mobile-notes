@@ -179,7 +179,7 @@ static int kPickerTag = 10;
 
 -(CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 35.0;
+    return 28.0;
 }
 
 #pragma mark - Table view delegate

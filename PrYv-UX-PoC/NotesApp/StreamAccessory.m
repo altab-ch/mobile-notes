@@ -35,7 +35,6 @@
             [self.label setText:self.text];
             [self setPastille:[[UIView alloc] initWithFrame:CGRectMake(2, 2, 10, 10)]];
             [self.pastille.layer setCornerRadius:5];
-            [self.pastille.layer shouldRasterize];
             [self.pastille setBackgroundColor:color];
             [self addSubview:self.pastille];
         }else{

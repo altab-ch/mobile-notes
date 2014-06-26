@@ -48,7 +48,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     DetailCellTypeTime,
     DetailCellTypeTags,
     DetailCellTypeDescription,
-    DetailCellTypeSpacer
+    DetailCellTypeDelete
 };
 
 @interface EventDetailsViewController () <StreamsPickerDelegate,JSTokenFieldDelegate>
@@ -97,13 +97,13 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 // -- constraints
 
-@property (nonatomic, weak) IBOutlet NSLayoutConstraint *tagDoneButtonConstraint;
+//@property (nonatomic, weak) IBOutlet NSLayoutConstraint *tagDoneButtonConstraint;
 //@property (nonatomic, weak) IBOutlet NSLayoutConstraint *descriptionLabelConstraint1;
 //@property (nonatomic, weak) IBOutlet NSLayoutConstraint *descriptionLabelConstraint2;
 //@property (nonatomic, weak) IBOutlet NSLayoutConstraint *descriptionLabelConstraint3;
-@property (nonatomic, weak) IBOutlet NSLayoutConstraint *noteLabelConstraint1;
-@property (nonatomic, weak) IBOutlet NSLayoutConstraint *noteLabelConstraint2;
-@property (nonatomic, weak) IBOutlet NSLayoutConstraint *noteLabelConstraint3;
+//@property (nonatomic, weak) IBOutlet NSLayoutConstraint *noteLabelConstraint1;
+//@property (nonatomic, weak) IBOutlet NSLayoutConstraint *noteLabelConstraint2;
+//@property (nonatomic, weak) IBOutlet NSLayoutConstraint *noteLabelConstraint3;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *tagConstraint1;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *tagConstraint2;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *tagConstraint3;
@@ -167,10 +167,9 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
         [self editButtonTouched:nil];
     }
     
-    self.deleteButton.layer.borderColor = [UIColor colorWithRed:169.0f/255.0f green:169.0f/255.0f blue:169.0f/255.0f alpha:1].CGColor;
-    self.deleteButton.layer.borderWidth = 1.0f;
+    [self.deleteButton.layer setBorderColor:[UIColor redColor].CGColor];
+    [self.deleteButton.layer setBorderWidth:1];
     self.deleteButton.layer.cornerRadius = 5;
-    self.deleteButton.layer.masksToBounds = YES;
     
     // commented for now.. to be reused for share and anther actions.
     // [self initBottomButtonsContainer];
@@ -447,7 +446,9 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
             }
         }
             break;
-            
+        
+        case DetailCellTypeDelete:
+            break;
         default:
             break;
     }
@@ -536,6 +537,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 {
     [self.navigationItem setLeftBarButtonItem:nil];
     [self.navigationItem setHidesBackButton:NO];
+    
     if([self.descriptionLabel.text isEqualToString:NSLocalizedString(@"ViewController.TextDescriptionContent.TapToAdd", nil)])
     {
         self.descriptionLabel.text = @"";
@@ -561,6 +563,8 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     [self updateLabelsTextColorForEditingMode:NO];
     
     [self.tokenField setUserInteractionEnabled:NO];
+    
+    [self switchBtSelectionMode:UITableViewCellSelectionStyleNone];
     
     self.editButton.title = NSLocalizedString(@"Edit", nil);
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -598,6 +602,9 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     
     [self.tokenField setUserInteractionEnabled:YES];
     
+    // change selection style but delete cell
+    [self switchBtSelectionMode:UITableViewCellSelectionStyleBlue];
+    
     self.editButton.title = NSLocalizedString(@"Done", nil);
     dispatch_async(dispatch_get_main_queue(), ^{
         [UIView transitionWithView:self.tableView
@@ -616,6 +623,13 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     } completion:^(BOOL finished) {
         
     }];*/
+}
+
+-(void) switchBtSelectionMode:(UITableViewCellSelectionStyle)status{
+    for (int i=0; i<[self.tableView numberOfRowsInSection:0]-1; i++) {
+        [[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:i inSection:0]] setSelectionStyle:status];
+    }
+    
 }
 
 - (void)updateLabelsTextColorForEditingMode:(BOOL)isEditingMode
@@ -835,12 +849,9 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
                 if ([self.note_Label.text length] > 0)
                 {
                     CGSize textSize = [self.note_Label.text sizeWithFont:self.note_Label.font constrainedToSize:CGSizeMake(300, FLT_MAX)];
-                    CGFloat height = textSize.height + 24;
-                    height = fmaxf(height, 54);
-                    self.noteLabelConstraint1.constant = fmaxf(height - 10,0);
-                    self.noteLabelConstraint2.constant = fmaxf(height - 10,0);
-                    self.noteLabelConstraint3.constant = fmaxf(height - 20,0);
-                    return height;
+                    CGFloat height = textSize.height + 25;
+                    
+                     return height;
                 }
                 return 0;
             }
@@ -856,11 +867,8 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
             if ([self.descriptionLabel.text length] > 0)
             {
                 CGSize textSize = [self.descriptionLabel.text sizeWithFont:self.descriptionLabel.font constrainedToSize:CGSizeMake(300, FLT_MAX)];
-                CGFloat height = textSize.height + 20;
-                //height = fmaxf(height, 80);
-                //self.descriptionLabelConstraint1.constant = height;//fmaxf(height - 10,0);
-                //self.descriptionLabelConstraint2.constant = height;//fmaxf(height - 10,0);
-                //self.descriptionLabelConstraint3.constant = height;//fmaxf(height - 20,0);
+                CGFloat height = textSize.height + 40;
+                
                 return height;
             }
             return 0;
@@ -881,8 +889,6 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
         case DetailCellTypeStreams:
             return kLineCellHeight;
             
-        case DetailCellTypeSpacer:
-            return 10;
         default:
             break;
     }
@@ -1020,7 +1026,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 - (void)initTags
 {
     self.tokenField.delegate = self;
-    self.tagDoneButtonConstraint.constant = 0;
+    //self.tagDoneButtonConstraint.constant = 0;
     [self.view layoutIfNeeded];
     for(NSString *tag in self.event.tags)
     {
@@ -1056,7 +1062,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 - (void)keyboardWillShown:(NSNotification *)notification
 {
     [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:DetailCellTypeTags inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
-    self.tagDoneButtonConstraint.constant = 68;
+    //self.tagDoneButtonConstraint.constant = 68;
     [self.view setNeedsLayout];
     [UIView animateWithDuration:0.25 animations:^{
         [self.view layoutIfNeeded];
@@ -1079,7 +1085,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
         rowToSelect = DetailCellTypeValue;
     }
     [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:rowToSelect inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
-    self.tagDoneButtonConstraint.constant = 0;
+    //self.tagDoneButtonConstraint.constant = 0;
     [self.view setNeedsLayout];
     [UIView animateWithDuration:0.25 animations:^{
         [self.view layoutIfNeeded];
