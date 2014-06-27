@@ -77,7 +77,7 @@ NSString *const JSDeletedTokenKey = @"JSDeletedTokenKey";
 
 - (void)commonSetup {
     CGRect frame = self.frame;
-    [self setBackgroundColor:[UIColor whiteColor]];
+    [self setBackgroundColor:[UIColor clearColor]];
     _label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, frame.size.height)];
     [_label setBackgroundColor:[UIColor clearColor]];
     [_label setTextColor:[UIColor blackColor]];
