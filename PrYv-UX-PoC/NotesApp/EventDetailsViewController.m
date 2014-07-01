@@ -179,14 +179,6 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     [self updateUIForEvent];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    /*self.navigationItem.backBarButtonItem = self.navigationItem.backBarButtonItem;
-    self.navigationItem.rightBarButtonItem = self.navigationItem.rightBarButtonItem;
-    self.navigationItem.leftBarButtonItem = self.navigationItem.leftBarButtonItem;*/
-}
-
 - (BOOL)shouldAnimateViewController:(UIViewController *)vc
 {
     return YES;
@@ -1046,8 +1038,8 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 - (void)tokenContainerDidChangeFrameNotification:(NSNotification*)note
 {
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:DetailCellTypeTags inSection:0];
-    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    /*NSIndexPath *indexPath = [NSIndexPath indexPathForRow:DetailCellTypeTags inSection:0];
+    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];*/
 }
 
 #pragma mark - Keyboard notifications

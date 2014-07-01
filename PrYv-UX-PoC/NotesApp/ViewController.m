@@ -47,23 +47,13 @@
 {
     if(![[NotesAppController sharedInstance] connection])
     {
-        
-        NSArray *keys = [NSArray arrayWithObjects:  kPYAPIConnectionRequestStreamId,
-                         kPYAPIConnectionRequestLevel,
-                         nil];
-        
-        NSArray *objects = [NSArray arrayWithObjects:   kPYAPIConnectionRequestAllStreams,
-                            kPYAPIConnectionRequestManageLevel,
-                            nil];
-        
-        NSArray *permissions = [NSArray arrayWithObject:[NSDictionary dictionaryWithObjects:objects
-                                                                                    forKeys:keys]];
+        NSArray *permissions = @[ @{ kPYAPIConnectionRequestStreamId : kPYAPIConnectionRequestAllStreams ,
+                                   kPYAPIConnectionRequestLevel: kPYAPIConnectionRequestManageLevel}];
         
         [PYWebLoginViewController requestConnectionWithAppId:@"pryv-ios-app"
                                               andPermissions:permissions
                                                  andBarStyle:BarStyleTypeHome
                                                     delegate:self];
-        
     }
     else
     {
@@ -140,9 +130,11 @@
 
 - (void)userShouldLoginNotification:(NSNotification*)notification
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self initSignIn];
-    });
+    [[NSNotificationCenter defaultCenter] postNotificationName:kUserDidLogoutNotification object:nil];
+    [self initSignIn];
+    /*dispatch_async(dispatch_get_main_queue(), ^{
+     
+    });*/
 }
 
 

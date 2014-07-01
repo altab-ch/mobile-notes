@@ -83,7 +83,7 @@ NSString *const kUserShouldLoginNotification = @"kUserShouldLoginNotification";
     }
     else
     {
-        [self userDidLogout];
+        //[self userDidLogout];
     }
 }
 

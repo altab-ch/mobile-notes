@@ -798,7 +798,7 @@ BOOL displayNonStandardEvents;
     
     if(event.isDraft)
     {
-#warning recoder : navigation presentviewcontroller
+#warning recoder : navigation presentviewcontroller detailViewController
         //[eventDetailVC view];
         NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:self.navigationController.viewControllers];
         [viewControllers addObject:eventDetailVC];
