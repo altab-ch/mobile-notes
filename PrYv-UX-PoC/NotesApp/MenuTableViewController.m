@@ -376,7 +376,10 @@ static int kPickerTag = 10;
 - (void)resetMenu
 {
     [self saveUserDefault];
-    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    if (self.tableView.numberOfSections==0) {
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    }
+    
     if (![self datePickerIsHidden])
         [self hidePickerReset];
 }

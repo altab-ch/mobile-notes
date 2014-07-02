@@ -36,7 +36,7 @@
     
     self.enabled = YES;
 	
-    self.navigationItem.rightBarButtonItem = [UIBarButtonItem flatBarItemWithImage:[UIImage imageNamed:@"icon_add"] target:self action:@selector(menuButtonTouched:)];
+    //self.navigationItem.rightBarButtonItem = [UIBarButtonItem flatBarItemWithImage:[UIImage imageNamed:@"icon_add"] target:self action:@selector(menuButtonTouched:)];
     
     self.topMenuCellImages = @[@"icon_small_text",
                                @"icon_small_lenght",

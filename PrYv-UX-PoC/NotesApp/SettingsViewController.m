@@ -137,7 +137,18 @@
     [[NSUserDefaults standardUserDefaults] setObject:[NSArray array] forKey:Stream_Menu_Default];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    [[self mm_drawerController] closeDrawerAnimated:NO completion:nil];
+    [[self mm_drawerController] closeDrawerAnimated:YES completion:(void (^)(BOOL finished))^{
+        PYConnection *connection = [[NotesAppController sharedInstance] connection];
+        if(connection)
+        {
+            [[NotesAppController sharedInstance] setConnection:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kUserShouldLoginNotification object:nil];
+            
+        }
+    
+    
+    
+    }];
     
     /*UINavigationController *center = (UINavigationController*)[self.mm_drawerController centerViewController];
     for (UIViewController *vc in center.viewControllers) {
@@ -146,18 +157,7 @@
         }
     }*/
     
-    PYConnection *connection = [[NotesAppController sharedInstance] connection];
-    if(connection)
-    {
-        [[NotesAppController sharedInstance] setConnection:nil];
-        [[NSNotificationCenter defaultCenter] postNotificationName:kUserShouldLoginNotification object:nil];
-        //[self.navigationController popToRootViewControllerAnimated:YES];
-        /**
-        [self.navigationController dismissViewControllerAnimated:YES completion:^{
-            [[NSNotificationCenter defaultCenter] postNotificationName:kUserShouldLoginNotification object:nil];
-        }];**/
-        
-    }
+    
 }
 
 

@@ -10,13 +10,15 @@
 #import "BrowseEventsViewController.h"
 #import "DataService.h"
 #import "LRUManager.h"
+#import "XMMDrawerController.h"
 
 @interface ViewController ()
 
 @property (nonatomic, strong) BrowseEventsViewController *browseEventsVC;
 @property (nonatomic, strong) UIViewController* pyLoginViewController;
+@property (nonatomic) BOOL launched;
+@property (nonatomic, strong) XMMDrawerController *drawerController;
 
-- (void)userDidLogoutNotification:(NSNotification*)notification;
 - (void)closeLoginWebView:(BOOL)reopen;
 
 @end
@@ -27,18 +29,21 @@
 {
     [super viewDidLoad];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(userDidLogoutNotification:)
-                                                 name:kUserDidLogoutNotification
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
+     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(userShouldLoginNotification:)
                                                  name:kUserShouldLoginNotification
                                                object:nil];
+    self.launched = false;
+}
+
+-(void) viewDidAppear:(BOOL)animated
+{
+    if (!self.launched) {
+        self.launched = true;
+        [self initSignIn];
+    }
     
-    self.browseEventsVC = [UIStoryboard instantiateViewControllerWithIdentifier:@"BrowseEventsViewController_ID"];
-    [self.navigationController pushViewController:self.browseEventsVC animated:NO];
-    [self initSignIn];
+    
 }
 
 #pragma mark - Sign In
@@ -57,7 +62,37 @@
     }
     else
     {
+        [self launchDrawer];
+        
         [[NSNotificationCenter defaultCenter] postNotificationName:kAppDidReceiveAccessTokenNotification object:nil];
+    }
+}
+
+#pragma mark - Init XMM_DRAWER
+
+-(void) initDrawer
+{
+    
+    UINavigationController * leftDrawer = [[UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil] instantiateViewControllerWithIdentifier:@"menu_nav_id"];
+    UINavigationController * center = [[UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil] instantiateViewControllerWithIdentifier:@"main_nav_c"];
+    
+    self.drawerController = [[XMMDrawerController alloc] initWithCenterViewController:center leftDrawerViewController:leftDrawer];
+    [self.drawerController setMaximumLeftDrawerWidth:260.0];
+    [self.drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModePanningCenterView | MMCloseDrawerGestureModeTapCenterView];
+    
+}
+
+-(void) launchDrawer
+{
+    if (self.pyLoginViewController) {
+        [self.pyLoginViewController dismissViewControllerAnimated:YES completion:^{
+            [self initDrawer];
+            [self presentViewController:self.drawerController animated:YES completion:nil];
+        }];
+        self.pyLoginViewController = nil;
+    }else{
+        [self initDrawer];
+        [self presentViewController:self.drawerController animated:YES completion:nil];
     }
 }
 
@@ -84,22 +119,28 @@
 
 - (BOOL)pyWebLoginShowUIViewController:(UIViewController*)loginViewController
 {
-    self.pyLoginViewController = loginViewController;
-    [self.browseEventsVC presentViewController:loginViewController animated:YES completion:nil];
+    if (self.drawerController)
+        [self.drawerController dismissViewControllerAnimated:YES completion:^{
+            self.drawerController = nil;
+            self.pyLoginViewController = loginViewController;
+            [self presentViewController:loginViewController animated:YES completion:nil];
+        }];
+    else{
+        self.pyLoginViewController = loginViewController;
+        [self presentViewController:loginViewController animated:YES completion:nil];
+    }
+    
     return YES;
 }
 
 - (void)pyWebLoginSuccess:(PYConnection *)pyConnection
 {
-    //self.browseEventsVC.enabled = YES;
-    [self.browseEventsVC.view setHidden:NO];
     [[NotesAppController sharedInstance] setConnection:pyConnection];
-    [self closeLoginWebView:NO];
+    [self initSignIn];
 }
 
 - (void)pyWebLoginAborted:(NSString*)reason
 {
-    //self.browseEventsVC.enabled = NO;
     [self.browseEventsVC hideLoadingOverlay];
     NSLog(@"Login aborted with reason: %@",reason);
     [self closeLoginWebView:YES];
@@ -114,27 +155,10 @@
 
 #pragma mark - Notifications
 
-
-- (void)userDidLogoutNotification:(NSNotification *)notification
-{
-    //self.browseEventsVC.enabled = NO;
-    [self.browseEventsVC clearCurrentData];
-    [[LRUManager sharedInstance] clearAllLRUEntries];
-    
-    /*[self.browseEventsVC dismissViewControllerAnimated:YES completion:^{
-     [self initSignIn];
-     }];*/
-    [self.browseEventsVC.view setHidden:YES];
-    
-}
-
 - (void)userShouldLoginNotification:(NSNotification*)notification
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:kUserDidLogoutNotification object:nil];
     [self initSignIn];
-    /*dispatch_async(dispatch_get_main_queue(), ^{
-     
-    });*/
 }
 
 

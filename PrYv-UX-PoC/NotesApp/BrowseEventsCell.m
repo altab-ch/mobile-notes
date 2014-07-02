@@ -23,7 +23,7 @@
 @property (nonatomic, strong) IBOutlet UIImageView *iconImageView;
 @property (nonatomic, strong) IBOutlet UIView *tagContainer;
 @property (nonatomic, strong) IBOutlet UILabel *symbolLabel;
-
+@property (nonatomic, strong) IBOutlet UIView *pastille;
 - (NSString*)imageNameForType:(EventDataType)type;
 
 @end

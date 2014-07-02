@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		290042A21938111400436A4B /* StreamAccessory.m in Sources */ = {isa = PBXBuildFile; fileRef = 290042A11938111400436A4B /* StreamAccessory.m */; };
+		290042B419640ADE00436A4B /* AddEventTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 290042B319640ADE00436A4B /* AddEventTableViewController.m */; };
 		2912175918F6A01E000AC905 /* ImagePreview.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2912175818F6A01E000AC905 /* ImagePreview.xib */; };
 		2912176F18F6C4A6000AC905 /* ImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2912176D18F6C4A6000AC905 /* ImageViewController.m */; };
 		2912177018F6C4A6000AC905 /* ImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2912176E18F6C4A6000AC905 /* ImageViewController.xib */; };
@@ -342,6 +343,8 @@
 		27B10024CC6440FBBB338C05 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		290042A01938111400436A4B /* StreamAccessory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamAccessory.h; sourceTree = "<group>"; };
 		290042A11938111400436A4B /* StreamAccessory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamAccessory.m; sourceTree = "<group>"; };
+		290042B219640ADE00436A4B /* AddEventTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddEventTableViewController.h; sourceTree = "<group>"; };
+		290042B319640ADE00436A4B /* AddEventTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddEventTableViewController.m; sourceTree = "<group>"; };
 		2912175818F6A01E000AC905 /* ImagePreview.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImagePreview.xib; sourceTree = "<group>"; };
 		2912176C18F6C4A6000AC905 /* ImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageViewController.h; sourceTree = "<group>"; };
 		2912176D18F6C4A6000AC905 /* ImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageViewController.m; sourceTree = "<group>"; };
@@ -1660,6 +1663,8 @@
 				B6016BCF172873D40056CD3F /* ViewController.m */,
 				B6D0ED891787827300665DE8 /* BrowseEventsViewController.h */,
 				B6D0ED8A1787827400665DE8 /* BrowseEventsViewController.m */,
+				290042B219640ADE00436A4B /* AddEventTableViewController.h */,
+				290042B319640ADE00436A4B /* AddEventTableViewController.m */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -2221,6 +2226,7 @@
 				B61D55AE17EC51480016D0C4 /* PYStream+Helper.m in Sources */,
 				B61A1948185A64E100E9F9BE /* StreamCell.m in Sources */,
 				B61D55B117EC51B80016D0C4 /* PYEvent+Helper.m in Sources */,
+				290042B419640ADE00436A4B /* AddEventTableViewController.m in Sources */,
 				B681B686185543240067DF37 /* TextEditorViewController.m in Sources */,
 				B61D55B517EC68C80016D0C4 /* UIAlertView+PrYv.m in Sources */,
 				B6C9D468181ED7F200EB5FF9 /* UIDevice+Utils.m in Sources */,

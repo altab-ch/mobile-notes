@@ -37,7 +37,16 @@
 
 - (void)initObject
 {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(userDidLogoutNotification:)
+                                                 name:kUserDidLogoutNotification
+                                               object:nil];
     [self readFromDisc];
+}
+
+-(void)userDidLogoutNotification:(NSNotification *)notification
+{
+    [self clearAllLRUEntries];
 }
 
 - (void)saveToDisc

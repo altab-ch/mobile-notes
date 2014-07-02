@@ -159,6 +159,7 @@ BOOL displayNonStandardEvents;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     self.aggregationStep = AggregationStepDay;
     [self loadSettings];
     [self resetDateFormatters];
@@ -199,6 +200,7 @@ BOOL displayNonStandardEvents;
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    //[self.navigationController.navigationBar setBackgroundImage:[[UIImage imageNamed:@"icon_pryv"]resizableImageWithCapInsets:UIEdgeInsetsMake(10, 5, 10, 5)] forBarMetrics:UIBarMetricsDefault];
     self.title = NSLocalizedString(@"BrowserViewController.Title", nil);
     [self loadShortcuts];
 }
