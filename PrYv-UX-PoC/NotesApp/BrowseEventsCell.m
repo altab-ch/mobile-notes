@@ -10,6 +10,7 @@
 #import "CellStyleModel.h"
 #import "TagView.h"
 #import "PYEvent+Helper.h"
+#import "PYStream+Helper.h"
 #import "UserHistoryEntry.h"
 #import <PryvApiKit/PYEventType.h>
 #import <PryvApiKit/PYEventClass.h>
@@ -51,7 +52,7 @@
     PYEvent *event = [entry reconstructEvent];
     [self updateTags:event.tags];
     self.streamBreadcrumbs.text = [event eventBreadcrumbs];
-    
+    [self.pastille setBackgroundColor:[[event stream] getColor]];
     
     NSString* symbol = [self symbolRepresentationForEventType:event.pyType];
     if (symbol) {

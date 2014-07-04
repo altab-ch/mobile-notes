@@ -19,5 +19,6 @@
 - (void)fetchLRUEntriesWithCompletionBlock:(void (^)(void))block;
 - (void)clearAllLRUEntries;
 - (void)removeObjectFromLruEntriesAtIndex:(NSUInteger)index;
+- (NSArray*)lruEntries;
 
 @end

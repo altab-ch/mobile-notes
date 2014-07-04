@@ -200,7 +200,9 @@ BOOL displayNonStandardEvents;
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    //[self.navigationController.navigationBar setBackgroundImage:[[UIImage imageNamed:@"icon_pryv"]resizableImageWithCapInsets:UIEdgeInsetsMake(10, 5, 10, 5)] forBarMetrics:UIBarMetricsDefault];
+    //[self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navbar"] forBarMetrics:UIBarMetricsDefault];
+    //[self.navigationController.navigationBar setBackgroundColor:[UIColor whiteColor]];
+    
     self.title = NSLocalizedString(@"BrowserViewController.Title", nil);
     [self loadShortcuts];
 }
