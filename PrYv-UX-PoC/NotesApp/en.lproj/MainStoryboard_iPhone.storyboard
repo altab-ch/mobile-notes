@@ -384,7 +384,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         <viewControllerLayoutGuide type="top" id="Eiv-oY-41q"/>
                         <viewControllerLayoutGuide type="bottom" id="Hxf-Om-Nm5"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="igo-yZ-gg0">
+                    <view key="view" alpha="0.0" contentMode="scaleToFill" id="igo-yZ-gg0">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -393,7 +393,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oGH-fQ-8PS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1712" y="579"/>
+            <point key="canvasLocation" x="-136" y="-1237"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="iEF-pH-F1s">

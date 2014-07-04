@@ -9,6 +9,7 @@
 #import "AddEventTableViewController.h"
 #import "LRUManager.h"
 #import "BrowseEventsCell.h"
+#import "PhotoNoteViewController.h"
 
 @interface AddEventTableViewController () <MCSwipeTableViewCellDelegate, UIActionSheetDelegate>
 
@@ -146,18 +147,24 @@
     if(buttonIndex == actionSheet.cancelButtonIndex)
         return;
     
+    if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] && buttonIndex == 0) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"CameraUnavailable", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:nil];
+        [alertView show];
+        return;
+    }
+    
     UIImagePickerControllerSourceType sourceType = buttonIndex == 0 ? UIImagePickerControllerSourceTypeCamera : UIImagePickerControllerSourceTypePhotoLibrary;
-    if(self.tempEntry)
+    /*if(self.tempEntry)
     {
         UserHistoryEntry *entry = self.tempEntry;
         self.isSourceTypePicked = @(sourceType);
         [self showEventDetailsWithUserHistoryEntry:entry];
         self.tempEntry = nil;
         return;
-    }
+    }*/
     PhotoNoteViewController *photoVC = [UIStoryboard instantiateViewControllerWithIdentifier:@"PhotoNoteViewController_ID"];
     photoVC.sourceType = sourceType;
-    photoVC.browseVC = self;
+    //photoVC.browseVC = self;
     [self.navigationController pushViewController:photoVC animated:YES];
 }
 

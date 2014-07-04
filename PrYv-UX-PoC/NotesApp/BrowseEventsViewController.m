@@ -1022,7 +1022,7 @@ BOOL displayNonStandardEvents;
     }
     PhotoNoteViewController *photoVC = [UIStoryboard instantiateViewControllerWithIdentifier:@"PhotoNoteViewController_ID"];
     photoVC.sourceType = sourceType;
-    photoVC.browseVC = self;
+    //photoVC.browseVC = self;
     [self.navigationController pushViewController:photoVC animated:YES];
 }
 

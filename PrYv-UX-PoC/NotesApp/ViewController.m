@@ -38,6 +38,7 @@
 
 -(void) viewDidAppear:(BOOL)animated
 {
+    [super viewDidAppear:animated];
     if (!self.launched) {
         self.launched = true;
         [self initSignIn];

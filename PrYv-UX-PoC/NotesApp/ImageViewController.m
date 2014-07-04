@@ -40,6 +40,7 @@
 
 -(void) viewDidAppear:(BOOL)animated
 {
+    [super viewDidAppear:animated];
     if (IS_IPHONE_5){
         [self.contentImageView setFrame:CGRectMake(0, 0, 320.0, 568.0)];
     }else{

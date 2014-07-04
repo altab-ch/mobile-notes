@@ -108,6 +108,7 @@
         NSDate *date = nil;
         if(metadata)
         {
+#warning DateTimeDigitized
             NSString *timeString = [[metadata objectForKey:@"{Exif}"] objectForKey:@"DateTimeOriginal"];
             if(timeString)
             {
@@ -117,7 +118,8 @@
                 
             }
         }
-        [self dismissViewControllerAnimated:YES completion:^{
+        
+        [self dismissViewControllerAnimated:NO completion:^{
             self.browseVC.imagePickerType = self.sourceType;
             self.browseVC.pickedImageTimestamp = date;
             self.browseVC.pickedImage = selectedImage;
@@ -125,8 +127,10 @@
             {
                 self.imagePickedBlock(selectedImage,date,self.sourceType);
             }
-            [self popViewController];
+            [self.navigationController popToRootViewControllerAnimated:NO];
+            //[self popViewController];
         }];
+        
     } failureBlock:^(NSError *error) {
         [self dismissViewControllerAnimated:YES completion:^{
             self.browseVC.imagePickerType = self.sourceType;
@@ -136,6 +140,7 @@
                 self.imagePickedBlock(selectedImage,nil,self.sourceType);
             }
             [self popViewController];
+            [self.navigationController popToRootViewControllerAnimated:NO];
         }];
     }];
 }
