@@ -832,7 +832,7 @@ BOOL displayNonStandardEvents;
             PhotoNoteViewController *photoVC = [UIStoryboard instantiateViewControllerWithIdentifier:@"PhotoNoteViewController_ID"];
             photoVC.sourceType = [self.isSourceTypePicked integerValue];
             self.isSourceTypePicked = nil;
-            photoVC.browseVC = self;
+            //photoVC.browseVC = self;
             photoVC.entry = entry;
             [photoVC setImagePickedBlock:^(UIImage *image, NSDate *date, UIImagePickerControllerSourceType source) {
                 [eventDetailVC.event setEventDate:date];

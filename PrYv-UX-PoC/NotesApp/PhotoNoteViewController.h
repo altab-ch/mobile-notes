@@ -6,16 +6,11 @@
 //  Copyright (c) 2013 PrYv. All rights reserved.
 //
 
-#import "BaseViewController.h"
 #import "UserHistoryEntry.h"
 
-@class BrowseEventsViewController;
-
-@interface PhotoNoteViewController : BaseViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface PhotoNoteViewController : UIImagePickerController 
 
 @property (nonatomic, strong) UserHistoryEntry *entry;
-@property (nonatomic) UIImagePickerControllerSourceType sourceType;
-@property (nonatomic, weak) BrowseEventsViewController *browseVC;
 
 @property (copy) void (^imagePickedBlock)(UIImage *image,NSDate *date, UIImagePickerControllerSourceType source);
 

@@ -10,8 +10,13 @@
 #import "LRUManager.h"
 #import "BrowseEventsCell.h"
 #import "PhotoNoteViewController.h"
+#import <AssetsLibrary/AssetsLibrary.h>
+#import "EventDetailsViewController.h"
+#import "NSString+Utils.h"
 
-@interface AddEventTableViewController () <MCSwipeTableViewCellDelegate, UIActionSheetDelegate>
+#define kSeguePhotoPicker @"photoPicker"
+
+@interface AddEventTableViewController () <MCSwipeTableViewCellDelegate, UIActionSheetDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 @property (nonatomic,retain) NSArray *lruEntries;
 
@@ -33,12 +38,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning
@@ -107,7 +106,7 @@
     return 20;
 }
 
-#pragma mark - IB
+#pragma mark - IBAction, segue
 
 -(IBAction)createEvent:(UIButton*)sender
 {
@@ -153,19 +152,99 @@
         return;
     }
     
-    UIImagePickerControllerSourceType sourceType = buttonIndex == 0 ? UIImagePickerControllerSourceTypeCamera : UIImagePickerControllerSourceTypePhotoLibrary;
-    /*if(self.tempEntry)
+    PhotoNoteViewController *photoVC = [[PhotoNoteViewController alloc] init];
+    photoVC.sourceType = buttonIndex == 0 ? UIImagePickerControllerSourceTypeCamera : UIImagePickerControllerSourceTypePhotoLibrary;
+    [photoVC setDelegate:self];
+    [self presentViewController:photoVC animated:YES completion:nil];
+}
+
+#pragma mark - UIImagePickerControllerDelegate
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    UIImage *selectedImage = [info valueForKey:UIImagePickerControllerOriginalImage];
+    //selectedImage = [self scaledImageForImage:selectedImage];
+    NSURL *imageURL = [info valueForKey:UIImagePickerControllerReferenceURL];
+    
+    ALAssetsLibrary *aLib = [[ALAssetsLibrary alloc] init];
+    
+    if(picker.sourceType == UIImagePickerControllerSourceTypeCamera)
     {
-        UserHistoryEntry *entry = self.tempEntry;
-        self.isSourceTypePicked = @(sourceType);
-        [self showEventDetailsWithUserHistoryEntry:entry];
-        self.tempEntry = nil;
-        return;
+        [aLib writeImageToSavedPhotosAlbum:[selectedImage CGImage] orientation:(ALAssetOrientation)[selectedImage imageOrientation] completionBlock:^(NSURL *assetURL, NSError *error){
+            if (error)
+            {
+                [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Alert.Error.SavingImageError", nil) message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] show];
+            }
+        }];
+    }
+    
+    [aLib assetForURL:imageURL resultBlock:^(ALAsset *asset) {
+        NSDictionary *metadata = asset.defaultRepresentation.metadata;
+        NSDate *date = nil;
+        if(metadata)
+        {
+#warning DateTimeDigitized
+            NSString *timeString = [[metadata objectForKey:@"{Exif}"] objectForKey:@"DateTimeOriginal"];
+            
+            if(timeString)
+            {
+                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                [dateFormatter setDateFormat:@"yyyy:MM:dd HH:mm:ss"];
+                date = [dateFormatter dateFromString:timeString];
+                
+            }
+        }
+        
+        [picker dismissViewControllerAnimated:YES completion:^{
+            NSData *imageData = UIImageJPEGRepresentation(selectedImage, 0.7);
+            if(!imageData) return;
+            
+            NSString *imgName = [NSString randomStringWithLength:10];
+            PYAttachment *att = [[PYAttachment alloc] initWithFileData:imageData name:imgName fileName:[NSString stringWithFormat:@"%@.jpeg",imgName]];
+            PYEvent *newEvent = [[PYEvent alloc] init];
+            newEvent.type = @"picture/attached";
+            [newEvent setAttachments:[NSMutableArray arrayWithObject:att]];
+            
+            [self showEventDetailsForEvent:newEvent andUserHistoryEntry:nil];
+            
+            /*self.browseVC.imagePickerType = self.sourceType;
+             self.browseVC.pickedImageTimestamp = date;
+             self.browseVC.pickedImage = selectedImage;*/
+            /*if(self.imagePickedBlock)
+            {
+                self.imagePickedBlock(selectedImage,date,self.sourceType);
+            }*/
+            //[self.navigationController popToRootViewControllerAnimated:NO];
+            //[self popViewController];
+        }];
+        
+    } failureBlock:^(NSError *error) {
+        [picker dismissViewControllerAnimated:YES completion:^{
+            /*self.browseVC.imagePickerType = self.sourceType;
+             self.browseVC.pickedImage = selectedImage;*/
+            /*if(self.imagePickedBlock)
+            {
+                self.imagePickedBlock(selectedImage,nil,self.sourceType);
+            }*/
+            //[self popViewController];
+            //[self.navigationController popToRootViewControllerAnimated:NO];
+        }];
+    }];
+}
+
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [picker dismissViewControllerAnimated:YES completion:NULL];
+    /*if([(PhotoNoteViewController*)picker entry])
+    {
+        UIViewController *vcToPop = [self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers indexOfObject:self] - 2];
+        [self.navigationController popToViewController:vcToPop animated:YES];
+    }
+    else
+    {
+        [self.navigationController popToRootViewControllerAnimated:NO];
     }*/
-    PhotoNoteViewController *photoVC = [UIStoryboard instantiateViewControllerWithIdentifier:@"PhotoNoteViewController_ID"];
-    photoVC.sourceType = sourceType;
-    //photoVC.browseVC = self;
-    [self.navigationController pushViewController:photoVC animated:YES];
 }
 
 #pragma mark - utils
@@ -194,14 +273,15 @@
 
 - (void)showEventDetailsForEvent:(PYEvent*)event andUserHistoryEntry:(UserHistoryEntry*)entry
 {
-    /*if (event == nil) {
+    if (event == nil) {
         [NSException raise:@"Event is nil" format:nil];
     }
     
     EventDetailsViewController *eventDetailVC = (EventDetailsViewController*)[[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"EventDetailsViewController_ID"];
-    eventDetailVC.event = event;
+    [eventDetailVC setEvent:event];
+    [self.navigationController pushViewController:eventDetailVC animated:YES];
     
-    EventDataType eventType = [eventDetailVC.event eventDataType];
+    /*EventDataType eventType = [eventDetailVC.event eventDataType];
     
     
     if(eventType == EventDataTypeImage)
@@ -245,7 +325,7 @@
             photoVC.entry = entry;
             [photoVC setImagePickedBlock:^(UIImage *image, NSDate *date, UIImagePickerControllerSourceType source) {
                 [eventDetailVC.event setEventDate:date];
-                NSData *imageData = UIImageJPEGRepresentation(image, 0.5);
+                NSData *imageData = UIImageJPEGRepresentation(image, 0.7);
                 if(imageData)
                 {
                     NSString *imgName = [NSString randomStringWithLength:10];

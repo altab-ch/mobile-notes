@@ -376,25 +376,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
             </objects>
             <point key="canvasLocation" x="-251" y="-326"/>
         </scene>
-        <!--Photo Note View Controller-->
-        <scene sceneID="6WO-zo-auX">
-            <objects>
-                <viewController storyboardIdentifier="PhotoNoteViewController_ID" id="yCq-bN-qmk" customClass="PhotoNoteViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Eiv-oY-41q"/>
-                        <viewControllerLayoutGuide type="bottom" id="Hxf-Om-Nm5"/>
-                    </layoutGuides>
-                    <view key="view" alpha="0.0" contentMode="scaleToFill" id="igo-yZ-gg0">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="fZ5-ub-Ili"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="oGH-fQ-8PS" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-136" y="-1237"/>
-        </scene>
         <!--View Controller-->
         <scene sceneID="iEF-pH-F1s">
             <objects>
