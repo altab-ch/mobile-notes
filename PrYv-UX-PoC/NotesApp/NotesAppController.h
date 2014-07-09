@@ -11,13 +11,6 @@
 @class SettingsController;
 @class PYConnection;
 
-typedef NS_ENUM(NSInteger, EventDataType)
-{
-    EventDataTypeNote,
-    EventDataTypeValueMeasure,
-    EventDataTypeImage
-};
-
 typedef void (^NoConnectionCompletionBlock)(void);
 typedef void (^SharedConnectionCompletionBlock)(PYConnection *connection);
 
@@ -26,7 +19,7 @@ typedef void (^SharedConnectionCompletionBlock)(PYConnection *connection);
 extern NSString *const kAppDidReceiveAccessTokenNotification;
 extern NSString *const kUserDidLogoutNotification;
 extern NSString *const kUserShouldLoginNotification;
-
+extern NSString *const kUserDidCreateEventNotification;
 
 @interface NotesAppController : NSObject
 

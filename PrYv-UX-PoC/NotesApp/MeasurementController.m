@@ -77,9 +77,7 @@
             PYMeasurementSet *set = [[[PYEventTypes sharedInstance] measurementSets] objectAtIndex:0];
             [_userMeasurementSets insertObject:[set key] atIndex:0];
         }
-        
     }
- 
 }
 
 #pragma mark - Public API

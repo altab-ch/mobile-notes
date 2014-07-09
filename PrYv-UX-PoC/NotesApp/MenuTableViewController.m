@@ -85,6 +85,11 @@ static int kPickerTag = 10;
                                              selector:@selector(userDidLogoutNotification:)
                                                  name:kUserDidLogoutNotification
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(userDidCreateEventNotification:)
+                                                 name:kUserDidCreateEventNotification
+                                               object:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -329,6 +334,12 @@ static int kPickerTag = 10;
 }
 
 #pragma mark - notification
+
+-(void) userDidCreateEventNotification:(NSNotification*)notification
+{
+    PYEvent *event = (PYEvent*)[notification object];
+    [self addStream:event.streamId];
+}
 
 - (void)userDidLogoutNotification:(NSNotification *)notification
 {

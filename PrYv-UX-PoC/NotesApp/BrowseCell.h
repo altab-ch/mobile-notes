@@ -18,6 +18,7 @@
 @property (nonatomic, strong) IBOutlet UIView *streamContainer;
 @property (nonatomic, weak) IBOutlet UIView *pastille;
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
+@property (nonatomic, weak) PYEvent *event;
 
 - (void)updateTags:(NSArray*)tags;
 

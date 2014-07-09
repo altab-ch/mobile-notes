@@ -36,6 +36,9 @@
 #import "PYEventTypes+Helper.h"
 #import "XMMDrawerController.h"
 
+#define kPictureToDetailSegue_ID @"kPictureToDetailSegue_ID"
+#define kNoteToDetailSegue_ID @"kNoteToDetailSegue_ID"
+#define kValueToDetailSegue_ID @"kValueToDetailSegue_ID"
 
 #pragma mark - MySection
 
@@ -223,14 +226,14 @@ BOOL displayNonStandardEvents;
 {
     [super viewDidAppear:animated];
     
-    if(self.eventToShowOnAppear)
+    /*if(self.eventToShowOnAppear)
     {
         PYEvent *event = self.eventToShowOnAppear;
         self.eventToShowOnAppear = nil;
         [self showEventDetailsForEvent:event andUserHistoryEntry:nil];
         self.pickedImage = nil;
         self.pickedImageTimestamp = nil;
-    }
+    }*/
 }
 
 - (void)viewDidUnload
@@ -709,28 +712,16 @@ BOOL displayNonStandardEvents;
     }];
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+/*- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if([tableView isEqual:self.menuTableView])
-    {
-        return [super tableView:tableView didSelectRowAtIndexPath:indexPath];
-    }
-    if(IS_LRU_SECTION)
-    {
-        UserHistoryEntry *entry = [_shortcuts objectAtIndex:indexPath.row];
-        [self showEventDetailsWithUserHistoryEntry:entry];
-    }
-    else
-    {
-        self.lastIndexPath = indexPath;
-        PYEvent *event = [self eventAtIndexPath:indexPath];
-        [self showEventDetailsForEvent:event andUserHistoryEntry:nil];
-    }
+    self.lastIndexPath = indexPath;
+    PYEvent *event = [self eventAtIndexPath:indexPath];
+    [self showEventDetailsForEvent:event andUserHistoryEntry:nil];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
+}*/
 
-- (void)topMenuDidSelectOptionAtIndex:(NSInteger)index
+/*- (void)topMenuDidSelectOptionAtIndex:(NSInteger)index
 {
     __block BrowseEventsViewController *weakSelf = self;
     [self setMenuVisible:NO animated:YES withCompletionBlock:^{
@@ -762,12 +753,12 @@ BOOL displayNonStandardEvents;
                 break;
         }
     }];
-}
+}*/
 
 #pragma mark - Show details
 
 
-- (void)showEventDetailsWithUserHistoryEntry:(UserHistoryEntry*)entry
+/*- (void)showEventDetailsWithUserHistoryEntry:(UserHistoryEntry*)entry
 {
     self.tempEntry = entry;
     __weak typeof(self) weakSelf = self;
@@ -776,11 +767,15 @@ BOOL displayNonStandardEvents;
         [weakSelf showEventDetailsForEvent:event andUserHistoryEntry:entry];
     }];
     
-}
+}*/
 
-- (void)showEventDetailsForEvent:(PYEvent*)event andUserHistoryEntry:(UserHistoryEntry*)entry
+/*- (void)showEventDetailsForEvent:(PYEvent*)event andUserHistoryEntry:(UserHistoryEntry*)entry
 {
-    if (event == nil) {
+    if (event == nil) return;
+    
+    [self performSegueWithIdentifier:kPictureToDetailSegue_ID sender:event];
+    
+    /*if (event == nil) {
         [NSException raise:@"Event is nil" format:nil];
     }
     
@@ -794,7 +789,7 @@ BOOL displayNonStandardEvents;
      
      [eventDetailVC setupDescriptionEditorViewController:textVC];
      **/
-    
+    /*
     if(eventType == EventDataTypeImage)
     {
         eventDetailVC.imagePickerType = self.imagePickerType;
@@ -855,13 +850,13 @@ BOOL displayNonStandardEvents;
     else
     {
         [self.navigationController pushViewController:eventDetailVC animated:YES];
-    }
+    }*/
     
-}
+//}
 
 #pragma mark - Top menu visibility changed
 
-- (void)topMenuVisibilityWillChange
+/*- (void)topMenuVisibilityWillChange
 {
     [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         self.tableView.alpha = 0.0f;
@@ -878,22 +873,9 @@ BOOL displayNonStandardEvents;
     } completion:^(BOOL finished) {
         
     }];
-}
-
-#pragma mark - Actions
-
-/*- (void)settingButtonTouched:(id)sender
-{
-    SettingsViewController *settingsVC = [UIStoryboard instantiateViewControllerWithIdentifier:@"SettingsViewController_ID"];
-    settingsVC.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:settingsVC];
-    navVC.navigationBar.translucent = NO;
-    [self presentViewController:navVC animated:YES completion:nil];
 }*/
 
-
 #pragma mark - Event List manipulations
-
 
 - (BOOL)clientFilterMatchEvent:(PYEvent*)event
 {
@@ -901,15 +883,13 @@ BOOL displayNonStandardEvents;
     return displayNonStandardEvents || ! ([event cellStyle] == CellStyleTypeUnkown );
 }
 
-
-
-
 - (void)clearCurrentData
 {
     [self rebuildSectionMap];
     [self unsetFilter];
     [self.tableView reloadData];
 }
+
 
 #pragma mark - Observers
 
@@ -922,7 +902,21 @@ BOOL displayNonStandardEvents;
         [self clearCurrentData];
         [self refreshFilter];
     }
-    
+}
+
+
+#pragma mark - IBAction, segue
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(PYEvent*)sender
+{
+    if ([[segue identifier] isEqualToString:kValueToDetailSegue_ID]
+        || [[segue identifier] isEqualToString:kPictureToDetailSegue_ID]
+        || [[segue identifier] isEqualToString:kNoteToDetailSegue_ID]) {
+        
+        EventDetailsViewController *detail = [segue destinationViewController];
+        BrowseCell *cell = (BrowseCell*)[self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
+        [detail setEvent:cell.event];
+    }
 }
 
 #pragma mark - Notifications
@@ -1003,7 +997,7 @@ BOOL displayNonStandardEvents;
 
 #pragma mark - UIActionSheetDelegate methods
 
-- (void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex
+/*- (void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     if(buttonIndex == actionSheet.cancelButtonIndex)
     {
@@ -1024,7 +1018,7 @@ BOOL displayNonStandardEvents;
     photoVC.sourceType = sourceType;
     //photoVC.browseVC = self;
     [self.navigationController pushViewController:photoVC animated:YES];
-}
+}*/
 
 - (void)setPickedImage:(UIImage *)pickedImage
 {

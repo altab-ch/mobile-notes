@@ -8,6 +8,12 @@
 
 #import <PryvApiKit/PryvApiKit.h>
 
+typedef enum{
+    EventDataTypeNote,
+    EventDataTypeValueMeasure,
+    EventDataTypeImage
+} EventDataType;
+
 @interface PYEvent (Helper)
 
 @property (nonatomic, readonly) NSString *eventContentAsString;

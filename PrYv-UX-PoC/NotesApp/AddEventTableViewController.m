@@ -14,6 +14,7 @@
 #import "EventDetailsViewController.h"
 #import "NSString+Utils.h"
 
+#define showDetailSegue @"kAddToDetailSegue_ID"
 #define kSeguePhotoPicker @"photoPicker"
 
 @interface AddEventTableViewController () <MCSwipeTableViewCellDelegate, UIActionSheetDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate>
@@ -26,9 +27,9 @@
 
 @implementation AddEventTableViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
+-(id) initWithCoder:(NSCoder *)aDecoder
 {
-    self = [super initWithStyle:style];
+    self = [super initWithCoder:aDecoder];
     if (self) {
         self.lruEntries = [[LRUManager sharedInstance] lruEntries];
     }
@@ -139,6 +140,14 @@
     }
 }
 
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(PYEvent*)sender
+{
+    if ([[segue identifier] isEqualToString:showDetailSegue]) {
+        EventDetailsViewController *detail = [segue destinationViewController];
+        [detail setEvent:sender];
+    }
+}
+
 #pragma mark - UIActionSheetDelegate methods
 
 - (void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex
@@ -183,8 +192,8 @@
         NSDate *date = nil;
         if(metadata)
         {
-#warning DateTimeDigitized
             NSString *timeString = [[metadata objectForKey:@"{Exif}"] objectForKey:@"DateTimeOriginal"];
+            if (!timeString) timeString = [[metadata objectForKey:@"{Exif}"] objectForKey:@"DateTimeDigitized"];
             
             if(timeString)
             {
@@ -204,31 +213,12 @@
             PYEvent *newEvent = [[PYEvent alloc] init];
             newEvent.type = @"picture/attached";
             [newEvent setAttachments:[NSMutableArray arrayWithObject:att]];
-            
+            [newEvent setEventDate:date];
             [self showEventDetailsForEvent:newEvent andUserHistoryEntry:nil];
-            
-            /*self.browseVC.imagePickerType = self.sourceType;
-             self.browseVC.pickedImageTimestamp = date;
-             self.browseVC.pickedImage = selectedImage;*/
-            /*if(self.imagePickedBlock)
-            {
-                self.imagePickedBlock(selectedImage,date,self.sourceType);
-            }*/
-            //[self.navigationController popToRootViewControllerAnimated:NO];
-            //[self popViewController];
         }];
         
     } failureBlock:^(NSError *error) {
-        [picker dismissViewControllerAnimated:YES completion:^{
-            /*self.browseVC.imagePickerType = self.sourceType;
-             self.browseVC.pickedImage = selectedImage;*/
-            /*if(self.imagePickedBlock)
-            {
-                self.imagePickedBlock(selectedImage,nil,self.sourceType);
-            }*/
-            //[self popViewController];
-            //[self.navigationController popToRootViewControllerAnimated:NO];
-        }];
+        [picker dismissViewControllerAnimated:YES completion:nil];
     }];
 }
 
@@ -273,16 +263,11 @@
 
 - (void)showEventDetailsForEvent:(PYEvent*)event andUserHistoryEntry:(UserHistoryEntry*)entry
 {
-    if (event == nil) {
-        [NSException raise:@"Event is nil" format:nil];
-    }
+    if (event == nil) return;
     
-    EventDetailsViewController *eventDetailVC = (EventDetailsViewController*)[[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"EventDetailsViewController_ID"];
-    [eventDetailVC setEvent:event];
-    [self.navigationController pushViewController:eventDetailVC animated:YES];
+    [self performSegueWithIdentifier:showDetailSegue sender:event];
     
     /*EventDataType eventType = [eventDetailVC.event eventDataType];
-    
     
     if(eventType == EventDataTypeImage)
     {

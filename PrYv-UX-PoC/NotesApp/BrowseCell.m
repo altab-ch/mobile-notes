@@ -12,9 +12,6 @@
 #import "PictureCell.h"
 
 @interface BrowseCell ()
-
-@property (nonatomic, weak) PYEvent *event;
-
 @end
 
 @implementation BrowseCell

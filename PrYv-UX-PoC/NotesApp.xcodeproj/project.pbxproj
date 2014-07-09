@@ -88,7 +88,6 @@
 		B6016BCA172873D40056CD3F /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6016BC8172873D40056CD3F /* MainStoryboard_iPhone.storyboard */; };
 		B6016BCD172873D40056CD3F /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6016BCB172873D40056CD3F /* MainStoryboard_iPad.storyboard */; };
 		B6016BD0172873D40056CD3F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6016BCF172873D40056CD3F /* ViewController.m */; };
-		B6087DB3189F088800891C75 /* ConditionallyAnimatedPushSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = B6087DB2189F088800891C75 /* ConditionallyAnimatedPushSegue.m */; };
 		B6087DD118A0494C00891C75 /* MNMPullToRefresh.strings in Resources */ = {isa = PBXBuildFile; fileRef = B6087DD318A0494C00891C75 /* MNMPullToRefresh.strings */; };
 		B617F21F188EEF77002DEF0B /* EventDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B617F21E188EEF77002DEF0B /* EventDetailsViewController.m */; };
 		B61A193B185A321000E9F9BE /* circle-add.png in Resources */ = {isa = PBXBuildFile; fileRef = B61A193A185A321000E9F9BE /* circle-add.png */; };
@@ -119,7 +118,6 @@
 		B64ACAE9175544E100E2F6F7 /* CustomNumericalKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = B64ACAE8175544E100E2F6F7 /* CustomNumericalKeyboard.m */; };
 		B64ACAEB1755451000E2F6F7 /* CustomNumericalKeyboard.xib in Resources */ = {isa = PBXBuildFile; fileRef = B64ACAEA1755451000E2F6F7 /* CustomNumericalKeyboard.xib */; };
 		B6556DE2175B7DC7008DFCC9 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6556DE1175B7DC7008DFCC9 /* Security.framework */; };
-		B67064AC184D3DE400A0EB62 /* DetailsStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B67064AB184D3DE400A0EB62 /* DetailsStoryboard_iPhone.storyboard */; };
 		B678307117613D04008E6C1C /* UserHistoryEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = B678307017613D04008E6C1C /* UserHistoryEntry.m */; };
 		B6783A37174168030083AE50 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6783A36174168030083AE50 /* SystemConfiguration.framework */; };
 		B6783A3D174178FB0083AE50 /* NotesAppController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6783A3C174178FB0083AE50 /* NotesAppController.m */; };
@@ -563,8 +561,6 @@
 		B6016BCC172873D40056CD3F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		B6016BCE172873D40056CD3F /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		B6016BCF172873D40056CD3F /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		B6087DB1189F088800891C75 /* ConditionallyAnimatedPushSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConditionallyAnimatedPushSegue.h; sourceTree = "<group>"; };
-		B6087DB2189F088800891C75 /* ConditionallyAnimatedPushSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionallyAnimatedPushSegue.m; sourceTree = "<group>"; };
 		B6087DD218A0494C00891C75 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/MNMPullToRefresh.strings; sourceTree = "<group>"; };
 		B6087DD418A0495000891C75 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/MNMPullToRefresh.strings; sourceTree = "<group>"; };
 		B617F21D188EEF77002DEF0B /* EventDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventDetailsViewController.h; sourceTree = "<group>"; };
@@ -615,7 +611,6 @@
 		B64ACAE8175544E100E2F6F7 /* CustomNumericalKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomNumericalKeyboard.m; sourceTree = "<group>"; };
 		B64ACAEA1755451000E2F6F7 /* CustomNumericalKeyboard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomNumericalKeyboard.xib; sourceTree = "<group>"; };
 		B6556DE1175B7DC7008DFCC9 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		B67064AB184D3DE400A0EB62 /* DetailsStoryboard_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DetailsStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
 		B678306F17613D04008E6C1C /* UserHistoryEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserHistoryEntry.h; sourceTree = "<group>"; };
 		B678307017613D04008E6C1C /* UserHistoryEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserHistoryEntry.m; sourceTree = "<group>"; };
 		B6783A36174168030083AE50 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -1267,15 +1262,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		B6087D97189F084200891C75 /* Segue */ = {
-			isa = PBXGroup;
-			children = (
-				B6087DB1189F088800891C75 /* ConditionallyAnimatedPushSegue.h */,
-				B6087DB2189F088800891C75 /* ConditionallyAnimatedPushSegue.m */,
-			);
-			name = Segue;
-			sourceTree = "<group>";
-		};
 		B617F21C188EEF5D002DEF0B /* EventDetails */ = {
 			isa = PBXGroup;
 			children = (
@@ -1627,7 +1613,6 @@
 		B6F5AFFB173260E0000BC60A /* View */ = {
 			isa = PBXGroup;
 			children = (
-				B6087D97189F084200891C75 /* Segue */,
 				B64ACAE3175544BF00E2F6F7 /* Keyboard */,
 				B6F5AFFC173260E5000BC60A /* Cell */,
 				B6F207B3179358E6006FC5B0 /* TagView.h */,
@@ -1678,7 +1663,6 @@
 			children = (
 				B69940241897368B00D88127 /* Nibs */,
 				B6016BC8172873D40056CD3F /* MainStoryboard_iPhone.storyboard */,
-				B67064AB184D3DE400A0EB62 /* DetailsStoryboard_iPhone.storyboard */,
 				B6016BCB172873D40056CD3F /* MainStoryboard_iPad.storyboard */,
 				9A70AD8E18D2024C0090BC2E /* DetailsStoryboard_iPad.storyboard */,
 			);
@@ -2036,7 +2020,6 @@
 				B6B5902F178B60B60009E413 /* icon_small_lru_active@2x.png in Resources */,
 				B6B59030178B60B60009E413 /* icon_small_lru.png in Resources */,
 				B6B59031178B60B60009E413 /* icon_small_lru@2x.png in Resources */,
-				B67064AC184D3DE400A0EB62 /* DetailsStoryboard_iPhone.storyboard in Resources */,
 				96088A971861F1230090ECC7 /* Icon-80.png in Resources */,
 				B6B59032178B60B60009E413 /* icon_small_not-synced.png in Resources */,
 				B6B59033178B60B60009E413 /* icon_small_not-synced@2x.png in Resources */,
@@ -2204,7 +2187,6 @@
 				B678307117613D04008E6C1C /* UserHistoryEntry.m in Sources */,
 				B6F1AEB717846D0D000ECD60 /* DALinedTextView.m in Sources */,
 				B6F1AEBF17847420000ECD60 /* JSTokenField.m in Sources */,
-				B6087DB3189F088800891C75 /* ConditionallyAnimatedPushSegue.m in Sources */,
 				B6F1AEC017847420000ECD60 /* JSTokenButton.m in Sources */,
 				2912176F18F6C4A6000AC905 /* ImageViewController.m in Sources */,
 				291ED17F1913E717009A9B3D /* MenuTableViewController.m in Sources */,

@@ -17,9 +17,6 @@
 @property (nonatomic, strong) PYEvent *event;
 @property (nonatomic) UIImagePickerControllerSourceType imagePickerType;
 
-- (BOOL)shouldAnimateViewController:(UIViewController*)vc;
-- (void)updateUIForCurrentEvent;
-
 - (void)setupNoteContentEditorViewController:(TextEditorViewController*)textEditorVC;
 - (void)setupDescriptionEditorViewController:(TextEditorViewController*)textEditorVC;
 - (void)setupAddNumericalValueViewController:(AddNumericalValueViewController*)addNumericalValueVC;

@@ -23,23 +23,20 @@
     return breadCrumb;
 }
 
-
+/*-(EventDataType)eventDataType
+{
+    if ([self.type isEqualToString:@"note/txt"]) return EventDataTypeNote;
+    else if ([self.type isEqualToString:@"picture/attached"]) return EventDataTypeImage;
+    else return EventDataTypeValueMeasure;
+}*/
 
 - (EventDataType)eventDataType
 {
-    if ([[self pyType] isNumerical]) {
-        return EventDataTypeValueMeasure;
-    }
+    if ([[self pyType] isNumerical]) return EventDataTypeValueMeasure;
     
-    NSString *eventClassKey = self.pyType.classKey;
-    if([eventClassKey isEqualToString:@"note"])
-    {
-        return EventDataTypeNote;
-    }
-    else if([eventClassKey isEqualToString:@"picture"])
-    {
-        return EventDataTypeImage;
-    }
+    if([self.pyType.classKey isEqualToString:@"note"]) return EventDataTypeNote;
+    else if([self.pyType.classKey isEqualToString:@"picture"]) return EventDataTypeImage;
+    
     //NSLog(@"<WARNING> Dataservice.eventDataTypeForEvent: unkown type:  %@ ", self);
     return EventDataTypeNote;
 }

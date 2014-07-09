@@ -44,6 +44,8 @@
     [self readFromDisc];
 }
 
+
+
 -(void)userDidLogoutNotification:(NSNotification *)notification
 {
     [self clearAllLRUEntries];
