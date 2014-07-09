@@ -20,6 +20,7 @@
 @interface AddEventTableViewController () <MCSwipeTableViewCellDelegate, UIActionSheetDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 @property (nonatomic,retain) NSArray *lruEntries;
+@property (nonatomic, retain) UserHistoryEntry* tempEntry;
 
 -(IBAction)createEvent:(UIButton*)sender;
 
@@ -107,6 +108,14 @@
     return 20;
 }
 
+-(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 1) {
+        self.tempEntry = [self.lruEntries objectAtIndex:[self.tableView indexPathForSelectedRow].row];
+        [self showPicturePicker];
+    }
+}
+
 #pragma mark - IBAction, segue
 
 -(IBAction)createEvent:(UIButton*)sender
@@ -127,8 +136,7 @@
             break;
         case 3:
         {
-            UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Alert.Message.PhotoSource", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Camera", nil),NSLocalizedString(@"Library", nil), nil];
-            [actionSheet showInView:self.view];
+            [self showPicturePicker];
         }
             break;
         default:
@@ -148,12 +156,22 @@
     }
 }
 
+-(void) showPicturePicker
+{
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Alert.Message.PhotoSource", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Camera", nil),NSLocalizedString(@"Library", nil), nil];
+    [actionSheet showInView:self.view];
+}
+
 #pragma mark - UIActionSheetDelegate methods
 
 - (void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex
 {
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:NO];
     if(buttonIndex == actionSheet.cancelButtonIndex)
+    {
+        self.tempEntry = nil;
         return;
+    }
     
     if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] && buttonIndex == 0) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"CameraUnavailable", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:nil];
@@ -210,31 +228,30 @@
             
             NSString *imgName = [NSString randomStringWithLength:10];
             PYAttachment *att = [[PYAttachment alloc] initWithFileData:imageData name:imgName fileName:[NSString stringWithFormat:@"%@.jpeg",imgName]];
-            PYEvent *newEvent = [[PYEvent alloc] init];
-            newEvent.type = @"picture/attached";
+            PYEvent *newEvent;
+            if (self.tempEntry) {
+                newEvent = [self.tempEntry reconstructEvent];
+                self.tempEntry = nil;
+            }else{
+                newEvent = [[PYEvent alloc] init];
+                newEvent.type = @"picture/attached";
+            }
+            
             [newEvent setAttachments:[NSMutableArray arrayWithObject:att]];
             [newEvent setEventDate:date];
             [self showEventDetailsForEvent:newEvent andUserHistoryEntry:nil];
         }];
         
     } failureBlock:^(NSError *error) {
-        [picker dismissViewControllerAnimated:YES completion:nil];
+        [picker dismissViewControllerAnimated:YES completion:^{self.tempEntry = nil;}];
     }];
 }
 
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
+    self.tempEntry = nil;
     [picker dismissViewControllerAnimated:YES completion:NULL];
-    /*if([(PhotoNoteViewController*)picker entry])
-    {
-        UIViewController *vcToPop = [self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers indexOfObject:self] - 2];
-        [self.navigationController popToViewController:vcToPop animated:YES];
-    }
-    else
-    {
-        [self.navigationController popToRootViewControllerAnimated:NO];
-    }*/
 }
 
 #pragma mark - utils

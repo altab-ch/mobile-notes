@@ -206,20 +206,10 @@ BOOL displayNonStandardEvents;
     //[self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navbar"] forBarMetrics:UIBarMetricsDefault];
     //[self.navigationController.navigationBar setBackgroundColor:[UIColor whiteColor]];
     
+    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+    if(indexPath) [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     self.title = NSLocalizedString(@"BrowserViewController.Title", nil);
-    [self loadShortcuts];
-}
-
-- (void)loadShortcuts
-{
-    __block BrowseEventsViewController *weakSelf = self;
-    [[LRUManager sharedInstance] fetchLRUEntriesWithCompletionBlock:^{
-        weakSelf.shortcuts = [[LRUManager sharedInstance] lruEntries];
-        if(IS_LRU_SECTION)
-        {
-            [self.tableView reloadData];
-        }
-    }];
 }
 
 - (void)viewDidAppear:(BOOL)animated

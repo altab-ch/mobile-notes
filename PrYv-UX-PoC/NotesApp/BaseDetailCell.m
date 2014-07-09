@@ -21,7 +21,7 @@
 {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        
+        [self setClipsToBounds:YES];
     }
     return self;
 }

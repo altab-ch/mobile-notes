@@ -118,15 +118,6 @@ typedef enum
 
 @implementation EventDetailsViewController
 
--(id) initWithCoder:(NSCoder *)aDecoder{
-    
-    self = [super initWithCoder:aDecoder];
-    if (self) {
-        self.isInEditMode = NO;
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -147,13 +138,13 @@ typedef enum
                                              selector:@selector(tokenContainerDidChangeFrameNotification:)
                                                  name:JSTokenFieldFrameDidChangeNotification
                                                object:nil];
-    
+    self.isInEditMode = self.event.isDraft;
     [self initTags];
     [self initBtDelete];
     [self updateUIForEvent];
     [self.tokendDoneButton setTitle:NSLocalizedString(@"Done", nil) forState:UIControlStateNormal];
     
-    if (self.event.isDraft) [self editButtonTouched:nil];
+    if (self.event.isDraft) [self updateUIEditMode:YES];
     
     // commented for now.. to be reused for share and anther actions.
     // [self initBottomButtonsContainer];
@@ -166,7 +157,7 @@ typedef enum
     self.deleteButton.layer.cornerRadius = 5;
 }
 
-- (void)initBottomButtonsContainer
+/*- (void)initBottomButtonsContainer
 {
     __block EventDetailsViewController *weakSelf = self;
     self.bottomButtonsContainer = [[[UINib nibWithNibName:@"DetailsBottomButtonsContainer" bundle:[NSBundle mainBundle]] instantiateWithOwner:nil options:nil] objectAtIndex:0];
@@ -191,7 +182,7 @@ typedef enum
     self.bottomButtonsContainer.frame = frame;
     [self.view addSubview:self.bottomButtonsContainer];
     [self.view bringSubviewToFront:self.bottomButtonsContainer];
-}
+}*/
 
 /*- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGRect frame = self.bottomButtonsContainer.frame;
@@ -336,11 +327,11 @@ typedef enum
 
 #pragma mark - UITableViewDeleagate methods
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+/*- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CGFloat height = [self heightForCellAtIndexPath:indexPath withEvent:self.event];
     cell.alpha = height > 0 ? 1.0f : 0.0f;
-}
+}*/
 
 /**
  - (void)showImagePreview:(id)sender
@@ -409,7 +400,6 @@ typedef enum
 
 #pragma mark - Actions
 
-
 - (IBAction)deleteButtonTouched:(id)sender {
     NSString* title = NSLocalizedString(@"Alert.Message.DeleteConfirmation", nil);
     if(self.shouldCreateEvent)
@@ -430,30 +420,15 @@ typedef enum
 
 - (void)cancelButtonTouched:(id)sender
 {
-    
-    // -- if streamPickerVC is opened
-    /*if(self.streamPickerVC)
-    {
-        [self closeStreamPickerAndRestorePreviousStreamId];
-        [self closeStreamPicker];
-        return;
-    }*/
-    
-    /**
-     if(self.event.isDraft)
-     {
-     [self.navigationController popViewControllerAnimated:YES];
-     }
-     else
-     {**/
-    
     if (self.event.isDraft) [self.navigationController popViewControllerAnimated:YES];
-    if (self.initialEventValue) [self.event resetFromCachingDictionary:self.initialEventValue];
-    
-    [self updateUIForEvent];
-    self.shouldUpdateEvent = NO;
-    [self updateUIEditMode:false];
-    /**}**/
+    else
+    {
+        if (self.initialEventValue) [self.event resetFromCachingDictionary:self.initialEventValue];
+        
+        [self updateUIForEvent];
+        self.shouldUpdateEvent = NO;
+        [self updateUIEditMode:false];
+    }
 }
 
 - (IBAction)editButtonTouched:(id)sender
@@ -492,6 +467,7 @@ typedef enum
 
 -(void) updateUIEditMode:(BOOL)edit
 {
+    [self.tableView beginUpdates];
     self.isInEditMode = edit;
     if (edit) [self switchToEditingMode];
     else [self switchFromEditingMode];
@@ -499,6 +475,7 @@ typedef enum
     [self.cells enumerateObjectsUsingBlock:^(BaseDetailCell *cell, NSUInteger idx, BOOL *stop) {
         [cell setIsInEditMode:self.isInEditMode];
     }];
+    [self.tableView endUpdates];
 }
 
 - (void)switchFromEditingMode
@@ -515,7 +492,7 @@ typedef enum
         [self closeStreamPicker];
     }
     
-    if(self.shouldCreateEvent && self.shouldUpdateEvent)
+    if(self.shouldCreateEvent)
     {
         [self saveEvent];
     } else if(self.shouldUpdateEvent)
@@ -779,11 +756,11 @@ typedef enum
     DetailCellType cellType = indexPath.row;
     switch (cellType) {
         case DetailCellTypeValue:
-            if([self.event eventDataType] == EventDataTypeValueMeasure)
-            {
-                return kValueCellHeight;
-            }
+        {
+            if([self.event eventDataType] == EventDataTypeValueMeasure) return kValueCellHeight;
             return 0;
+        }
+            
             
         case DetailCellTypeImage:
         {
@@ -803,6 +780,7 @@ typedef enum
         }
             
         case DetailCellTypeNote:
+        {
             if([self.event eventDataType] == EventDataTypeNote)
             {
                 if(self.isInEditMode && [self.note_Label.text length] == 0) {
@@ -813,16 +791,19 @@ typedef enum
                     CGSize textSize = [self.note_Label.text sizeWithFont:self.note_Label.font constrainedToSize:CGSizeMake(self.note_Label.frame.size.width, FLT_MAX)];
                     CGFloat height = textSize.height + 25;
                     
-                     return height;
+                    return height;
                 }
                 return 0;
             }
             return 0;
+        }
+            
             
         case DetailCellTypeTime:
             return kLineCellHeight;
             
         case DetailCellTypeDescription:
+        {
             if(self.isInEditMode && [self.descriptionLabel.text length] == 0) {
                 return kLineCellHeight;
             }
@@ -834,13 +815,16 @@ typedef enum
                 return height;
             }
             return 0;
+        }
             
         case DetailCellTypeTags:
+        {
             if (self.isInEditMode || (self.event.tags.count > 0)) {
                 CGFloat tagHeight = self.tokenField.frame.size.height + 28;
                 return tagHeight;
             }
             return 0;
+        }
             
         case DetailCellTypeStreams:
             return kLineCellHeight;
@@ -880,9 +864,6 @@ typedef enum
          [connection eventCreate:self.event
                   successHandler:^(NSString *newEventId, NSString *stoppedId, PYEvent* event)
           {
-              /*MenuNavController* menuNavController = (MenuNavController*)[self.mm_drawerController leftDrawerViewController];
-              [menuNavController addStream:event.streamId];*/
-              
               [[NSNotificationCenter defaultCenter] postNotificationName:kUserDidCreateEventNotification object:[self event]];
               
               BOOL shouldTakePictureFlag = NO;
