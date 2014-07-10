@@ -32,13 +32,11 @@
 
 - (EventDataType)eventDataType
 {
-    if ([[self pyType] isNumerical]) return EventDataTypeValueMeasure;
-    
     if([self.pyType.classKey isEqualToString:@"note"]) return EventDataTypeNote;
     else if([self.pyType.classKey isEqualToString:@"picture"]) return EventDataTypeImage;
     
     //NSLog(@"<WARNING> Dataservice.eventDataTypeForEvent: unkown type:  %@ ", self);
-    return EventDataTypeNote;
+    return EventDataTypeValueMeasure;
 }
 
 - (int)cellStyle

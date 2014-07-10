@@ -131,6 +131,7 @@
         case 2:
         {
             PYEvent *event = [[PYEvent alloc] init];
+            event.type = @"number";
             [self showEventDetailsForEvent:event andUserHistoryEntry:nil];
         }
             break;

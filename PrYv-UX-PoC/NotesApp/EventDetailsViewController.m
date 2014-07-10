@@ -31,6 +31,7 @@
 #define kLineCellHeight 54
 #define kValueCellHeight 100
 #define kImageCellHeight 320
+#define kNoteTextViewWidth 297
 
 #define kShowValueEditorSegue @"ShowValueEditorSegue_ID"
 #define kShowImagePreviewSegue @"ShowImagePreviewSegue_ID"
@@ -46,20 +47,21 @@ typedef enum
     DetailCellTypeNote,
     DetailCellTypeStreams,
     DetailCellTypeTime,
+    DetailCellTypeTimeExt,
     DetailCellTypeTags,
     DetailCellTypeDescription,
     DetailCellTypeDelete
     
 } DetailCellType;
 
-@interface EventDetailsViewController () <StreamsPickerDelegate,JSTokenFieldDelegate>
+@interface EventDetailsViewController () <StreamsPickerDelegate, JSTokenFieldDelegate, UITextViewDelegate>
 
 @property (nonatomic, strong) NSString *previousStreamId;
 @property (nonatomic, strong) NSDictionary *initialEventValue;
 
 @property (nonatomic) BOOL isStreamExpanded;
 @property (nonatomic) BOOL isTagExpanded;
-
+@property (nonatomic) BOOL isDateExtHidden;
 @property (nonatomic) BOOL isInEditMode;
 @property (nonatomic) BOOL shouldUpdateEvent;
 
@@ -76,10 +78,9 @@ typedef enum
 @property (nonatomic, weak) IBOutlet UILabel *numericalValue_Label;
 @property (nonatomic, weak) IBOutlet UILabel *numericalValue_TypeLabel;
 
-@property (nonatomic, weak) IBOutlet UILabel *note_Label;
-
+@property (nonatomic, weak) IBOutlet UITextView *noteText;
 @property (nonatomic, weak) IBOutlet UILabel *timeLabel;
-@property (nonatomic, weak) IBOutlet UILabel *descriptionLabel;
+@property (nonatomic, weak) IBOutlet UITextView *descriptionText;
 
 // -- common properties
 
@@ -89,6 +90,8 @@ typedef enum
 @property (nonatomic, weak) IBOutlet UIView *tokenContainer;
 @property (nonatomic, weak) IBOutlet UILabel *streamsLabel;
 @property (nonatomic, strong) DetailsBottomButtonsContainer *bottomButtonsContainer;
+@property (nonatomic, weak) IBOutlet UIDatePicker *datePicker;
+@property (nonatomic, weak) IBOutlet UIDatePicker *timePicker;
 
 
 @property (strong, nonatomic) IBOutlet UIButton *deleteButton;
@@ -111,7 +114,7 @@ typedef enum
 
 
 - (BOOL) shouldCreateEvent;
-
+- (CGFloat) heightForNoteTextViewWithString:(NSString*)s;
 - (void)closeStreamPickerAndRestorePreviousStreamId;
 - (NSString*) getNumericalValueFormatted;
 @end
@@ -139,6 +142,8 @@ typedef enum
                                                  name:JSTokenFieldFrameDidChangeNotification
                                                object:nil];
     self.isInEditMode = self.event.isDraft;
+    _isDateExtHidden = true;
+    //[self initNoteTextView];
     [self initTags];
     [self initBtDelete];
     [self updateUIForEvent];
@@ -148,6 +153,15 @@ typedef enum
     
     // commented for now.. to be reused for share and anther actions.
     // [self initBottomButtonsContainer];
+}
+
+-(void) initNoteTextView
+{
+    float height = [self heightForNoteTextViewWithString:self.event.eventContentAsString];
+    CGRect textViewRect = CGRectMake(10, 10, kNoteTextViewWidth, height);
+    
+    self.noteText.frame = textViewRect;
+    self.noteText.contentSize = CGSizeMake(kNoteTextViewWidth, height);
 }
 
 -(void) initBtDelete
@@ -217,9 +231,13 @@ typedef enum
     if (date == nil) date = [NSDate date];
     self.timeLabel.text = [[NotesAppController sharedInstance].dateFormatter stringFromDate:date];
     
+    [_datePicker setDate:date];
+    [_timePicker setDate:date];
+    
+    
     self.streamsLabel.text = [self.event eventBreadcrumbs];
     [self.pastille setBackgroundColor:[[self.event stream] getColor]];
-    self.descriptionLabel.text = self.event.eventDescription;
+    self.descriptionText.text = self.event.eventDescription;
     
     if([self.streamsLabel.text length] < 1)
     {
@@ -246,19 +264,16 @@ typedef enum
     }
     [self.event preview:^(UIImage *img) {
         if(self.picture_ImageView.image) return;
+        
+        [self.tableView beginUpdates];
         self.picture_ImageView.image = img;
-        //[self.tableView beginUpdates];
-        [self.tableView reloadData];
-        // [self updateUIForEvent];
-        //[self.tableView endUpdates];
+        [self.tableView endUpdates];
     } failure:nil];
     
     
     [self.event firstAttachmentAsImage:^(UIImage *image) {
-        
         [self.tableView beginUpdates];
         self.picture_ImageView.image = image;
-        //  [self updateUIForEvent];
         [self.tableView endUpdates];
     } errorHandler:nil];
 }
@@ -315,14 +330,99 @@ typedef enum
 {
     
     self.navigationItem.title =  NSLocalizedString(@"DetailViewController.TitleNote", nil);
-    self.note_Label.text = self.event.eventContentAsString;
+    self.noteText.text = self.event.eventContentAsString;
 }
 
 #pragma mark - UITableViewDataSource methods
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [self heightForCellAtIndexPath:indexPath withEvent:self.event];
+    DetailCellType cellType = indexPath.row;
+    switch (cellType) {
+        case DetailCellTypeValue:
+        {
+            if([self.event eventDataType] == EventDataTypeValueMeasure) return kValueCellHeight;
+            return 0;
+        }
+            
+            
+        case DetailCellTypeImage:
+        {
+            CGFloat height = 0;
+            if([self.event eventDataType] == EventDataTypeImage)
+            {
+                UIImage* image = self.picture_ImageView.image;
+                if(image)
+                {
+                    CGFloat scaleFactor = 320 / image.size.width;
+                    height = image.size.height * scaleFactor;
+                }
+            }
+            return height;
+        }
+            
+        case DetailCellTypeNote:
+        {
+            if([self.event eventDataType] == EventDataTypeNote)
+            {
+                if(self.isInEditMode && [self.noteText.text length] == 0) {
+                    return kLineCellHeight;
+                }
+                if ([self.noteText.text length] > 0)
+                {
+                    return [self heightForNoteTextViewWithString:self.noteText.text];
+                }
+            }
+            return 0;
+        }
+            
+            
+        case DetailCellTypeTime:
+            return kLineCellHeight;
+        
+        case DetailCellTypeTimeExt:
+        {
+            if (_isDateExtHidden) return 0;
+            return 210;
+        }
+            
+        case DetailCellTypeDescription:
+        {
+            if(self.isInEditMode && [self.descriptionText.text length] == 0) {
+                return kLineCellHeight+20;
+            }
+            if ([self.descriptionText.text length] > 0)
+            {
+                return [self heightForNoteTextViewWithString:self.descriptionText.text]+18;
+            }
+            return 0;
+        }
+            
+        case DetailCellTypeTags:
+        {
+            if (self.isInEditMode || (self.event.tags.count > 0)) {
+                CGFloat tagHeight = self.tokenField.frame.size.height + 28;
+                return tagHeight;
+            }
+            return 0;
+        }
+            
+        case DetailCellTypeStreams:
+            return kLineCellHeight;
+            
+        case DetailCellTypeDelete:
+        {
+            if ([self shouldCreateEvent] || ![self isInEditMode])
+                return 0;
+            return kLineCellHeight;
+        }
+            
+            
+        default:
+            break;
+    }
+    
+    return kLineCellHeight;
 }
 
 #pragma mark - UITableViewDeleagate methods
@@ -346,8 +446,11 @@ typedef enum
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [self.view endEditing:YES];
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     DetailCellType cellType = indexPath.row;
+    if (cellType != DetailCellTypeTime) _isDateExtHidden = true;
     if (cellType == DetailCellTypeImage) {
         ImageViewController *imagePreview = [[ImageViewController alloc] initWithNibName:@"ImageViewController" bundle:nil];
         imagePreview.image = self.picture_ImageView.image;
@@ -369,7 +472,11 @@ typedef enum
             
             break;
         case DetailCellTypeTime:
-            
+        {
+            _isDateExtHidden = !_isDateExtHidden;
+            [self.tableView beginUpdates];
+            [self.tableView endUpdates];
+        }
             break;
         case DetailCellTypeDescription:
             break;
@@ -399,6 +506,32 @@ typedef enum
 }
 
 #pragma mark - Actions
+
+-(IBAction)datePickerValueChanged:(id)sender
+{
+    self.timeLabel.text = [[NotesAppController sharedInstance].dateFormatter stringFromDate:_datePicker.date];
+    [_timePicker setDate:_datePicker.date];
+}
+
+-(IBAction)timePickerValueChanged:(id)sender
+{
+    self.timeLabel.text = [[NotesAppController sharedInstance].dateFormatter stringFromDate:_timePicker.date];
+    [_datePicker setDate:_timePicker.date];
+}
+
+- (IBAction)segmentSwitch:(id)sender {
+    UISegmentedControl *segmentedControl = (UISegmentedControl *) sender;
+    NSInteger selectedSegment = segmentedControl.selectedSegmentIndex;
+    
+    if (selectedSegment == 0) {
+        [_datePicker setHidden:NO];
+        [_timePicker setHidden:YES];
+    }
+    else{
+        [_timePicker setHidden:NO];
+        [_datePicker setHidden:YES];
+    }
+}
 
 - (IBAction)deleteButtonTouched:(id)sender {
     NSString* title = NSLocalizedString(@"Alert.Message.DeleteConfirmation", nil);
@@ -483,9 +616,14 @@ typedef enum
     [self.navigationItem setLeftBarButtonItem:nil];
     [self.navigationItem setHidesBackButton:NO];
     
-    if([self.descriptionLabel.text isEqualToString:NSLocalizedString(@"ViewController.TextDescriptionContent.TapToAdd", nil)])
+    _isDateExtHidden = true;
+    [self.view endEditing:YES];
+    [_noteText setEditable:NO];
+    [_descriptionText setEditable:NO];
+    
+    if([self.descriptionText.text isEqualToString:NSLocalizedString(@"ViewController.TextDescriptionContent.TapToAdd", nil)])
     {
-        self.descriptionLabel.text = @"";
+        self.descriptionText.text = @"";
     }
     if(self.streamPickerVC)
     {
@@ -533,6 +671,9 @@ typedef enum
 {
     self.initialEventValue = [self.event cachingDictionary];
     
+    [_noteText setEditable:YES];
+    [_descriptionText setEditable:YES];
+    
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc]
                                    initWithTitle: NSLocalizedString(@"Cancel", nil)
                                    style: UIBarButtonItemStyleBordered
@@ -541,9 +682,9 @@ typedef enum
     [self.navigationItem setLeftBarButtonItem:backButton];
     [self.navigationItem setHidesBackButton:YES];
     
-    if([self.descriptionLabel.text length] == 0)
+    if([self.descriptionText.text length] == 0)
     {
-        self.descriptionLabel.text = NSLocalizedString(@"ViewController.TextDescriptionContent.TapToAdd", nil);
+        self.descriptionText.text = NSLocalizedString(@"ViewController.TextDescriptionContent.TapToAdd", nil);
         
     }
     
@@ -587,10 +728,10 @@ typedef enum
         textColor = [UIColor blackColor];
     }
     
-    self.note_Label.textColor = textColor;
+    self.noteText.textColor = textColor;
     self.timeLabel.textColor = textColor;
     //self.tagsLabel.textColor = textColor;
-    self.descriptionLabel.textColor = textColor;
+    self.descriptionText.textColor = textColor;
     self.streamsLabel.textColor = textColor;
 }
 
@@ -751,97 +892,15 @@ typedef enum
 
 #pragma mark - Utils
 
-- (CGFloat)heightForCellAtIndexPath:(NSIndexPath*)indexPath withEvent:(PYEvent*)event
+-(CGFloat) heightForNoteTextViewWithString:(NSString*)s
 {
-    DetailCellType cellType = indexPath.row;
-    switch (cellType) {
-        case DetailCellTypeValue:
-        {
-            if([self.event eventDataType] == EventDataTypeValueMeasure) return kValueCellHeight;
-            return 0;
-        }
-            
-            
-        case DetailCellTypeImage:
-        {
-            /*CGFloat height = 0;
-            if([self.event eventDataType] == EventDataTypeImage)
-            {
-                UIImage* image = self.picture_ImageView.image;
-                if(image)
-                {
-                    CGFloat scaleFactor = 320 / image.size.width;
-                    height = image.size.height * scaleFactor;
-                }
-            }*/
-            //self.imageHeightConstraint.constant = height;
-            if([self.event eventDataType] != EventDataTypeImage) return 0;
-            return self.picture_ImageView.frame.size.height;
-        }
-            
-        case DetailCellTypeNote:
-        {
-            if([self.event eventDataType] == EventDataTypeNote)
-            {
-                if(self.isInEditMode && [self.note_Label.text length] == 0) {
-                    return kLineCellHeight;
-                }
-                if ([self.note_Label.text length] > 0)
-                {
-                    CGSize textSize = [self.note_Label.text sizeWithFont:self.note_Label.font constrainedToSize:CGSizeMake(self.note_Label.frame.size.width, FLT_MAX)];
-                    CGFloat height = textSize.height + 25;
-                    
-                    return height;
-                }
-                return 0;
-            }
-            return 0;
-        }
-            
-            
-        case DetailCellTypeTime:
-            return kLineCellHeight;
-            
-        case DetailCellTypeDescription:
-        {
-            if(self.isInEditMode && [self.descriptionLabel.text length] == 0) {
-                return kLineCellHeight;
-            }
-            if ([self.descriptionLabel.text length] > 0)
-            {
-                CGSize textSize = [self.descriptionLabel.text sizeWithFont:self.descriptionLabel.font constrainedToSize:CGSizeMake(self.descriptionLabel.frame.size.width, FLT_MAX)];
-                CGFloat height = textSize.height + 40;
-                
-                return height;
-            }
-            return 0;
-        }
-            
-        case DetailCellTypeTags:
-        {
-            if (self.isInEditMode || (self.event.tags.count > 0)) {
-                CGFloat tagHeight = self.tokenField.frame.size.height + 28;
-                return tagHeight;
-            }
-            return 0;
-        }
-            
-        case DetailCellTypeStreams:
-            return kLineCellHeight;
-
-        case DetailCellTypeDelete:
-        {
-            if ([self shouldCreateEvent])
-                return 0;
-            return kLineCellHeight;
-        }
-            
-
-        default:
-            break;
-    }
+    NSDictionary *attributes = @{NSFontAttributeName: self.noteText.font};
+    CGRect rect = [s boundingRectWithSize:CGSizeMake(kNoteTextViewWidth-10, CGFLOAT_MAX)
+                                              options:NSStringDrawingUsesLineFragmentOrigin
+                                           attributes:attributes
+                                              context:nil];
     
-    return kLineCellHeight;
+    return rect.size.height+40 ;
 }
 
 - (BOOL) shouldCreateEvent
@@ -960,12 +1019,14 @@ typedef enum
 
 - (void)tokenFieldWillBeginEditing:(JSTokenField *)tokenField
 {
-    
+    _isDateExtHidden = true;
+    [self.tableView beginUpdates];
+    [self.tableView endUpdates];
 }
 
 - (void)tokenFieldDidEndEditing:(JSTokenField *)tokenField
 {
-    
+
 }
 
 - (void)initTags
@@ -982,8 +1043,22 @@ typedef enum
 {
     [self.tableView beginUpdates];
     [self.tableView endUpdates];
-    /*NSIndexPath *indexPath = [NSIndexPath indexPathForRow:DetailCellTypeTags inSection:0];
-    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];*/
+}
+
+#pragma mark - UITextViewDelegate
+
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView
+{
+    _isDateExtHidden = true;
+    [self.tableView beginUpdates];
+    [self.tableView endUpdates];
+    return _isInEditMode;
+}
+
+- (void) textViewDidChange:(UITextView *)textView
+{
+    [self.tableView beginUpdates];
+    [self.tableView endUpdates];
 }
 
 #pragma mark - Keyboard notifications
