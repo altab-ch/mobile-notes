@@ -44,18 +44,13 @@
     
     CGFloat tableHeight = self.view.bounds.size.height;
     self.menuOpen = NO;
-    self.menuTableView = [[UITableView alloc] initWithFrame:CGRectMake(264, -tableHeight, kCellHeight, tableHeight) style:UITableViewStylePlain];
-    [self.menuTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    self.menuTableView.backgroundColor = [UIColor clearColor];
-    self.menuTableView.delegate = self;
-    self.menuTableView.dataSource = self;
-    [self.view addSubview:self.menuTableView];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.view bringSubviewToFront:self.menuTableView];
+    //[self.view bringSubviewToFront:self.menuTableView];
 }
 
 - (void)didReceiveMemoryWarning
@@ -116,24 +111,24 @@
 {
     [self topMenuVisibilityWillChange];
     [self updateTopButtonIsInActiveState:visible];
-    CGFloat pointY = visible ? 0 : -self.menuTableView.bounds.size.height;
+    //CGFloat pointY = visible ? 0 : -self.menuTableView.bounds.size.height;
     if(!visible)
     {
         self.menuOpen = NO;
         self.title = NSLocalizedString(@"BrowserViewController.Title", nil);
         [self topMenuVisibilityDidChange];
-        self.menuTableView.userInteractionEnabled = NO;
+        //self.menuTableView.userInteractionEnabled = NO;
     }
     NSInteger option = visible ? UIViewAnimationOptionCurveEaseOut : UIViewAnimationOptionCurveEaseIn;
     [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionBeginFromCurrentState | option animations:^{
-        [self.menuTableView setY:pointY];
+        //[self.menuTableView setY:pointY];
     } completion:^(BOOL finished) {
         if(visible)
         {
             self.menuOpen = YES;
             self.title = NSLocalizedString(@"BrowserViewController.TitleMenuOpen", nil);
             [self topMenuVisibilityDidChange];
-            self.menuTableView.userInteractionEnabled = YES;
+            //self.menuTableView.userInteractionEnabled = YES;
         }
         if(completionBlock)
         {

@@ -91,10 +91,8 @@ static NSString *browseCellIdentifier = @"BrowseEventsCell_ID";
 @property (nonatomic, strong) NSArray *shortcuts;
 @property (nonatomic, strong) MNMPullToRefreshManager *pullToRefreshManager;
 @property (nonatomic, strong) PYEvent *eventToShowOnAppear;
-@property (nonatomic, strong) UIWebView *welcomeWebView;
 
 @property (nonatomic, strong) PYEventFilter *filter;
-@property (nonatomic, strong) NSNumber *isSourceTypePicked;
 @property (nonatomic, strong) UserHistoryEntry *tempEntry;
 
 @property (nonatomic, strong) NSIndexPath *lastIndexPath;
@@ -424,10 +422,7 @@ BOOL displayNonStandardEvents;
 }
 
 - (NSMutableOrderedSet*) sectionDataAtIndex:(NSInteger)index {
-    if(IS_LRU_SECTION)
-    {
-        return nil;
-    }
+    
     if (! self.sectionsMapTitles) {
         NSLog(@"<WARNING> BrowseEventsViewController.sectionDataAtIndex empty sectionsMapTitles");
         return nil;
@@ -450,10 +445,6 @@ BOOL displayNonStandardEvents;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    if(IS_LRU_SECTION || [tableView isEqual:self.menuTableView])
-    {
-        return 1;
-    }
     if (! self.sectionsMap) {
         [self rebuildSectionMap];
     }
@@ -672,7 +663,6 @@ BOOL displayNonStandardEvents;
 
 - (void)pullToRefreshTriggered:(MNMPullToRefreshManager *)manager
 {
-    
     [self loadData];
 }
 

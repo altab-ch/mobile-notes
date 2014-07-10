@@ -10,7 +10,6 @@
 
 @interface BaseWithMenuViewController : BaseViewController <UITableViewDataSource ,UITableViewDelegate>
 
-@property (nonatomic, strong) UITableView *menuTableView;
 @property (nonatomic, getter = isMenuOpen) BOOL menuOpen;
 @property (nonatomic) BOOL enabled;
 

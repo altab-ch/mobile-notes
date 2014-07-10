@@ -9,11 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "BaseWithMenuViewController.h"
 
-@interface BrowseEventsViewController : BaseWithMenuViewController
-
-@property (nonatomic, strong) UIImage *pickedImage;
-@property (nonatomic, strong) NSDate *pickedImageTimestamp;
-@property (nonatomic) UIImagePickerControllerSourceType imagePickerType;
+@interface BrowseEventsViewController : UIViewController
 
 - (void)toggleSlider;
 - (void)clearCurrentData;
