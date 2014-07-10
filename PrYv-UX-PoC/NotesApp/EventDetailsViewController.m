@@ -1057,8 +1057,11 @@ typedef enum
 
 - (void) textViewDidChange:(UITextView *)textView
 {
+    self.shouldUpdateEvent = true;
     [self.tableView beginUpdates];
     [self.tableView endUpdates];
+    if (textView == _noteText) _event.eventContent = _noteText.text;
+    else if (textView == _descriptionText) _event.eventDescription = _descriptionText.text;
 }
 
 #pragma mark - Keyboard notifications

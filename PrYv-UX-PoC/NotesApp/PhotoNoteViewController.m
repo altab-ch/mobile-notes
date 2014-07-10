@@ -15,8 +15,6 @@
 
 @interface PhotoNoteViewController ()
 
-- (void)setupImagePicker;
-
 @end
 
 @implementation PhotoNoteViewController

@@ -12,6 +12,4 @@
 
 @property (nonatomic, strong) UserHistoryEntry *entry;
 
-@property (copy) void (^imagePickedBlock)(UIImage *image,NSDate *date, UIImagePickerControllerSourceType source);
-
 @end

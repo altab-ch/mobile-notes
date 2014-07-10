@@ -11,7 +11,6 @@
 		290042B419640ADE00436A4B /* AddEventTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 290042B319640ADE00436A4B /* AddEventTableViewController.m */; };
 		290042B819643EF500436A4B /* navbar.png in Resources */ = {isa = PBXBuildFile; fileRef = 290042B619643EF500436A4B /* navbar.png */; };
 		290042B919643EF500436A4B /* navbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 290042B719643EF500436A4B /* navbar@2x.png */; };
-		2912175918F6A01E000AC905 /* ImagePreview.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2912175818F6A01E000AC905 /* ImagePreview.xib */; };
 		2912176F18F6C4A6000AC905 /* ImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2912176D18F6C4A6000AC905 /* ImageViewController.m */; };
 		2912177018F6C4A6000AC905 /* ImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2912176E18F6C4A6000AC905 /* ImageViewController.xib */; };
 		291ED1711913CF44009A9B3D /* MenuNavController.m in Sources */ = {isa = PBXBuildFile; fileRef = 291ED1701913CF44009A9B3D /* MenuNavController.m */; };
@@ -23,6 +22,7 @@
 		291ED1991917A4F5009A9B3D /* checkbox_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 291ED1931917A4F5009A9B3D /* checkbox_selected@2x.png */; };
 		291ED19A1917A4F5009A9B3D /* checkbox_undefined.png in Resources */ = {isa = PBXBuildFile; fileRef = 291ED1941917A4F5009A9B3D /* checkbox_undefined.png */; };
 		291ED19B1917A4F5009A9B3D /* checkbox_undefined@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 291ED1951917A4F5009A9B3D /* checkbox_undefined@2x.png */; };
+		29FF5D7C196ED0B60002D124 /* UnitPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29FF5D7B196ED0B60002D124 /* UnitPickerViewController.m */; };
 		4E0900FD185763DF00A2F044 /* AddNumericalValueCellFormat.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E0900FC185763DF00A2F044 /* AddNumericalValueCellFormat.xib */; };
 		4E0901071857640400A2F044 /* AddNumericalValueCellFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0901061857640400A2F044 /* AddNumericalValueCellFormat.m */; };
 		4E37857517953BBD00ED94DF /* Manifest.lock in Resources */ = {isa = PBXBuildFile; fileRef = 4E37852F17953BBD00ED94DF /* Manifest.lock */; };
@@ -124,8 +124,6 @@
 		B681B68318552E940067DF37 /* DatePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B681B68218552E940067DF37 /* DatePickerViewController.m */; };
 		B681B686185543240067DF37 /* TextEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B681B685185543240067DF37 /* TextEditorViewController.m */; };
 		B6993FD21891C07700D88127 /* BaseDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6993FD11891C07700D88127 /* BaseDetailCell.m */; };
-		B6994026189736B900D88127 /* BrowseEventCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6994025189736B900D88127 /* BrowseEventCell.xib */; };
-		B69940311899C41A00D88127 /* DetailsBottomButtonsContainer.xib in Resources */ = {isa = PBXBuildFile; fileRef = B69940301899C41A00D88127 /* DetailsBottomButtonsContainer.xib */; };
 		B69940371899C45A00D88127 /* DetailsBottomButtonsContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = B69940361899C45A00D88127 /* DetailsBottomButtonsContainer.m */; };
 		B6B2EE7518C50A6700E40DB4 /* arrow-stream.png in Resources */ = {isa = PBXBuildFile; fileRef = B6B2EE7318C50A6700E40DB4 /* arrow-stream.png */; };
 		B6B2EE7618C50A6700E40DB4 /* arrow-stream@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B6B2EE7418C50A6700E40DB4 /* arrow-stream@2x.png */; };
@@ -347,7 +345,6 @@
 		290042B319640ADE00436A4B /* AddEventTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddEventTableViewController.m; sourceTree = "<group>"; };
 		290042B619643EF500436A4B /* navbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navbar.png; sourceTree = "<group>"; };
 		290042B719643EF500436A4B /* navbar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navbar@2x.png"; sourceTree = "<group>"; };
-		2912175818F6A01E000AC905 /* ImagePreview.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImagePreview.xib; sourceTree = "<group>"; };
 		2912176C18F6C4A6000AC905 /* ImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageViewController.h; sourceTree = "<group>"; };
 		2912176D18F6C4A6000AC905 /* ImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageViewController.m; sourceTree = "<group>"; };
 		2912176E18F6C4A6000AC905 /* ImageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageViewController.xib; sourceTree = "<group>"; };
@@ -363,6 +360,8 @@
 		291ED1931917A4F5009A9B3D /* checkbox_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox_selected@2x.png"; sourceTree = "<group>"; };
 		291ED1941917A4F5009A9B3D /* checkbox_undefined.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkbox_undefined.png; sourceTree = "<group>"; };
 		291ED1951917A4F5009A9B3D /* checkbox_undefined@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox_undefined@2x.png"; sourceTree = "<group>"; };
+		29FF5D7A196ED0B60002D124 /* UnitPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitPickerViewController.h; sourceTree = "<group>"; };
+		29FF5D7B196ED0B60002D124 /* UnitPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitPickerViewController.m; sourceTree = "<group>"; };
 		4E0900FC185763DF00A2F044 /* AddNumericalValueCellFormat.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddNumericalValueCellFormat.xib; sourceTree = "<group>"; };
 		4E0901051857640400A2F044 /* AddNumericalValueCellFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddNumericalValueCellFormat.h; sourceTree = "<group>"; };
 		4E0901061857640400A2F044 /* AddNumericalValueCellFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddNumericalValueCellFormat.m; sourceTree = "<group>"; };
@@ -622,8 +621,6 @@
 		B681B685185543240067DF37 /* TextEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextEditorViewController.m; sourceTree = "<group>"; };
 		B6993FD01891C07700D88127 /* BaseDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseDetailCell.h; sourceTree = "<group>"; };
 		B6993FD11891C07700D88127 /* BaseDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseDetailCell.m; sourceTree = "<group>"; };
-		B6994025189736B900D88127 /* BrowseEventCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BrowseEventCell.xib; sourceTree = "<group>"; };
-		B69940301899C41A00D88127 /* DetailsBottomButtonsContainer.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailsBottomButtonsContainer.xib; sourceTree = "<group>"; };
 		B69940351899C45A00D88127 /* DetailsBottomButtonsContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailsBottomButtonsContainer.h; sourceTree = "<group>"; };
 		B69940361899C45A00D88127 /* DetailsBottomButtonsContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailsBottomButtonsContainer.m; sourceTree = "<group>"; };
 		B6B2EE7318C50A6700E40DB4 /* arrow-stream.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow-stream.png"; sourceTree = "<group>"; };
@@ -1413,6 +1410,8 @@
 				B61A193F185A325C00E9F9BE /* ImagePreviewViewController.m */,
 				B61A1942185A49E900E9F9BE /* StreamPickerViewController.h */,
 				B61A1943185A49E900E9F9BE /* StreamPickerViewController.m */,
+				29FF5D7A196ED0B60002D124 /* UnitPickerViewController.h */,
+				29FF5D7B196ED0B60002D124 /* UnitPickerViewController.m */,
 			);
 			name = Pickers;
 			sourceTree = "<group>";
@@ -1424,16 +1423,6 @@
 				B6993FD11891C07700D88127 /* BaseDetailCell.m */,
 			);
 			name = DetailCells;
-			sourceTree = "<group>";
-		};
-		B69940241897368B00D88127 /* Nibs */ = {
-			isa = PBXGroup;
-			children = (
-				B6994025189736B900D88127 /* BrowseEventCell.xib */,
-				B69940301899C41A00D88127 /* DetailsBottomButtonsContainer.xib */,
-				2912175818F6A01E000AC905 /* ImagePreview.xib */,
-			);
-			name = Nibs;
 			sourceTree = "<group>";
 		};
 		B6B58FBF178B5F1B0009E413 /* BaseViewController */ = {
@@ -1661,7 +1650,6 @@
 		B6F9A24A1729BF74009C8BAA /* Storyboard */ = {
 			isa = PBXGroup;
 			children = (
-				B69940241897368B00D88127 /* Nibs */,
 				B6016BC8172873D40056CD3F /* MainStoryboard_iPhone.storyboard */,
 				B6016BCB172873D40056CD3F /* MainStoryboard_iPad.storyboard */,
 				9A70AD8E18D2024C0090BC2E /* DetailsStoryboard_iPad.storyboard */,
@@ -1957,7 +1945,6 @@
 				B6016BCD172873D40056CD3F /* MainStoryboard_iPad.storyboard in Resources */,
 				4EBE04671844D5070031724A /* Localizable.strings in Resources */,
 				B64ACAEB1755451000E2F6F7 /* CustomNumericalKeyboard.xib in Resources */,
-				B6994026189736B900D88127 /* BrowseEventCell.xib in Resources */,
 				96088A9A1861F1230090ECC7 /* Icon-Small-50@2x.png in Resources */,
 				96453C5A18B77DD00050618E /* icon_stream@2x.png in Resources */,
 				B6F1AEC61784742D000ECD60 /* tokenHighlighted.png in Resources */,
@@ -1970,7 +1957,6 @@
 				963B8DD418644B0F00F7CBF7 /* icon_pryv.png in Resources */,
 				96D2061F18B385C000CF5A69 /* square_border.png in Resources */,
 				B6B5900C178B60B60009E413 /* add_circle@2x.png in Resources */,
-				2912175918F6A01E000AC905 /* ImagePreview.xib in Resources */,
 				B6B7CE5718B2BDC30001CA28 /* cross.png in Resources */,
 				B6B5900D178B60B60009E413 /* app_bg-h568@2x.png in Resources */,
 				B6B5900E178B60B60009E413 /* app_bg.png in Resources */,
@@ -2006,7 +1992,6 @@
 				B6B59024178B60B60009E413 /* icon_settings.png in Resources */,
 				B6B59025178B60B60009E413 /* icon_settings@2x.png in Resources */,
 				B6B59026178B60B60009E413 /* icon_small_audio.png in Resources */,
-				B69940311899C41A00D88127 /* DetailsBottomButtonsContainer.xib in Resources */,
 				B6B59027178B60B60009E413 /* icon_small_audio@2x.png in Resources */,
 				B6B59028178B60B60009E413 /* icon_small_browse_active.png in Resources */,
 				B6B59029178B60B60009E413 /* icon_small_browse_active@2x.png in Resources */,
@@ -2223,6 +2208,7 @@
 				B61A1940185A325C00E9F9BE /* ImagePreviewViewController.m in Sources */,
 				291ED1711913CF44009A9B3D /* MenuNavController.m in Sources */,
 				B61D55C017EEDEF00016D0C4 /* UIImage+PrYv.m in Sources */,
+				29FF5D7C196ED0B60002D124 /* UnitPickerViewController.m in Sources */,
 				B62BF06D18D627E9007BD68E /* MNMPullToRefreshManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2288,7 +2274,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: PrYv sa (GNL8PH5553)";
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -2304,7 +2290,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
-				PROVISIONING_PROFILE = "66D89F6B-EF4B-4F60-977F-5C87878A444A";
+				PROVISIONING_PROFILE = "34085FB5-0CE9-4839-B703-525EA47DBDC3";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -2322,7 +2308,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: PrYv sa (GNL8PH5553)";
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -2331,7 +2317,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = "-ObjC";
-				PROVISIONING_PROFILE = "66D89F6B-EF4B-4F60-977F-5C87878A444A";
+				PROVISIONING_PROFILE = "34085FB5-0CE9-4839-B703-525EA47DBDC3";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
@@ -2367,7 +2353,6 @@
 					UIKit,
 				);
 				PRODUCT_NAME = Pryv;
-				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -2402,7 +2387,6 @@
 					UIKit,
 				);
 				PRODUCT_NAME = Pryv;
-				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

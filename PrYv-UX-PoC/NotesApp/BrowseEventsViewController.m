@@ -111,7 +111,6 @@ static NSString *browseCellIdentifier = @"BrowseEventsCell_ID";
 - (void)refreshFilter;
 - (void)unsetFilter;
 - (MMDrawerController*)mm_drawerController;
-- (void)showWelcomeWebView:(BOOL)visible;
 
 @end
 
@@ -166,14 +165,6 @@ BOOL displayNonStandardEvents;
     self.aggregationStep = AggregationStepDay;
     [self loadSettings];
     [self resetDateFormatters];
-    [self.tableView registerNib:[UINib nibWithNibName:@"BrowseEventCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:browseCellIdentifier];
-    
-    self.tableView.allowsSelectionDuringEditing = YES;
-	self.tableView.allowsMultipleSelectionDuringEditing = YES;
-    
-    //self.navigationItem.title = @"Pryv";
-    //self.navigationItem.leftBarButtonItem = [UIBarButtonItem flatBarItemWithImage:[UIImage imageNamed:@"icon_pryv"] target:self action:@selector(settingButtonTouched:)];
-    
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(userDidReceiveAccessTokenNotification:)
@@ -188,7 +179,6 @@ BOOL displayNonStandardEvents;
                                                  name:kDrawerDidCloseNotification
                                                object:nil];
     
-    // Monitor changes of option "show non standard events"
     [[NSUserDefaults standardUserDefaults] addObserver:self
                                             forKeyPath:kPYAppSettingUIDisplayNonStandardEvents
                                                options:(NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld) context:nil];
@@ -203,27 +193,11 @@ BOOL displayNonStandardEvents;
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    //[self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navbar"] forBarMetrics:UIBarMetricsDefault];
-    //[self.navigationController.navigationBar setBackgroundColor:[UIColor whiteColor]];
     
     NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
     if(indexPath) [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     self.title = NSLocalizedString(@"BrowserViewController.Title", nil);
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
-    /*if(self.eventToShowOnAppear)
-    {
-        PYEvent *event = self.eventToShowOnAppear;
-        self.eventToShowOnAppear = nil;
-        [self showEventDetailsForEvent:event andUserHistoryEntry:nil];
-        self.pickedImage = nil;
-        self.pickedImageTimestamp = nil;
-    }*/
 }
 
 - (void)viewDidUnload
@@ -244,22 +218,6 @@ BOOL displayNonStandardEvents;
     displayNonStandardEvents = [[NSUserDefaults standardUserDefaults] boolForKey:kPYAppSettingUIDisplayNonStandardEvents];
 }
 
-#pragma mark - setup
-
-- (void)showWelcomeWebView:(BOOL)visible {
-    if (visible) {
-        if (_welcomeWebView) return;
-        
-        [self.welcomeWebView removeFromSuperview];
-        [self.view addSubview:self.welcomeWebView];
-    } else {
-        if (_welcomeWebView == nil) return;
-        [self.welcomeWebView removeFromSuperview];
-        self.welcomeWebView = nil;
-    }
-}
-
-
 - (void)refreshFilter // called be loadData
 {
     
@@ -270,7 +228,6 @@ BOOL displayNonStandardEvents;
         [self clearCurrentData];
         
         [NotesAppController sharedConnectionWithID:nil noConnectionCompletionBlock:^{
-            [self showWelcomeWebView:YES];
         } withCompletionBlock:^(PYConnection *connection) {
             
             self.filter = [[PYEventFilter alloc] initWithConnection:connection
@@ -345,18 +302,6 @@ BOOL displayNonStandardEvents;
         isLoading = YES;
         [self showLoadingOverlay];
         
-        //[self.tableView reloadData];
-        /** bring back focus
-        if(self.lastTimeFocus )
-        {
-            
-            [self.tableView scrollToRowAtIndexPath:self.lastIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
-        }
-         **/
-        [UIView animateWithDuration:0.2 animations:^{
-            self.tableView.alpha = 1.0f;
-        }];
-        [self hideLoadingOverlay];
         [self.pullToRefreshManager tableViewReloadFinishedAnimated:YES];
     }
     isLoading = NO;
@@ -513,92 +458,35 @@ BOOL displayNonStandardEvents;
         [self rebuildSectionMap];
     }
     NSInteger count = [self.sectionsMapTitles count];
-    [self showWelcomeWebView:(count == 0)];
     return count;
-    
-    
-    
 }
-
-/*- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-    if(IS_LRU_SECTION || [tableView isEqual:self.menuTableView])
-    {
-        return nil;
-    }
-    return [[self.sectionsMapTitles objectAtIndex:section] title];
-    
-    
-}*/
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 14;
 }
 
--(UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    if(IS_LRU_SECTION)
-    {
-        UITableViewCell *headerCell = [tableView dequeueReusableCellWithIdentifier:kSectionCell];
-        UILabel *targetedLabel = (UILabel *)[headerCell viewWithTag:kSectionLabel];
-        [targetedLabel setText:NSLocalizedString(@"LastUsedShortcut.Title", nil)];
-        return headerCell.contentView;
-    }
+-(UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UITableViewCell *headerCell = [tableView dequeueReusableCellWithIdentifier:kSectionCell];
+    UILabel *targetedLabel = (UILabel *)[headerCell viewWithTag:kSectionLabel];
     
+    if (section >= self.sectionsMapTitles.count) {
+        NSLog(@"<WARNING> BrowseEventsViewController.tableView  index not reachable: %ld",(long)index);
+        [targetedLabel setText:@"..."];
+    } else [targetedLabel setText:[[self.sectionsMapTitles objectAtIndex:section] title]];
     
-    if(![tableView isEqual:self.menuTableView])
-    {
-        UITableViewCell *headerCell = [tableView dequeueReusableCellWithIdentifier:kSectionCell];
-        UILabel *targetedLabel = (UILabel *)[headerCell viewWithTag:kSectionLabel];
-        
-        if (section >= self.sectionsMapTitles.count) {
-            NSLog(@"<WARNING> BrowseEventsViewController.tableView  index not reachable: %ld",(long)index);
-            [targetedLabel setText:@"..."];
-        } else {
-            [targetedLabel setText:[[self.sectionsMapTitles objectAtIndex:section] title]];
-        }
-        return headerCell.contentView;
-    }
-    if(IS_BROWSE_SECTION)
-    {
-    }
-    return nil;
+    return headerCell.contentView;
 }
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if([tableView isEqual:self.menuTableView])
-    {
-        return [super tableView:tableView numberOfRowsInSection:section];
-    }
-    if(IS_BROWSE_SECTION)
-    {
-        
-        return [[self sectionDataAtIndex:section] count];
-    }
-    if(IS_LRU_SECTION)
-    {
-        [self showWelcomeWebView:NO];
-        return [self.shortcuts count];
-    }
-    return 0;
+    return [[self sectionDataAtIndex:section] count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if([tableView isEqual:self.menuTableView])
-    {
-        return [super tableView:tableView heightForRowAtIndexPath:indexPath];
-    }
-    if(IS_BROWSE_SECTION)
-    {
-        return [self heightForCell:indexPath];
-    }
-    if(IS_LRU_SECTION)
-    {
-        return 70;
-    }
-    return 0;
+    return [self heightForCell:indexPath];
 }
 
 -(CGFloat) heightForCell:(NSIndexPath *)indexPath
@@ -617,16 +505,6 @@ BOOL displayNonStandardEvents;
     else
         NSLog(@"Warnign : type cell is not photo, text or measure.");
     return result;
-}
-
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-#warning - here should go the next page down
-    /**
-    if(indexPath.row == [self.events count] - 1)
-    {
-        [self loadMoreDataForIndexPath:indexPath];
-    }**/
 }
 
 - (void)loadMoreDataForIndexPath:(NSIndexPath*)indexPath
@@ -662,208 +540,13 @@ BOOL displayNonStandardEvents;
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if([tableView isEqual:self.menuTableView])
-    {
-        return [super tableView:tableView cellForRowAtIndexPath:indexPath];
-    }
-    
-    
-    if(IS_BROWSE_SECTION)
-    {
-        PYEvent *event = [self eventAtIndexPath:indexPath];
-        CellStyleType cellStyleType = [event cellStyle];
-        BrowseCell *cell = [self cellInTableView:tableView forCellStyleType:cellStyleType];
-        [cell setDateFormatter:self.cellDateFormatter];
-        [cell updateWithEvent:event];
-        //[cell prepareForReuse];
-        return cell;
-    }
-    NSInteger row = indexPath.row;
-    BrowseEventsCell *cell = [tableView dequeueReusableCellWithIdentifier:browseCellIdentifier];
-    UserHistoryEntry *entry = [_shortcuts objectAtIndex:row];
-    [self configureCell:cell forRowAtIndexPath:indexPath];
-    [cell setupWithUserHistroyEntry:entry];
-    return cell;
-    
-}
-
-- (void)configureCell:(MCSwipeTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    UIView *crossView = [self viewWithImageName:@"cross"];
-    UIColor *redColor = [UIColor colorWithRed:232.0 / 255.0 green:61.0 / 255.0 blue:14.0 / 255.0 alpha:1.0];
-    [cell setDefaultColor:[UIColor lightGrayColor]];
-    [cell setDelegate:self];
-    
-    [cell setSwipeGestureWithView:crossView color:redColor mode:MCSwipeTableViewCellModeExit state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
-        NSIndexPath *indexPathToDelete = [self.tableView indexPathForCell:cell];
-        [[LRUManager sharedInstance] removeObjectFromLruEntriesAtIndex:indexPathToDelete.row];
-        self.shortcuts = [LRUManager sharedInstance].lruEntries;
-        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPathToDelete] withRowAnimation:UITableViewRowAnimationFade];
-    }];
-}
-
-/*- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    self.lastIndexPath = indexPath;
     PYEvent *event = [self eventAtIndexPath:indexPath];
-    [self showEventDetailsForEvent:event andUserHistoryEntry:nil];
-    
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-}*/
-
-/*- (void)topMenuDidSelectOptionAtIndex:(NSInteger)index
-{
-    __block BrowseEventsViewController *weakSelf = self;
-    [self setMenuVisible:NO animated:YES withCompletionBlock:^{
-        switch (index) {
-            case 0:
-            {
-                PYEvent *event = [[PYEvent alloc] init];
-                event.type = @"note/txt";
-                [weakSelf showEventDetailsForEvent:event andUserHistoryEntry:nil];
-            }
-                break;
-            case 1:
-            {
-                PYEvent *event = [[PYEvent alloc] init];
-                [weakSelf showEventDetailsForEvent:event andUserHistoryEntry:nil];
-            }
-                break;
-            case 2:
-            {
-                UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Alert.Message.PhotoSource", nil) delegate:weakSelf cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Camera", nil),NSLocalizedString(@"Library", nil), nil];
-                [actionSheet showInView:weakSelf.view];
-            }
-                break;
-            default:
-            {
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"This option is not yet implemented" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                [alertView show];
-            }
-                break;
-        }
-    }];
-}*/
-
-#pragma mark - Show details
-
-
-/*- (void)showEventDetailsWithUserHistoryEntry:(UserHistoryEntry*)entry
-{
-    self.tempEntry = entry;
-    __weak typeof(self) weakSelf = self;
-    [self setMenuVisible:NO animated:YES withCompletionBlock:^{
-        PYEvent *event = [entry reconstructEvent];
-        [weakSelf showEventDetailsForEvent:event andUserHistoryEntry:entry];
-    }];
-    
-}*/
-
-/*- (void)showEventDetailsForEvent:(PYEvent*)event andUserHistoryEntry:(UserHistoryEntry*)entry
-{
-    if (event == nil) return;
-    
-    [self performSegueWithIdentifier:kPictureToDetailSegue_ID sender:event];
-    
-    /*if (event == nil) {
-        [NSException raise:@"Event is nil" format:nil];
-    }
-    
-    EventDetailsViewController *eventDetailVC = (EventDetailsViewController*)[[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"EventDetailsViewController_ID"];
-    eventDetailVC.event = event;
-    
-    EventDataType eventType = [eventDetailVC.event eventDataType];
-    
-    /**
-     TextEditorViewController *textVC = [[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"TextEditorViewController_ID"];
-     
-     [eventDetailVC setupDescriptionEditorViewController:textVC];
-     **/
-    /*
-    if(eventType == EventDataTypeImage)
-    {
-        eventDetailVC.imagePickerType = self.imagePickerType;
-    }
-    
-    if(event.isDraft)
-    {
-#warning recoder : navigation presentviewcontroller detailViewController
-        //[eventDetailVC view];
-        NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:self.navigationController.viewControllers];
-        [viewControllers addObject:eventDetailVC];
-        if(eventType == EventDataTypeNote && eventDetailVC.event.type != nil)
-        {
-            TextEditorViewController *textVC = [[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"TextEditorViewController_ID"];
-            
-            [eventDetailVC setupNoteContentEditorViewController:textVC];
-            [textVC setupCustomCancelButton];
-            [viewControllers addObject:textVC];
-        }
-        else if(eventType == EventDataTypeValueMeasure || eventDetailVC.event.type == nil)
-        {
-            AddNumericalValueViewController *addVC = [[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"AddNumericalValueViewController_ID"];
-            [eventDetailVC setupAddNumericalValueViewController:addVC];
-            [addVC setupCustomCancelButton];
-            [viewControllers addObject:addVC];
-        }
-        else if(!self.pickedImage)
-        {
-            if(!self.isSourceTypePicked)
-            {
-                [self topMenuDidSelectOptionAtIndex:2];
-                return;
-            }
-            
-            PhotoNoteViewController *photoVC = [UIStoryboard instantiateViewControllerWithIdentifier:@"PhotoNoteViewController_ID"];
-            photoVC.sourceType = [self.isSourceTypePicked integerValue];
-            self.isSourceTypePicked = nil;
-            //photoVC.browseVC = self;
-            photoVC.entry = entry;
-            [photoVC setImagePickedBlock:^(UIImage *image, NSDate *date, UIImagePickerControllerSourceType source) {
-                [eventDetailVC.event setEventDate:date];
-                NSData *imageData = UIImageJPEGRepresentation(image, 0.5);
-                if(imageData)
-                {
-                    NSString *imgName = [NSString randomStringWithLength:10];
-                    PYAttachment *att = [[PYAttachment alloc] initWithFileData:imageData name:imgName fileName:[NSString stringWithFormat:@"%@.jpeg",imgName]];
-                    [eventDetailVC.event addAttachment:att];
-                }
-                self.pickedImage = nil;
-                self.pickedImageTimestamp = nil;
-                self.eventToShowOnAppear = nil;
-                [eventDetailVC updateUIForCurrentEvent];
-            }];
-            [viewControllers addObject:photoVC];
-        }
-        [self.navigationController setViewControllers:viewControllers animated:YES];
-    }
-    else
-    {
-        [self.navigationController pushViewController:eventDetailVC animated:YES];
-    }*/
-    
-//}
-
-#pragma mark - Top menu visibility changed
-
-/*- (void)topMenuVisibilityWillChange
-{
-    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        self.tableView.alpha = 0.0f;
-    } completion:^(BOOL finished) {
-        
-    }];
+    CellStyleType cellStyleType = [event cellStyle];
+    BrowseCell *cell = [self cellInTableView:tableView forCellStyleType:cellStyleType];
+    [cell setDateFormatter:self.cellDateFormatter];
+    [cell updateWithEvent:event];
+    return cell;
 }
-
-- (void)topMenuVisibilityDidChange
-{
-    [self.tableView reloadData];
-    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        self.tableView.alpha = 1.0f;
-    } completion:^(BOOL finished) {
-        
-    }];
-}*/
 
 #pragma mark - Event List manipulations
 
@@ -983,77 +666,6 @@ BOOL displayNonStandardEvents;
     [self.tableView reloadData]; // until update is implmeneted
     [self hideLoadingOverlay];
     
-}
-
-#pragma mark - UIActionSheetDelegate methods
-
-/*- (void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-    if(buttonIndex == actionSheet.cancelButtonIndex)
-    {
-        self.tempEntry = nil;
-        self.isSourceTypePicked = nil;
-        return;
-    }
-    UIImagePickerControllerSourceType sourceType = buttonIndex == 0 ? UIImagePickerControllerSourceTypeCamera : UIImagePickerControllerSourceTypePhotoLibrary;
-    if(self.tempEntry)
-    {
-        UserHistoryEntry *entry = self.tempEntry;
-        self.isSourceTypePicked = @(sourceType);
-        [self showEventDetailsWithUserHistoryEntry:entry];
-        self.tempEntry = nil;
-        return;
-    }
-    PhotoNoteViewController *photoVC = [UIStoryboard instantiateViewControllerWithIdentifier:@"PhotoNoteViewController_ID"];
-    photoVC.sourceType = sourceType;
-    //photoVC.browseVC = self;
-    [self.navigationController pushViewController:photoVC animated:YES];
-}*/
-
-- (void)setPickedImage:(UIImage *)pickedImage
-{
-    if(_pickedImage != pickedImage)
-    {
-        _pickedImage = pickedImage;
-        [self showImageDetails];
-    }
-}
-
-- (void)showImageDetails
-{
-    PYEvent *event = [[PYEvent alloc] init];
-    event.type = @"picture/attached";
-    if(self.pickedImageTimestamp)
-    {
-        [event setEventDate:self.pickedImageTimestamp];
-    }
-    NSData *imageData = UIImageJPEGRepresentation(self.pickedImage, 0.5);
-    if(imageData)
-    {
-        NSString *imgName = [NSString randomStringWithLength:10];
-        PYAttachment *att = [[PYAttachment alloc] initWithFileData:imageData name:imgName fileName:[NSString stringWithFormat:@"%@.jpeg",imgName]];
-        [event addAttachment:att];
-        self.eventToShowOnAppear = event;
-    }
-}
-
-- (UIView *)viewWithImageName:(NSString *)imageName {
-    UIImage *image = [UIImage imageNamed:imageName];
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-    imageView.contentMode = UIViewContentModeCenter;
-    return imageView;
-}
-
-- (UIWebView*)welcomeWebView
-{
-    if(!_welcomeWebView)
-    {
-        _welcomeWebView = [[UIWebView alloc] initWithFrame:self.tableView.frame];
-        NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"welcome" ofType:@"html"];
-        NSString* htmlString = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil];
-        [_welcomeWebView loadHTMLString:htmlString baseURL:nil];
-    }
-    return _welcomeWebView;
 }
 
 #pragma mark - MNMPullToRefreshManagerClient methods

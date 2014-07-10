@@ -13,9 +13,10 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "EventDetailsViewController.h"
 #import "NSString+Utils.h"
+#import "PYEvent+Helper.h"
 
 #define showDetailSegue @"kAddToDetailSegue_ID"
-#define kSeguePhotoPicker @"photoPicker"
+#define kAddToUnitSegue_ID @"kAddToUnitSegue_ID"
 
 @interface AddEventTableViewController () <MCSwipeTableViewCellDelegate, UIActionSheetDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
@@ -111,8 +112,14 @@
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 1) {
-        self.tempEntry = [self.lruEntries objectAtIndex:[self.tableView indexPathForSelectedRow].row];
-        [self showPicturePicker];
+        UserHistoryEntry *uhe = [self.lruEntries objectAtIndex:[self.tableView indexPathForSelectedRow].row];
+        if (_tempEntry.dataType == EventDataTypeImage) {
+            self.tempEntry = uhe;
+            [self showPicturePicker];
+        }
+        if (_tempEntry.dataType == EventDataTypeNote || _tempEntry.dataType == EventDataTypeValueMeasure) {
+            [self showEventDetailsForEvent:[uhe reconstructEvent]];
+        }
     }
 }
 
@@ -125,14 +132,14 @@
         {
             PYEvent *event = [[PYEvent alloc] init];
             event.type = @"note/txt";
-            [self showEventDetailsForEvent:event andUserHistoryEntry:nil];
+            [self showEventDetailsForEvent:event];
         }
             break;
         case 2:
         {
             PYEvent *event = [[PYEvent alloc] init];
             event.type = @"number";
-            [self showEventDetailsForEvent:event andUserHistoryEntry:nil];
+            [self performSegueWithIdentifier:kAddToUnitSegue_ID sender:event];
         }
             break;
         case 3:
@@ -155,12 +162,25 @@
         EventDetailsViewController *detail = [segue destinationViewController];
         [detail setEvent:sender];
     }
+    
+    if ([[segue identifier] isEqualToString:showDetailSegue]) {
+        UnitPickerViewController *unit = [segue destinationViewController];
+        [unit setDelegate:self];
+        [unit setEvent:sender];
+    }
 }
 
 -(void) showPicturePicker
 {
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Alert.Message.PhotoSource", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Camera", nil),NSLocalizedString(@"Library", nil), nil];
     [actionSheet showInView:self.view];
+}
+
+#pragma mark - UnitPickerDelegate
+
+-(void)unitPickerController:(UIImagePickerController *)picker didFinishPickingUnit:(id)unit
+{
+    
 }
 
 #pragma mark - UIActionSheetDelegate methods
@@ -180,7 +200,7 @@
         return;
     }
     
-    PhotoNoteViewController *photoVC = [[PhotoNoteViewController alloc] init];
+    UIImagePickerController *photoVC = [[UIImagePickerController alloc] init];
     photoVC.sourceType = buttonIndex == 0 ? UIImagePickerControllerSourceTypeCamera : UIImagePickerControllerSourceTypePhotoLibrary;
     [photoVC setDelegate:self];
     [self presentViewController:photoVC animated:YES completion:nil];
@@ -240,7 +260,7 @@
             
             [newEvent setAttachments:[NSMutableArray arrayWithObject:att]];
             [newEvent setEventDate:date];
-            [self showEventDetailsForEvent:newEvent andUserHistoryEntry:nil];
+            [self showEventDetailsForEvent:newEvent];
         }];
         
     } failureBlock:^(NSError *error) {
@@ -279,125 +299,10 @@
     return imageView;
 }
 
-- (void)showEventDetailsForEvent:(PYEvent*)event andUserHistoryEntry:(UserHistoryEntry*)entry
+- (void)showEventDetailsForEvent:(PYEvent*)event
 {
     if (event == nil) return;
-    
     [self performSegueWithIdentifier:showDetailSegue sender:event];
-    
-    /*EventDataType eventType = [eventDetailVC.event eventDataType];
-    
-    if(eventType == EventDataTypeImage)
-    {
-        eventDetailVC.imagePickerType = self.imagePickerType;
-    }
-    
-    if(event.isDraft)
-    {
-#warning recoder : navigation presentviewcontroller detailViewController
-        //[eventDetailVC view];
-        NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:self.navigationController.viewControllers];
-        [viewControllers addObject:eventDetailVC];
-        if(eventType == EventDataTypeNote && eventDetailVC.event.type != nil)
-        {
-            TextEditorViewController *textVC = [[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"TextEditorViewController_ID"];
-            
-            [eventDetailVC setupNoteContentEditorViewController:textVC];
-            [textVC setupCustomCancelButton];
-            [viewControllers addObject:textVC];
-        }
-        else if(eventType == EventDataTypeValueMeasure || eventDetailVC.event.type == nil)
-        {
-            AddNumericalValueViewController *addVC = [[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"AddNumericalValueViewController_ID"];
-            [eventDetailVC setupAddNumericalValueViewController:addVC];
-            [addVC setupCustomCancelButton];
-            [viewControllers addObject:addVC];
-        }
-        else if(!self.pickedImage)
-        {
-            if(!self.isSourceTypePicked)
-            {
-                [self topMenuDidSelectOptionAtIndex:2];
-                return;
-            }
-            
-            PhotoNoteViewController *photoVC = [UIStoryboard instantiateViewControllerWithIdentifier:@"PhotoNoteViewController_ID"];
-            photoVC.sourceType = [self.isSourceTypePicked integerValue];
-            self.isSourceTypePicked = nil;
-            photoVC.browseVC = self;
-            photoVC.entry = entry;
-            [photoVC setImagePickedBlock:^(UIImage *image, NSDate *date, UIImagePickerControllerSourceType source) {
-                [eventDetailVC.event setEventDate:date];
-                NSData *imageData = UIImageJPEGRepresentation(image, 0.7);
-                if(imageData)
-                {
-                    NSString *imgName = [NSString randomStringWithLength:10];
-                    PYAttachment *att = [[PYAttachment alloc] initWithFileData:imageData name:imgName fileName:[NSString stringWithFormat:@"%@.jpeg",imgName]];
-                    [eventDetailVC.event addAttachment:att];
-                }
-                self.pickedImage = nil;
-                self.pickedImageTimestamp = nil;
-                self.eventToShowOnAppear = nil;
-                [eventDetailVC updateUIForCurrentEvent];
-            }];
-            [viewControllers addObject:photoVC];
-        }
-        [self.navigationController setViewControllers:viewControllers animated:YES];
-    }
-    else
-    {
-        [self.navigationController pushViewController:eventDetailVC animated:YES];
-    }*/
-    
 }
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
