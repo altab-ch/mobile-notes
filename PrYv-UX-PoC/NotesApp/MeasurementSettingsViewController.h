@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol MeasuresDelegate <NSObject>
+@optional
+- (void)measuresViewControllerDidChangeSets;
+@end
+
 @interface MeasurementSettingsViewController : UITableViewController
+
+@property (nonatomic, strong) id<MeasuresDelegate> changeValueDelegate;
 
 @end

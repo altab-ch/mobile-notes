@@ -14,11 +14,12 @@
 #import "EventDetailsViewController.h"
 #import "NSString+Utils.h"
 #import "PYEvent+Helper.h"
+#import "UnitPickerViewController.h"
 
 #define showDetailSegue @"kAddToDetailSegue_ID"
 #define kAddToUnitSegue_ID @"kAddToUnitSegue_ID"
 
-@interface AddEventTableViewController () <MCSwipeTableViewCellDelegate, UIActionSheetDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface AddEventTableViewController () <MCSwipeTableViewCellDelegate, UIActionSheetDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate, UnitPickerDelegate>
 
 @property (nonatomic,retain) NSArray *lruEntries;
 @property (nonatomic, retain) UserHistoryEntry* tempEntry;
@@ -113,11 +114,11 @@
 {
     if (indexPath.section == 1) {
         UserHistoryEntry *uhe = [self.lruEntries objectAtIndex:[self.tableView indexPathForSelectedRow].row];
-        if (_tempEntry.dataType == EventDataTypeImage) {
+        if ([uhe dataType] == EventDataTypeImage) {
             self.tempEntry = uhe;
             [self showPicturePicker];
         }
-        if (_tempEntry.dataType == EventDataTypeNote || _tempEntry.dataType == EventDataTypeValueMeasure) {
+        if ([uhe dataType] == EventDataTypeNote || [uhe dataType] == EventDataTypeValueMeasure) {
             [self showEventDetailsForEvent:[uhe reconstructEvent]];
         }
     }
@@ -163,7 +164,7 @@
         [detail setEvent:sender];
     }
     
-    if ([[segue identifier] isEqualToString:showDetailSegue]) {
+    if ([[segue identifier] isEqualToString:kAddToUnitSegue_ID]) {
         UnitPickerViewController *unit = [segue destinationViewController];
         [unit setDelegate:self];
         [unit setEvent:sender];
@@ -178,9 +179,10 @@
 
 #pragma mark - UnitPickerDelegate
 
--(void)unitPickerController:(UIImagePickerController *)picker didFinishPickingUnit:(id)unit
+-(void)unitPickerController:(UIViewController*)picker didFinishPickingUnit:(PYEvent*)event
 {
-    
+    [self.navigationController popViewControllerAnimated:NO];
+    [self showEventDetailsForEvent:event];
 }
 
 #pragma mark - UIActionSheetDelegate methods

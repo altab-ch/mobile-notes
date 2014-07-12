@@ -90,6 +90,7 @@
     {
         [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
         [[MeasurementController sharedInstance] addMeasurementSetWithKey:set.key];
+        [_changeValueDelegate measuresViewControllerDidChangeSets];
     }
     else
     {
@@ -97,8 +98,10 @@
         {
             [cell setAccessoryType:UITableViewCellAccessoryNone];
             [[MeasurementController sharedInstance] removeMeasurementSetWithKey:set.key];
+            [_changeValueDelegate measuresViewControllerDidChangeSets];
         }
     }
+    
 }
 
 - (void)popVC:(id)sender

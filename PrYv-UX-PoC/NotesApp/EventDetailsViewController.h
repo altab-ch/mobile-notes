@@ -17,10 +17,6 @@
 @property (nonatomic, strong) PYEvent *event;
 @property (nonatomic) UIImagePickerControllerSourceType imagePickerType;
 
-- (void)setupNoteContentEditorViewController:(TextEditorViewController*)textEditorVC;
-- (void)setupDescriptionEditorViewController:(TextEditorViewController*)textEditorVC;
-- (void)setupAddNumericalValueViewController:(AddNumericalValueViewController*)addNumericalValueVC;
 
-- (IBAction)deleteButtonTouched:(id)sender;
 
 @end

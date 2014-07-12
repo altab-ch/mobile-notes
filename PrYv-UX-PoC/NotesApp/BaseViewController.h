@@ -11,7 +11,6 @@
 
 @interface BaseViewController : UIViewController
 
-- (void)addCustomBackButton;
 - (void)popViewController;
 - (void)popVC:(id)sender;
 

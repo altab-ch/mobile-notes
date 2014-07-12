@@ -27,22 +27,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSString *imgName = imageNameForCurrentDevice(@"app_bg");
+    /*NSString *imgName = imageNameForCurrentDevice(@"app_bg");
 	UIImageView *background = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imgName]];
     [self.view insertSubview:background atIndex:0];
-    self.navigationController.navigationBar.layer.masksToBounds = NO;
+    self.navigationController.navigationBar.layer.masksToBounds = NO;*/
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void)addCustomBackButton
-{
-    self.navigationItem.leftItemsSupplementBackButton = NO;
-    self.navigationItem.leftBarButtonItem = [UIBarButtonItem flatBarItemWithImage:[UIImage imageNamed:@"icon_back"] target:self action:@selector(popVC:)];
 }
 
 - (void)popVC:(id)sender

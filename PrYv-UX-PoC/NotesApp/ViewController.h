@@ -10,7 +10,7 @@
 #import <PryvApiKit/PryvApiKit.h>
 #import <PryvApiKit/PYWebLoginViewController.h>
 
-@interface ViewController : BaseViewController <PYWebLoginDelegate>
+@interface ViewController : UIViewController <PYWebLoginDelegate>
 
 - (void)initSignIn;
 

@@ -12,7 +12,7 @@
 
 @protocol UnitPickerDelegate <NSObject>
 
-- (void)unitPickerController:(UIImagePickerController *)picker didFinishPickingUnit:(PYEvent*)event;
+- (void)unitPickerController:(UIViewController *)picker didFinishPickingUnit:(PYEvent*)event;
 
 @end
 

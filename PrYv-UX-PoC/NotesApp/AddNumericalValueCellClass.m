@@ -17,6 +17,8 @@
     if (self) {
         [[NSBundle mainBundle] loadNibNamed:@"AddNumericalValueCellClass" owner:self options:nil];
         [self addSubview: self.contentView];
+        [self setBackgroundColor:[UIColor clearColor]];
+
     }
     return self;
 }

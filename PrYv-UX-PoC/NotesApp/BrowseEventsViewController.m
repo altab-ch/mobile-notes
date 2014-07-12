@@ -159,10 +159,11 @@ BOOL displayNonStandardEvents;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.edgesForExtendedLayout = UIRectEdgeNone;
+    //self.edgesForExtendedLayout = UIRectEdgeNone;
     self.aggregationStep = AggregationStepDay;
     [self loadSettings];
     [self resetDateFormatters];
+    //self.navigationController.navigationBar.layer.masksToBounds = NO;
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(userDidReceiveAccessTokenNotification:)
@@ -183,7 +184,7 @@ BOOL displayNonStandardEvents;
     
     self.pullToRefreshManager = [[MNMPullToRefreshManager alloc] initWithPullToRefreshViewHeight:60 tableView:self.tableView withClient:self];
     
-    self.tableView.alpha = 0.0f;
+    //self.tableView.alpha = 0.0f;
     [self setupLeftMenuButton];
     [self loadData];
 }
@@ -243,7 +244,7 @@ BOOL displayNonStandardEvents;
             
             // get filter's data now ..
             [self.filter update];
-            
+            //[self.tableView reloadData];
         }];
         
     } else {
@@ -297,9 +298,7 @@ BOOL displayNonStandardEvents;
     static BOOL isLoading;
     if(!isLoading)
     {
-        isLoading = YES;
-        [self showLoadingOverlay];
-        
+        isLoading = YES;        
         [self.pullToRefreshManager tableViewReloadFinishedAnimated:YES];
     }
     isLoading = NO;
@@ -348,20 +347,15 @@ BOOL displayNonStandardEvents;
 
 - (void)rebuildSectionMap {
     
-    
-
-    
-    if (self.sectionsMap == nil) {
-        self.sectionsMap = [[NSMutableDictionary alloc] init];
-        self.sectionsMapTitles = [[NSMutableOrderedSet alloc] init];
-    } else {
-        [self.sectionsMap removeAllObjects];
-        [self.sectionsMapTitles removeAllObjects];
-    }
-    
-    
     NSArray* events = nil;
     if (self.filter != nil) {
+        if (self.sectionsMap == nil) {
+            self.sectionsMap = [[NSMutableDictionary alloc] init];
+            self.sectionsMapTitles = [[NSMutableOrderedSet alloc] init];
+        } else {
+            [self.sectionsMap removeAllObjects];
+            [self.sectionsMapTitles removeAllObjects];
+        }
         events = [self.filter currentEventsSet];
     }
     
@@ -655,7 +649,7 @@ BOOL displayNonStandardEvents;
     // [_tableView endUpdates];
     NSLog(@"*262 END");
     [self.tableView reloadData]; // until update is implmeneted
-    [self hideLoadingOverlay];
+    //[self hideLoadingOverlay];
     
 }
 

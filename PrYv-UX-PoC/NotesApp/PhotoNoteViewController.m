@@ -31,9 +31,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
-    //[self addCustomBackButton];
-    [self setupImagePicker];
+	[self setupImagePicker];
 }
 
 - (void)viewWillAppear:(BOOL)animated

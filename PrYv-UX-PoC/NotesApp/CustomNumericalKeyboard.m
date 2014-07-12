@@ -11,6 +11,7 @@
 @interface CustomNumericalKeyboard ()
 
 @property (nonatomic, weak) UITextField *textField;
+@property (nonatomic) BOOL isMinus;
 
 - (IBAction)clicked:(UIButton *)sender;
 
@@ -42,6 +43,18 @@
             if(self.textField.text.length > 0)
             {
                 self.textField.text = [self.textField.text substringToIndex:self.textField.text.length - 1];
+            }
+            break;
+        case 12:
+            if(self.textField.text.length > 0)
+            {
+                if (_isMinus) {
+                    _isMinus=false;
+                    [self.textField setText:[self.textField.text substringFromIndex:1]];
+                }else{
+                    _isMinus=true;
+                    [self.textField setText:[NSString stringWithFormat:@"-%@",self.textField.text]];
+                }
             }
             break;
         default:

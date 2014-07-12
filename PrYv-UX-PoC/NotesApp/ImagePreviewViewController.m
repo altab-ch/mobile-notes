@@ -43,23 +43,8 @@
     
     [self setupViewForImage:self.image];
     self.descriptionText.text = self.descText;
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
     //[self showNavigationBar:NO];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-//    CGRect scrollViewFrame = self.scrollView.frame;
-//    CGFloat scaleWidth = scrollViewFrame.size.width / self.scrollView.contentSize.width;
-//    CGFloat scaleHeight = scrollViewFrame.size.height / self.scrollView.contentSize.height;
-//    CGFloat minScale = MIN(scaleWidth, scaleHeight);
-    
-    //self.scrollView.minimumZoomScale = 1.0f;
-    //self.scrollView.maximumZoomScale = 4.0f;
-    //self.scrollView.zoomScale = 1.0f;
-    
-    //[self centerScrollViewContents];
 }
 
 - (void)didReceiveMemoryWarning
@@ -140,7 +125,8 @@
     //[self showNavigationBar:YES];
     //[self.navigationController popViewControllerAnimated:YES];
     //[self.navigationController popViewControllerAnimated:YES];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

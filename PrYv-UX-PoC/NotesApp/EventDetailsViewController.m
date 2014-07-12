@@ -29,15 +29,11 @@
 #import "MenuNavController.h"
 
 #define kLineCellHeight 54
-#define kValueCellHeight 100
+#define kValueCellHeight 72
 #define kImageCellHeight 320
 #define kNoteTextViewWidth 297
 
-#define kShowValueEditorSegue @"ShowValueEditorSegue_ID"
 #define kShowImagePreviewSegue @"ShowImagePreviewSegue_ID"
-#define kShowNoteEditorSegue @"ShowNoteEditorSegue_ID"
-#define kShowDatePickerSegue @"kShowDatePickerSegue_ID"
-#define kShowDescriptionEditorSegue @"ShowDescriptionEditorSegue_ID"
 #define isiPhone5 ([UIScreen mainScreen].bounds.size.height == 568.0f)
 
 typedef enum
@@ -58,29 +54,24 @@ typedef enum
 
 @property (nonatomic, strong) NSString *previousStreamId;
 @property (nonatomic, strong) NSDictionary *initialEventValue;
-
 @property (nonatomic) BOOL isStreamExpanded;
 @property (nonatomic) BOOL isTagExpanded;
 @property (nonatomic) BOOL isDateExtHidden;
 @property (nonatomic) BOOL isInEditMode;
 @property (nonatomic) BOOL shouldUpdateEvent;
-
 @property (nonatomic, strong) StreamPickerViewController *streamPickerVC;
-
 @property (nonatomic, weak) IBOutlet UIBarButtonItem *editButton;
 @property (nonatomic, strong) IBOutletCollection(BaseDetailCell) NSArray *cells;
-
 
 // -- specific properties
 
 @property (nonatomic, weak) IBOutlet UIImageView *picture_ImageView;
-
 @property (nonatomic, weak) IBOutlet UILabel *numericalValue_Label;
 @property (nonatomic, weak) IBOutlet UILabel *numericalValue_TypeLabel;
-
 @property (nonatomic, weak) IBOutlet UITextView *noteText;
 @property (nonatomic, weak) IBOutlet UILabel *timeLabel;
 @property (nonatomic, weak) IBOutlet UITextView *descriptionText;
+@property (nonatomic, weak) IBOutlet UITextField *numericalValue;
 
 // -- common properties
 
@@ -92,29 +83,9 @@ typedef enum
 @property (nonatomic, strong) DetailsBottomButtonsContainer *bottomButtonsContainer;
 @property (nonatomic, weak) IBOutlet UIDatePicker *datePicker;
 @property (nonatomic, weak) IBOutlet UIDatePicker *timePicker;
-
-
 @property (strong, nonatomic) IBOutlet UIButton *deleteButton;
 
-
-// -- constraints
-
-//@property (nonatomic, weak) IBOutlet NSLayoutConstraint *tagDoneButtonConstraint;
-//@property (nonatomic, weak) IBOutlet NSLayoutConstraint *descriptionLabelConstraint1;
-//@property (nonatomic, weak) IBOutlet NSLayoutConstraint *descriptionLabelConstraint2;
-//@property (nonatomic, weak) IBOutlet NSLayoutConstraint *descriptionLabelConstraint3;
-//@property (nonatomic, weak) IBOutlet NSLayoutConstraint *noteLabelConstraint1;
-//@property (nonatomic, weak) IBOutlet NSLayoutConstraint *noteLabelConstraint2;
-//@property (nonatomic, weak) IBOutlet NSLayoutConstraint *noteLabelConstraint3;
-/*@property (nonatomic, weak) IBOutlet NSLayoutConstraint *tagConstraint1;
-@property (nonatomic, weak) IBOutlet NSLayoutConstraint *tagConstraint2;
-@property (nonatomic, weak) IBOutlet NSLayoutConstraint *tagConstraint3;
-@property (nonatomic, weak) IBOutlet NSLayoutConstraint *tagConstraint4;*/
-//@property (nonatomic, weak) IBOutlet NSLayoutConstraint *imageHeightConstraint;
-
-
 - (BOOL) shouldCreateEvent;
-- (CGFloat) heightForNoteTextViewWithString:(NSString*)s;
 - (void)closeStreamPickerAndRestorePreviousStreamId;
 - (NSString*) getNumericalValueFormatted;
 @end
@@ -143,7 +114,6 @@ typedef enum
                                                object:nil];
     self.isInEditMode = self.event.isDraft;
     _isDateExtHidden = true;
-    //[self initNoteTextView];
     [self initTags];
     [self initBtDelete];
     [self updateUIForEvent];
@@ -153,15 +123,6 @@ typedef enum
     
     // commented for now.. to be reused for share and anther actions.
     // [self initBottomButtonsContainer];
-}
-
--(void) initNoteTextView
-{
-    float height = [self heightForNoteTextViewWithString:self.event.eventContentAsString];
-    CGRect textViewRect = CGRectMake(10, 10, kNoteTextViewWidth, height);
-    
-    self.noteText.frame = textViewRect;
-    self.noteText.contentSize = CGSizeMake(kNoteTextViewWidth, height);
 }
 
 -(void) initBtDelete
@@ -299,36 +260,22 @@ typedef enum
 
 - (void)updateUIForValueEventType
 {
-    
     self.navigationItem.title =  NSLocalizedString(@"DetailViewController.TitleMeasure", nil);
-    if(self.event.isDraft && !self.event.type)
-    {
-        self.numericalValue_Label.text = @"";
-        self.numericalValue_TypeLabel.text = @"";
-        return;
-    }
+    
+    [_numericalValue setKeyboardType:UIKeyboardTypeNumberPad];
+    
     NSString *unit = [self.event.pyType symbol];
-    
     NSString *formatDescription = [self.event.pyType localizedName];
+    NSString *value = self.getNumericalValueFormatted;
     
-    if (! unit) {
-        unit = formatDescription ;
-        [self.numericalValue_TypeLabel setText:@""];
-    } else {
-        [self.numericalValue_TypeLabel setText:formatDescription];
-    }
-    
-    
-    
-    NSString *value = [NSString stringWithFormat:@"%@ %@",self.getNumericalValueFormatted, unit];
-    
-    [self.numericalValue_Label setText:value];
+    [_numericalValue_TypeLabel setText:formatDescription];
+    [_numericalValue_Label setText:unit];
+    [_numericalValue setText:value];
     
 }
 
 - (void)updateUIForNoteEventType
 {
-    
     self.navigationItem.title =  NSLocalizedString(@"DetailViewController.TitleNote", nil);
     self.noteText.text = self.event.eventContentAsString;
 }
@@ -417,7 +364,6 @@ typedef enum
             return kLineCellHeight;
         }
             
-            
         default:
             break;
     }
@@ -427,35 +373,21 @@ typedef enum
 
 #pragma mark - UITableViewDeleagate methods
 
-/*- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    CGFloat height = [self heightForCellAtIndexPath:indexPath withEvent:self.event];
-    cell.alpha = height > 0 ? 1.0f : 0.0f;
-}*/
-
-/**
- - (void)showImagePreview:(id)sender
- {
- 
- ImagePreviewViewController* imagePreviewVC = (ImagePreviewViewController *)[[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"ImagePreviewViewController_ID"];
- imagePreviewVC.image = self.picture_ImageView.image;
- //imagePreviewVC.descText = self.eventDescriptionLabel.text;
- [self.navigationController pushViewController:imagePreviewVC animated:YES];
- }**/
-
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.view endEditing:YES];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     DetailCellType cellType = indexPath.row;
-    if (cellType != DetailCellTypeTime) _isDateExtHidden = true;
+    if (cellType != DetailCellTypeTime && !_isDateExtHidden){
+        _isDateExtHidden = true;
+        [self.tableView beginUpdates];
+        [self.tableView endUpdates];
+    }
     if (cellType == DetailCellTypeImage) {
-        ImageViewController *imagePreview = [[ImageViewController alloc] initWithNibName:@"ImageViewController" bundle:nil];
+        /*ImageViewController *imagePreview = [[ImageViewController alloc] initWithNibName:@"ImageViewController" bundle:nil];
         imagePreview.image = self.picture_ImageView.image;
-        [self presentViewController:imagePreview animated:YES completion:nil];
-        //[self performSegueWithIdentifier:kShowImagePreviewSegue sender:nil];
+        [self.navigationController pushViewController:imagePreview animated:YES];*/
         return;
     }
     
@@ -491,7 +423,7 @@ typedef enum
             }
             else
             {
-                StreamPickerViewController *streamPickerVC = [[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"StreamPickerViewController_ID"];
+                StreamPickerViewController *streamPickerVC = [[UIStoryboard mainStoryBoard] instantiateViewControllerWithIdentifier:@"StreamPickerViewController_ID"];
                 
                 [self setupStreamPickerViewController:streamPickerVC];
             }
@@ -505,18 +437,34 @@ typedef enum
     }
 }
 
-#pragma mark - Actions
+#pragma mark - IBActions, segue
+
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:kShowImagePreviewSegue]) {
+        ImageViewController* imvc = [segue destinationViewController];
+        [imvc setImage:self.picture_ImageView.image];
+    }
+}
+
+-(IBAction)valueTextFieldDidChange:(id)sender
+{
+    self.shouldUpdateEvent=true;
+    _event.eventContent = _numericalValue.text;
+}
 
 -(IBAction)datePickerValueChanged:(id)sender
 {
     self.timeLabel.text = [[NotesAppController sharedInstance].dateFormatter stringFromDate:_datePicker.date];
     [_timePicker setDate:_datePicker.date];
+    [_event setEventDate:_datePicker.date];
 }
 
 -(IBAction)timePickerValueChanged:(id)sender
 {
     self.timeLabel.text = [[NotesAppController sharedInstance].dateFormatter stringFromDate:_timePicker.date];
     [_datePicker setDate:_timePicker.date];
+    [_event setEventDate:_timePicker.date];
 }
 
 - (IBAction)segmentSwitch:(id)sender {
@@ -566,36 +514,11 @@ typedef enum
 
 - (IBAction)editButtonTouched:(id)sender
 {
-    
+    if (_event.isDraft) {
+        [self saveEvent];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
     [self updateUIEditMode:!self.isInEditMode];
-    /*if(self.isInEditMode)
-    {
-        // -- if streamPickerVC is opened
-        if(self.streamPickerVC)
-        {
-            [self closeStreamPicker];
-            return;
-        }
-        
-        if(!self.event.streamId && sender)
-        {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"ViewController.Streams.SelectStream", nil) message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [alertView show];
-            
-            return;
-        }
-        [self switchFromEditingMode];
-    }
-    else
-    {
-        // take a snapshot of event's value
-        self.initialEventValue = [self.event cachingDictionary];
-        [self switchToEditingMode];
-    }
-    self.isInEditMode = !self.isInEditMode;
-    [self.cells enumerateObjectsUsingBlock:^(BaseDetailCell *cell, NSUInteger idx, BOOL *stop) {
-        [cell setIsInEditMode:self.isInEditMode];
-    }];*/
 }
 
 -(void) updateUIEditMode:(BOOL)edit
@@ -618,7 +541,8 @@ typedef enum
     
     _isDateExtHidden = true;
     [self.view endEditing:YES];
-    [_noteText setEditable:NO];
+    if ([self.event eventDataType] == EventDataTypeValueMeasure) [_numericalValue setEnabled:NO];
+    if ([self.event eventDataType] == EventDataTypeNote) [_noteText setEditable:NO];
     [_descriptionText setEditable:NO];
     
     if([self.descriptionText.text isEqualToString:NSLocalizedString(@"ViewController.TextDescriptionContent.TapToAdd", nil)])
@@ -637,43 +561,34 @@ typedef enum
     {
         [self eventSaveModifications];
     }
-    /**
-     else
-     {
-     [self.navigationController popViewControllerAnimated:YES];
-     }**/
     
     [self updateLabelsTextColorForEditingMode:NO];
     
     [self.tokenField setUserInteractionEnabled:NO];
     
-    [self switchBtSelectionMode:UITableViewCellSelectionStyleNone];
+    //[self switchBtSelectionMode:UITableViewCellSelectionStyleNone];
     
     self.editButton.title = NSLocalizedString(@"Edit", nil);
-    /*dispatch_async(dispatch_get_main_queue(), ^{
-        [UIView transitionWithView:self.tableView
-                          duration:0.1f
-                           options:UIViewAnimationOptionBeginFromCurrentState
-                        animations:^(void) {
-                            [self.tableView reloadData];
-                        } completion:NULL];
-        
-    });*/
-    /*[UIView animateWithDuration:2.25 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-        self.tagsLabel.alpha = 1.0f;
-        self.tokenContainer.alpha = 0.0f;
-    } completion:^(BOOL finished) {
-        
-    }];*/
+    
 }
 
 - (void)switchToEditingMode
 {
     self.initialEventValue = [self.event cachingDictionary];
     
-    [_noteText setEditable:YES];
     [_descriptionText setEditable:YES];
     
+    if ([self.event eventDataType] == EventDataTypeValueMeasure)
+    {
+        [_numericalValue setEnabled:YES];
+        if (_event.isDraft) [_numericalValue becomeFirstResponder];
+    }
+    
+    if ([self.event eventDataType] == EventDataTypeNote)
+    {
+        [_noteText setEditable:YES];
+        if (_event.isDraft) [_noteText becomeFirstResponder];
+    }
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc]
                                    initWithTitle: NSLocalizedString(@"Cancel", nil)
                                    style: UIBarButtonItemStyleBordered
@@ -689,28 +604,10 @@ typedef enum
     }
     
     [self.tokenField setUserInteractionEnabled:YES];
-    
-    // change selection style but delete cell
-    [self switchBtSelectionMode:UITableViewCellSelectionStyleBlue];
+    //[self switchBtSelectionMode:UITableViewCellSelectionStyleBlue];
     
     self.editButton.title = NSLocalizedString(@"Done", nil);
-    /*dispatch_async(dispatch_get_main_queue(), ^{
-        [UIView transitionWithView:self.tableView
-                          duration:10.2f
-                           options:UIViewAnimationOptionBeginFromCurrentState
-                        animations:^(void) {
-                            [self.tableView reloadData];
-                        } completion:NULL];
-        
-    });*/
     
-    //[self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
-    /*[UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-        self.tagsLabel.alpha = 0.0f;
-        self.tokenContainer.alpha = 1.0f;
-    } completion:^(BOOL finished) {
-        
-    }];*/
 }
 
 -(void) switchBtSelectionMode:(UITableViewCellSelectionStyle)status{
@@ -735,100 +632,12 @@ typedef enum
     self.streamsLabel.textColor = textColor;
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    NSString *identifier = segue.identifier;
-    if([identifier isEqualToString:kShowNoteEditorSegue])
-    {
-        [self setupNoteContentEditorViewController:segue.destinationViewController];
-    }
-    else if([identifier isEqualToString:kShowDescriptionEditorSegue])
-    {
-        [self setupDescriptionEditorViewController:segue.destinationViewController];
-    }
-    else if([identifier isEqualToString:kShowImagePreviewSegue])
-    {
-        [self setupImagePreviewViewController:segue.destinationViewController];
-    }
-    else if([identifier isEqualToString:kShowValueEditorSegue])
-    {
-        [self setupAddNumericalValueViewController:segue.destinationViewController];
-    }
-    else if([identifier isEqualToString:kShowDatePickerSegue])
-    {
-        [self setupDatePickerViewController:segue.destinationViewController];
-    }
-}
-
 #pragma mark - Edit methods
-
-- (void)setupDescriptionEditorViewController:(TextEditorViewController*)textEditorVC
-{
-    textEditorVC.textDidChangeCallBack = ^(NSString* text, TextEditorViewController* textEdit) {
-        if (self.event.eventDescription && [text isEqualToString:self.event.eventDescription]) return;
-        self.event.eventDescription = text;
-        
-        self.shouldUpdateEvent = YES;
-        //[self updateUIForEvent];
-    };
-    textEditorVC.text = self.event.eventDescription ? self.event.eventDescription : @"";
-}
-
-
-
-- (void)setupNoteContentEditorViewController:(TextEditorViewController*)textEditorVC
-{
-    textEditorVC.textDidChangeCallBack = ^(NSString* text, TextEditorViewController* textEdit) {
-        if (self.event.eventContentAsString && [text isEqualToString:self.event.eventContentAsString]) return;
-        self.event.eventContent = text;
-        self.shouldUpdateEvent = YES;
-        //[self updateUIForEvent];
-    };
-    textEditorVC.text = self.event.eventContent ? self.event.eventContentAsString : @"";
-}
-
-- (void)setupDatePickerViewController:(DatePickerViewController *)dpVC
-{
-    NSDate *date = [self.event eventDate];
-    if(!date)
-    {
-        date = [NSDate date];
-    }
-    dpVC.selectedDate = date;
-    [dpVC setDateDidChangeBlock:^(NSDate *newDate, DatePickerViewController *dp) {
-        if([newDate timeIntervalSince1970] == [[self.event eventDate] timeIntervalSince1970]) return;
-        [self.event setEventDate:newDate];
-        self.shouldUpdateEvent = YES;
-        //[self updateUIForEvent];
-    }];
-}
 
 - (void)setupImagePreviewViewController:(ImagePreviewViewController*)imagePreviewVC
 {
-    
     imagePreviewVC.image = self.picture_ImageView.image;
     imagePreviewVC.descText = self.event.eventDescription;
-}
-
-- (void)setupAddNumericalValueViewController:(AddNumericalValueViewController*)addNumericalValueVC
-{
-    if(self.event.type)
-    {
-        NSArray *components = [self.event.type componentsSeparatedByString:@"/"];
-        if([components count] > 1)
-        {
-            addNumericalValueVC.value = self.getNumericalValueFormatted;
-            //addNumericalValueVC.value = self.event.eventContentAsString;
-            addNumericalValueVC.valueClass = [components objectAtIndex:0];
-            addNumericalValueVC.valueType = [components objectAtIndex:1];
-        }
-    }
-    [addNumericalValueVC setValueDidChangeBlock:^(NSString* valueClass, NSString *valueType, NSString* value, AddNumericalValueViewController *addNumericalVC) {
-        self.event.eventContent = value;
-        self.event.type = [NSString stringWithFormat:@"%@/%@",valueClass,valueType];
-        self.shouldUpdateEvent = YES;
-        //[self updateUIForEvent];
-    }];
 }
 
 - (void)setupStreamPickerViewController:(StreamPickerViewController*)streamPickerVC
@@ -837,19 +646,7 @@ typedef enum
     streamPickerVC.stream = [self.event stream];
     streamPickerVC.delegate = self;
     self.streamPickerVC = streamPickerVC;
-    //[self.streamPickerVC.view.subviews[0] removeFromSuperview];
-    //CGPoint center = self.streamPickerVC.view.center;
-    //self.navigationController.modalPresentationStyle = UIModalPresentationCurrentContext;
     [self.navigationController presentViewController:streamPickerVC animated:YES completion:nil];
-    /*[self.navigationController presentViewController:self.streamPickerVC animated:YES completion:^{
-        self.streamPickerVC.view.center = CGPointMake(self.streamPickerVC.view.center.x, self.streamPickerVC.view.center.y + self.view.bounds.size.height);
-        [UIView animateWithDuration:0.25f delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-            self.streamPickerVC.view.center = center;
-        } completion:^(BOOL finished) {
-            
-        }];
-    }nil];*/
-    
 }
 
 - (void)closeStreamPickerAndRestorePreviousStreamId
@@ -947,7 +744,6 @@ typedef enum
 
 - (void)deleteEvent
 {
-    [self showLoadingOverlay];
     
     [NotesAppController sharedConnectionWithID:nil noConnectionCompletionBlock:nil withCompletionBlock:^(PYConnection *connection)
      {
@@ -1057,7 +853,7 @@ typedef enum
 
 - (void) textViewDidChange:(UITextView *)textView
 {
-    self.shouldUpdateEvent = true;
+    _shouldUpdateEvent = true;
     [self.tableView beginUpdates];
     [self.tableView endUpdates];
     if (textView == _noteText) _event.eventContent = _noteText.text;

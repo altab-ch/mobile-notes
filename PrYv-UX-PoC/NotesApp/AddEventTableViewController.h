@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UnitPickerViewController.h"
 
-@interface AddEventTableViewController : UITableViewController <UnitPickerDelegate>
+@interface AddEventTableViewController : UITableViewController 
 
 @end

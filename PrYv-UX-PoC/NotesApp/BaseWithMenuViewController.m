@@ -34,16 +34,16 @@
 {
     [super viewDidLoad];
     
-    self.enabled = YES;
+    //self.enabled = YES;
 	
     //self.navigationItem.rightBarButtonItem = [UIBarButtonItem flatBarItemWithImage:[UIImage imageNamed:@"icon_add"] target:self action:@selector(menuButtonTouched:)];
     
-    self.topMenuCellImages = @[@"icon_small_text",
+    /*self.topMenuCellImages = @[@"icon_small_text",
                                @"icon_small_lenght",
                                @"icon_small_photo"];
     
     CGFloat tableHeight = self.view.bounds.size.height;
-    self.menuOpen = NO;
+    self.menuOpen = NO;*/
     
 }
 

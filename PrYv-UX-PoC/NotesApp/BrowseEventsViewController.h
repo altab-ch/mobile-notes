@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "BaseWithMenuViewController.h"
 
-@interface BrowseEventsViewController : UIViewController
+@interface BrowseEventsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 - (void)toggleSlider;
 - (void)clearCurrentData;

@@ -179,7 +179,6 @@
 {
     if([streamName length] > 0)
     {
-        [self showLoadingOverlay];
         PYStream *stream = [[PYStream alloc] init];
         stream.name = streamName;
         if (self.stream) {
