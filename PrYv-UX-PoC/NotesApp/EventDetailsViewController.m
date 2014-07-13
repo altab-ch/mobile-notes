@@ -28,7 +28,9 @@
 #import "MMDrawerController.h"
 #import "MenuNavController.h"
 
-#define kLineCellHeight 54
+#define kStreamCellHeight 54
+#define kDeleteCellHeight 50
+#define kDateCellHeight 66
 #define kValueCellHeight 90
 #define kImageCellHeight 320
 #define kNoteTextViewWidth 297
@@ -325,7 +327,7 @@ typedef enum
             if([self.event eventDataType] == EventDataTypeNote)
             {
                 if(self.isInEditMode && [self.noteText.text length] == 0) {
-                    return kLineCellHeight;
+                    return kStreamCellHeight;
                 }
                 if ([self.noteText.text length] > 0)
                 {
@@ -337,7 +339,7 @@ typedef enum
             
             
         case DetailCellTypeTime:
-            return kLineCellHeight;
+            return kDateCellHeight;
         
         case DetailCellTypeTimeExt:
         {
@@ -348,7 +350,7 @@ typedef enum
         case DetailCellTypeDescription:
         {
             if(self.isInEditMode && [self.descriptionText.text length] == 0) {
-                return kLineCellHeight+20;
+                return kStreamCellHeight+20;
             }
             if ([self.descriptionText.text length] > 0)
             {
@@ -367,20 +369,20 @@ typedef enum
         }
             
         case DetailCellTypeStreams:
-            return kLineCellHeight;
+            return kStreamCellHeight;
             
         case DetailCellTypeDelete:
         {
             if ([self shouldCreateEvent] || ![self isInEditMode])
                 return 0;
-            return kLineCellHeight;
+            return kDeleteCellHeight;
         }
             
         default:
             break;
     }
     
-    return kLineCellHeight;
+    return kStreamCellHeight;
 }
 
 #pragma mark - UITableViewDeleagate methods
