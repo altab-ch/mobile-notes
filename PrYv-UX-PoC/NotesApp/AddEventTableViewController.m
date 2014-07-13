@@ -45,6 +45,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.navigationItem setTitle:NSLocalizedString(@"AddEvent.Title", nil)];
 }
 
 - (void)didReceiveMemoryWarning
@@ -203,7 +204,7 @@
     }
     
     if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] && buttonIndex == 0) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"CameraUnavailable", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"AddEvent.CameraUnavailable", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:nil];
         [alertView show];
         return;
     }

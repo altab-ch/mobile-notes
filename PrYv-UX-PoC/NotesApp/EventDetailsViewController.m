@@ -534,14 +534,14 @@ typedef enum
 - (IBAction)editButtonTouched:(id)sender
 {
     if (_isInEditMode && (_event.stream == nil || _event.streamId == nil)) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"ViewController.DetailViewController.NoStream", nil) message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", nil) otherButtonTitles:nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Alert.DetailViewController.NoStream", nil) message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
         [alertView show];
         return;
     }
     
     if ((_event.eventDataType == EventDataTypeValueMeasure || _event.eventDataType == EventDataTypeNote)
         && (!_event.eventContent || [_event.eventContentAsString isEqualToString:@""])) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"ViewController.DetailViewController.NoData", nil) message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", nil) otherButtonTitles:nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Alert.DetailViewController.NoData", nil) message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
         [alertView show];
         return;
     }

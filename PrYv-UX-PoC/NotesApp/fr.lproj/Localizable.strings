@@ -6,6 +6,9 @@
 
 "Alert.Error.SavingImageError" = "Erreur lors de la sauvergarde de l'image";
 
+"Alert.DetailViewController.NoStream" = "Choisissez un stream";
+"Alert.DetailViewController.NoData" = "Entrez une valeur";
+
 "Camera" = "Appareil photo";
 "Library" = "Bibliothèque";
 "Settings" = "Paramètres";
@@ -19,6 +22,17 @@
 "Delete" = "Effacer";
 "Done" = "OK";
 "Edit" = "Modifier";
+
+"UnitPicker.Next" = "Suivant";
+
+"AddEvent.Note" = "Note";
+"AddEvent.Numeric" = "Valeur";
+"AddEvent.Picture" = "Image";
+"AddEvent.CameraUnavailable" = "Appareil photo indisponible";
+"AddEvent.AddMeasure" = "Ajouter une valeur dans ";
+"AddEvent.AddPicture" = "Ajouter une image dans ";
+"AddEvent.AddNote" = "Ajouter une note dans ";
+"AddEvent.Title" = "Ajouter un évènement";
 
 "LastUsedShortcut.Title" = "Accès rapide";
 

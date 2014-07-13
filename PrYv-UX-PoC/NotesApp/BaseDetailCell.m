@@ -47,7 +47,7 @@
 {
     _isInEditMode = isInEditMode;
     [_borderView.layer setBorderColor:_isInEditMode ?[UIColor colorWithRed:32.0f/255.0f green:169.0f/255.0f blue:215.0f/255.0f alpha:1].CGColor:[UIColor darkGrayColor].CGColor];
-    self.borderView.layer.borderWidth = _isInEditMode ?1:0.5;
+    _borderView.layer.borderWidth = _isInEditMode ? 1.5:0.5;
     /*[UIView animateWithDuration:0.2 animations:^{
         self.borderView.alpha = _isInEditMode ? 1.0f : 0.0f;
     }];*/

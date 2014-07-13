@@ -5,6 +5,8 @@
 "Alert.Message.PhotoSource" = "Choose photo source";
 
 "Alert.Error.SavingImageError" = "Error while saving the image to Camera roll!";
+"Alert.DetailViewController.NoStream" = "Choose a stream";
+"Alert.DetailViewController.NoData" = "Enter a value";
 
 "Camera" = "Camera";
 "Library" = "Library";
@@ -21,6 +23,17 @@
 "Done" = "Done";
 "Edit" = "Edit";
 
+"UnitPicker.Next" = "Next";
+
+"AddEvent.Note" = "Note";
+"AddEvent.Numeric" = "Value";
+"AddEvent.Picture" = "Picture";
+"AddEvent.CameraUnavailable" = "Camera unavailable";
+"AddEvent.AddMeasure" = "Add a value in ";
+"AddEvent.AddPicture" = "Add a picture in ";
+"AddEvent.AddNote" = "Add a note in ";
+"AddEvent.Title" = "Add an event";
+
 "LastUsedShortcut.Title" = "Shortcuts";
 
 "MenuTableViewController.DateSelect" = "Date";
@@ -33,7 +46,6 @@
 "DetailViewController.TitleNote" = "Note";
 "DetailViewController.TitlePicture" = "Picture";
 "DetailViewController.TitleMeasure" = "Value";
-
 
 "TextEditorViewController.Title" = "Take a note";
 
