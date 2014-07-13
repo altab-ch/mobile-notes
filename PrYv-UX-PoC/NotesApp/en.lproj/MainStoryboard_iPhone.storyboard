@@ -958,13 +958,14 @@ height=123312</string>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="fbd-sp-olb">
-                        <barButtonItem key="rightBarButtonItem" title="Done" id="h68-JF-oD8">
+                        <barButtonItem key="rightBarButtonItem" title="Nex" id="h68-JF-oD8">
                             <connections>
                                 <action selector="btDonePressed:" destination="Zqa-hU-bZe" id="pdq-lt-kEV"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="btNext" destination="h68-JF-oD8" id="Q0p-aF-YY7"/>
                         <outlet property="top" destination="gHL-wk-CX9" id="C2K-VA-fc7"/>
                         <outlet property="unitPicker" destination="O3J-eM-gEu" id="6dU-A5-FTf"/>
                     </connections>

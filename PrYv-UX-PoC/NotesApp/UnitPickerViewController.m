@@ -28,6 +28,7 @@
 @property (nonatomic, weak) IBOutlet KSAdvancedPicker* unitPicker;
 @property (nonatomic, strong) NSMutableArray *measurementGroups;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint* top;
+@property (nonatomic, weak) IBOutlet UIBarButtonItem *btNext;
 @property (nonatomic) BOOL isMeasureSetShow;
 @end
 
@@ -46,6 +47,7 @@
 {
     [super viewDidLoad];
     _isMeasureSetShow = false;
+    [_btNext setTitle:NSLocalizedString(@"UnitPicker.Next", nil)];
     [self updateMeasurementSets];
     [_unitPicker setDelegate:self];
     [_unitPicker setDataSource:self];
