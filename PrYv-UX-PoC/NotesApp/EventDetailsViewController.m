@@ -579,10 +579,10 @@ typedef enum
     if ([self.event eventDataType] == EventDataTypeNote) [_noteText setEditable:NO];
     [_descriptionText setEditable:NO];
     
-    if([self.descriptionText.text isEqualToString:NSLocalizedString(@"ViewController.TextDescriptionContent.TapToAdd", nil)])
+    /*if([self.descriptionText.text isEqualToString:NSLocalizedString(@"ViewController.TextDescriptionContent.TapToAdd", nil)])
     {
         self.descriptionText.text = @"";
-    }
+    }*/
     if(self.streamPickerVC)
     {
         [self closeStreamPicker];
@@ -625,11 +625,11 @@ typedef enum
     }
     
     
-    if([self.descriptionText.text length] == 0)
+    /*if([self.descriptionText.text length] == 0)
     {
         self.descriptionText.text = NSLocalizedString(@"ViewController.TextDescriptionContent.TapToAdd", nil);
         
-    }
+    }*/
     
     [self.tokenField setUserInteractionEnabled:YES];
     //[self switchBtSelectionMode:UITableViewCellSelectionStyleBlue];
