@@ -115,8 +115,31 @@
 
 - (void)measuresViewControllerDidChangeSets
 {
+    NSInteger selectedGroup = [_unitPicker selectedRowInComponent:0];
+    PYMeasurementTypesGroup *group = [_measurementGroups objectAtIndex:selectedGroup];
+    PYEventType *type = [group pyTypeAtIndex:[_unitPicker selectedRowInComponent:1]];
     [self updateMeasurementSets];
+    NSInteger newGroupRow = [self getGroupRow:group];
+    [_unitPicker selectRow:newGroupRow inComponent:0 animated:NO];
+    [_unitPicker selectRow:[self getTypeRow:type forGroup:[_measurementGroups objectAtIndex:newGroupRow]] inComponent:1 animated:NO];
+    
     [_unitPicker reloadData];
+}
+
+-(NSInteger) getGroupRow:(PYMeasurementTypesGroup*)group
+{
+    for (int i=0;i<[_measurementGroups count];i++)
+        if ([[[_measurementGroups objectAtIndex:i] classKey] isEqualToString:[group classKey]]) return i;
+
+    return 0;
+}
+
+-(NSInteger) getTypeRow:(PYEventType*)type forGroup:(PYMeasurementTypesGroup*)group
+{
+    for (int i=0;i<[group.formatKeyList count];i++)
+        if ([[type formatKey] isEqualToString:[[group pyTypeAtIndex:i] formatKey]]) return i;
+    
+    return 0;
 }
 
 #pragma mark - KSAdvancedPickerDataSource and KSAdvancedDelegate methods
