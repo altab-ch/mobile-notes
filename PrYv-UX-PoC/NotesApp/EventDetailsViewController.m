@@ -120,6 +120,17 @@ typedef enum
     [self.tokendDoneButton setTitle:NSLocalizedString(@"Done", nil) forState:UIControlStateNormal];
     
     if (self.event.isDraft) [self updateUIEditMode:YES];
+    else
+    {
+        [self.navigationItem setHidesBackButton:YES];
+        UIBarButtonItem *btbrowse= [[UIBarButtonItem alloc]
+                                    initWithTitle: NSLocalizedString(@"Pryv", nil)
+                                    style:UIBarButtonItemStylePlain
+                                    target:self
+                                    action:@selector(btBrowsePressed:)];
+        self.navigationItem.leftBarButtonItem = btbrowse;
+    }
+    
     
     // commented for now.. to be reused for share and anther actions.
     // [self initBottomButtonsContainer];
@@ -439,6 +450,11 @@ typedef enum
 
 #pragma mark - IBActions, segue
 
+-(void) btBrowsePressed:(id)sender
+{
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:kShowImagePreviewSegue]) {
@@ -514,10 +530,12 @@ typedef enum
 
 - (IBAction)editButtonTouched:(id)sender
 {
-    if (_event.isDraft) {
-        [self saveEvent];
-        [self.navigationController popToRootViewControllerAnimated:YES];
+    if (_isInEditMode && (_event.stream == nil || _event.streamId == nil)) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"ViewController.DetailViewController.NoStream", nil) message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", nil) otherButtonTitles:nil];
+        [alertView show];
+        return;
     }
+    
     [self updateUIEditMode:!self.isInEditMode];
 }
 
@@ -536,11 +554,17 @@ typedef enum
 
 - (void)switchFromEditingMode
 {
-    [self.navigationItem setLeftBarButtonItem:nil];
-    [self.navigationItem setHidesBackButton:NO];
+    [self.view endEditing:YES];
+    [self.navigationItem setHidesBackButton:YES];
+    UIBarButtonItem *btbrowse= [[UIBarButtonItem alloc]
+                                initWithTitle: NSLocalizedString(@"Pryv", nil)
+                                style:UIBarButtonItemStyleDone
+                                target:self
+                                action:@selector(btBrowsePressed:)];
+    self.navigationItem.leftBarButtonItem = btbrowse;
     
     _isDateExtHidden = true;
-    [self.view endEditing:YES];
+    
     if ([self.event eventDataType] == EventDataTypeValueMeasure) [_numericalValue setEnabled:NO];
     if ([self.event eventDataType] == EventDataTypeNote) [_noteText setEditable:NO];
     [_descriptionText setEditable:NO];
@@ -589,13 +613,7 @@ typedef enum
         [_noteText setEditable:YES];
         if (_event.isDraft) [_noteText becomeFirstResponder];
     }
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc]
-                                   initWithTitle: NSLocalizedString(@"Cancel", nil)
-                                   style: UIBarButtonItemStyleBordered
-                                   target:self action: @selector(cancelButtonTouched:)];
     
-    [self.navigationItem setLeftBarButtonItem:backButton];
-    [self.navigationItem setHidesBackButton:YES];
     
     if([self.descriptionText.text length] == 0)
     {
@@ -606,6 +624,13 @@ typedef enum
     [self.tokenField setUserInteractionEnabled:YES];
     //[self switchBtSelectionMode:UITableViewCellSelectionStyleBlue];
     
+    [self.navigationItem setHidesBackButton:YES];
+    UIBarButtonItem *btbrowse= [[UIBarButtonItem alloc]
+                                initWithTitle: NSLocalizedString(@"Cancel", nil)
+                                style:UIBarButtonItemStyleDone
+                                target:self
+                                action:@selector(cancelButtonTouched:)];
+    self.navigationItem.leftBarButtonItem = btbrowse;
     self.editButton.title = NSLocalizedString(@"Done", nil);
     
 }
