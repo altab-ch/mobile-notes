@@ -208,7 +208,8 @@ typedef enum
     
     
     self.streamsLabel.text = [self.event eventBreadcrumbs];
-    [self.pastille setBackgroundColor:[[self.event stream] getColor]];
+    if (_event.stream) [self.pastille setBackgroundColor:[[self.event stream] getColor]];
+    
     self.descriptionText.text = self.event.eventDescription;
     
     if([self.streamsLabel.text length] < 1)
