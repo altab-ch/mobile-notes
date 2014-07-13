@@ -537,6 +537,13 @@ typedef enum
         return;
     }
     
+    if ((_event.eventDataType == EventDataTypeValueMeasure || _event.eventDataType == EventDataTypeNote)
+        && (!_event.eventContent || [_event.eventContentAsString isEqualToString:@""])) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"ViewController.DetailViewController.NoData", nil) message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", nil) otherButtonTitles:nil];
+        [alertView show];
+        return;
+    }
+    
     [self updateUIEditMode:!self.isInEditMode];
 }
 
