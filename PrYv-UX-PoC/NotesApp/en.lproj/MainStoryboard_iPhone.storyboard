@@ -761,7 +761,7 @@ height=123312</string>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vb2-QE-uRq" userLabel="pastille">
-                                            <rect key="frame" x="73" y="9" width="10" height="10"/>
+                                            <rect key="frame" x="73" y="15" width="10" height="10"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <userDefinedRuntimeAttributes>
@@ -770,11 +770,6 @@ height=123312</string>
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                         </view>
-                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Iek-Cb-6um" userLabel="tags">
-                                            <rect key="frame" x="73" y="24" width="233" height="18"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Kg" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="5lf-3U-2IK">
                                             <rect key="frame" x="10" y="7" width="53" height="50"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -782,12 +777,12 @@ height=123312</string>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="left" fixedFrame="YES" text="Kilogram, Mass" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="q5h-8z-u8i">
-                                            <rect key="frame" x="73" y="41" width="233" height="18"/>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wjM-b3-7Q0">
+                                            <rect key="frame" x="71" y="33" width="216" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="13"/>
-                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="square_border.png" translatesAutoresizingMaskIntoConstraints="NO" id="Mmt-er-gcp">
                                             <rect key="frame" x="10" y="8" width="50" height="50"/>
@@ -799,10 +794,10 @@ height=123312</string>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </imageView>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="STREAM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Ck-6r-pz7">
-                                            <rect key="frame" x="85" y="5" width="230" height="18"/>
+                                            <rect key="frame" x="86" y="11" width="230" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="13"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
@@ -810,11 +805,10 @@ height=123312</string>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="iconImageView" destination="XMu-py-oE0" id="Sct-AR-vSR"/>
+                                    <outlet property="lbHelp" destination="wjM-b3-7Q0" id="IqZ-Cz-v3u"/>
                                     <outlet property="pastille" destination="Vb2-QE-uRq" id="6NJ-x9-n33"/>
                                     <outlet property="streamBreadcrumbs" destination="2Ck-6r-pz7" id="LXB-iO-gJ3"/>
                                     <outlet property="symbolLabel" destination="5lf-3U-2IK" id="oh4-fC-Cjj"/>
-                                    <outlet property="tagContainer" destination="Iek-Cb-6um" id="XpG-ES-FST"/>
-                                    <outlet property="valueLabel" destination="q5h-8z-u8i" id="GMp-ho-lNZ"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="kSection" rowHeight="20" id="mH5-eR-DSI">
@@ -848,7 +842,7 @@ height=123312</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4ey-Dd-Oxp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-430" y="-1940"/>
+            <point key="canvasLocation" x="-386" y="-1940"/>
         </scene>
         <!--Unit Picker View Controller-->
         <scene sceneID="Fs1-oT-cLu">

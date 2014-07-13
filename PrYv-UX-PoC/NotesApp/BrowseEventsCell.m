@@ -20,9 +20,10 @@
 @interface BrowseEventsCell ()
 
 @property (nonatomic, strong) IBOutlet UILabel *streamBreadcrumbs;
-@property (nonatomic, strong) IBOutlet UILabel *valueLabel;
+//@property (nonatomic, strong) IBOutlet UILabel *valueLabel;
 @property (nonatomic, strong) IBOutlet UIImageView *iconImageView;
-@property (nonatomic, strong) IBOutlet UIView *tagContainer;
+//@property (nonatomic, strong) IBOutlet UIView *tagContainer;
+@property (nonatomic, weak) IBOutlet UILabel *lbHelp;
 @property (nonatomic, strong) IBOutlet UILabel *symbolLabel;
 @property (nonatomic, strong) IBOutlet UIView *pastille;
 - (NSString*)imageNameForType:(EventDataType)type;
@@ -50,7 +51,7 @@
 - (void)setupWithUserHistroyEntry:(UserHistoryEntry *)entry
 {
     PYEvent *event = [entry reconstructEvent];
-    [self updateTags:event.tags];
+    //[self updateTags:event.tags];
     self.streamBreadcrumbs.text = [event eventBreadcrumbs];
     [self.pastille setBackgroundColor:[[event stream] getColor]];
     
@@ -64,7 +65,29 @@
         self.iconImageView.image = iconImage;
     }
     
-    self.valueLabel.text = [self stringRepresentationForEventType:event.pyType];
+    NSString *help;
+    switch ([event eventDataType]) {
+        case EventDataTypeValueMeasure:
+        {
+            help = NSLocalizedString(@"AddEvent.AddMeasure", nil);
+        }
+            break;
+        case EventDataTypeImage:
+        {
+            help = NSLocalizedString(@"AddEvent.AddPicture", nil);
+        }
+            break;
+        case EventDataTypeNote:
+        {
+            help = NSLocalizedString(@"AddEvent.AddNote", nil);
+        }
+            break;
+        default:
+            break;
+    }
+    [_lbHelp setText:[NSString stringWithFormat:@"%@ %@", help, event.eventBreadcrumbs]];
+    
+    //self.valueLabel.text = [self stringRepresentationForEventType:event.pyType];
 }
 
 - (NSString*)symbolRepresentationForEventType:(PYEventType*)eventType
@@ -102,7 +125,7 @@
     return @"icon_small_text_grey";
 }
 
-- (void)updateTags:(NSArray *)tags
+/*- (void)updateTags:(NSArray *)tags
 {
     [self.tagContainer.subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         [obj removeFromSuperview];
@@ -117,6 +140,6 @@
         tagView.frame = frame;
         [self.tagContainer addSubview:tagView];
     }
-}
+}*/
 
 @end
