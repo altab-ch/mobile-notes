@@ -354,7 +354,7 @@ typedef enum
             }
             if ([self.descriptionText.text length] > 0)
             {
-                return [self heightForNoteTextViewWithString:self.descriptionText.text]+18;
+                return [self heightForNoteTextViewWithString:self.descriptionText.text];
             }
             return 0;
         }
@@ -731,8 +731,8 @@ typedef enum
                                               options:NSStringDrawingUsesLineFragmentOrigin
                                            attributes:attributes
                                               context:nil];
-    
-    return rect.size.height+40 ;
+    NSLog(@"%f", rect.size.height);
+    return rect.size.height+56 ;
 }
 
 - (BOOL) shouldCreateEvent
