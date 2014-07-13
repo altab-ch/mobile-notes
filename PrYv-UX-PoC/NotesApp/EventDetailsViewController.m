@@ -29,7 +29,7 @@
 #import "MenuNavController.h"
 
 #define kLineCellHeight 54
-#define kValueCellHeight 72
+#define kValueCellHeight 90
 #define kImageCellHeight 320
 #define kNoteTextViewWidth 297
 
