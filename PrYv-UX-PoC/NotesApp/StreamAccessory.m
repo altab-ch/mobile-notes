@@ -31,7 +31,7 @@
         CGSize lbSize = [self.text sizeWithFont:self.label.font];
         if (color) {
             [self.label setFrame:CGRectMake(18, 0, lbSize.width, 14)];
-            [self setFrame:CGRectMake(5, 5, lbSize.width+22, 14)];
+            [self setFrame:CGRectMake(10, 6, lbSize.width+22, 14)];
             [self.label setText:self.text];
             [self setPastille:[[UIView alloc] initWithFrame:CGRectMake(2, 2, 10, 10)]];
             [self.pastille.layer setCornerRadius:5];
@@ -39,7 +39,7 @@
             [self addSubview:self.pastille];
         }else{
             [self.label setFrame:CGRectMake(3, 0, lbSize.width, 14)];
-            [self setFrame:CGRectMake(320-(lbSize.width+15), 5, lbSize.width+6, 14)];
+            [self setFrame:CGRectMake(320-(lbSize.width+15), 6, lbSize.width+6, 14)];
             [self.label setText:self.text];
         }
         

@@ -17,6 +17,7 @@
 @property (nonatomic, strong) IBOutlet UIView *tagContainer;
 @property (nonatomic, strong) IBOutlet UIView *streamContainer;
 @property (nonatomic, weak) IBOutlet UIView *pastille;
+@property (nonatomic, weak) IBOutlet UIView *backView;
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
 @property (nonatomic, weak) PYEvent *event;
 

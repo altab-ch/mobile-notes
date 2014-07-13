@@ -10,6 +10,7 @@
 #import "TagView.h"
 #import "PYStream+Helper.h"
 #import "PictureCell.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface BrowseCell ()
 @end
@@ -51,6 +52,9 @@
 
 - (void)updateWithEvent:(PYEvent *)event
 {
+    [_backView.layer setBorderWidth:0.5];
+    [_backView.layer setBorderColor:[UIColor darkGrayColor].CGColor];
+    
     self.event = event;
     self.commentLabel.text = event.eventDescription;
     if (self.streamLabel)

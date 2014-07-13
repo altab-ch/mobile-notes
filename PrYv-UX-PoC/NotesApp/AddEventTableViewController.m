@@ -23,6 +23,9 @@
 
 @property (nonatomic, strong) NSArray *lruEntries;
 @property (nonatomic, strong) UserHistoryEntry* tempEntry;
+@property (nonatomic, weak) IBOutlet UILabel *lbNote;
+@property (nonatomic, weak) IBOutlet UILabel *lbPicture;
+@property (nonatomic, weak) IBOutlet UILabel *lbNumeric;
 
 -(IBAction)createEvent:(UIButton*)sender;
 
@@ -72,6 +75,9 @@
     
     if (indexPath.section == 0) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"kEvent1"];
+        [(UILabel*)[cell viewWithTag:5] setText:NSLocalizedString(@"AddEvent.Note", nil)];
+        [(UILabel*)[cell viewWithTag:6] setText:NSLocalizedString(@"AddEvent.Numeric", nil)];
+        [(UILabel*)[cell viewWithTag:7] setText:NSLocalizedString(@"AddEvent.Picture", nil)];
     }else{
         cell = [tableView dequeueReusableCellWithIdentifier:@"kShortcut"];
         UserHistoryEntry *entry = [self.lruEntries objectAtIndex:indexPath.row];
