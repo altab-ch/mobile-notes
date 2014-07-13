@@ -27,7 +27,8 @@
 @property (nonatomic, weak) MeasurementSettingsViewController* measuresViewController;
 @property (nonatomic, weak) IBOutlet KSAdvancedPicker* unitPicker;
 @property (nonatomic, strong) NSMutableArray *measurementGroups;
-
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint* top;
+@property (nonatomic) BOOL isMeasureSetShow;
 @end
 
 @implementation UnitPickerViewController
@@ -44,6 +45,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    _isMeasureSetShow = false;
     [self updateMeasurementSets];
     [_unitPicker setDelegate:self];
     [_unitPicker setDataSource:self];
@@ -67,6 +69,37 @@
         _measuresViewController = measures;
         [measures setChangeValueDelegate:self];
     }
+}
+
+-(IBAction)btShowMeasureSetPressed:(id)sender
+{
+    if (_isMeasureSetShow) {
+        [self animateConstraint:92];
+        [self animateMeasureSet:0];
+        _isMeasureSetShow = false;
+    }else{
+        [self animateConstraint:0];
+        [self animateMeasureSet:1];
+        _isMeasureSetShow = true;
+    }
+}
+
+-(void) animateMeasureSet:(CGFloat)alpha
+{
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.4];
+    [_measuresViewController.tableView setAlpha:alpha];
+    [UIView commitAnimations];
+}
+
+-(void) animateConstraint:(CGFloat)constant
+{
+    [self.view layoutIfNeeded];
+    [UIView animateWithDuration:0.4
+                     animations:^{
+                         _top.constant = constant;
+                         [self.view layoutIfNeeded]; // Called on parent view
+                     }];
 }
 
 -(IBAction)btDonePressed:(id)sender

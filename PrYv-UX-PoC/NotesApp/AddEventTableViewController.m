@@ -21,8 +21,8 @@
 
 @interface AddEventTableViewController () <MCSwipeTableViewCellDelegate, UIActionSheetDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate, UnitPickerDelegate>
 
-@property (nonatomic,retain) NSArray *lruEntries;
-@property (nonatomic, retain) UserHistoryEntry* tempEntry;
+@property (nonatomic, strong) NSArray *lruEntries;
+@property (nonatomic, strong) UserHistoryEntry* tempEntry;
 
 -(IBAction)createEvent:(UIButton*)sender;
 

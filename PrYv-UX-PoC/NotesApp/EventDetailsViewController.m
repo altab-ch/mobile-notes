@@ -327,7 +327,7 @@ typedef enum
             if([self.event eventDataType] == EventDataTypeNote)
             {
                 if(self.isInEditMode && [self.noteText.text length] == 0) {
-                    return kStreamCellHeight;
+                    return kStreamCellHeight+20;
                 }
                 if ([self.noteText.text length] > 0)
                 {
@@ -568,7 +568,7 @@ typedef enum
     [self.navigationItem setHidesBackButton:YES];
     UIBarButtonItem *btbrowse= [[UIBarButtonItem alloc]
                                 initWithTitle: NSLocalizedString(@"Pryv", nil)
-                                style:UIBarButtonItemStyleDone
+                                style:UIBarButtonItemStylePlain
                                 target:self
                                 action:@selector(btBrowsePressed:)];
     self.navigationItem.leftBarButtonItem = btbrowse;
@@ -637,7 +637,7 @@ typedef enum
     [self.navigationItem setHidesBackButton:YES];
     UIBarButtonItem *btbrowse= [[UIBarButtonItem alloc]
                                 initWithTitle: NSLocalizedString(@"Cancel", nil)
-                                style:UIBarButtonItemStyleDone
+                                style:UIBarButtonItemStylePlain
                                 target:self
                                 action:@selector(cancelButtonTouched:)];
     self.navigationItem.leftBarButtonItem = btbrowse;
