@@ -163,6 +163,7 @@ BOOL displayNonStandardEvents;
     self.aggregationStep = AggregationStepDay;
     [self loadSettings];
     [self resetDateFormatters];
+    
     //self.navigationController.navigationBar.layer.masksToBounds = NO;
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -184,7 +185,6 @@ BOOL displayNonStandardEvents;
     
     self.pullToRefreshManager = [[MNMPullToRefreshManager alloc] initWithPullToRefreshViewHeight:60 tableView:self.tableView withClient:self];
     
-    //self.tableView.alpha = 0.0f;
     [self setupLeftMenuButton];
     [self loadData];
 }

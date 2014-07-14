@@ -27,6 +27,7 @@
 #import "NotesAppController.h"
 #import "MMDrawerController.h"
 #import "MenuNavController.h"
+#import "ZenKeyboard.h"
 
 #define kStreamCellHeight 54
 #define kDeleteCellHeight 50
@@ -120,6 +121,9 @@ typedef enum
     [self initBtDelete];
     [self updateUIForEvent];
     [self.tokendDoneButton setTitle:NSLocalizedString(@"Done", nil) forState:UIControlStateNormal];
+    
+    ZenKeyboard *keyboard = [[ZenKeyboard alloc]initWithFrame:CGRectMake(0, 0, 320, 216)];
+    [keyboard setTextField:_numericalValue];
     
     if (self.event.isDraft) [self updateUIEditMode:YES];
     else

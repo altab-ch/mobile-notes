@@ -23,6 +23,10 @@
 		291ED19A1917A4F5009A9B3D /* checkbox_undefined.png in Resources */ = {isa = PBXBuildFile; fileRef = 291ED1941917A4F5009A9B3D /* checkbox_undefined.png */; };
 		291ED19B1917A4F5009A9B3D /* checkbox_undefined@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 291ED1951917A4F5009A9B3D /* checkbox_undefined@2x.png */; };
 		292ACD671972A3A800036084 /* AddEventButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 292ACD661972A3A800036084 /* AddEventButton.m */; };
+		292ACD6A1973EFEF00036084 /* ZenKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 292ACD691973EFEF00036084 /* ZenKeyboard.m */; };
+		292ACD6D1973F22E00036084 /* KeyboardNumericEntryKeyBackspaceGlyphTextured@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 292ACD6B1973F22E00036084 /* KeyboardNumericEntryKeyBackspaceGlyphTextured@2x.png */; };
+		292ACD6E1973F22E00036084 /* KeyboardNumericEntryKeyPressedTextured@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 292ACD6C1973F22E00036084 /* KeyboardNumericEntryKeyPressedTextured@2x.png */; };
+		292ACD701973F2FB00036084 /* KeyboardNumericEntryKeyTextured@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 292ACD6F1973F2FB00036084 /* KeyboardNumericEntryKeyTextured@2x.png */; };
 		29FF5D7C196ED0B60002D124 /* UnitPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29FF5D7B196ED0B60002D124 /* UnitPickerViewController.m */; };
 		4E0900FD185763DF00A2F044 /* AddNumericalValueCellFormat.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E0900FC185763DF00A2F044 /* AddNumericalValueCellFormat.xib */; };
 		4E0901071857640400A2F044 /* AddNumericalValueCellFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0901061857640400A2F044 /* AddNumericalValueCellFormat.m */; };
@@ -363,6 +367,11 @@
 		291ED1951917A4F5009A9B3D /* checkbox_undefined@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox_undefined@2x.png"; sourceTree = "<group>"; };
 		292ACD651972A3A800036084 /* AddEventButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddEventButton.h; sourceTree = "<group>"; };
 		292ACD661972A3A800036084 /* AddEventButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddEventButton.m; sourceTree = "<group>"; };
+		292ACD681973EFEF00036084 /* ZenKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZenKeyboard.h; sourceTree = "<group>"; };
+		292ACD691973EFEF00036084 /* ZenKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZenKeyboard.m; sourceTree = "<group>"; };
+		292ACD6B1973F22E00036084 /* KeyboardNumericEntryKeyBackspaceGlyphTextured@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "KeyboardNumericEntryKeyBackspaceGlyphTextured@2x.png"; sourceTree = "<group>"; };
+		292ACD6C1973F22E00036084 /* KeyboardNumericEntryKeyPressedTextured@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "KeyboardNumericEntryKeyPressedTextured@2x.png"; sourceTree = "<group>"; };
+		292ACD6F1973F2FB00036084 /* KeyboardNumericEntryKeyTextured@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "KeyboardNumericEntryKeyTextured@2x.png"; sourceTree = "<group>"; };
 		29FF5D7A196ED0B60002D124 /* UnitPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitPickerViewController.h; sourceTree = "<group>"; };
 		29FF5D7B196ED0B60002D124 /* UnitPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitPickerViewController.m; sourceTree = "<group>"; };
 		4E0900FC185763DF00A2F044 /* AddNumericalValueCellFormat.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddNumericalValueCellFormat.xib; sourceTree = "<group>"; };
@@ -1393,6 +1402,8 @@
 				B64ACAE7175544E100E2F6F7 /* CustomNumericalKeyboard.h */,
 				B64ACAE8175544E100E2F6F7 /* CustomNumericalKeyboard.m */,
 				B64ACAEA1755451000E2F6F7 /* CustomNumericalKeyboard.xib */,
+				292ACD681973EFEF00036084 /* ZenKeyboard.h */,
+				292ACD691973EFEF00036084 /* ZenKeyboard.m */,
 			);
 			name = Keyboard;
 			sourceTree = "<group>";
@@ -1686,6 +1697,9 @@
 		B6F9A2551729C28F009C8BAA /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				292ACD6F1973F2FB00036084 /* KeyboardNumericEntryKeyTextured@2x.png */,
+				292ACD6B1973F22E00036084 /* KeyboardNumericEntryKeyBackspaceGlyphTextured@2x.png */,
+				292ACD6C1973F22E00036084 /* KeyboardNumericEntryKeyPressedTextured@2x.png */,
 				291ED1901917A4F5009A9B3D /* checkbox_default.png */,
 				291ED1911917A4F5009A9B3D /* checkbox_default@2x.png */,
 				291ED1921917A4F5009A9B3D /* checkbox_selected.png */,
@@ -2012,6 +2026,7 @@
 				96D2063618B3899D00CF5A69 /* icon_small_text_grey@2x.png in Resources */,
 				B6B5902B178B60B60009E413 /* icon_small_browse@2x.png in Resources */,
 				B6B5902C178B60B60009E413 /* icon_small_lenght.png in Resources */,
+				292ACD6E1973F22E00036084 /* KeyboardNumericEntryKeyPressedTextured@2x.png in Resources */,
 				B6B5902D178B60B60009E413 /* icon_small_lenght@2x.png in Resources */,
 				B6B5902E178B60B60009E413 /* icon_small_lru_active.png in Resources */,
 				4EEBE79018B647B800199E64 /* Podfile in Resources */,
@@ -2095,6 +2110,7 @@
 				B6B59094178E01720009E413 /* navbar_btn.png in Resources */,
 				B6B59095178E01720009E413 /* navbar_btn@2x.png in Resources */,
 				290042B919643EF500436A4B /* navbar@2x.png in Resources */,
+				292ACD6D1973F22E00036084 /* KeyboardNumericEntryKeyBackspaceGlyphTextured@2x.png in Resources */,
 				4E37857517953BBD00ED94DF /* Manifest.lock in Resources */,
 				4E37857617953BBD00ED94DF /* Pods-acknowledgements.markdown in Resources */,
 				4E37857717953BBD00ED94DF /* Pods-acknowledgements.plist in Resources */,
@@ -2104,6 +2120,7 @@
 				4E37857917953BBD00ED94DF /* Pods-resources.sh in Resources */,
 				B61D55CB17EF238A0016D0C4 /* trash-icon.png in Resources */,
 				B61D55CC17EF238A0016D0C4 /* trash-icon@2x.png in Resources */,
+				292ACD701973F2FB00036084 /* KeyboardNumericEntryKeyTextured@2x.png in Resources */,
 				960FE0B21806B3270074D24E /* icon-time.png in Resources */,
 				960FE0B31806B3270074D24E /* icon-time@2x.png in Resources */,
 				960FE0BB1806B5760074D24E /* img-test.png in Resources */,
@@ -2167,6 +2184,7 @@
 				4E713D3F18965FBD00CDB397 /* AppConstantsPrivate.m in Sources */,
 				B6BA3E881733D0A000464C2F /* UIStoryboard+Main.m in Sources */,
 				B6BA3E921733E30800464C2F /* DataGroupingManager.m in Sources */,
+				292ACD6A1973EFEF00036084 /* ZenKeyboard.m in Sources */,
 				B6BA3E961733E4F500464C2F /* StreamGroupingManager.m in Sources */,
 				B6783A3D174178FB0083AE50 /* NotesAppController.m in Sources */,
 				B61F38B017477DC700B94960 /* SettingsViewController.m in Sources */,

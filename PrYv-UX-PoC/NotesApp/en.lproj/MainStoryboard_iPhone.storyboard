@@ -1428,7 +1428,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="73"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view alpha="0.0" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iLN-Zs-1QP">
+                                                <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iLN-Zs-1QP">
                                                     <rect key="frame" x="5" y="5" width="310" height="63"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -1468,8 +1468,11 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstItem="bzb-68-VGk" firstAttribute="bottom" secondItem="iLN-Zs-1QP" secondAttribute="bottom" constant="-5" id="6Eh-fV-JyD"/>
+                                                <constraint firstItem="iLN-Zs-1QP" firstAttribute="leading" secondItem="WPC-fb-neJ" secondAttribute="leading" constant="5" id="9fg-iP-j8x"/>
+                                                <constraint firstAttribute="bottom" secondItem="iLN-Zs-1QP" secondAttribute="bottom" constant="5" id="DUu-0h-YkX"/>
                                                 <constraint firstAttribute="bottom" secondItem="bzb-68-VGk" secondAttribute="bottom" constant="10" id="SiM-zs-TtW"/>
                                                 <constraint firstItem="iLN-Zs-1QP" firstAttribute="top" secondItem="WPC-fb-neJ" secondAttribute="top" constant="5" id="xXM-je-lcU"/>
+                                                <constraint firstAttribute="trailing" secondItem="iLN-Zs-1QP" secondAttribute="trailing" constant="5" id="zIQ-hU-m6N"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
