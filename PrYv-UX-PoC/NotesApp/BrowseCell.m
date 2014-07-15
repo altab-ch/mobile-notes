@@ -53,7 +53,7 @@
 - (void)updateWithEvent:(PYEvent *)event
 {
     [_backView.layer setBorderWidth:0.5];
-    [_backView.layer setBorderColor:[UIColor darkGrayColor].CGColor];
+    [_backView.layer setBorderColor:[UIColor lightGrayColor].CGColor];
     
     self.event = event;
     self.commentLabel.text = event.eventDescription;
@@ -77,23 +77,5 @@
     /*[self setNeedsLayout];
     [self layoutIfNeeded];*/
 }
-
-/*- (void)layoutSubviews
-{
-    
-    CGRect descLabelFrame = self.commentLabel.frame;
-    
-    if([self.event.tags count] > 0)
-    {
-        descLabelFrame.origin.y = 92;
-    }
-    else
-    if([self.event.tags count] <= 0)
-    {
-        descLabelFrame.origin.y = self.bounds.size.height - descLabelFrame.size.height;
-    }
-    
-    self.commentLabel.frame = descLabelFrame;
-}*/
 
 @end

@@ -13,8 +13,6 @@
 #import <PryvApiKit/PYEvent.h>
 #import <PryvApiKit/PYEventType.h>
 #import <PryvApiKit/PYConnection+DataManagement.h>
-#import "TextEditorViewController.h"
-#import "DatePickerViewController.h"
 #import "AddNumericalValueViewController.h"
 #import "StreamPickerViewController.h"
 #import "DataService.h"
@@ -22,7 +20,6 @@
 #import "JSTokenButton.h"
 #import "DetailsBottomButtonsContainer.h"
 #import "UIAlertView+PrYv.h"
-#import "ImagePreviewViewController.h"
 #import "ImageViewController.h"
 #import "NotesAppController.h"
 #import "MMDrawerController.h"
@@ -675,12 +672,6 @@ typedef enum
 }
 
 #pragma mark - Edit methods
-
-- (void)setupImagePreviewViewController:(ImagePreviewViewController*)imagePreviewVC
-{
-    imagePreviewVC.image = self.picture_ImageView.image;
-    imagePreviewVC.descText = self.event.eventDescription;
-}
 
 - (void)setupStreamPickerViewController:(StreamPickerViewController*)streamPickerVC
 {

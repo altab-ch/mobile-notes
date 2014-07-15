@@ -27,7 +27,6 @@
 #import "NSString+Utils.h"
 #import "AppConstants.h"
 #import "EventDetailsViewController.h"
-#import "TextEditorViewController.h"
 #import <PryvApiKit/PYConstants.h>
 #import "MCSwipeTableViewCell.h"
 #import "MMDrawerController.h"
@@ -436,7 +435,6 @@ BOOL displayNonStandardEvents;
 
 #pragma mark - UITableViewDelegate and UITableViewDataSource methods
 
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     if (! self.sectionsMap) {
@@ -447,13 +445,15 @@ BOOL displayNonStandardEvents;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 18;
+    return 20;
 }
 
 -(UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UITableViewCell *headerCell = [tableView dequeueReusableCellWithIdentifier:kSectionCell];
     UILabel *targetedLabel = (UILabel *)[headerCell viewWithTag:kSectionLabel];
+    
+    [headerCell.contentView setBackgroundColor:[UIColor colorWithRed:239.0/255.0 green:239.0/255.0 blue:244.0/255.0 alpha:0.8]];
     
     if (section >= self.sectionsMapTitles.count) {
         NSLog(@"<WARNING> BrowseEventsViewController.tableView  index not reachable: %ld",(long)index);

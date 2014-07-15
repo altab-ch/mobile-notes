@@ -12,7 +12,6 @@
 		290042B819643EF500436A4B /* navbar.png in Resources */ = {isa = PBXBuildFile; fileRef = 290042B619643EF500436A4B /* navbar.png */; };
 		290042B919643EF500436A4B /* navbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 290042B719643EF500436A4B /* navbar@2x.png */; };
 		2912176F18F6C4A6000AC905 /* ImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2912176D18F6C4A6000AC905 /* ImageViewController.m */; };
-		2912177018F6C4A6000AC905 /* ImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2912176E18F6C4A6000AC905 /* ImageViewController.xib */; };
 		291ED1711913CF44009A9B3D /* MenuNavController.m in Sources */ = {isa = PBXBuildFile; fileRef = 291ED1701913CF44009A9B3D /* MenuNavController.m */; };
 		291ED17F1913E717009A9B3D /* MenuTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 291ED17E1913E717009A9B3D /* MenuTableViewController.m */; };
 		291ED18F1917A25F009A9B3D /* StreamCheckButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 291ED18E1917A25F009A9B3D /* StreamCheckButton.m */; };
@@ -97,7 +96,6 @@
 		B617F21F188EEF77002DEF0B /* EventDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B617F21E188EEF77002DEF0B /* EventDetailsViewController.m */; };
 		B61A193B185A321000E9F9BE /* circle-add.png in Resources */ = {isa = PBXBuildFile; fileRef = B61A193A185A321000E9F9BE /* circle-add.png */; };
 		B61A193D185A322900E9F9BE /* circle-add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B61A193C185A322900E9F9BE /* circle-add@2x.png */; };
-		B61A1940185A325C00E9F9BE /* ImagePreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B61A193F185A325C00E9F9BE /* ImagePreviewViewController.m */; };
 		B61A1944185A49E900E9F9BE /* StreamPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B61A1943185A49E900E9F9BE /* StreamPickerViewController.m */; };
 		B61A1948185A64E100E9F9BE /* StreamCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B61A1947185A64E100E9F9BE /* StreamCell.m */; };
 		B61A194B185A665900E9F9BE /* circle-chevron-right.png in Resources */ = {isa = PBXBuildFile; fileRef = B61A1949185A665900E9F9BE /* circle-chevron-right.png */; };
@@ -126,8 +124,6 @@
 		B678307117613D04008E6C1C /* UserHistoryEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = B678307017613D04008E6C1C /* UserHistoryEntry.m */; };
 		B6783A37174168030083AE50 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6783A36174168030083AE50 /* SystemConfiguration.framework */; };
 		B6783A3D174178FB0083AE50 /* NotesAppController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6783A3C174178FB0083AE50 /* NotesAppController.m */; };
-		B681B68318552E940067DF37 /* DatePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B681B68218552E940067DF37 /* DatePickerViewController.m */; };
-		B681B686185543240067DF37 /* TextEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B681B685185543240067DF37 /* TextEditorViewController.m */; };
 		B6993FD21891C07700D88127 /* BaseDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6993FD11891C07700D88127 /* BaseDetailCell.m */; };
 		B69940371899C45A00D88127 /* DetailsBottomButtonsContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = B69940361899C45A00D88127 /* DetailsBottomButtonsContainer.m */; };
 		B6B2EE7518C50A6700E40DB4 /* arrow-stream.png in Resources */ = {isa = PBXBuildFile; fileRef = B6B2EE7318C50A6700E40DB4 /* arrow-stream.png */; };
@@ -352,7 +348,6 @@
 		290042B719643EF500436A4B /* navbar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navbar@2x.png"; sourceTree = "<group>"; };
 		2912176C18F6C4A6000AC905 /* ImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageViewController.h; sourceTree = "<group>"; };
 		2912176D18F6C4A6000AC905 /* ImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageViewController.m; sourceTree = "<group>"; };
-		2912176E18F6C4A6000AC905 /* ImageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageViewController.xib; sourceTree = "<group>"; };
 		291ED16F1913CF44009A9B3D /* MenuNavController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuNavController.h; sourceTree = "<group>"; };
 		291ED1701913CF44009A9B3D /* MenuNavController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuNavController.m; sourceTree = "<group>"; };
 		291ED17D1913E717009A9B3D /* MenuTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuTableViewController.h; sourceTree = "<group>"; };
@@ -578,8 +573,6 @@
 		B617F21E188EEF77002DEF0B /* EventDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventDetailsViewController.m; sourceTree = "<group>"; };
 		B61A193A185A321000E9F9BE /* circle-add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "circle-add.png"; sourceTree = "<group>"; };
 		B61A193C185A322900E9F9BE /* circle-add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "circle-add@2x.png"; sourceTree = "<group>"; };
-		B61A193E185A325C00E9F9BE /* ImagePreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagePreviewViewController.h; sourceTree = "<group>"; };
-		B61A193F185A325C00E9F9BE /* ImagePreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagePreviewViewController.m; sourceTree = "<group>"; };
 		B61A1942185A49E900E9F9BE /* StreamPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamPickerViewController.h; sourceTree = "<group>"; };
 		B61A1943185A49E900E9F9BE /* StreamPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamPickerViewController.m; sourceTree = "<group>"; };
 		B61A1946185A64E100E9F9BE /* StreamCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamCell.h; sourceTree = "<group>"; };
@@ -627,10 +620,6 @@
 		B6783A36174168030083AE50 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		B6783A3B174178FB0083AE50 /* NotesAppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotesAppController.h; sourceTree = "<group>"; };
 		B6783A3C174178FB0083AE50 /* NotesAppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotesAppController.m; sourceTree = "<group>"; };
-		B681B68118552E940067DF37 /* DatePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatePickerViewController.h; sourceTree = "<group>"; };
-		B681B68218552E940067DF37 /* DatePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatePickerViewController.m; sourceTree = "<group>"; };
-		B681B684185543240067DF37 /* TextEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextEditorViewController.h; sourceTree = "<group>"; };
-		B681B685185543240067DF37 /* TextEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextEditorViewController.m; sourceTree = "<group>"; };
 		B6993FD01891C07700D88127 /* BaseDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseDetailCell.h; sourceTree = "<group>"; };
 		B6993FD11891C07700D88127 /* BaseDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseDetailCell.m; sourceTree = "<group>"; };
 		B69940351899C45A00D88127 /* DetailsBottomButtonsContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailsBottomButtonsContainer.h; sourceTree = "<group>"; };
@@ -1424,13 +1413,6 @@
 				B61A1945185A64CB00E9F9BE /* Cells */,
 				2912176C18F6C4A6000AC905 /* ImageViewController.h */,
 				2912176D18F6C4A6000AC905 /* ImageViewController.m */,
-				2912176E18F6C4A6000AC905 /* ImageViewController.xib */,
-				B681B68118552E940067DF37 /* DatePickerViewController.h */,
-				B681B68218552E940067DF37 /* DatePickerViewController.m */,
-				B681B684185543240067DF37 /* TextEditorViewController.h */,
-				B681B685185543240067DF37 /* TextEditorViewController.m */,
-				B61A193E185A325C00E9F9BE /* ImagePreviewViewController.h */,
-				B61A193F185A325C00E9F9BE /* ImagePreviewViewController.m */,
 				B61A1942185A49E900E9F9BE /* StreamPickerViewController.h */,
 				B61A1943185A49E900E9F9BE /* StreamPickerViewController.m */,
 				29FF5D7A196ED0B60002D124 /* UnitPickerViewController.h */,
@@ -2116,7 +2098,6 @@
 				4E37857717953BBD00ED94DF /* Pods-acknowledgements.plist in Resources */,
 				B6B7CE5818B2BDC30001CA28 /* cross@2x.png in Resources */,
 				963B8DE3186455B300F7CBF7 /* icon_picture@2x.png in Resources */,
-				2912177018F6C4A6000AC905 /* ImageViewController.xib in Resources */,
 				4E37857917953BBD00ED94DF /* Pods-resources.sh in Resources */,
 				B61D55CB17EF238A0016D0C4 /* trash-icon.png in Resources */,
 				B61D55CC17EF238A0016D0C4 /* trash-icon@2x.png in Resources */,
@@ -2173,7 +2154,6 @@
 				B6016BBD172873D40056CD3F /* main.m in Sources */,
 				B6016BC1172873D40056CD3F /* AppDelegate.m in Sources */,
 				B61A1944185A49E900E9F9BE /* StreamPickerViewController.m in Sources */,
-				B681B68318552E940067DF37 /* DatePickerViewController.m in Sources */,
 				B6016BD0172873D40056CD3F /* ViewController.m in Sources */,
 				4E8AAFE71859EA440083DE8C /* UnkownCell.m in Sources */,
 				B617F21F188EEF77002DEF0B /* EventDetailsViewController.m in Sources */,
@@ -2234,10 +2214,8 @@
 				B61A1948185A64E100E9F9BE /* StreamCell.m in Sources */,
 				B61D55B117EC51B80016D0C4 /* PYEvent+Helper.m in Sources */,
 				290042B419640ADE00436A4B /* AddEventTableViewController.m in Sources */,
-				B681B686185543240067DF37 /* TextEditorViewController.m in Sources */,
 				B61D55B517EC68C80016D0C4 /* UIAlertView+PrYv.m in Sources */,
 				B6C9D468181ED7F200EB5FF9 /* UIDevice+Utils.m in Sources */,
-				B61A1940185A325C00E9F9BE /* ImagePreviewViewController.m in Sources */,
 				291ED1711913CF44009A9B3D /* MenuNavController.m in Sources */,
 				B61D55C017EEDEF00016D0C4 /* UIImage+PrYv.m in Sources */,
 				29FF5D7C196ED0B60002D124 /* UnitPickerViewController.m in Sources */,
