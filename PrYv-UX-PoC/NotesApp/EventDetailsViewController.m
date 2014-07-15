@@ -424,7 +424,7 @@ typedef enum
         case DetailCellTypeTime:
         {
             if (_isDateExtHidden) {
-                [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:4 inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+                [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:5 inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
             }
             _isDateExtHidden = !_isDateExtHidden;
             [self.tableView beginUpdates];
@@ -738,6 +738,9 @@ typedef enum
                                               options:NSStringDrawingUsesLineFragmentOrigin
                                            attributes:attributes
                                               context:nil];
+    if ([s characterAtIndex:s.length-1]=='\n')
+        rect.size.height += 20;
+
     NSLog(@"%f", rect.size.height);
     return rect.size.height+56 ;
 }
