@@ -40,9 +40,9 @@
         [self addSubview:[self addNumericKeyWithTitle:@"8" frame:CGRectMake(KEYBOARD_NUMERIC_KEY_WIDTH - 2, KEYBOARD_NUMERIC_KEY_HEIGHT * 2 + 3, KEYBOARD_NUMERIC_KEY_WIDTH , KEYBOARD_NUMERIC_KEY_HEIGHT)]];
         [self addSubview:[self addNumericKeyWithTitle:@"9" frame:CGRectMake(KEYBOARD_NUMERIC_KEY_WIDTH * 2 - 1, KEYBOARD_NUMERIC_KEY_HEIGHT * 2 + 3, KEYBOARD_NUMERIC_KEY_WIDTH, KEYBOARD_NUMERIC_KEY_HEIGHT)]];
 
-        [self addSubview:[self addNumericKeyWithTitle:@"." frame:CGRectMake(0, KEYBOARD_NUMERIC_KEY_HEIGHT * 3 + 4, KEYBOARD_NUMERIC_KEY_WIDTH2, KEYBOARD_NUMERIC_KEY_HEIGHT)]];
+        [self addSubview:[self addNumericKeyWithTitle:@"-" frame:CGRectMake(0, KEYBOARD_NUMERIC_KEY_HEIGHT * 3 + 4, KEYBOARD_NUMERIC_KEY_WIDTH2, KEYBOARD_NUMERIC_KEY_HEIGHT)]];
         [self addSubview:[self addNumericKeyWithTitle:@"0" frame:CGRectMake(KEYBOARD_NUMERIC_KEY_WIDTH2, KEYBOARD_NUMERIC_KEY_HEIGHT * 3 + 4, KEYBOARD_NUMERIC_KEY_WIDTH2, KEYBOARD_NUMERIC_KEY_HEIGHT)]];
-        [self addSubview:[self addNumericKeyWithTitle:@"-" frame:CGRectMake(KEYBOARD_NUMERIC_KEY_WIDTH2 * 2, KEYBOARD_NUMERIC_KEY_HEIGHT * 3 + 4, KEYBOARD_NUMERIC_KEY_WIDTH2, KEYBOARD_NUMERIC_KEY_HEIGHT)]];
+        [self addSubview:[self addNumericKeyWithTitle:@"." frame:CGRectMake(KEYBOARD_NUMERIC_KEY_WIDTH2 * 2, KEYBOARD_NUMERIC_KEY_HEIGHT * 3 + 4, KEYBOARD_NUMERIC_KEY_WIDTH2, KEYBOARD_NUMERIC_KEY_HEIGHT)]];
         [self addSubview:[self addBackspaceKeyWithFrame:CGRectMake(KEYBOARD_NUMERIC_KEY_WIDTH2 * 3, KEYBOARD_NUMERIC_KEY_HEIGHT * 3 + 4, KEYBOARD_NUMERIC_KEY_WIDTH2, KEYBOARD_NUMERIC_KEY_HEIGHT)]];
         
         //[self addSubview:keyboardShadow];
@@ -119,12 +119,18 @@
             break;
         case 11:
         {
-            if (_isMinus)
-                [_textField setText:[_textField.text substringFromIndex:1]];
-            else
-                [_textField setText:[NSString stringWithFormat:@"-%@", _textField.text]];
+            if ([_textField.text length] == 0) {
+                [_textField setText:@"-"];
+                _isMinus=true;
+            }else{
+                if (_isMinus)
+                    [_textField setText:[_textField.text substringFromIndex:1]];
+                else
+                    [_textField setText:[NSString stringWithFormat:@"-%@", _textField.text]];
+                
+                _isMinus = !_isMinus;
+            }
             
-            _isMinus = !_isMinus;
         }
             break;
         default:

@@ -423,6 +423,9 @@ typedef enum
             break;
         case DetailCellTypeTime:
         {
+            if (_isDateExtHidden) {
+                [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:4 inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+            }
             _isDateExtHidden = !_isDateExtHidden;
             [self.tableView beginUpdates];
             [self.tableView endUpdates];

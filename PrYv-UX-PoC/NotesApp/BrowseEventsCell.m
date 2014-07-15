@@ -65,7 +65,7 @@
         self.iconImageView.image = iconImage;
     }
     
-    NSString *help;
+    NSString *help = nil;
     switch ([event eventDataType]) {
         case EventDataTypeValueMeasure:
         {
@@ -85,7 +85,7 @@
         default:
             break;
     }
-    [_lbHelp setText:[NSString stringWithFormat:@"%@ %@", help, event.eventBreadcrumbs]];
+    [_lbHelp setText:help];
     
     //self.valueLabel.text = [self stringRepresentationForEventType:event.pyType];
 }
