@@ -836,7 +836,6 @@ typedef enum
         [tokens addObject:[token representedObject]];
     }
     self.event.tags = tokens;
-    //[self updateTagsLabel];
     self.shouldUpdateEvent = YES;
 }
 
@@ -858,7 +857,14 @@ typedef enum
 
 - (void)tokenFieldDidEndEditing:(JSTokenField *)tokenField
 {
-
+    [self.tokenField updateTokensInTextField:self.tokenField.textField];
+    NSMutableArray *tokens = [NSMutableArray array];
+    for(JSTokenButton *token in self.tokenField.tokens)
+    {
+        [tokens addObject:[token representedObject]];
+    }
+    self.event.tags = tokens;
+    self.shouldUpdateEvent = YES;
 }
 
 - (void)initTags

@@ -119,6 +119,9 @@
             break;
         case 11:
         {
+            if (!_isMinus && [[_textField.text substringToIndex:1] isEqualToString:@"-"])
+                _isMinus = true;
+            
             if ([_textField.text length] == 0) {
                 [_textField setText:@"-"];
                 _isMinus=true;
