@@ -77,8 +77,8 @@ typedef enum
 
 @property (nonatomic, weak) IBOutlet UIView *pastille;
 @property (nonatomic, weak) IBOutlet JSTokenField *tokenField;
-@property (nonatomic, weak) IBOutlet UIButton *tokendDoneButton;
-@property (nonatomic, weak) IBOutlet UIView *tokenContainer;
+//@property (nonatomic, weak) IBOutlet UIButton *tokendDoneButton;
+//@property (nonatomic, weak) IBOutlet UIView *tokenContainer;
 @property (nonatomic, weak) IBOutlet UILabel *streamsLabel;
 @property (nonatomic, strong) DetailsBottomButtonsContainer *bottomButtonsContainer;
 @property (nonatomic, weak) IBOutlet UIDatePicker *datePicker;
@@ -117,7 +117,7 @@ typedef enum
     [self initTags];
     [self initBtDelete];
     [self updateUIForEvent];
-    [self.tokendDoneButton setTitle:NSLocalizedString(@"Done", nil) forState:UIControlStateNormal];
+    //[self.tokendDoneButton setTitle:NSLocalizedString(@"Done", nil) forState:UIControlStateNormal];
     
     ZenKeyboard *keyboard = [[ZenKeyboard alloc]initWithFrame:CGRectMake(0, 0, 320, 216)];
     [keyboard setTextField:_numericalValue];
@@ -363,7 +363,7 @@ typedef enum
         case DetailCellTypeTags:
         {
             if (self.isInEditMode || (self.event.tags.count > 0)) {
-                CGFloat tagHeight = self.tokenField.frame.size.height + 28;
+                CGFloat tagHeight = self.tokenField.frame.size.height + 38;
                 return tagHeight;
             }
             return 0;
@@ -864,7 +864,7 @@ typedef enum
 - (void)initTags
 {
     self.tokenField.delegate = self;
-    [self.tokendDoneButton setHidden:YES];
+    //[self.tokendDoneButton setHidden:YES];
     for(NSString *tag in self.event.tags)
     {
         [self.tokenField addTokenWithTitle:tag representedObject:tag];
@@ -903,7 +903,7 @@ typedef enum
     //[self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:DetailCellTypeTags inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
     
     //self.tagDoneButtonConstraint.constant = 68;
-    [self.tokendDoneButton setHidden:NO];
+    //[self.tokendDoneButton setHidden:NO];
     //[self.view setNeedsLayout];
     /*[UIView animateWithDuration:0.25 animations:^{
         [self.view layoutIfNeeded];
@@ -927,7 +927,7 @@ typedef enum
     }
     //[self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:rowToSelect inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
     //self.tagDoneButtonConstraint.constant = 0;
-    [self.tokendDoneButton setHidden:YES];
+    //[self.tokendDoneButton setHidden:YES];
     //[self.tableView reloadData];
     /*[self.view setNeedsLayout];
     [UIView animateWithDuration:0.25 animations:^{
