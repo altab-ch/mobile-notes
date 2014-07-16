@@ -63,8 +63,8 @@
 
 - (void) addStream:(NSString*)streamName
 {
-    MenuTableViewController* child = (MenuTableViewController*)[self topViewController];
-    [child addStream:streamName];
+    //MenuTableViewController* child = (MenuTableViewController*)[self topViewController];
+    //[child addStream:streamName];
 }
 
 - (void)didReceiveMemoryWarning

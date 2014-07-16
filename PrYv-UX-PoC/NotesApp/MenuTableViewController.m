@@ -288,6 +288,7 @@ static int kPickerTag = 10;
         
         [self recursiveAggregationFromChild:[sender stream]];
     }
+    [self saveUserDefault];
 }
 
 -(void) recursiveAggregationFromChild:(PYStream*)child
@@ -338,7 +339,7 @@ static int kPickerTag = 10;
 -(void) userDidCreateEventNotification:(NSNotification*)notification
 {
     PYEvent *event = (PYEvent*)[notification object];
-    [self addStream:event.streamId];
+    [self addStream:event];
 }
 
 - (void)userDidLogoutNotification:(NSNotification *)notification
@@ -542,12 +543,15 @@ static int kPickerTag = 10;
     return [self selectedStreamIDs];
 }
 
-- (void) addStream:(NSString*)name
+- (void) addStream:(PYEvent*)event
 {
-    if (![self.selectedStreamIDs containsObject:name]) {
-        [self.selectedStreamIDs addObject:name];
+    if (![self.selectedStreamIDs containsObject:event.streamId]) {
+        [self.selectedStreamIDs addObject:event.streamId];
         [self.tableView reloadData];
+        
+        [self saveUserDefault];
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:kBrowserShouldUpdateNotification object:event userInfo:nil];
 }
 
 - (NSDate*) getDate

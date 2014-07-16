@@ -459,6 +459,7 @@ typedef enum
 
 -(void) btBrowsePressed:(id)sender
 {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kUserDidCreateEventNotification object:[self event]];
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
@@ -756,7 +757,7 @@ typedef enum
          [connection eventCreate:self.event
                   successHandler:^(NSString *newEventId, NSString *stoppedId, PYEvent* event)
           {
-              [[NSNotificationCenter defaultCenter] postNotificationName:kUserDidCreateEventNotification object:[self event]];
+              //[[NSNotificationCenter defaultCenter] postNotificationName:kUserDidCreateEventNotification object:[self event]];
               
               BOOL shouldTakePictureFlag = NO;
               if([self.event eventDataType] == EventDataTypeImage)

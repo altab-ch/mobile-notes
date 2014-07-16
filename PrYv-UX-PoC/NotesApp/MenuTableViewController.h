@@ -16,5 +16,4 @@
 - (NSArray*) getStreamIDs;
 - (void) initStreams;
 - (void) reload;
-- (void) addStream:(NSString*)name;
 @end
