@@ -29,7 +29,7 @@
 - (void)awakeFromNib
 {
     [super awakeFromNib];
-    self.borderView.layer.borderColor = [UIColor darkGrayColor].CGColor;
+    self.borderView.layer.borderColor = [UIColor lightGrayColor].CGColor;
     self.borderView.layer.borderWidth = 0.5f;
 }
 
