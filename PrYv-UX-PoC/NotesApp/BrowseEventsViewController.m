@@ -178,6 +178,11 @@ BOOL displayNonStandardEvents;
                                                  name:kDrawerDidCloseNotification
                                                object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(browserShouldUpdateNotification:)
+                                                 name:kBrowserShouldUpdateNotification
+                                               object:nil];
+    
     [[NSUserDefaults standardUserDefaults] addObserver:self
                                             forKeyPath:kPYAppSettingUIDisplayNonStandardEvents
                                                options:(NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld) context:nil];
@@ -579,6 +584,11 @@ BOOL displayNonStandardEvents;
 
 #pragma mark - Notifications
 
+-(void)browserShouldUpdateNotification:(NSNotification *)notification
+{
+    [self refreshFilter];
+    [self.tableView reloadData];
+}
 
 - (void)drawerDidCloseNotification:(NSNotification *)notification
 {
