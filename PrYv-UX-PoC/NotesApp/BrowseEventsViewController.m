@@ -177,11 +177,15 @@ BOOL displayNonStandardEvents;
                                              selector:@selector(drawerDidCloseNotification:)
                                                  name:kDrawerDidCloseNotification
                                                object:nil];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(browserShouldUpdateNotification:)
                                                  name:kBrowserShouldUpdateNotification
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(browserShouldScrollToEvent:)
+                                                 name:kBrowserShouldScrollToEvent
+                                               object:nil];
+    
     
     [[NSUserDefaults standardUserDefaults] addObserver:self
                                             forKeyPath:kPYAppSettingUIDisplayNonStandardEvents
@@ -586,8 +590,16 @@ BOOL displayNonStandardEvents;
 
 -(void)browserShouldUpdateNotification:(NSNotification *)notification
 {
+    PYEvent *event = (PYEvent*)[notification object];
     [self refreshFilter];
     [self.tableView reloadData];
+    [self scrollToEvent:event];
+}
+
+-(void)browserShouldScrollToEvent:(NSNotification*)notification
+{
+    PYEvent *event = (PYEvent*)[notification object];
+    [self scrollToEvent:event];
 }
 
 - (void)drawerDidCloseNotification:(NSNotification *)notification
@@ -662,6 +674,60 @@ BOOL displayNonStandardEvents;
     //[self hideLoadingOverlay];
     
 }
+
+#pragma mark - Utils
+
+-(void) scrollToEvent:(PYEvent*)event
+{
+    
+    [_tableView scrollToRowAtIndexPath:[self getIndexPathForEvent:event] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+}
+
+#warning Revoir la structure de données pour les sections, les méthodes et les algo.
+
+-(NSIndexPath*)getIndexPathForEvent:(PYEvent*)event
+{
+    NSString *sectionKey = [self.sectionsKeyFormatter stringFromDate:event.eventDate];
+    if (!sectionKey) return [NSIndexPath indexPathForRow:0 inSection:0];
+    
+    NSMutableOrderedSet* eventList = [self.sectionsMap objectForKey:sectionKey];
+    if (!eventList)
+        return [NSIndexPath indexPathForRow:0 inSection:[self closeSectionIndex:[event.eventDate timeIntervalSince1970]]];
+    
+    if (eventList.count > 0) {
+        for (int k = 0; k < eventList.count; k++) {
+            if ([[eventList objectAtIndex:k] getEventServerTime] == [event getEventServerTime])
+                return [NSIndexPath indexPathForRow:k inSection:[self sectionIndex:sectionKey]];
+            
+            if ([[eventList objectAtIndex:k] getEventServerTime] < [event getEventServerTime])
+                return [NSIndexPath indexPathForRow:k inSection:[self sectionIndex:sectionKey]];
+        }
+    }
+
+    return [NSIndexPath indexPathForRow:0 inSection:[_sectionsMapTitles count]-1];
+    
+}
+
+-(NSInteger) sectionIndex:(NSString*)sectionKey
+{
+    for (int i=0; i<[_sectionsMapTitles count]; i++) {
+        if ([[(MySection*)[_sectionsMapTitles objectAtIndex:i] key] isEqualToString:sectionKey])
+            return i;
+        
+    }
+    return 0;
+}
+
+-(NSInteger) closeSectionIndex:(NSTimeInterval)time
+{
+    for (int i=0; i<[_sectionsMapTitles count]; i++) {
+        if ([(MySection*)[_sectionsMapTitles objectAtIndex:i] time] < time)
+            return i;
+        
+    }
+    return [_sectionsMapTitles count]-1;
+}
+
 
 #pragma mark - MNMPullToRefreshManagerClient methods
 

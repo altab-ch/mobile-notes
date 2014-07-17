@@ -53,9 +53,8 @@ typedef enum
 @interface EventDetailsViewController () <StreamsPickerDelegate, JSTokenFieldDelegate, UITextViewDelegate>
 
 @property (nonatomic, strong) NSString *previousStreamId;
+@property (nonatomic, strong) NSDate *previousDate;
 @property (nonatomic, strong) NSDictionary *initialEventValue;
-@property (nonatomic) BOOL isStreamExpanded;
-@property (nonatomic) BOOL isTagExpanded;
 @property (nonatomic) BOOL isDateExtHidden;
 @property (nonatomic) BOOL isInEditMode;
 @property (nonatomic) BOOL shouldUpdateEvent;
@@ -117,6 +116,8 @@ typedef enum
     [self initTags];
     [self initBtDelete];
     [self updateUIForEvent];
+    _previousStreamId = [self.event.streamId copy];
+    _previousDate = [self.event.eventDate copy];
     //[self.tokendDoneButton setTitle:NSLocalizedString(@"Done", nil) forState:UIControlStateNormal];
     
     ZenKeyboard *keyboard = [[ZenKeyboard alloc]initWithFrame:CGRectMake(0, 0, 320, 216)];
@@ -459,7 +460,11 @@ typedef enum
 
 -(void) btBrowsePressed:(id)sender
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kUserDidCreateEventNotification object:[self event]];
+    if (!_previousStreamId || ![_previousStreamId isEqualToString:_event.streamId])
+        [[NSNotificationCenter defaultCenter] postNotificationName:kUserDidCreateEventNotification object:[self event]];
+    else if ([_previousDate compare:_event.eventDate] != NSOrderedSame)
+        [[NSNotificationCenter defaultCenter] postNotificationName:kBrowserShouldScrollToEvent object:[self event]];
+    
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
@@ -482,6 +487,7 @@ typedef enum
     self.timeLabel.text = [[NotesAppController sharedInstance].dateFormatter stringFromDate:_datePicker.date];
     [_timePicker setDate:_datePicker.date];
     [_event setEventDate:_datePicker.date];
+    self.shouldUpdateEvent=true;
 }
 
 -(IBAction)timePickerValueChanged:(id)sender
@@ -489,6 +495,7 @@ typedef enum
     self.timeLabel.text = [[NotesAppController sharedInstance].dateFormatter stringFromDate:_timePicker.date];
     [_datePicker setDate:_timePicker.date];
     [_event setEventDate:_timePicker.date];
+    self.shouldUpdateEvent=true;
 }
 
 - (IBAction)segmentSwitch:(id)sender {
@@ -676,7 +683,6 @@ typedef enum
 
 - (void)setupStreamPickerViewController:(StreamPickerViewController*)streamPickerVC
 {
-    self.previousStreamId = [self.event.streamId copy];
     streamPickerVC.stream = [self.event stream];
     streamPickerVC.delegate = self;
     self.streamPickerVC = streamPickerVC;
@@ -708,7 +714,6 @@ typedef enum
 
 - (void)closeStreamPicker
 {
-    
     [self updateUIForEvent];
     [self.navigationController dismissViewControllerAnimated:YES completion:^{
         self.streamPickerVC = nil;

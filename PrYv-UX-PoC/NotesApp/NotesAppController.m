@@ -22,6 +22,7 @@ NSString *const kUserDidLogoutNotification = @"kUserDidLogoutNotification";
 NSString *const kUserShouldLoginNotification = @"kUserShouldLoginNotification";
 NSString *const kUserDidCreateEventNotification = @"kUserDidCreateEventNotification";
 NSString *const kBrowserShouldUpdateNotification = @"kBrowserShouldUpdateNotification";
+NSString *const kBrowserShouldScrollToEvent = @"kBrowserShouldScrollToEvent";
 
 @interface NotesAppController ()
 
