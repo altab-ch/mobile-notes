@@ -2,7 +2,6 @@
 //  EventDetailsViewController.m
 //  NotesApp
 //
-//  Created by Mladen Djordjevic on 1/21/14.
 //  Copyright (c) 2014 PrYv. All rights reserved.
 //
 
@@ -12,7 +11,6 @@
 #import "PYStream+Helper.h"
 #import <PryvApiKit/PYEvent.h>
 #import <PryvApiKit/PYEventType.h>
-#import <PryvApiKit/PYConnection+DataManagement.h>
 #import "AddNumericalValueViewController.h"
 #import "StreamPickerViewController.h"
 #import "DataService.h"
