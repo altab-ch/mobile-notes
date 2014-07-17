@@ -680,7 +680,7 @@ BOOL displayNonStandardEvents;
 -(void) scrollToEvent:(PYEvent*)event
 {
     
-    [_tableView scrollToRowAtIndexPath:[self getIndexPathForEvent:event] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    [_tableView scrollToRowAtIndexPath:[self getIndexPathForEvent:event] atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
 }
 
 #warning Revoir la structure de données pour les sections, les méthodes et les algo.

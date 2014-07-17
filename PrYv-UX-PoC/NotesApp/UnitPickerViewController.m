@@ -29,6 +29,7 @@
 @property (nonatomic, strong) NSMutableArray *measurementGroups;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint* top;
 @property (nonatomic, weak) IBOutlet UIBarButtonItem *btNext;
+@property (nonatomic, weak) IBOutlet UIButton *btShowMeasure;
 @property (nonatomic) BOOL isMeasureSetShow;
 @end
 
@@ -76,10 +77,12 @@
 -(IBAction)btShowMeasureSetPressed:(id)sender
 {
     if (_isMeasureSetShow) {
+        [_btShowMeasure setTitle:@"+" forState:UIControlStateNormal];
         [self animateConstraint:92];
         [self animateMeasureSet:0];
         _isMeasureSetShow = false;
     }else{
+        [_btShowMeasure setTitle:@"-" forState:UIControlStateNormal];
         [self animateConstraint:0];
         [self animateMeasureSet:1];
         _isMeasureSetShow = true;
@@ -252,7 +255,7 @@
 
 - (UIColor *) backgroundColorForAdvancedPicker:(KSAdvancedPicker *)picker
 {
-    return [UIColor clearColor];
+    return [UIColor whiteColor];
 }
 
 - (UIColor *) advancedPicker:(KSAdvancedPicker *)picker backgroundColorForComponent:(NSInteger)component

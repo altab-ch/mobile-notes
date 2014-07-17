@@ -114,11 +114,11 @@
 {
     switch (type) {
         case EventDataTypeValueMeasure:
-            return @"icon_measure";
+            return @"icon_value";
         case EventDataTypeImage:
-            return @"icon_small_photo_grey";
+            return @"icon_photo";
         case EventDataTypeNote:
-            return @"icon_small_text_grey";
+            return @"icon_note";
         default:
             break;
     }

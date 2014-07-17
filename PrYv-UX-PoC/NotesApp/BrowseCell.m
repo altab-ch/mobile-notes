@@ -54,6 +54,7 @@
 {
     [_backView.layer setBorderWidth:0.5];
     [_backView.layer setBorderColor:[UIColor lightGrayColor].CGColor];
+    [_backView.layer setCornerRadius:5];
     
     self.event = event;
     self.commentLabel.text = event.eventDescription;

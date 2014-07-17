@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="jxF-yp-AcH">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="jxF-yp-AcH">
     <dependencies>
         <deployment defaultVersion="1552" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
@@ -725,9 +725,10 @@ height=123312</string>
                                         <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CKp-vf-4K8">
                                             <rect key="frame" x="5" y="5" width="100" height="100"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <state key="normal" image="Icon-120.png">
+                                            <state key="normal" image="btn_add_note.png">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <state key="highlighted" image="btn_add_note_highlight.png"/>
                                             <connections>
                                                 <action selector="createEvent:" destination="d78-yX-el5" eventType="touchUpInside" id="fIf-fx-1T1"/>
                                             </connections>
@@ -735,9 +736,10 @@ height=123312</string>
                                         <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="As9-H4-qgd">
                                             <rect key="frame" x="110" y="5" width="100" height="100"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <state key="normal" image="Icon-120.png">
+                                            <state key="normal" image="btn_add_value.png">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <state key="highlighted" image="btn_add_value_highlight.png"/>
                                             <connections>
                                                 <action selector="createEvent:" destination="d78-yX-el5" eventType="touchUpInside" id="Ppe-Mn-XdG"/>
                                             </connections>
@@ -745,9 +747,10 @@ height=123312</string>
                                         <button opaque="NO" tag="3" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="66z-h0-MBZ">
                                             <rect key="frame" x="215" y="5" width="100" height="100"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <state key="normal" image="Icon-120.png">
+                                            <state key="normal" image="btn_add_photo.png">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <state key="highlighted" image="btn_add_photo_highlight.png"/>
                                             <connections>
                                                 <action selector="createEvent:" destination="d78-yX-el5" eventType="touchUpInside" id="Tx5-u3-aAO"/>
                                             </connections>
@@ -880,7 +883,7 @@ height=123312</string>
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MEc-MO-rPS">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MEc-MO-rPS">
                                 <rect key="frame" x="0.0" y="92" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
@@ -897,16 +900,15 @@ height=123312</string>
                                     <constraint firstAttribute="height" constant="44" id="oma-Ac-ynh"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O3J-eM-gEu" customClass="KSAdvancedPicker">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O3J-eM-gEu" customClass="KSAdvancedPicker">
                                 <rect key="frame" x="0.0" y="136" width="320" height="160"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="160" id="52N-FI-Tb2"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="160" id="EBi-oc-ppq"/>
                                 </constraints>
                             </view>
-                            <imageView hidden="YES" userInteractionEnabled="NO" alpha="0.29999999999999999" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="pickercenter.png" translatesAutoresizingMaskIntoConstraints="NO" id="YsF-4M-1st">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pickercenter.png" translatesAutoresizingMaskIntoConstraints="NO" id="YsF-4M-1st">
                                 <rect key="frame" x="0.0" y="136" width="320" height="160"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -914,7 +916,7 @@ height=123312</string>
                                     <constraint firstAttribute="height" constant="160" id="Yvf-Rx-z0k"/>
                                 </constraints>
                             </imageView>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1qW-AG-G4S">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1qW-AG-G4S">
                                 <rect key="frame" x="0.0" y="296" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
@@ -945,10 +947,10 @@ height=123312</string>
                                     <constraint firstAttribute="height" constant="44" id="tO1-Ra-iXM"/>
                                 </constraints>
                             </view>
-                            <containerView contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2cr-9h-Wuw">
+                            <containerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2cr-9h-Wuw">
                                 <rect key="frame" x="0.0" y="340" width="320" height="164"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.91764705879999997" green="0.92941176469999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <segue destination="ANb-OC-Xwc" kind="embed" identifier="kUnitToMeasureSegue_ID" id="D0t-kl-kHj"/>
                                 </connections>
@@ -957,15 +959,22 @@ height=123312</string>
                         <color key="backgroundColor" red="0.91764705882352937" green="0.92941176470588238" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="1qW-AG-G4S" firstAttribute="top" secondItem="YsF-4M-1st" secondAttribute="bottom" id="0tQ-Jn-24g"/>
-                            <constraint firstItem="1qW-AG-G4S" firstAttribute="top" secondItem="YsF-4M-1st" secondAttribute="bottom" id="Bji-JA-VeS"/>
-                            <constraint firstItem="YsF-4M-1st" firstAttribute="top" secondItem="MEc-MO-rPS" secondAttribute="bottom" id="Ee1-ak-HBd"/>
+                            <constraint firstItem="O3J-eM-gEu" firstAttribute="leading" secondItem="NoD-MX-2my" secondAttribute="leading" id="455-7s-mGx"/>
+                            <constraint firstItem="YsF-4M-1st" firstAttribute="leading" secondItem="NoD-MX-2my" secondAttribute="leading" id="4zS-qQ-EkL"/>
+                            <constraint firstItem="1qW-AG-G4S" firstAttribute="leading" secondItem="NoD-MX-2my" secondAttribute="leading" id="Cq7-0l-Cob"/>
+                            <constraint firstAttribute="trailing" secondItem="MEc-MO-rPS" secondAttribute="trailing" id="K6h-yo-sXg"/>
+                            <constraint firstAttribute="trailing" secondItem="1qW-AG-G4S" secondAttribute="trailing" id="OyS-er-TlH"/>
                             <constraint firstItem="YsF-4M-1st" firstAttribute="top" secondItem="MEc-MO-rPS" secondAttribute="bottom" id="Piw-aL-qOw"/>
+                            <constraint firstAttribute="trailing" secondItem="YsF-4M-1st" secondAttribute="trailing" id="PoC-9l-OIE"/>
                             <constraint firstItem="2cr-9h-Wuw" firstAttribute="top" secondItem="1qW-AG-G4S" secondAttribute="bottom" id="cFs-lW-cLV"/>
-                            <constraint firstItem="2cr-9h-Wuw" firstAttribute="top" secondItem="1qW-AG-G4S" secondAttribute="bottom" id="g3T-qm-Xfk"/>
+                            <constraint firstItem="MEc-MO-rPS" firstAttribute="leading" secondItem="NoD-MX-2my" secondAttribute="leading" id="es6-dh-H1N"/>
                             <constraint firstItem="O3J-eM-gEu" firstAttribute="top" secondItem="MEc-MO-rPS" secondAttribute="bottom" id="g8L-KX-EKg"/>
                             <constraint firstItem="MEc-MO-rPS" firstAttribute="top" secondItem="3gl-Ni-tdN" secondAttribute="bottom" constant="92" id="gHL-wk-CX9"/>
+                            <constraint firstItem="1qW-AG-G4S" firstAttribute="top" secondItem="O3J-eM-gEu" secondAttribute="bottom" id="lqs-gY-hBT"/>
                             <constraint firstItem="lSy-YC-wg6" firstAttribute="top" secondItem="2cr-9h-Wuw" secondAttribute="bottom" id="ly3-Xt-ME4"/>
-                            <constraint firstItem="1qW-AG-G4S" firstAttribute="top" secondItem="O3J-eM-gEu" secondAttribute="bottom" id="uqm-O4-GYr"/>
+                            <constraint firstAttribute="trailing" secondItem="2cr-9h-Wuw" secondAttribute="trailing" id="pVs-9G-Jgk"/>
+                            <constraint firstAttribute="trailing" secondItem="O3J-eM-gEu" secondAttribute="trailing" id="pax-sj-FeQ"/>
+                            <constraint firstItem="2cr-9h-Wuw" firstAttribute="leading" secondItem="NoD-MX-2my" secondAttribute="leading" id="ys0-TD-Vim"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="fbd-sp-olb">
@@ -977,6 +986,7 @@ height=123312</string>
                     </navigationItem>
                     <connections>
                         <outlet property="btNext" destination="h68-JF-oD8" id="Q0p-aF-YY7"/>
+                        <outlet property="btShowMeasure" destination="vdj-dt-P3A" id="qFQ-hr-1yD"/>
                         <outlet property="top" destination="gHL-wk-CX9" id="C2K-VA-fc7"/>
                         <outlet property="unitPicker" destination="O3J-eM-gEu" id="6dU-A5-FTf"/>
                     </connections>
@@ -1686,7 +1696,12 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
     </scenes>
     <resources>
         <image name="Default.png" width="320" height="480"/>
-        <image name="Icon-120.png" width="120" height="120"/>
+        <image name="btn_add_note.png" width="100" height="100"/>
+        <image name="btn_add_note_highlight.png" width="100" height="100"/>
+        <image name="btn_add_photo.png" width="100" height="100"/>
+        <image name="btn_add_photo_highlight.png" width="100" height="100"/>
+        <image name="btn_add_value.png" width="100" height="100"/>
+        <image name="btn_add_value_highlight.png" width="100" height="100"/>
         <image name="circle-chevron-right.png" width="32" height="32"/>
         <image name="icon_add.png" width="32" height="32"/>
         <image name="icon_back.png" width="32" height="32"/>
