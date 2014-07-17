@@ -54,7 +54,7 @@
                                 UITextAttributeTextColor: [UIColor blackColor],
                           UITextAttributeTextShadowColor: [UIColor clearColor],
                          UITextAttributeTextShadowOffset: [NSValue valueWithUIOffset:UIOffsetMake(0, 0)],
-                                     UITextAttributeFont: [UIFont fontWithName:@"Museo-300" size:20.0]
+                                     UITextAttributeFont: [UIFont fontWithName:@"HelveticaNeue-Light" size:20.0]
      }];
 }
 							
