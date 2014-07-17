@@ -25,7 +25,7 @@
         //UIImageView *keyboardGridLines = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"KeyboardNumericEntryViewGridLinesTextured"]];
         //UIImageView *keyboardShadow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"KeyboardTopShadow"]];
         
-        [self setBackgroundColor:[UIColor lightGrayColor]];
+        //[self setBackgroundColor:[UIColor lightGrayColor]];
         //[self addSubview:keyboardBackground];
         //[self addSubview:keyboardGridLines];
         [self addSubview:[self addNumericKeyWithTitle:@"1" frame:CGRectMake(0, 1, KEYBOARD_NUMERIC_KEY_WIDTH - 3, KEYBOARD_NUMERIC_KEY_HEIGHT)]];
@@ -52,21 +52,22 @@
 }
 
 - (UIButton *)addNumericKeyWithTitle:(NSString *)title frame:(CGRect)frame {
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     button.frame = frame;
     [button setTitle:title forState:UIControlStateNormal];
     [button.titleLabel setFont:[UIFont boldSystemFontOfSize:28.0]];
     
-    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+    [button setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
     [button setTitleShadowColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     [button setTitleShadowColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
     [button.titleLabel setShadowOffset:CGSizeMake(0, -0.5)];
     
-    UIImage *buttonImage = [UIImage imageNamed:@"KeyboardNumericEntryKeyTextured"];
-    UIImage *buttonPressedImage = [UIImage imageNamed:@"KeyboardNumericEntryKeyPressedTextured"];
-    [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
-    [button setBackgroundImage:buttonPressedImage forState:UIControlStateHighlighted];
+    if (!([title isEqualToString:@"."] || [title isEqualToString:@"-"])) [button setBackgroundColor:[UIColor whiteColor]];
+    //UIImage *buttonImage = [UIImage imageNamed:@"KeyboardNumericEntryKeyTextured"];
+    //UIImage *buttonPressedImage = [UIImage imageNamed:@"KeyboardNumericEntryKeyPressedTextured"];
+    //[button setBackgroundImage:buttonImage forState:UIControlStateNormal];
+    //[button setBackgroundImage:buttonPressedImage forState:UIControlStateHighlighted];
     [button addTarget:self action:@selector(pressNumericKey:) forControlEvents:UIControlEventTouchUpInside];
     
     return button;
