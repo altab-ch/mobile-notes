@@ -23,9 +23,6 @@
 
 @property (nonatomic, strong) NSArray *lruEntries;
 @property (nonatomic, strong) UserHistoryEntry* tempEntry;
-@property (nonatomic, weak) IBOutlet UILabel *lbNote;
-@property (nonatomic, weak) IBOutlet UILabel *lbPicture;
-@property (nonatomic, weak) IBOutlet UILabel *lbNumeric;
 
 -(IBAction)createEvent:(UIButton*)sender;
 

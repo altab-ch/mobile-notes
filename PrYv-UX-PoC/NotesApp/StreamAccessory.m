@@ -22,7 +22,7 @@
 {
     self = [super init];
     if (self) {
-        [self setBackgroundColor:[UIColor whiteColor]];
+        [self setBackgroundColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.9]];
         [self.layer setCornerRadius:4];
         [self setText:text];
         [self setLabel:[[UILabel alloc] init]];
