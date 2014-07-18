@@ -1,0 +1,126 @@
+
+/* Class = "IBUIButton"; normalTitle = "8"; ObjectID = "1t4-N5-k8o"; */
+"1t4-N5-k8o.normalTitle" = "8";
+
+/* Class = "IBUIButton"; normalTitle = "Cancel"; ObjectID = "3AJ-4W-iec"; */
+"3AJ-4W-iec.normalTitle" = "Cancel";
+
+/* Class = "IBUILabel"; text = "Tags"; ObjectID = "APF-9d-aUo"; */
+"APF-9d-aUo.text" = "Tags";
+
+/* Class = "IBUIButton"; normalTitle = "1"; ObjectID = "Adx-du-3C1"; */
+"Adx-du-3C1.normalTitle" = "1";
+
+/* Class = "IBUIButton"; normalTitle = "2"; ObjectID = "DpH-yl-F2d"; */
+"DpH-yl-F2d.normalTitle" = "2";
+
+/* Class = "IBUILabel"; text = "12/12/13 7:00 AM"; ObjectID = "EaN-GJ-iHh"; */
+"EaN-GJ-iHh.text" = "12/12/13 7:00 AM";
+
+/* Class = "IBUITextField"; text = "245"; ObjectID = "Fbw-JN-m3J"; */
+"Fbw-JN-m3J.text" = "245";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "H4H-tE-NRC"; */
+"H4H-tE-NRC.text" = "Label";
+
+/* Class = "IBUIButton"; normalTitle = "3"; ObjectID = "IP6-hb-h7b"; */
+"IP6-hb-h7b.normalTitle" = "3";
+
+/* Class = "IBUIButton"; normalTitle = "7"; ObjectID = "If7-PZ-p8L"; */
+"If7-PZ-p8L.normalTitle" = "7";
+
+/* Class = "IBUILabel"; text = "Streams / Streams"; ObjectID = "JgM-a5-ecY"; */
+"JgM-a5-ecY.text" = "Streams / Streams";
+
+/* Class = "IBUITextField"; text = "Brt"; ObjectID = "LCR-8z-fBh"; */
+"LCR-8z-fBh.text" = "Brt";
+
+/* Class = "IBUILabel"; text = "25kg"; ObjectID = "MiG-Xb-1Eb"; */
+"MiG-Xb-1Eb.text" = "25kg";
+
+/* Class = "IBUIBarButtonItem"; title = "Back"; ObjectID = "N2Z-qH-xy5"; */
+"N2Z-qH-xy5.title" = "Back";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "Neg-Q7-smS"; */
+"Neg-Q7-smS.text" = "Label";
+
+/* Class = "IBUILabel"; text = "Description Label"; ObjectID = "NxK-rI-PUg"; */
+"NxK-rI-PUg.text" = "Description Label";
+
+/* Class = "IBUIButton"; normalTitle = "9"; ObjectID = "PpP-hg-aP2"; */
+"PpP-hg-aP2.normalTitle" = "9";
+
+/* Class = "IBUIBarButtonItem"; title = "Edit"; ObjectID = "PvJ-Ip-vOl"; */
+"PvJ-Ip-vOl.title" = "Edit";
+
+/* Class = "IBUIBarButtonItem"; title = "Done"; ObjectID = "Qbb-NG-620"; */
+"Qbb-NG-620.title" = "Done";
+
+/* Class = "IBUIButton"; normalTitle = "Done"; ObjectID = "RcB-GL-Khn"; */
+"RcB-GL-Khn.normalTitle" = "Done";
+
+/* Class = "IBUIButton"; normalTitle = "."; ObjectID = "SE8-yY-Vi3"; */
+"SE8-yY-Vi3.normalTitle" = ".";
+
+/* Class = "IBUITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "Uet-LH-Ifo"; */
+"Uet-LH-Ifo.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
+
+/* Class = "IBUIButton"; normalTitle = "Done"; ObjectID = "Uwq-E7-HQo"; */
+"Uwq-E7-HQo.normalTitle" = "Done";
+
+/* Class = "IBUIBarButtonItem"; title = "Edit"; ObjectID = "cGR-fc-fy1"; */
+"cGR-fc-fy1.title" = "Edit";
+
+/* Class = "IBUIBarButtonItem"; title = "Back"; ObjectID = "d9E-FR-c4s"; */
+"d9E-FR-c4s.title" = "Back";
+
+/* Class = "IBUILabel"; text = "Description"; ObjectID = "diz-hG-K0H"; */
+"diz-hG-K0H.text" = "Description";
+
+/* Class = "IBUILabel"; text = "Stream"; ObjectID = "fHw-dD-PLH"; */
+"fHw-dD-PLH.text" = "Stream";
+
+/* Class = "IBUIButton"; normalTitle = "0"; ObjectID = "ikc-2L-e9g"; */
+"ikc-2L-e9g.normalTitle" = "0";
+
+/* Class = "IBUIBarButtonItem"; title = "Done"; ObjectID = "jQv-jR-FCs"; */
+"jQv-jR-FCs.title" = "Done";
+
+/* Class = "IBUIButton"; normalTitle = "5"; ObjectID = "jYr-1M-p5E"; */
+"jYr-1M-p5E.normalTitle" = "5";
+
+/* Class = "IBUIButton"; normalTitle = "4"; ObjectID = "lYu-oZ-x3c"; */
+"lYu-oZ-x3c.normalTitle" = "4";
+
+/* Class = "IBUILabel"; text = "02/12/2013 7:00 AM"; ObjectID = "myD-VP-mul"; */
+"myD-VP-mul.text" = "02/12/2013 7:00 AM";
+
+/* Class = "IBUIButton"; normalTitle = "6"; ObjectID = "ptW-3U-8Xv"; */
+"ptW-3U-8Xv.normalTitle" = "6";
+
+/* Class = "IBUIBarButtonItem"; title = "Done"; ObjectID = "qP6-rm-V8j"; */
+"qP6-rm-V8j.title" = "Done";
+
+/* Class = "IBUIButton"; normalTitle = "Delete"; ObjectID = "s8I-26-ff8"; */
+"s8I-26-ff8.normalTitle" = "Delete";
+
+/* Class = "IBUIBarButtonItem"; title = "Back"; ObjectID = "uGr-jf-hut"; */
+"uGr-jf-hut.title" = "Back";
+
+/* Class = "IBUIBarButtonItem"; title = "Back"; ObjectID = "uRq-9i-k0R"; */
+"uRq-9i-k0R.title" = "Back";
+
+/* Class = "IBUIBarButtonItem"; title = "Back"; ObjectID = "udr-70-yCR"; */
+"udr-70-yCR.title" = "Back";
+
+/* Class = "IBUIBarButtonItem"; title = "Done"; ObjectID = "wtp-t7-EMH"; */
+"wtp-t7-EMH.title" = "Done";
+
+/* Class = "IBUILabel"; text = "format information"; ObjectID = "y0E-Hd-Zqj"; */
+"y0E-Hd-Zqj.text" = "format information";
+
+/* Class = "IBUIButton"; normalTitle = "DEL"; ObjectID = "yC2-eJ-T4I"; */
+"yC2-eJ-T4I.normalTitle" = "DEL";
+
+/* Class = "IBUIBarButtonItem"; title = "Done"; ObjectID = "zik-EI-Wc4"; */
+"zik-EI-Wc4.title" = "Done";
