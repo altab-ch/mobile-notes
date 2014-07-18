@@ -34,7 +34,7 @@
 "AddEvent.AddMeasure" = "Ajouter une valeur dans ";
 "AddEvent.AddPicture" = "Ajouter une image dans ";
 "AddEvent.AddNote" = "Ajouter une note dans ";
-"AddEvent.Title" = "Ajouter";
+"AddEvent.Title" = "Ajouter une ...";
 
 "LastUsedShortcut.Title" = "Accès rapide";
 
@@ -42,7 +42,6 @@
 "MenuTableViewController.StreamSelect" = "Choisir des streams";
 
 "BrowserViewController.Title" = "Pryv";
-"BrowserViewController.TitleMenuOpen" = "Ajouter une ...";
 
 "DetailViewController.TitleNote" = "Note";
 "DetailViewController.TitlePicture" = "Photo";

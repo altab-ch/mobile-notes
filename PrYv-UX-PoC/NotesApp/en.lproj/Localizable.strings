@@ -2,7 +2,7 @@
 
 "Alert.Message.DeleteConfirmation" = "Confirm delete?";
 "Alert.Message.CancelConfirmation" = "Confirm cancel?";
-"Alert.Message.PhotoSource" = "Choose photo source";
+"Alert.Message.PhotoSource" = "Select";
 
 "Alert.Error.SavingImageError" = "Error while saving the image to Camera roll!";
 "Alert.DetailViewController.NoStream" = "Choose a stream";
@@ -34,7 +34,7 @@
 "AddEvent.AddMeasure" = "Add a value in ";
 "AddEvent.AddPicture" = "Add a picture in ";
 "AddEvent.AddNote" = "Add a note in ";
-"AddEvent.Title" = "Add";
+"AddEvent.Title" = "Add new ...";
 
 "LastUsedShortcut.Title" = "Shortcuts";
 
@@ -42,7 +42,6 @@
 "MenuTableViewController.StreamSelect" = "Select streams";
 
 "BrowserViewController.Title" = "Pryv";
-"BrowserViewController.TitleMenuOpen" = "Add new ...";
 
 
 "DetailViewController.TitleNote" = "Note";
