@@ -63,20 +63,13 @@
     if (self.pastille)
         [[self pastille] setBackgroundColor:[[event stream] getColor]];
     
-    
-    
     [self updateTags:event.tags];
     
     NSDate *date = [event eventDate];
-    //ajouter variable enum et définir à la création de la cell dans browser
-    /*if (aggregation==jour) {
-        [[NotesAppController sharedInstance].dateFormatter setDateStyle:NSDateFormatterNoStyle];
-    }*/
+
     if (self.dateLabel)
         self.dateLabel.text = [self.dateFormatter stringFromDate:date];
     
-    /*[self setNeedsLayout];
-    [self layoutIfNeeded];*/
 }
 
 @end
