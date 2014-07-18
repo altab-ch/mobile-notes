@@ -22,6 +22,8 @@
 #define kGroupComponentProportionalWidth 0.5
 #define kGroupComponentHeight 77
 
+#define topConstraintConstant ((IS_IPHONE_5) ? 86.0 : 60.0)
+
 @interface UnitPickerViewController () <KSAdvancedPickerDataSource, KSAdvancedPickerDelegate, MeasuresDelegate>
 
 @property (nonatomic, weak) MeasurementSettingsViewController* measuresViewController;
@@ -47,6 +49,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    _top.constant = topConstraintConstant;
     _isMeasureSetShow = false;
     [_btNext setTitle:NSLocalizedString(@"UnitPicker.Next", nil)];
     [self updateMeasurementSets];
@@ -76,7 +79,7 @@
 {
     if (_isMeasureSetShow) {
         [_btShowMeasure setTitle:@"+" forState:UIControlStateNormal];
-        [self animateConstraint:92];
+        [self animateConstraint:topConstraintConstant];
         [self animateMeasureSet:0];
         _isMeasureSetShow = false;
     }else{
