@@ -52,8 +52,6 @@
     [self updateMeasurementSets];
     [_unitPicker setDelegate:self];
     [_unitPicker setDataSource:self];
-    
-    
 }
 
 - (void)didReceiveMemoryWarning

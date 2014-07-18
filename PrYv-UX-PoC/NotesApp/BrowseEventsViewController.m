@@ -27,11 +27,8 @@
 #import "NSString+Utils.h"
 #import "AppConstants.h"
 #import "EventDetailsViewController.h"
-<<<<<<< HEAD
 //#import <PryvApiKit/PYConstants.h>
-=======
 #import <PryvApiKit/PYkNotifications.h>
->>>>>>> c5015dc26b5d49013e43d3d4837b256231a2bc88
 #import "MCSwipeTableViewCell.h"
 #import "MMDrawerController.h"
 #import "MMDrawerBarButtonItem.h"
