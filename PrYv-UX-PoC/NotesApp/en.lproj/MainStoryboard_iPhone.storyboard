@@ -987,6 +987,8 @@ height=123312</string>
                     <connections>
                         <outlet property="btNext" destination="h68-JF-oD8" id="Q0p-aF-YY7"/>
                         <outlet property="btShowMeasure" destination="vdj-dt-P3A" id="qFQ-hr-1yD"/>
+                        <outlet property="lbManageUnits" destination="qbG-0Q-bg3" id="W7J-jh-eVR"/>
+                        <outlet property="lbPickUnit" destination="Jxl-aC-6rT" id="RhW-E0-j4V"/>
                         <outlet property="top" destination="gHL-wk-CX9" id="C2K-VA-fc7"/>
                         <outlet property="unitPicker" destination="O3J-eM-gEu" id="6dU-A5-FTf"/>
                     </connections>

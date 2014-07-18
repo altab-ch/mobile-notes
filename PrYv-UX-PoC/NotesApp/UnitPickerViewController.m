@@ -32,6 +32,9 @@
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint* top;
 @property (nonatomic, weak) IBOutlet UIBarButtonItem *btNext;
 @property (nonatomic, weak) IBOutlet UIButton *btShowMeasure;
+@property (nonatomic, weak) IBOutlet UILabel *lbManageUnits;
+@property (nonatomic, weak) IBOutlet UILabel *lbPickUnit;
+
 @property (nonatomic) BOOL isMeasureSetShow;
 @end
 
@@ -49,6 +52,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [_lbManageUnits setText:NSLocalizedString(@"UnitPicker.Manage", nil)];
+    [_lbPickUnit setText:NSLocalizedString(@"UnitPicker.Select", nil)];
     _top.constant = topConstraintConstant;
     _isMeasureSetShow = false;
     [_btNext setTitle:NSLocalizedString(@"UnitPicker.Next", nil)];

@@ -24,6 +24,8 @@
 "Edit" = "Edit";
 
 "UnitPicker.Next" = "Next";
+"UnitPicker.Select" = "Select a unit";
+"UnitPicker.Manage" = "Add additional units";
 
 "AddEvent.Note" = "Note";
 "AddEvent.Numeric" = "Value";
@@ -32,7 +34,7 @@
 "AddEvent.AddMeasure" = "Add a value in ";
 "AddEvent.AddPicture" = "Add a picture in ";
 "AddEvent.AddNote" = "Add a note in ";
-"AddEvent.Title" = "Add an event";
+"AddEvent.Title" = "Add";
 
 "LastUsedShortcut.Title" = "Shortcuts";
 
