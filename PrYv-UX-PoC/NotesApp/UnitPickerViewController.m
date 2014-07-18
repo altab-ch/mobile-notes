@@ -83,12 +83,12 @@
 -(IBAction)btShowMeasureSetPressed:(id)sender
 {
     if (_isMeasureSetShow) {
-        [_btShowMeasure setTitle:@"+" forState:UIControlStateNormal];
+        [_btShowMeasure.imageView setTransform:CGAffineTransformIdentity];
         [self animateConstraint:topConstraintConstant];
         [self animateMeasureSet:0];
         _isMeasureSetShow = false;
     }else{
-        [_btShowMeasure setTitle:@"-" forState:UIControlStateNormal];
+        [_btShowMeasure.imageView setTransform:CGAffineTransformMakeRotation(M_PI)];
         [self animateConstraint:0];
         [self animateMeasureSet:1];
         _isMeasureSetShow = true;
