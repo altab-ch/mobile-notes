@@ -15,7 +15,6 @@
 #import "MenuNavController.h"
 #import "BrowseEventsViewController.h"
 
-#define kSettingsSectionCell @"kSettingsSectionCell"
 #define Stream_Menu_Default @"stream_menu_default"
 
 @interface SettingsViewController ()
@@ -109,40 +108,6 @@
 }
 
 #pragma mark - UITableViewDelegate and UITableViewDataSource
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 20;
-}
-
--(UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    UITableViewCell *headerCell = [tableView dequeueReusableCellWithIdentifier:kSettingsSectionCell];
-    UILabel *targetedLabel = (UILabel *)[headerCell viewWithTag:3];
-    
-    switch (section) {
-        case 0:
-            [targetedLabel setText:NSLocalizedString(@"Settings.Data", nil)];
-            break;
-        
-        case 1:
-            [targetedLabel setText:NSLocalizedString(@"Settings.Support", nil)];
-            break;
-            
-        case 2:
-            [targetedLabel setText:NSLocalizedString(@"Settings.Login", nil)];
-            break;
-            
-        case 3:
-            [targetedLabel setText:NSLocalizedString(@"Settings.Version", nil)];
-            break;
-            
-        default:
-            break;
-    }
-    
-    return headerCell;
-}
-
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
