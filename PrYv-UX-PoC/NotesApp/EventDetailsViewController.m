@@ -11,7 +11,6 @@
 #import "PYStream+Helper.h"
 #import <PryvApiKit/PYEvent.h>
 #import <PryvApiKit/PYEventType.h>
-//#import <PryvApiKit/PYConnection+DataManagement.h>
 #import "AddNumericalValueViewController.h"
 #import "StreamPickerViewController.h"
 #import "DataService.h"
