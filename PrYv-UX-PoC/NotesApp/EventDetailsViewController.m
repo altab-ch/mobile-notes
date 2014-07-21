@@ -373,7 +373,7 @@ typedef enum
             
         case DetailCellTypeDelete:
         {
-            if ([self shouldCreateEvent] || ![self isInEditMode])
+            if ([_event isDraft])
                 return 0;
             return kDeleteCellHeight;
         }

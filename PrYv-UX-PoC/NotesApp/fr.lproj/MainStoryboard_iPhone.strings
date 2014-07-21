@@ -158,7 +158,7 @@
 "rlb-Cy-myO.text" = "Label";
 
 /* Class = "IBUITableViewSection"; headerTitle = "Data Types"; ObjectID = "vAi-tW-8yG"; */
-"vAi-tW-8yG.headerTitle" = "Data Types";
+"vAi-tW-8yG.headerTitle" = "Types de données";
 
 /* Class = "IBUIButton"; normalTitle = "Cancel"; ObjectID = "vDF-xX-nng"; */
 "vDF-xX-nng.normalTitle" = "Cancel";
@@ -173,7 +173,7 @@
 "yBz-f3-Ly3.headerTitle" = "Utilisateur";
 
 /* Class = "IBUILabel"; accessibilityLabel = "Leave feedback"; ObjectID = "yZS-FV-pve"; */
-"yZS-FV-pve.accessibilityLabel" = "Suport";
+"yZS-FV-pve.accessibilityLabel" = "Support";
 
 /* Class = "IBUILabel"; text = "support@pryv.com"; ObjectID = "yZS-FV-pve"; */
 "yZS-FV-pve.text" = "support@pryv.com";
@@ -182,7 +182,7 @@
 "z8S-ea-rl4.text" = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ultrices interdum volutpat.";
 
 /* Class = "IBUILabel"; text = "Title"; ObjectID = "z8x-r1-vMU"; */
-"z8x-r1-vMU.text" = "Title";
+"z8x-r1-vMU.text" = "Titre";
 
 /* Class = "IBUILabel"; text = "Stream"; ObjectID = "zcg-t9-UBY"; */
 "zcg-t9-UBY.text" = "Stream";
