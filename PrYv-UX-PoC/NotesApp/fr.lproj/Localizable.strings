@@ -39,7 +39,7 @@
 "LastUsedShortcut.Title" = "Accès rapide";
 
 "MenuTableViewController.DateSelect" = "Date";
-"MenuTableViewController.StreamSelect" = "Choisir des streams";
+"MenuTableViewController.StreamSelect" = "Streams";
 
 "BrowserViewController.Title" = "Pryv";
 
