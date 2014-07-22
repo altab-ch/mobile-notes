@@ -6,7 +6,8 @@
 
 "Alert.Error.SavingImageError" = "Error while saving the image to Camera roll!";
 "Alert.DetailViewController.NoStream" = "Choose a stream";
-"Alert.DetailViewController.NoData" = "Enter a value";
+"Alert.DetailViewController.NoValue" = "Enter a value";
+"Alert.DetailViewController.NoNote" = "Enter a note";
 
 "Camera" = "Camera";
 "Library" = "Library";
