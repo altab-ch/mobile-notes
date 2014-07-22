@@ -459,7 +459,7 @@ typedef enum
 -(void) btBrowsePressed:(id)sender
 {
     if (!_previousStreamId || ![_previousStreamId isEqualToString:_event.streamId])
-        [[NSNotificationCenter defaultCenter] postNotificationName:kUserDidCreateEventNotification object:[self event]];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kUserDidAddStreamNotification object:[self event]];
     else if ([_previousDate compare:_event.eventDate] != NSOrderedSame)
         [[NSNotificationCenter defaultCenter] postNotificationName:kBrowserShouldScrollToEvent object:[self event]];
     
@@ -768,7 +768,7 @@ typedef enum
          [connection eventCreate:self.event
                   successHandler:^(NSString *newEventId, NSString *stoppedId, PYEvent* event)
           {
-              //[[NSNotificationCenter defaultCenter] postNotificationName:kUserDidCreateEventNotification object:[self event]];
+              [[NSNotificationCenter defaultCenter] postNotificationName:kUserDidCreateEventNotification object:[self event]];
               
               BOOL shouldTakePictureFlag = NO;
               if([self.event eventDataType] == EventDataTypeImage)

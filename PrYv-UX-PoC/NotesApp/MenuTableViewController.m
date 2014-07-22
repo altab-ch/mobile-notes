@@ -87,8 +87,8 @@ static int kPickerTag = 10;
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(userDidCreateEventNotification:)
-                                                 name:kUserDidCreateEventNotification
+                                             selector:@selector(userDidAddStreamNotification:)
+                                                 name:kUserDidAddStreamNotification
                                                object:nil];
 }
 
@@ -336,7 +336,7 @@ static int kPickerTag = 10;
 
 #pragma mark - notification
 
--(void) userDidCreateEventNotification:(NSNotification*)notification
+-(void) userDidAddStreamNotification:(NSNotification*)notification
 {
     PYEvent *event = (PYEvent*)[notification object];
     [self addStream:event];

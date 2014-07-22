@@ -21,6 +21,7 @@ NSString *const kAppDidReceiveAccessTokenNotification = @"kAppDidReceiveAccessTo
 NSString *const kUserDidLogoutNotification = @"kUserDidLogoutNotification";
 NSString *const kUserShouldLoginNotification = @"kUserShouldLoginNotification";
 NSString *const kUserDidCreateEventNotification = @"kUserDidCreateEventNotification";
+NSString *const kUserDidAddStreamNotification = @"kUserDidAddStreamNotification";
 NSString *const kBrowserShouldUpdateNotification = @"kBrowserShouldUpdateNotification";
 NSString *const kBrowserShouldScrollToEvent = @"kBrowserShouldScrollToEvent";
 

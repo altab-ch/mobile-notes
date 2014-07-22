@@ -25,6 +25,7 @@ extern NSString *const kAppDidReceiveAccessTokenNotification;
 extern NSString *const kUserDidLogoutNotification;
 extern NSString *const kUserShouldLoginNotification;
 extern NSString *const kUserDidCreateEventNotification;
+extern NSString *const kUserDidAddStreamNotification;
 extern NSString *const kBrowserShouldUpdateNotification;
 extern NSString *const kBrowserShouldScrollToEvent;
 @interface NotesAppController : NSObject
