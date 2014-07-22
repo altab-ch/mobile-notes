@@ -109,7 +109,7 @@ NSString *const kBrowserShouldScrollToEvent = @"kBrowserShouldScrollToEvent";
 
 - (BOOL)isOnline
 {
-    return _connection.online;
+    return _connection.onlineStatus;
 }
 
 + (void)sharedConnectionWithID:(NSString*)connectionID
