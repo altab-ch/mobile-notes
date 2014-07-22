@@ -545,10 +545,9 @@ static int kPickerTag = 10;
 
 - (void) addStream:(PYEvent*)event
 {
-    if (![self.selectedStreamIDs containsObject:event.streamId]) {
+    if (![self.selectedStreamIDs containsObject:event.streamId] && [_selectedStreamIDs count]!=0) {
         [self.selectedStreamIDs addObject:event.streamId];
         [self.tableView reloadData];
-        
         [self saveUserDefault];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:kBrowserShouldUpdateNotification object:event userInfo:nil];

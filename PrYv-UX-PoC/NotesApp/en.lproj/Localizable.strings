@@ -61,5 +61,5 @@
 "ViewController.TextDescriptionContent.TapToAdd" = "Add description";
 "ViewController.Tags.TapToAdd" = "Add tags";
 
-"Settings.User.LogoutFormat" = "Sign out (%@)";
+"Settings.User.LogoutFormat" = "Log out (%@)";
 "Settings.User.Login" = "Sign in";
