@@ -92,7 +92,7 @@
 "QD0-Mh-VXY.text" = "Listes de mesures";
 
 /* Class = "IBUIButton"; normalTitle = "All"; ObjectID = "QLu-p3-UH9"; */
-"QLu-p3-UH9.normalTitle" = "Toux";
+"QLu-p3-UH9.normalTitle" = "Tout";
 
 /* Class = "IBUILabel"; text = "Time"; ObjectID = "V7b-Xo-17S"; */
 "V7b-Xo-17S.text" = "Time";
