@@ -201,7 +201,7 @@
                  if (error.userInfo && [error.userInfo objectForKey:@"message"]) {
                      message = [error.userInfo objectForKey:@"message"];
                  }
-                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"ViewController.Streams.ErrorCreatingStream", nil) message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"ViewController.Streams.ErrorCreatingStream", nil) message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                  [alert show];
              }];
          }];
