@@ -95,22 +95,22 @@
 "QLu-p3-UH9.normalTitle" = "Tout";
 
 /* Class = "IBUILabel"; text = "Time"; ObjectID = "V7b-Xo-17S"; */
-"V7b-Xo-17S.text" = "Time";
+"V7b-Xo-17S.text" = "Heure";
 
 /* Class = "IBUILabel"; text = "Subtitle"; ObjectID = "VVH-my-Xds"; */
 "VVH-my-Xds.text" = "Subtitle";
 
 /* Class = "IBUITextField"; placeholder = "Enter value"; ObjectID = "Vkr-ZE-Y9C"; */
-"Vkr-ZE-Y9C.placeholder" = "Enter value";
+"Vkr-ZE-Y9C.placeholder" = "Entrer valeur";
 
 /* Class = "IBUIBarButtonItem"; title = "Edit"; ObjectID = "WZR-qv-yGq"; */
-"WZR-qv-yGq.title" = "Edit";
+"WZR-qv-yGq.title" = "Editer";
 
 /* Class = "IBUISegmentedControl"; Xre-KO-Fcg.segmentTitles[0] = "Date"; ObjectID = "Xre-KO-Fcg"; */
 "Xre-KO-Fcg.segmentTitles[0]" = "Date";
 
 /* Class = "IBUISegmentedControl"; Xre-KO-Fcg.segmentTitles[1] = "Time"; ObjectID = "Xre-KO-Fcg"; */
-"Xre-KO-Fcg.segmentTitles[1]" = "Time";
+"Xre-KO-Fcg.segmentTitles[1]" = "Heure";
 
 /* Class = "IBUILabel"; text = "Stream"; ObjectID = "alS-c0-B26"; */
 "alS-c0-B26.text" = "Stream";
