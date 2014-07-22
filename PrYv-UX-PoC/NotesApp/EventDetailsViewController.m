@@ -776,6 +776,9 @@ typedef enum
                   shouldTakePictureFlag = self.imagePickerType == UIImagePickerControllerSourceTypeCamera;
               }
               [[DataService sharedInstance] saveEventAsShortcut:self.event andShouldTakePictureFlag:shouldTakePictureFlag];
+              [self.tableView beginUpdates];
+              [self.tableView endUpdates];
+              
               //[self hideLoadingOverlay];
           } errorHandler:^(NSError *error) {
               //[self hideLoadingOverlay];
