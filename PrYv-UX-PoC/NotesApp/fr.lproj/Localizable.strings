@@ -6,8 +6,9 @@
 
 "Alert.Error.SavingImageError" = "Erreur lors de la sauvergarde de l'image";
 
-"Alert.DetailViewController.NoStream" = "Choisissez un stream";
-"Alert.DetailViewController.NoData" = "Entrez une valeur";
+"Alert.DetailViewController.NoStream" = "Choisir un stream";
+"Alert.DetailViewController.NoValue" = "Entrer une valeur";
+"Alert.DetailViewController.NoNote" = "Entrer une note";
 
 "Camera" = "Appareil photo";
 "Library" = "Bibliothèque";
@@ -39,7 +40,7 @@
 "LastUsedShortcut.Title" = "Accès rapide";
 
 "MenuTableViewController.DateSelect" = "Date";
-"MenuTableViewController.StreamSelect" = "Choisir des streams";
+"MenuTableViewController.StreamSelect" = "Streams";
 
 "BrowserViewController.Title" = "Pryv";
 
