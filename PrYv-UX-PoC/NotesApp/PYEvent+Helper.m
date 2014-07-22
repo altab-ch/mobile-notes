@@ -12,7 +12,7 @@
 #import <PryvApiKit/PYMeasurementSet.h>
 #import <PryvApiKit/PYStream.h>
 #import <PryvApiKit/PYEvent.h>
-#import <PryvApiKit/PYCachingController+Event.h>
+#import <PryvApiKit/PYCachingController+Events.h>
 #import "CellStyleModel.h"
 
 @implementation PYEvent (Helper)
