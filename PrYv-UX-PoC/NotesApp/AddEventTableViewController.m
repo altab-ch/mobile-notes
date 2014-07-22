@@ -249,7 +249,7 @@
             }
         }
         
-        [picker dismissViewControllerAnimated:YES completion:^{
+        /*[picker dismissViewControllerAnimated:YES completion:^{
             NSData *imageData = UIImageJPEGRepresentation(selectedImage, 0.7);
             if(!imageData) return;
             
@@ -267,7 +267,27 @@
             [newEvent setAttachments:[NSMutableArray arrayWithObject:att]];
             [newEvent setEventDate:date];
             [self showEventDetailsForEvent:newEvent];
-        }];
+        }];*/
+        
+        [picker dismissViewControllerAnimated:YES completion:nil];
+        
+        NSData *imageData = UIImageJPEGRepresentation(selectedImage, 0.7);
+        if(!imageData) return;
+        
+        NSString *imgName = [NSString randomStringWithLength:10];
+        PYAttachment *att = [[PYAttachment alloc] initWithFileData:imageData name:imgName fileName:[NSString stringWithFormat:@"%@.jpeg",imgName]];
+        PYEvent *newEvent;
+        if (self.tempEntry) {
+            newEvent = [self.tempEntry reconstructEvent];
+            self.tempEntry = nil;
+        }else{
+            newEvent = [[PYEvent alloc] init];
+            newEvent.type = @"picture/attached";
+        }
+        
+        [newEvent setAttachments:[NSMutableArray arrayWithObject:att]];
+        [newEvent setEventDate:date];
+        [self showEventDetailsForEvent:newEvent];
         
     } failureBlock:^(NSError *error) {
         [picker dismissViewControllerAnimated:YES completion:^{self.tempEntry = nil;}];

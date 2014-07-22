@@ -549,7 +549,7 @@ typedef enum
         return;
     }
     
-    if (!_event.eventContent || [_event.eventContentAsString isEqualToString:@""]) {
+    if (_event.eventDataType != EventDataTypeImage && (!_event.eventContent || [_event.eventContentAsString isEqualToString:@""])) {
         
         if (_event.eventDataType == EventDataTypeValueMeasure) {
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Alert.DetailViewController.NoValue", nil) message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
