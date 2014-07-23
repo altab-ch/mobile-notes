@@ -783,7 +783,7 @@ typedef enum
                            withCompletionBlock:^(PYConnection *connection)
      {
          
-         [connection eventCreate:self.event
+         [connection eventCreate:self.event andCacheFirst:YES
                   successHandler:^(NSString *newEventId, NSString *stoppedId, PYEvent* event)
           {
               [[NSNotificationCenter defaultCenter] postNotificationName:kUserDidCreateEventNotification object:[self event]];
