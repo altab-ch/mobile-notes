@@ -330,6 +330,7 @@ typedef enum
         {
             if([self.event eventDataType] == EventDataTypeNote)
             {
+                [_noteCell.contentView setTranslatesAutoresizingMaskIntoConstraints:YES];
                 if(self.isInEditMode && [self.noteText.text length] == 0) {
                     return kStreamCellHeight+20;
                 }
@@ -350,7 +351,11 @@ typedef enum
         
         case DetailCellTypeTimeExt:
         {
-            if (!_isDateExtHidden) return 210;
+            if (!_isDateExtHidden)
+            {
+                [_dateExtCell.contentView setTranslatesAutoresizingMaskIntoConstraints:YES];
+                return 210;
+            }
             [_dateExtCell.contentView setTranslatesAutoresizingMaskIntoConstraints:NO];
             return 0;
         }
@@ -358,10 +363,12 @@ typedef enum
         case DetailCellTypeDescription:
         {
             if(self.isInEditMode && [self.descriptionText.text length] == 0) {
+                [_descCell.contentView setTranslatesAutoresizingMaskIntoConstraints:YES];
                 return kStreamCellHeight+20;
             }
             if ([self.descriptionText.text length] > 0)
             {
+                [_descCell.contentView setTranslatesAutoresizingMaskIntoConstraints:YES];
                 return [self heightForNoteTextViewWithString:self.descriptionText.text];
             }
             [_descCell.contentView setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -372,6 +379,7 @@ typedef enum
         {
             if (self.isInEditMode || (self.event.tags.count > 0)) {
                 CGFloat tagHeight = self.tokenField.frame.size.height + 38;
+                [_tagsCell.contentView setTranslatesAutoresizingMaskIntoConstraints:YES];
                 return tagHeight;
             }
             [_tagsCell.contentView setTranslatesAutoresizingMaskIntoConstraints:NO];
