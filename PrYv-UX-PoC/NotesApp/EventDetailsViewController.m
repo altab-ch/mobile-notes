@@ -54,6 +54,7 @@ typedef enum
 @property (nonatomic, strong) NSDate *previousDate;
 @property (nonatomic, strong) NSDictionary *initialEventValue;
 @property (nonatomic) BOOL isDateExtHidden;
+@property (nonatomic) BOOL isInitialDraft;
 @property (nonatomic) BOOL isInEditMode;
 @property (nonatomic) BOOL shouldUpdateEvent;
 @property (nonatomic, strong) StreamPickerViewController *streamPickerVC;
@@ -114,6 +115,7 @@ typedef enum
                                                  name:JSTokenFieldFrameDidChangeNotification
                                                object:nil];
     self.isInEditMode = self.event.isDraft;
+    _isInitialDraft = _event.isDraft;
     _isDateExtHidden = true;
     [self initTags];
     [self initBtDelete];
@@ -476,7 +478,7 @@ typedef enum
 
 -(void) btBrowsePressed:(id)sender
 {
-    if (!_previousStreamId || ![_previousStreamId isEqualToString:_event.streamId])
+    if (!_previousStreamId || ![_previousStreamId isEqualToString:_event.streamId] || _isInitialDraft)
         [[NSNotificationCenter defaultCenter] postNotificationName:kUserDidAddStreamNotification object:[self event]];
     else if ([_previousDate compare:_event.eventDate] != NSOrderedSame)
         [[NSNotificationCenter defaultCenter] postNotificationName:kBrowserShouldScrollToEvent object:[self event]];

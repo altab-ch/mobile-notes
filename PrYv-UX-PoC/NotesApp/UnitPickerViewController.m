@@ -60,6 +60,7 @@
     [self updateMeasurementSets];
     [_unitPicker setDelegate:self];
     [_unitPicker setDataSource:self];
+    [_btShowMeasure.imageView setTransform:CGAffineTransformMakeRotation(M_PI)];
 }
 
 - (void)didReceiveMemoryWarning
@@ -83,12 +84,12 @@
 -(IBAction)btShowMeasureSetPressed:(id)sender
 {
     if (_isMeasureSetShow) {
-        [_btShowMeasure.imageView setTransform:CGAffineTransformIdentity];
+        [_btShowMeasure.imageView setTransform:CGAffineTransformMakeRotation(M_PI)];
         [self animateConstraint:topConstraintConstant];
         [self animateMeasureSet:0];
         _isMeasureSetShow = false;
     }else{
-        [_btShowMeasure.imageView setTransform:CGAffineTransformMakeRotation(M_PI)];
+        [_btShowMeasure.imageView setTransform:CGAffineTransformIdentity];
         [self animateConstraint:0];
         [self animateMeasureSet:1];
         _isMeasureSetShow = true;
