@@ -1078,8 +1078,8 @@ height=123312</string>
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="59"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o7f-58-EH3">
-                                                    <rect key="frame" x="5" y="5" width="310" height="49"/>
+                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o7f-58-EH3">
+                                                    <rect key="frame" x="5" y="5" width="310" height="345"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                                 </view>
@@ -1090,8 +1090,8 @@ height=123312</string>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NXC-Fb-9Cg">
-                                                    <rect key="frame" x="10" y="23" width="297" height="29"/>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NXC-Fb-9Cg">
+                                                    <rect key="frame" x="10" y="23" width="297" height="325"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
@@ -1104,14 +1104,14 @@ height=123312</string>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="NXC-Fb-9Cg" secondAttribute="trailing" constant="13" id="0Ey-wh-wwz"/>
-                                                <constraint firstAttribute="trailing" secondItem="o7f-58-EH3" secondAttribute="trailing" constant="5" id="202-Qb-kYa"/>
-                                                <constraint firstItem="NXC-Fb-9Cg" firstAttribute="top" secondItem="F8b-ol-XhP" secondAttribute="top" constant="23" id="5Aw-q4-iG4"/>
-                                                <constraint firstItem="o7f-58-EH3" firstAttribute="bottom" secondItem="NXC-Fb-9Cg" secondAttribute="bottom" constant="2" id="Qf7-tN-ais"/>
-                                                <constraint firstAttribute="bottom" secondItem="o7f-58-EH3" secondAttribute="bottom" constant="5" id="Zxq-jT-dV8"/>
-                                                <constraint firstItem="o7f-58-EH3" firstAttribute="leading" secondItem="F8b-ol-XhP" secondAttribute="leading" constant="5" id="bfQ-xq-CxM"/>
-                                                <constraint firstItem="NXC-Fb-9Cg" firstAttribute="leading" secondItem="F8b-ol-XhP" secondAttribute="leading" constant="10" id="kYf-oW-ZV2"/>
-                                                <constraint firstItem="o7f-58-EH3" firstAttribute="top" secondItem="F8b-ol-XhP" secondAttribute="top" constant="5" id="pEB-H2-v5B"/>
+                                                <constraint firstAttribute="trailing" secondItem="NXC-Fb-9Cg" secondAttribute="trailing" constant="13" id="0Ey-wh-wwz" userLabel="N6 - Horizontal Space - (13) - Content View - Text View"/>
+                                                <constraint firstAttribute="trailing" secondItem="o7f-58-EH3" secondAttribute="trailing" constant="5" id="202-Qb-kYa" userLabel="N1 - Horizontal Space - (5) - Content View - View"/>
+                                                <constraint firstItem="NXC-Fb-9Cg" firstAttribute="top" secondItem="F8b-ol-XhP" secondAttribute="top" constant="23" id="5Aw-q4-iG4" userLabel="N7 - Vertical Space - (23) - Text View - Content View"/>
+                                                <constraint firstItem="o7f-58-EH3" firstAttribute="bottom" secondItem="NXC-Fb-9Cg" secondAttribute="bottom" constant="2" id="Qf7-tN-ais" userLabel="N2 - Bottom Alignment - (2) - View - Text View"/>
+                                                <constraint firstAttribute="bottom" secondItem="o7f-58-EH3" secondAttribute="bottom" constant="5" id="Zxq-jT-dV8" userLabel="N3 - Vertical Space - (5) - Content View - View"/>
+                                                <constraint firstItem="o7f-58-EH3" firstAttribute="leading" secondItem="F8b-ol-XhP" secondAttribute="leading" constant="5" id="bfQ-xq-CxM" userLabel="N4 - Horizontal Space - (5) - View - Content View"/>
+                                                <constraint firstItem="NXC-Fb-9Cg" firstAttribute="leading" secondItem="F8b-ol-XhP" secondAttribute="leading" constant="10" id="kYf-oW-ZV2" userLabel="N8 - Horizontal Space - (10) - Text View - Content View"/>
+                                                <constraint firstItem="o7f-58-EH3" firstAttribute="top" secondItem="F8b-ol-XhP" secondAttribute="top" constant="5" id="pEB-H2-v5B" userLabel="N5 - Vertical Space - (5) - View - Content View"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1126,7 +1126,7 @@ height=123312</string>
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="53"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="20e-v4-7om">
+                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="20e-v4-7om">
                                                     <rect key="frame" x="5" y="5" width="310" height="43"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -1149,12 +1149,6 @@ height=123312</string>
                                                 </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                            <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="20e-v4-7om" secondAttribute="bottom" constant="5" id="Go4-Qg-bcX"/>
-                                                <constraint firstAttribute="trailing" secondItem="20e-v4-7om" secondAttribute="trailing" constant="5" id="ZVa-eZ-TGC"/>
-                                                <constraint firstItem="20e-v4-7om" firstAttribute="top" secondItem="Ujj-IQ-TnQ" secondAttribute="top" constant="5" id="hvX-7a-rjq"/>
-                                                <constraint firstItem="20e-v4-7om" firstAttribute="leading" secondItem="Ujj-IQ-TnQ" secondAttribute="leading" constant="5" id="sfI-Hn-Dmz"/>
-                                            </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
@@ -1205,7 +1199,7 @@ height=123312</string>
                                                     <rect key="frame" x="99" y="5" width="123" height="29"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="28" id="Aob-fJ-diJ"/>
+                                                        <constraint firstAttribute="height" constant="28" id="Aob-fJ-diJ" userLabel="D12 - Height - (28) - Plain Segmented Control - Date, Time"/>
                                                     </constraints>
                                                     <segments>
                                                         <segment title="Date"/>
@@ -1281,17 +1275,17 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="Xre-KO-Fcg" secondAttribute="trailing" constant="98" id="1i7-pX-edt"/>
-                                                <constraint firstItem="VMX-EH-P2N" firstAttribute="leading" secondItem="pPn-mg-6oh" secondAttribute="leading" id="3Lk-LX-LlO"/>
-                                                <constraint firstAttribute="bottom" secondItem="VMX-EH-P2N" secondAttribute="bottom" constant="5" id="BZ3-Ob-3JO"/>
-                                                <constraint firstAttribute="trailing" secondItem="VMX-EH-P2N" secondAttribute="trailing" id="DTG-AI-y2i"/>
-                                                <constraint firstItem="VMX-EH-P2N" firstAttribute="top" secondItem="Xre-KO-Fcg" secondAttribute="bottom" constant="5" id="IXf-w8-ztY"/>
-                                                <constraint firstAttribute="bottom" secondItem="Mnk-bk-EvJ" secondAttribute="bottom" constant="5" id="ebb-08-IPg"/>
-                                                <constraint firstItem="Mnk-bk-EvJ" firstAttribute="top" secondItem="Xre-KO-Fcg" secondAttribute="bottom" constant="5" id="fnw-Ch-CdX"/>
-                                                <constraint firstAttribute="trailing" secondItem="Mnk-bk-EvJ" secondAttribute="trailing" id="fyo-gx-YRP"/>
-                                                <constraint firstItem="Xre-KO-Fcg" firstAttribute="leading" secondItem="pPn-mg-6oh" secondAttribute="leading" constant="99" id="gSw-2k-P98"/>
-                                                <constraint firstItem="Xre-KO-Fcg" firstAttribute="top" secondItem="pPn-mg-6oh" secondAttribute="top" constant="5" id="mDu-8r-Nri"/>
-                                                <constraint firstItem="Mnk-bk-EvJ" firstAttribute="leading" secondItem="pPn-mg-6oh" secondAttribute="leading" id="vvH-1I-6rC"/>
+                                                <constraint firstAttribute="trailing" secondItem="Xre-KO-Fcg" secondAttribute="trailing" constant="98" id="1i7-pX-edt" userLabel="D9 - Horizontal Space - (98) - Content View - Plain Segmented Control - Date, Time"/>
+                                                <constraint firstItem="VMX-EH-P2N" firstAttribute="leading" secondItem="pPn-mg-6oh" secondAttribute="leading" id="3Lk-LX-LlO" userLabel="D5 - Horizontal Space - DatePicker - Content View"/>
+                                                <constraint firstAttribute="bottom" secondItem="VMX-EH-P2N" secondAttribute="bottom" constant="5" id="BZ3-Ob-3JO" userLabel="D6 - Vertical Space - (5) - Content View - DatePicker"/>
+                                                <constraint firstAttribute="trailing" secondItem="VMX-EH-P2N" secondAttribute="trailing" id="DTG-AI-y2i" userLabel="D7 - Horizontal Space - Content View - DatePicker"/>
+                                                <constraint firstItem="VMX-EH-P2N" firstAttribute="top" secondItem="Xre-KO-Fcg" secondAttribute="bottom" constant="5" id="IXf-w8-ztY" userLabel="D8 - Vertical Space - (5) - DatePicker - Plain Segmented Control - Date, Time"/>
+                                                <constraint firstAttribute="bottom" secondItem="Mnk-bk-EvJ" secondAttribute="bottom" constant="5" id="ebb-08-IPg" userLabel="D1 - Vertical Space - (5) - Content View - TimePicker"/>
+                                                <constraint firstItem="Mnk-bk-EvJ" firstAttribute="top" secondItem="Xre-KO-Fcg" secondAttribute="bottom" constant="5" id="fnw-Ch-CdX" userLabel="D2 - Vertical Space - (5) - TimePicker - Plain Segmented Control - Date, Time"/>
+                                                <constraint firstAttribute="trailing" secondItem="Mnk-bk-EvJ" secondAttribute="trailing" id="fyo-gx-YRP" userLabel="D3 - Horizontal Space - Content View - TimePicker"/>
+                                                <constraint firstItem="Xre-KO-Fcg" firstAttribute="leading" secondItem="pPn-mg-6oh" secondAttribute="leading" constant="99" id="gSw-2k-P98" userLabel="D10 - Horizontal Space - (99) - Plain Segmented Control - Date, Time - Content View"/>
+                                                <constraint firstItem="Xre-KO-Fcg" firstAttribute="top" secondItem="pPn-mg-6oh" secondAttribute="top" constant="5" id="mDu-8r-Nri" userLabel="D11 - Vertical Space - (5) - Plain Segmented Control - Date, Time - Content View"/>
+                                                <constraint firstItem="Mnk-bk-EvJ" firstAttribute="leading" secondItem="pPn-mg-6oh" secondAttribute="leading" id="vvH-1I-6rC" userLabel="D4 - Horizontal Space - TimePicker - Content View"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
@@ -1348,8 +1342,8 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="59"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e2k-L7-Jgv">
-                                                    <rect key="frame" x="5" y="5" width="310" height="49"/>
+                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e2k-L7-Jgv">
+                                                    <rect key="frame" x="5" y="5" width="310" height="345"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                                 </view>
@@ -1360,8 +1354,8 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mhu-oP-0V0">
-                                                    <rect key="frame" x="10" y="23" width="297" height="29"/>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mhu-oP-0V0">
+                                                    <rect key="frame" x="10" y="23" width="297" height="325"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
@@ -1438,10 +1432,13 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                     </navigationItem>
                     <size key="freeformSize" width="320" height="800"/>
                     <connections>
+                        <outlet property="dateExtCell" destination="Rbw-eZ-4JN" id="51P-QC-Ior"/>
                         <outlet property="datePicker" destination="VMX-EH-P2N" id="iWT-Nn-9tm"/>
                         <outlet property="deleteButton" destination="nJa-8k-SZK" id="eSz-RQ-gAN"/>
+                        <outlet property="descCell" destination="u6i-ge-JBI" id="6pa-SV-1yO"/>
                         <outlet property="descriptionText" destination="mhu-oP-0V0" id="afm-jM-hOy"/>
                         <outlet property="editButton" destination="WZR-qv-yGq" id="eQm-dP-Mko"/>
+                        <outlet property="noteCell" destination="Ap8-HV-ERy" id="Slr-5C-Y7N"/>
                         <outlet property="noteText" destination="NXC-Fb-9Cg" id="CVi-DM-SXo"/>
                         <outlet property="numericalValue" destination="Vkr-ZE-Y9C" id="A78-XV-uei"/>
                         <outlet property="numericalValue_Label" destination="0IL-wh-WJX" id="vYE-Jt-WZV"/>
@@ -1449,6 +1446,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         <outlet property="pastille" destination="1Uz-I1-qg4" id="a6x-jG-TWd"/>
                         <outlet property="picture_ImageView" destination="Kf5-YO-ohH" id="cfB-FC-Npc"/>
                         <outlet property="streamsLabel" destination="alS-c0-B26" id="2Rc-M8-JfS"/>
+                        <outlet property="tagsCell" destination="LxQ-1k-RMX" id="v0F-8v-UeJ"/>
                         <outlet property="timeLabel" destination="arJ-Hz-3ZZ" id="PFd-3X-teR"/>
                         <outlet property="timePicker" destination="Mnk-bk-EvJ" id="rIy-1S-iKg"/>
                         <outlet property="tokenField" destination="6Zv-bJ-OMw" id="gUv-5U-3FK"/>

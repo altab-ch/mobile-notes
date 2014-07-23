@@ -59,6 +59,10 @@ typedef enum
 @property (nonatomic, strong) StreamPickerViewController *streamPickerVC;
 @property (nonatomic, weak) IBOutlet UIBarButtonItem *editButton;
 @property (nonatomic, strong) IBOutletCollection(BaseDetailCell) NSArray *cells;
+@property (nonatomic, strong) IBOutlet UITableViewCell *noteCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell *dateExtCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell *tagsCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell *descCell;
 
 // -- specific properties
 
@@ -334,6 +338,9 @@ typedef enum
                     return [self heightForNoteTextViewWithString:self.noteText.text];
                 }
             }
+            
+            [_noteCell.contentView setTranslatesAutoresizingMaskIntoConstraints:NO];
+            
             return 0;
         }
             
@@ -343,8 +350,9 @@ typedef enum
         
         case DetailCellTypeTimeExt:
         {
-            if (_isDateExtHidden) return 0;
-            return 210;
+            if (!_isDateExtHidden) return 210;
+            [_dateExtCell.contentView setTranslatesAutoresizingMaskIntoConstraints:NO];
+            return 0;
         }
             
         case DetailCellTypeDescription:
@@ -356,6 +364,7 @@ typedef enum
             {
                 return [self heightForNoteTextViewWithString:self.descriptionText.text];
             }
+            [_descCell.contentView setTranslatesAutoresizingMaskIntoConstraints:NO];
             return 0;
         }
             
@@ -365,6 +374,7 @@ typedef enum
                 CGFloat tagHeight = self.tokenField.frame.size.height + 38;
                 return tagHeight;
             }
+            [_tagsCell.contentView setTranslatesAutoresizingMaskIntoConstraints:NO];
             return 0;
         }
             
