@@ -130,17 +130,6 @@ typedef enum
     ZenKeyboard *keyboard = [[ZenKeyboard alloc]initWithFrame:CGRectMake(0, 0, 320, 216)];
     [keyboard setTextField:_numericalValue];
     
-    
-    
-    
-    // commented for now.. to be reused for share and anther actions.
-    // [self initBottomButtonsContainer];
-}
-
--(void) viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
     if (self.event.isDraft) [self updateUIEditMode:YES];
     else
     {
@@ -153,20 +142,34 @@ typedef enum
         self.navigationItem.leftBarButtonItem = btbrowse;
     }
     
-    if (!_datePicker) {
-        _datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 38, 320, 162)];
-        [_dateExtCell.contentView addSubview:_datePicker];
-        NSDate *date = [self.event eventDate];
-        if (date == nil) date = [NSDate date];
-        [_datePicker setDate:date];
-    }
+    
+    // commented for now.. to be reused for share and anther actions.
+    // [self initBottomButtonsContainer];
+}
+
+-(void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
     
     if (!_timePicker) {
         _timePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 38, 320, 162)];
+        [_timePicker addTarget:self action:@selector(timePickerValueChanged:) forControlEvents:UIControlEventValueChanged];
+        [_timePicker setHidden:YES];
+        [_timePicker setDatePickerMode:UIDatePickerModeTime];
         [_dateExtCell.contentView addSubview:_timePicker];
         NSDate *date = [self.event eventDate];
         if (date == nil) date = [NSDate date];
         [_timePicker setDate:date];
+    }
+    
+    if (!_datePicker) {
+        _datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 38, 320, 162)];
+        [_datePicker addTarget:self action:@selector(datePickerValueChanged:) forControlEvents:UIControlEventValueChanged];
+        [_datePicker setDatePickerMode:UIDatePickerModeDate];
+        [_dateExtCell.contentView addSubview:_datePicker];
+        NSDate *date = [self.event eventDate];
+        if (date == nil) date = [NSDate date];
+        [_datePicker setDate:date];
     }
     
 }
@@ -468,7 +471,7 @@ typedef enum
         case DetailCellTypeTime:
         {
             if (_isDateExtHidden) {
-                [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:5 inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+                [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:7 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
             }
             _isDateExtHidden = !_isDateExtHidden;
             [self.tableView beginUpdates];
@@ -528,7 +531,7 @@ typedef enum
     _event.eventContent = _numericalValue.text;
 }
 
--(IBAction)datePickerValueChanged:(id)sender
+-(void)datePickerValueChanged:(id)sender
 {
     self.timeLabel.text = [[NotesAppController sharedInstance].dateFormatter stringFromDate:_datePicker.date];
     [_timePicker setDate:_datePicker.date];
@@ -536,7 +539,7 @@ typedef enum
     self.shouldUpdateEvent=true;
 }
 
--(IBAction)timePickerValueChanged:(id)sender
+-(void)timePickerValueChanged:(id)sender
 {
     self.timeLabel.text = [[NotesAppController sharedInstance].dateFormatter stringFromDate:_timePicker.date];
     [_datePicker setDate:_timePicker.date];

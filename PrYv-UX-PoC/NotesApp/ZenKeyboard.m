@@ -40,10 +40,10 @@
         [self addSubview:[self addNumericKeyWithTitle:@"8" frame:CGRectMake(KEYBOARD_NUMERIC_KEY_WIDTH - 2, KEYBOARD_NUMERIC_KEY_HEIGHT * 2 + 3, KEYBOARD_NUMERIC_KEY_WIDTH , KEYBOARD_NUMERIC_KEY_HEIGHT)]];
         [self addSubview:[self addNumericKeyWithTitle:@"9" frame:CGRectMake(KEYBOARD_NUMERIC_KEY_WIDTH * 2 - 1, KEYBOARD_NUMERIC_KEY_HEIGHT * 2 + 3, KEYBOARD_NUMERIC_KEY_WIDTH, KEYBOARD_NUMERIC_KEY_HEIGHT)]];
 
-        [self addSubview:[self addNumericKeyWithTitle:@"-" frame:CGRectMake(0, KEYBOARD_NUMERIC_KEY_HEIGHT * 3 + 4, KEYBOARD_NUMERIC_KEY_WIDTH2, KEYBOARD_NUMERIC_KEY_HEIGHT)]];
-        [self addSubview:[self addNumericKeyWithTitle:@"0" frame:CGRectMake(KEYBOARD_NUMERIC_KEY_WIDTH2, KEYBOARD_NUMERIC_KEY_HEIGHT * 3 + 4, KEYBOARD_NUMERIC_KEY_WIDTH2, KEYBOARD_NUMERIC_KEY_HEIGHT)]];
-        [self addSubview:[self addNumericKeyWithTitle:@"." frame:CGRectMake(KEYBOARD_NUMERIC_KEY_WIDTH2 * 2, KEYBOARD_NUMERIC_KEY_HEIGHT * 3 + 4, KEYBOARD_NUMERIC_KEY_WIDTH2, KEYBOARD_NUMERIC_KEY_HEIGHT)]];
-        [self addSubview:[self addBackspaceKeyWithFrame:CGRectMake(KEYBOARD_NUMERIC_KEY_WIDTH2 * 3, KEYBOARD_NUMERIC_KEY_HEIGHT * 3 + 4, KEYBOARD_NUMERIC_KEY_WIDTH2, KEYBOARD_NUMERIC_KEY_HEIGHT)]];
+        [self addSubview:[self addNumericKeyWithTitle:@"-" frame:CGRectMake(0, KEYBOARD_NUMERIC_KEY_HEIGHT * 3 + 4, KEYBOARD_NUMERIC_KEY_WIDTH - 3, KEYBOARD_NUMERIC_KEY_HEIGHT)]];
+        [self addSubview:[self addNumericKeyWithTitle:@"0" frame:CGRectMake(KEYBOARD_NUMERIC_KEY_WIDTH - 2, KEYBOARD_NUMERIC_KEY_HEIGHT * 3 + 4, KEYBOARD_NUMERIC_KEY_WIDTH , KEYBOARD_NUMERIC_KEY_HEIGHT)]];
+        [self addSubview:[self addNumericKeyWithTitle:@"." frame:CGRectMake(KEYBOARD_NUMERIC_KEY_WIDTH * 2 - 1, KEYBOARD_NUMERIC_KEY_HEIGHT * 3 + 4, KEYBOARD_NUMERIC_KEY_WIDTH, KEYBOARD_NUMERIC_KEY_HEIGHT)]];
+        //[self addSubview:[self addBackspaceKeyWithFrame:CGRectMake(KEYBOARD_NUMERIC_KEY_WIDTH2 * 3, KEYBOARD_NUMERIC_KEY_HEIGHT * 3 + 4, KEYBOARD_NUMERIC_KEY_WIDTH2, KEYBOARD_NUMERIC_KEY_HEIGHT)]];
         
         //[self addSubview:keyboardShadow];
     }
@@ -102,6 +102,7 @@
     _textField = textField;
     _textField.inputView = self;
     self.textInputDelegate = _textField;
+    
 }
 
 - (void)pressNumericKey:(UIButton *)button {
@@ -129,8 +130,12 @@
             break;
         case 11:
         {
-            if (!_isMinus && [[_textField.text substringToIndex:1] isEqualToString:@"-"])
-                _isMinus = true;
+            if ([_textField.text length] != 0){
+                if([[_textField.text substringToIndex:1] isEqualToString:@"-"])
+                    _isMinus = true;
+                else
+                    _isMinus = false;
+            }
             
             if ([_textField.text length] == 0) {
                 [_textField setText:@"-"];
