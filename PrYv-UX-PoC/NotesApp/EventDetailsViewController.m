@@ -156,12 +156,16 @@ typedef enum
     if (!_datePicker) {
         _datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 38, 320, 162)];
         [_dateExtCell.contentView addSubview:_datePicker];
+        NSDate *date = [self.event eventDate];
+        if (date == nil) date = [NSDate date];
         [_datePicker setDate:date];
     }
     
     if (!_timePicker) {
         _timePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 38, 320, 162)];
         [_dateExtCell.contentView addSubview:_timePicker];
+        NSDate *date = [self.event eventDate];
+        if (date == nil) date = [NSDate date];
         [_timePicker setDate:date];
     }
     
