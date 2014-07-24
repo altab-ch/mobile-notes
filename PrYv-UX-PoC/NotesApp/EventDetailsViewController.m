@@ -83,8 +83,11 @@ typedef enum
 //@property (nonatomic, weak) IBOutlet UIView *tokenContainer;
 @property (nonatomic, weak) IBOutlet UILabel *streamsLabel;
 @property (nonatomic, strong) DetailsBottomButtonsContainer *bottomButtonsContainer;
-@property (nonatomic, weak) IBOutlet UIDatePicker *datePicker;
-@property (nonatomic, weak) IBOutlet UIDatePicker *timePicker;
+//@property (nonatomic, weak) IBOutlet UIDatePicker *datePicker;
+//@property (nonatomic, weak) IBOutlet UIDatePicker *timePicker;
+@property (nonatomic, strong) UIDatePicker *datePicker;
+@property (nonatomic, strong) UIDatePicker *timePicker;
+
 @property (strong, nonatomic) IBOutlet UIButton *deleteButton;
 
 - (BOOL) shouldCreateEvent;
@@ -127,6 +130,17 @@ typedef enum
     ZenKeyboard *keyboard = [[ZenKeyboard alloc]initWithFrame:CGRectMake(0, 0, 320, 216)];
     [keyboard setTextField:_numericalValue];
     
+    
+    
+    
+    // commented for now.. to be reused for share and anther actions.
+    // [self initBottomButtonsContainer];
+}
+
+-(void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
     if (self.event.isDraft) [self updateUIEditMode:YES];
     else
     {
@@ -139,9 +153,18 @@ typedef enum
         self.navigationItem.leftBarButtonItem = btbrowse;
     }
     
+    if (!_datePicker) {
+        _datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 38, 320, 162)];
+        [_dateExtCell.contentView addSubview:_datePicker];
+        [_datePicker setDate:date];
+    }
     
-    // commented for now.. to be reused for share and anther actions.
-    // [self initBottomButtonsContainer];
+    if (!_timePicker) {
+        _timePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 38, 320, 162)];
+        [_dateExtCell.contentView addSubview:_timePicker];
+        [_timePicker setDate:date];
+    }
+    
 }
 
 -(void) initBtDelete
@@ -211,8 +234,9 @@ typedef enum
     if (date == nil) date = [NSDate date];
     self.timeLabel.text = [[NotesAppController sharedInstance].dateFormatter stringFromDate:date];
     
-    [_datePicker setDate:date];
-    [_timePicker setDate:date];
+    if (_datePicker) [_datePicker setDate:date];
+    
+    if (_timePicker) [_timePicker setDate:date];
     
     
     self.streamsLabel.text = [self.event eventBreadcrumbs];
