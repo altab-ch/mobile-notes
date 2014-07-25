@@ -11,6 +11,9 @@
 #import "DataService.h"
 #import "LRUManager.h"
 #import "XMMDrawerController.h"
+#import "InboardingViewController.h"
+
+#define FIRST_LAUNCH @"First_launch_date"
 
 @interface ViewController ()
 
@@ -120,6 +123,8 @@
 
 - (BOOL)pyWebLoginShowUIViewController:(UIViewController*)loginViewController
 {
+    
+    
     if (self.drawerController)
         [self.drawerController dismissViewControllerAnimated:YES completion:^{
             self.drawerController = nil;
@@ -128,10 +133,19 @@
         }];
     else{
         self.pyLoginViewController = loginViewController;
-        [self presentViewController:loginViewController animated:YES completion:nil];
+        [self presentViewController:loginViewController animated:YES completion:^{[self displayTutorial];}];
     }
     
     return YES;
+}
+
+-(void)displayTutorial
+{
+    if (![[NSUserDefaults standardUserDefaults] objectForKey:FIRST_LAUNCH]) {
+        [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:FIRST_LAUNCH];
+        InboardingViewController *tuto = [InboardingViewController sharedInstance];
+        [(UINavigationController*)_pyLoginViewController pushViewController:tuto animated:YES];
+    }
 }
 
 - (void)pyWebLoginSuccess:(PYConnection *)pyConnection

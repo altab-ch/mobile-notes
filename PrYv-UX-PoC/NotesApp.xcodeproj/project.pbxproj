@@ -50,6 +50,7 @@
 		2934FB9D197D601500407D2B /* icon_back.png in Resources */ = {isa = PBXBuildFile; fileRef = 2934FB9B197D601500407D2B /* icon_back.png */; };
 		2934FB9E197D601500407D2B /* icon_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2934FB9C197D601500407D2B /* icon_back@2x.png */; };
 		2934FBA0197E67EA00407D2B /* KeyboardNumericEntryKeyBackspaceGlyphTextured@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2934FB9F197E67EA00407D2B /* KeyboardNumericEntryKeyBackspaceGlyphTextured@2x.png */; };
+		2934FBB819829A8000407D2B /* InboardingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2934FBB719829A8000407D2B /* InboardingViewController.m */; };
 		29FF5D7C196ED0B60002D124 /* UnitPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29FF5D7B196ED0B60002D124 /* UnitPickerViewController.m */; };
 		4E0900FD185763DF00A2F044 /* AddNumericalValueCellFormat.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E0900FC185763DF00A2F044 /* AddNumericalValueCellFormat.xib */; };
 		4E0901071857640400A2F044 /* AddNumericalValueCellFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0901061857640400A2F044 /* AddNumericalValueCellFormat.m */; };
@@ -407,6 +408,8 @@
 		2934FB9B197D601500407D2B /* icon_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_back.png; sourceTree = "<group>"; };
 		2934FB9C197D601500407D2B /* icon_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_back@2x.png"; sourceTree = "<group>"; };
 		2934FB9F197E67EA00407D2B /* KeyboardNumericEntryKeyBackspaceGlyphTextured@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "KeyboardNumericEntryKeyBackspaceGlyphTextured@2x.png"; sourceTree = "<group>"; };
+		2934FBB619829A8000407D2B /* InboardingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InboardingViewController.h; sourceTree = "<group>"; };
+		2934FBB719829A8000407D2B /* InboardingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InboardingViewController.m; sourceTree = "<group>"; };
 		29FF5D7A196ED0B60002D124 /* UnitPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitPickerViewController.h; sourceTree = "<group>"; };
 		29FF5D7B196ED0B60002D124 /* UnitPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitPickerViewController.m; sourceTree = "<group>"; };
 		4E0900FC185763DF00A2F044 /* AddNumericalValueCellFormat.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddNumericalValueCellFormat.xib; sourceTree = "<group>"; };
@@ -879,6 +882,15 @@
 				292ACD661972A3A800036084 /* AddEventButton.m */,
 			);
 			name = Button;
+			sourceTree = "<group>";
+		};
+		2934FBAA19829A5400407D2B /* Inboarding */ = {
+			isa = PBXGroup;
+			children = (
+				2934FBB619829A8000407D2B /* InboardingViewController.h */,
+				2934FBB719829A8000407D2B /* InboardingViewController.m */,
+			);
+			name = Inboarding;
 			sourceTree = "<group>";
 		};
 		4E3784D217953BBD00ED94DF /* Pods */ = {
@@ -1671,6 +1683,7 @@
 		B6F9A2491729BF55009C8BAA /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				2934FBAA19829A5400407D2B /* Inboarding */,
 				291ED15619128561009A9B3D /* SideMenu */,
 				B6B58FBF178B5F1B0009E413 /* BaseViewController */,
 				B61AE1DF188DD80E004385D6 /* Photo */,
@@ -2259,6 +2272,7 @@
 				B69940371899C45A00D88127 /* DetailsBottomButtonsContainer.m in Sources */,
 				B6993FD21891C07700D88127 /* BaseDetailCell.m in Sources */,
 				4E3E4905194B2C5F00F238C1 /* XMMDrawerController.m in Sources */,
+				2934FBB819829A8000407D2B /* InboardingViewController.m in Sources */,
 				B62BF07218D62D1A007BD68E /* LoadingCell.m in Sources */,
 				B61AE1E2188DD845004385D6 /* PhotoNoteViewController.m in Sources */,
 				B626A3B618610F8A00AD9AA6 /* NSString+Utils.m in Sources */,
