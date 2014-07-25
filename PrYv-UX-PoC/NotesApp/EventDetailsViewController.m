@@ -436,10 +436,11 @@ typedef enum
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.view endEditing:YES];
+    DetailCellType cellType = indexPath.row;
+    if (cellType != DetailCellTypeNote && cellType != DetailCellTypeDescription && cellType != DetailCellTypeTags && cellType != DetailCellTypeValue){[self.view endEditing:YES];}
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    DetailCellType cellType = indexPath.row;
+    
     if (cellType != DetailCellTypeTime && !_isDateExtHidden){
         _isDateExtHidden = true;
         [self.tableView beginUpdates];
