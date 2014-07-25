@@ -14,6 +14,7 @@
 #import "MMDrawerController.h"
 #import "MenuNavController.h"
 #import "BrowseEventsViewController.h"
+#import "InboardingViewController.h"
 
 #define Stream_Menu_Default @"stream_menu_default"
 
@@ -115,6 +116,11 @@
     if([self.logoutCell isEqual:[self tableView:tableView cellForRowAtIndexPath:indexPath]])
     {
         [self loginOrLogoutUser];
+    }
+    
+    if (indexPath.section == 4) {
+        InboardingViewController *tuto = [InboardingViewController sharedInstance];
+        [self.navigationController pushViewController:tuto animated:YES];
     }
 }
 

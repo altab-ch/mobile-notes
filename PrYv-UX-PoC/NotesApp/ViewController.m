@@ -13,7 +13,7 @@
 #import "XMMDrawerController.h"
 #import "InboardingViewController.h"
 
-#define FIRST_LAUNCH @"First_launch"
+#define FIRST_LAUNCH @"First_launch2233322"
 
 @interface ViewController ()
 
@@ -54,12 +54,7 @@
 
 - (void)initSignIn
 {
-    if (![[NSUserDefaults standardUserDefaults] objectForKey:FIRST_LAUNCH]) {
-        [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:FIRST_LAUNCH];
-        InboardingViewController *tuto = [InboardingViewController sharedInstance];
-        [tuto.webView ]
-    }
-    else if(![[NotesAppController sharedInstance] connection])
+    if(![[NotesAppController sharedInstance] connection])
     {
         NSArray *permissions = @[ @{ kPYAPIConnectionRequestStreamId : kPYAPIConnectionRequestAllStreams ,
                                    kPYAPIConnectionRequestLevel: kPYAPIConnectionRequestManageLevel}];
@@ -128,6 +123,8 @@
 
 - (BOOL)pyWebLoginShowUIViewController:(UIViewController*)loginViewController
 {
+    
+    
     if (self.drawerController)
         [self.drawerController dismissViewControllerAnimated:YES completion:^{
             self.drawerController = nil;
@@ -136,10 +133,19 @@
         }];
     else{
         self.pyLoginViewController = loginViewController;
-        [self presentViewController:loginViewController animated:YES completion:nil];
+        [self presentViewController:loginViewController animated:YES completion:^{[self displayTutorial];}];
     }
     
     return YES;
+}
+
+-(void)displayTutorial
+{
+    if (![[NSUserDefaults standardUserDefaults] objectForKey:FIRST_LAUNCH]) {
+        [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:FIRST_LAUNCH];
+        InboardingViewController *tuto = [InboardingViewController sharedInstance];
+        [(UINavigationController*)_pyLoginViewController pushViewController:tuto animated:YES];
+    }
 }
 
 - (void)pyWebLoginSuccess:(PYConnection *)pyConnection

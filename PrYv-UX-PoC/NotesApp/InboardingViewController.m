@@ -27,6 +27,10 @@
     self = [super init];
     if(self){
         _webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
+        NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"welcome" ofType:@"html"];
+        NSString* htmlString = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil];
+        [_webView loadHTMLString:htmlString baseURL:nil];
+        [self.view addSubview:_webView];
     }
     return self;
 }
@@ -44,6 +48,22 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc]
+                                   initWithTitle: NSLocalizedString(@"Done", nil)
+                                   style: UIBarButtonItemStyleBordered
+                                   target:self action: @selector(btDoneTouched)];
+    [self.navigationItem setLeftBarButtonItem:doneButton];
+}
+
+-(void) btDoneTouched
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(void) viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [_webView reload];
 }
 
 - (void)didReceiveMemoryWarning
