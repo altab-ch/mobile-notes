@@ -79,12 +79,8 @@ typedef enum
 
 @property (nonatomic, weak) IBOutlet UIView *pastille;
 @property (nonatomic, weak) IBOutlet JSTokenField *tokenField;
-//@property (nonatomic, weak) IBOutlet UIButton *tokendDoneButton;
-//@property (nonatomic, weak) IBOutlet UIView *tokenContainer;
 @property (nonatomic, weak) IBOutlet UILabel *streamsLabel;
 @property (nonatomic, strong) DetailsBottomButtonsContainer *bottomButtonsContainer;
-//@property (nonatomic, weak) IBOutlet UIDatePicker *datePicker;
-//@property (nonatomic, weak) IBOutlet UIDatePicker *timePicker;
 @property (nonatomic, strong) UIDatePicker *datePicker;
 @property (nonatomic, strong) UIDatePicker *timePicker;
 
@@ -463,8 +459,17 @@ typedef enum
     
     switch (cellType) {
         case DetailCellTypeValue:
-            
+        {
+            [_numericalValue becomeFirstResponder];
+        }
             break;
+            
+        case DetailCellTypeNote:
+        {
+            [_noteText becomeFirstResponder];
+        }
+            break;
+            
         case DetailCellTypeImage:
             
             break;
@@ -479,9 +484,14 @@ typedef enum
         }
             break;
         case DetailCellTypeDescription:
+        {
+            [_descriptionText becomeFirstResponder];
+        }
             break;
         case DetailCellTypeTags:
-            
+        {
+            [_tokenField.textField becomeFirstResponder];
+        }
             break;
         case DetailCellTypeStreams:
         {
@@ -889,28 +899,11 @@ typedef enum
     NSLog(@"SHARE EVENT");
 }
 
-
-#pragma mark - Tags
-
-- (IBAction)tokenDoneButtonTouched:(id)sender
-{
-    [self.tokenField.textField resignFirstResponder];
-    [self.tokenField updateTokensInTextField:self.tokenField.textField];
-    NSMutableArray *tokens = [NSMutableArray array];
-    for(JSTokenButton *token in self.tokenField.tokens)
-    {
-        [tokens addObject:[token representedObject]];
-    }
-    self.event.tags = tokens;
-    self.shouldUpdateEvent = YES;
-}
-
 #pragma mark - JSTOkenFieldDelegate methods
 
 - (BOOL)tokenFieldShouldReturn:(JSTokenField *)tokenField
 {
     [tokenField updateTokensInTextField:tokenField.textField];
-    //[self updateTagsLabel];
     return NO;
 }
 
