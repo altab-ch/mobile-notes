@@ -13,7 +13,7 @@
 #import "XMMDrawerController.h"
 #import "InboardingViewController.h"
 
-#define FIRST_LAUNCH @"First_launch2233322"
+#define FIRST_LAUNCH @"First_launch_date"
 
 @interface ViewController ()
 
