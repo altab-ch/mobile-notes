@@ -151,7 +151,6 @@ BOOL displayNonStandardEvents;
     }else{
         [menuNavController initStreams];
         [menuNavController reload];
-        
     }
 }
 
@@ -604,6 +603,8 @@ BOOL displayNonStandardEvents;
 
 - (void)drawerDidCloseNotification:(NSNotification *)notification
 {
+    MenuNavController* menuNavController = (MenuNavController*)[self.mm_drawerController leftDrawerViewController];
+    [menuNavController resetMenu];
     [self loadData];
 }
 

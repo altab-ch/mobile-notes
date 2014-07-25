@@ -32,32 +32,32 @@
 
 -(void) resetMenu{
     [self popToRootViewControllerAnimated:YES];
-    MenuTableViewController* child = (MenuTableViewController*)[self topViewController];
+    MenuTableViewController* child = (MenuTableViewController*)[self getTableViewController];
     [child resetMenu];
 }
 
 -(void) initStreams
 {
-    MenuTableViewController* child = (MenuTableViewController*)[self topViewController];
+    MenuTableViewController* child = (MenuTableViewController*)[self getTableViewController];
     [child initStreams];
 }
 
 -(NSArray*) getMenuStreams
 {
-    MenuTableViewController* child = (MenuTableViewController*)[self topViewController];
+    MenuTableViewController* child = (MenuTableViewController*)[self getTableViewController];
     if (child.getStreamIDs.count == 0) return nil;
     return [child getStreamIDs];
 }
 
 - (NSDate*) getDate
 {
-    MenuTableViewController* child = (MenuTableViewController*)[self topViewController];
+    MenuTableViewController* child = (MenuTableViewController*)[self getTableViewController];
     return [child getDate];
 }
 
 - (void) reload
 {
-    MenuTableViewController* child = (MenuTableViewController*)[self topViewController];
+    MenuTableViewController* child = (MenuTableViewController*)[self getTableViewController];
     [child reload];
 }
 
@@ -66,6 +66,17 @@
     //MenuTableViewController* child = (MenuTableViewController*)[self topViewController];
     //[child addStream:streamName];
 }
+
+-(MenuTableViewController*)getTableViewController
+{
+    for (UIViewController* vc in self.childViewControllers) {
+        if ([vc isKindOfClass:[MenuTableViewController class]]) {
+            return (MenuTableViewController*)vc;
+        }
+    }
+    return nil;
+}
+
 
 - (void)didReceiveMemoryWarning
 {
