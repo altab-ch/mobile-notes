@@ -11,6 +11,9 @@
 #import "DataService.h"
 #import "LRUManager.h"
 #import "XMMDrawerController.h"
+#import "InboardingViewController.h"
+
+#define FIRST_LAUNCH @"First_launch"
 
 @interface ViewController ()
 
@@ -51,7 +54,12 @@
 
 - (void)initSignIn
 {
-    if(![[NotesAppController sharedInstance] connection])
+    if (![[NSUserDefaults standardUserDefaults] objectForKey:FIRST_LAUNCH]) {
+        [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:FIRST_LAUNCH];
+        InboardingViewController *tuto = [InboardingViewController sharedInstance];
+        [tuto.webView ]
+    }
+    else if(![[NotesAppController sharedInstance] connection])
     {
         NSArray *permissions = @[ @{ kPYAPIConnectionRequestStreamId : kPYAPIConnectionRequestAllStreams ,
                                    kPYAPIConnectionRequestLevel: kPYAPIConnectionRequestManageLevel}];
