@@ -57,10 +57,7 @@
     if(![[NotesAppController sharedInstance] connection])
     {
         NSArray *permissions = @[ @{ kPYAPIConnectionRequestStreamId : kPYAPIConnectionRequestAllStreams ,
-                                   kPYAPIConnectionRequestLevel: kPYAPIConnectionRequestManageLevel},
-                                  @{ kPYAPIConnectionRequestStreamId : @"diary" ,
-                                     kPYAPIConnectionRequestDefaultStreamName: NSLocalizedString(@"DefaultDiaryStreamName", nil),
-                                     kPYAPIConnectionRequestLevel: kPYAPIConnectionRequestManageLevel}
+                                   kPYAPIConnectionRequestLevel: kPYAPIConnectionRequestManageLevel}
                                   
                                   
                                   ];
