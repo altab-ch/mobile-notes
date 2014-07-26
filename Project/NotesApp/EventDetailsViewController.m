@@ -9,6 +9,8 @@
 #import "BaseDetailCell.h"
 #import "PYEvent+Helper.h"
 #import "PYStream+Helper.h"
+#import "PYStream+Utils.h"
+#import "PYConnection.h"
 #import <PryvApiKit/PYEvent.h>
 #import <PryvApiKit/PYEventType.h>
 #import "AddNumericalValueViewController.h"
@@ -55,6 +57,7 @@ typedef enum
 @property (nonatomic, strong) NSDictionary *initialEventValue;
 @property (nonatomic) BOOL isDateExtHidden;
 @property (nonatomic) BOOL isInitialDraft;
+@property (nonatomic) BOOL autoSetDiaryStream;
 @property (nonatomic) BOOL isInEditMode;
 @property (nonatomic) BOOL shouldUpdateEvent;
 @property (nonatomic, strong) StreamPickerViewController *streamPickerVC;
@@ -178,38 +181,38 @@ typedef enum
 }
 
 /*- (void)initBottomButtonsContainer
-{
-    __block EventDetailsViewController *weakSelf = self;
-    self.bottomButtonsContainer = [[[UINib nibWithNibName:@"DetailsBottomButtonsContainer" bundle:[NSBundle mainBundle]] instantiateWithOwner:nil options:nil] objectAtIndex:0];
-    [self.bottomButtonsContainer setShareButtonTouchHandler:^(UIButton *shareButton) {
-        [weakSelf shareEvent];
-    }];
-    [self.bottomButtonsContainer setDeleteButtonTouchHandler:^(UIButton *deleteButton) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Alert.Message.DeleteConfirmation", nil) message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"NO", nil) otherButtonTitles:NSLocalizedString(@"YES", nil), nil];
-        [alertView showWithCompletionBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-            if(alertView.cancelButtonIndex != buttonIndex)
-            {
-                [weakSelf deleteEvent];
-            }
-        }];
-    }];
-    CGRect frame = self.bottomButtonsContainer.frame;
-    frame.origin.y = self.tableView.frame.size.height - 64 - self.bottomButtonsContainer.frame.size.height;
-    if(![UIDevice isiOS7Device])
-    {
-        frame.origin.y+=20;
-    }
-    self.bottomButtonsContainer.frame = frame;
-    [self.view addSubview:self.bottomButtonsContainer];
-    [self.view bringSubviewToFront:self.bottomButtonsContainer];
-}*/
+ {
+ __block EventDetailsViewController *weakSelf = self;
+ self.bottomButtonsContainer = [[[UINib nibWithNibName:@"DetailsBottomButtonsContainer" bundle:[NSBundle mainBundle]] instantiateWithOwner:nil options:nil] objectAtIndex:0];
+ [self.bottomButtonsContainer setShareButtonTouchHandler:^(UIButton *shareButton) {
+ [weakSelf shareEvent];
+ }];
+ [self.bottomButtonsContainer setDeleteButtonTouchHandler:^(UIButton *deleteButton) {
+ UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Alert.Message.DeleteConfirmation", nil) message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"NO", nil) otherButtonTitles:NSLocalizedString(@"YES", nil), nil];
+ [alertView showWithCompletionBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+ if(alertView.cancelButtonIndex != buttonIndex)
+ {
+ [weakSelf deleteEvent];
+ }
+ }];
+ }];
+ CGRect frame = self.bottomButtonsContainer.frame;
+ frame.origin.y = self.tableView.frame.size.height - 64 - self.bottomButtonsContainer.frame.size.height;
+ if(![UIDevice isiOS7Device])
+ {
+ frame.origin.y+=20;
+ }
+ self.bottomButtonsContainer.frame = frame;
+ [self.view addSubview:self.bottomButtonsContainer];
+ [self.view bringSubviewToFront:self.bottomButtonsContainer];
+ }*/
 
 /*- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    CGRect frame = self.bottomButtonsContainer.frame;
-    frame.origin.y = scrollView.contentOffset.y + self.tableView.frame.size.height - self.bottomButtonsContainer.frame.size.height;
-    self.bottomButtonsContainer.frame = frame;
-    [self.view bringSubviewToFront:self.bottomButtonsContainer];
-}*/
+ CGRect frame = self.bottomButtonsContainer.frame;
+ frame.origin.y = scrollView.contentOffset.y + self.tableView.frame.size.height - self.bottomButtonsContainer.frame.size.height;
+ self.bottomButtonsContainer.frame = frame;
+ [self.view bringSubviewToFront:self.bottomButtonsContainer];
+ }*/
 
 #pragma mark - UI update
 
@@ -220,11 +223,11 @@ typedef enum
         case EventDataTypeImage:
             [self updateUIForEventImageType];
             break;
-        
+            
         case EventDataTypeValueMeasure:
             [self updateUIForValueEventType];
             break;
-        
+            
         case EventDataTypeNote:
             [self updateUIForNoteEventType];
             break;
@@ -241,8 +244,27 @@ typedef enum
     
     if (_timePicker) [_timePicker setDate:date];
     
+    // Auto Set diary stream
+    if (! self.autoSetDiaryStream) { // already in autSetMode, happend when open StreamPicker then cancel
+        self.autoSetDiaryStream = NO;
+        if (! _event.connection) {
+            _event.connection = [NotesAppController sharedInstance].connection;
+        }
+        if (! _event.stream && [NotesAppController sharedInstance].connection) {
+            PYStream* found = [PYStream findStreamMatchingId:@"diary"
+                                                     orNames:@[@"Journal", @"Diary", @"Me"]
+                                                      onList:_event.connection.fetchedStreamsRoots];
+            if (found) {
+                _event.streamId = found.streamId;
+                self.autoSetDiaryStream = YES;
+            }
+        }
+    }
     
     self.streamsLabel.text = [self.event eventBreadcrumbs];
+    
+    
+    
     if (_event.stream) [self.pastille setBackgroundColor:[[self.event stream] getColor]];
     
     self.descriptionText.text = self.event.eventDescription;
@@ -262,6 +284,9 @@ typedef enum
     
     [self.tableView reloadData];
 }
+
+
+
 
 - (void)updateUIForEventImageType
 {
@@ -377,7 +402,7 @@ typedef enum
             
         case DetailCellTypeTime:
             return kDateCellHeight;
-        
+            
         case DetailCellTypeTimeExt:
         {
             if (!_isDateExtHidden)
@@ -448,8 +473,8 @@ typedef enum
     }
     if (cellType == DetailCellTypeImage) {
         /*ImageViewController *imagePreview = [[ImageViewController alloc] initWithNibName:@"ImageViewController" bundle:nil];
-        imagePreview.image = self.picture_ImageView.image;
-        [self.navigationController pushViewController:imagePreview animated:YES];*/
+         imagePreview.image = self.picture_ImageView.image;
+         [self.navigationController pushViewController:imagePreview animated:YES];*/
         return;
     }
     
@@ -508,7 +533,7 @@ typedef enum
             }
         }
             break;
-        
+            
         case DetailCellTypeDelete:
             break;
         default:
@@ -660,9 +685,9 @@ typedef enum
     [_descriptionText setEditable:NO];
     
     /*if([self.descriptionText.text isEqualToString:NSLocalizedString(@"ViewController.TextDescriptionContent.TapToAdd", nil)])
-    {
-        self.descriptionText.text = @"";
-    }*/
+     {
+     self.descriptionText.text = @"";
+     }*/
     if(self.streamPickerVC)
     {
         [self closeStreamPicker];
@@ -706,10 +731,10 @@ typedef enum
     
     
     /*if([self.descriptionText.text length] == 0)
-    {
-        self.descriptionText.text = NSLocalizedString(@"ViewController.TextDescriptionContent.TapToAdd", nil);
-        
-    }*/
+     {
+     self.descriptionText.text = NSLocalizedString(@"ViewController.TextDescriptionContent.TapToAdd", nil);
+     
+     }*/
     
     [self.tokenField setUserInteractionEnabled:YES];
     //[self switchBtSelectionMode:UITableViewCellSelectionStyleBlue];
@@ -751,7 +776,11 @@ typedef enum
 
 - (void)setupStreamPickerViewController:(StreamPickerViewController*)streamPickerVC
 {
-    streamPickerVC.stream = [self.event stream];
+    if (self.autoSetDiaryStream) {
+        streamPickerVC.stream = nil;
+    } else {
+        streamPickerVC.stream = [self.event stream];
+    }
     streamPickerVC.delegate = self;
     self.streamPickerVC = streamPickerVC;
     [self.navigationController presentViewController:streamPickerVC animated:YES completion:nil];
@@ -769,6 +798,7 @@ typedef enum
 
 - (void)streamPickerDidSelectStream:(PYStream *)stream
 {
+    self.autoSetDiaryStream = NO;
     if (self.event.connection == nil) {
         self.event.connection = stream.connection;
     }
@@ -800,12 +830,12 @@ typedef enum
 {
     NSDictionary *attributes = @{NSFontAttributeName: self.noteText.font};
     CGRect rect = [s boundingRectWithSize:CGSizeMake(kNoteTextViewWidth-10, CGFLOAT_MAX)
-                                              options:NSStringDrawingUsesLineFragmentOrigin
-                                           attributes:attributes
-                                              context:nil];
+                                  options:NSStringDrawingUsesLineFragmentOrigin
+                               attributes:attributes
+                                  context:nil];
     if ([s characterAtIndex:s.length-1]=='\n')
         rect.size.height += 20;
-
+    
     NSLog(@"%f", rect.size.height);
     return rect.size.height+56 ;
 }
@@ -865,7 +895,7 @@ typedef enum
              [self hideLoadingOverlay];
          } errorHandler:^(NSError *error) {
              UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
-              [alert show];
+             [alert show];
              [self cancelButtonTouched:nil];
              [self hideLoadingOverlay];
          }];
@@ -972,8 +1002,8 @@ typedef enum
     //[self.tokendDoneButton setHidden:NO];
     //[self.view setNeedsLayout];
     /*[UIView animateWithDuration:0.25 animations:^{
-        [self.view layoutIfNeeded];
-    }];*/
+     [self.view layoutIfNeeded];
+     }];*/
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification
@@ -996,11 +1026,11 @@ typedef enum
     //[self.tokendDoneButton setHidden:YES];
     //[self.tableView reloadData];
     /*[self.view setNeedsLayout];
-    [UIView animateWithDuration:0.25 animations:^{
-        [self.view layoutIfNeeded];
-    } completion:^(BOOL finished) {
+     [UIView animateWithDuration:0.25 animations:^{
+     [self.view layoutIfNeeded];
+     } completion:^(BOOL finished) {
      
-    }];*/
+     }];*/
 }
 
 @end

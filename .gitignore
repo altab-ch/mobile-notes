@@ -15,8 +15,8 @@ build/*
 xcuserdata
 profile
 *.moved-aside
-PrYv-UX-PoC/Pods/*
-PrYv-UX-PoC/Podfile.lock
-PrYv-UX-PoC/build/*
-PrYv-UX-PoC/NotesApp/Constants/AppConstantsPrivate.m
+Project/Pods/*
+Project/Podfile.lock
+Project/build/*
+Project/NotesApp/Constants/AppConstantsPrivate.m
 

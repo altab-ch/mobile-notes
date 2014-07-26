@@ -8,6 +8,7 @@
 
 #import "NotesAppController.h"
 #import <PryvApiKit/PryvApiKit.h>
+#import "PYStream+Utils.h"
 #import "DataService.h"
 #import "SSKeychain.h"
 #import "SettingsController.h"
@@ -32,7 +33,7 @@ NSString *const kBrowserShouldScrollToEvent = @"kBrowserShouldScrollToEvent";
 - (void)loadSavedConnection;
 - (void)saveConnection:(PYConnection*)connection;
 - (void)removeConnection:(PYConnection*)connection;
-
+- (void)setupConnection:(PYConnection*)connection;
 
 @end
 
@@ -79,6 +80,7 @@ NSString *const kBrowserShouldScrollToEvent = @"kBrowserShouldScrollToEvent";
         [self removeConnection:_connection];
         _connection = connection;
         [self saveConnection:connection];
+        [self setupConnection:connection];
     }
     if(_connection)
     {
@@ -144,6 +146,30 @@ NSString *const kBrowserShouldScrollToEvent = @"kBrowserShouldScrollToEvent";
         [_dateFormatter setDoesRelativeDateFormatting:YES];
     }
     return _dateFormatter;
+}
+
+- (void)setupConnection:(PYConnection*)connection {
+    [connection streamsEnsureFetched:^(NSError *error) {
+        if (error) {
+            NSLog(@"<FAIL> fetching stream at streamSetup");
+            return;
+        }
+        PYStream* found = [PYStream findStreamMatchingId:@"diary"
+                                                 orNames:@[@"Journal", @"Diary", @"Me"]
+                                                  onList:connection.fetchedStreamsRoots];
+        if (found) {
+            NSLog(@"<INFO> Default diary stream id:%@ with name:%@ found", found.streamId, found.name);
+            return;
+        }
+        PYStream* newDiary = [[PYStream alloc] init];
+        newDiary.name = NSLocalizedString(@"DefaultDiaryStreamName", nil);
+        newDiary.streamId = @"diary";
+        [connection streamCreate:newDiary successHandler:^(NSString *createdStreamId) {
+            NSLog(@"<INFO> CREATED default diary stream id:%@ with name:%@", newDiary.streamId, newDiary.name);
+        } errorHandler:^(NSError *error) {
+            NSLog(@"<FAIL> creating default diary stream");
+        }];
+    }];
 }
 
 @end
