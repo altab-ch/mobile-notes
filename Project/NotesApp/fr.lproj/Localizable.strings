@@ -1,5 +1,7 @@
 "MeasurementSetLocalizedKey" = "fr";
 
+"DefaultDiaryStreamName" = "Journal";
+
 "Alert.Message.DeleteConfirmation" = "Effacer?";
 "Alert.Message.CancelConfirmation" = "Annuler?";
 "Alert.Message.PhotoSource" = "Choisir une source";

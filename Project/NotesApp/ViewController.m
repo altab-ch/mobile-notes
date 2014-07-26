@@ -57,7 +57,13 @@
     if(![[NotesAppController sharedInstance] connection])
     {
         NSArray *permissions = @[ @{ kPYAPIConnectionRequestStreamId : kPYAPIConnectionRequestAllStreams ,
-                                   kPYAPIConnectionRequestLevel: kPYAPIConnectionRequestManageLevel}];
+                                   kPYAPIConnectionRequestLevel: kPYAPIConnectionRequestManageLevel},
+                                  @{ kPYAPIConnectionRequestStreamId : @"diary" ,
+                                     kPYAPIConnectionRequestDefaultStreamName: NSLocalizedString(@"DefaultDiaryStreamName", nil),
+                                     kPYAPIConnectionRequestLevel: kPYAPIConnectionRequestManageLevel}
+                                  
+                                  
+                                  ];
         
         [PYWebLoginViewController requestConnectionWithAppId:@"pryv-ios-app"
                                               andPermissions:permissions
