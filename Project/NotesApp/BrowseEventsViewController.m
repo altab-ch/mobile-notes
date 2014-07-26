@@ -16,6 +16,7 @@
 #import "LRUManager.h"
 #import "UserHistoryEntry.h"
 #import "PYEvent+Helper.h"
+#import "PYCachingController.h"
 #import "UIImage+PrYv.h"
 #import "PYStream+Helper.h"
 #import "MNMPullToRefreshManager.h"
@@ -98,6 +99,8 @@ static NSString *browseCellIdentifier = @"BrowseEventsCell_ID";
 
 @property (nonatomic) NSTimeInterval *lastTimeFocus;
 
+@property (nonatomic) BOOL actualySetupingFilter;
+
 @property (nonatomic) AggregationStep aggregationStep;
 
 - (void)loadData;
@@ -108,6 +111,7 @@ static NSString *browseCellIdentifier = @"BrowseEventsCell_ID";
 - (void)refreshFilter;
 - (void)unsetFilter;
 - (MMDrawerController*)mm_drawerController;
+- (void)noEventCheck;
 
 @end
 
@@ -231,6 +235,7 @@ BOOL displayNonStandardEvents;
     [typeFilter addObjectsFromArray:[[PYEventTypes sharedInstance] classesFilterWithNumericalValues]];
     
     if (self.filter == nil) {
+        self.actualySetupingFilter = YES;
         [self clearCurrentData];
         
         [NotesAppController sharedConnectionWithID:nil noConnectionCompletionBlock:^{
@@ -250,7 +255,11 @@ BOOL displayNonStandardEvents;
                                                          name:kPYNotificationEvents object:self.filter];
             
             // get filter's data now ..
-            [self.filter update];
+            
+            [self.filter update:^(NSError *error) {
+                self.actualySetupingFilter = NO;
+                [self noEventCheck];
+            }];
             //[self.tableView reloadData];
         }];
         
@@ -266,6 +275,7 @@ BOOL displayNonStandardEvents;
         [[NotesAppController sharedInstance].connection updateCache:nil];
     }
 }
+
 
 -(NSTimeInterval) fromTime
 {
@@ -366,14 +376,36 @@ BOOL displayNonStandardEvents;
         events = [self.filter currentEventsSet];
     }
     
+    [self noEventCheck];
+    if (events == nil || [events count] == 0) return;
     
-    if (events == nil) return;
     
     // go thru all events and set one section per date
     for (PYEvent* event in events) {
         if ([self clientFilterMatchEvent:event]) {
             [self addToSectionMapEvent:event];
         }
+    }
+}
+
+/** called after each rebuild of end of initial refreshFilter**/
+- (void)noEventCheck {
+    if (self.view.window != nil) {
+    if (self.sectionsMap == nil || [self.sectionsMap count] == 0) { // if there is no event to display...
+        if (self.actualySetupingFilter || ! [NotesAppController sharedInstance].connection) {
+            return;
+        }
+        // case 1 .. no event at all--- pop Add content
+        if (! [[[NotesAppController sharedInstance].connection.cache allEventsDictionary] count]) {
+            NSLog(@"... should show add event");
+        } else {
+            NSLog(@"... should select filter");
+        }
+        return;
+    }
+        NSLog(@"... got events");
+    } else {
+        NSLog(@"... not visible");
     }
 }
 
