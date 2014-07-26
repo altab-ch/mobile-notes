@@ -167,7 +167,7 @@ NSString *const kBrowserShouldScrollToEvent = @"kBrowserShouldScrollToEvent";
         [connection streamCreate:newDiary successHandler:^(NSString *createdStreamId) {
             NSLog(@"<INFO> CREATED default diary stream id:%@ with name:%@", newDiary.streamId, newDiary.name);
         } errorHandler:^(NSError *error) {
-             NSLog(@"<FAIL> creating default diary stream");
+            NSLog(@"<FAIL> creating default diary stream");
         }];
     }];
 }
