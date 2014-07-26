@@ -13,7 +13,7 @@
 #import "XMMDrawerController.h"
 #import "InboardingViewController.h"
 
-#define FIRST_LAUNCH @"First_launch_date"
+#define FIRST_LAUNCH @"First_launch_date222222"
 
 @interface ViewController ()
 
@@ -144,6 +144,7 @@
     if (![[NSUserDefaults standardUserDefaults] objectForKey:FIRST_LAUNCH]) {
         [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:FIRST_LAUNCH];
         InboardingViewController *tuto = [InboardingViewController sharedInstance];
+        //[tuto setBtBackLocalTag:@"inboarding.back"];
         [(UINavigationController*)_pyLoginViewController pushViewController:tuto animated:YES];
     }
 }

@@ -11,6 +11,7 @@
 @interface InboardingViewController : UIViewController
 
 @property(nonatomic, strong) UIWebView *webView;
+@property(nonatomic, strong) NSString *btBackLocalTag;
 
 + (id)sharedInstance;
 

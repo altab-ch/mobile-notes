@@ -24,6 +24,8 @@
 "Done" = "OK";
 "Edit" = "Modifier";
 
+"inboarding.back" = "Démarrer";
+
 "UnitPicker.Next" = "Suivant";
 "UnitPicker.Select" = "Sélectionner une unité";
 "UnitPicker.Manage" = "Ajouter des unités";

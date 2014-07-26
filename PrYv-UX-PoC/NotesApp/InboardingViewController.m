@@ -47,9 +47,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    NSLog(@"%@", _btBackLocalTag);
     // Do any additional setup after loading the view.
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc]
-                                   initWithTitle: NSLocalizedString(@"Done", nil)
+                                   initWithTitle: NSLocalizedString(@"inboarding.back", nil)
                                    style: UIBarButtonItemStyleBordered
                                    target:self action: @selector(btDoneTouched)];
     [self.navigationItem setLeftBarButtonItem:doneButton];
