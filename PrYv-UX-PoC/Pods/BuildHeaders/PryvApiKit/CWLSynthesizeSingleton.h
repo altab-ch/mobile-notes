@@ -1,0 +1,1 @@
+../../../../../sdk-objectivec-apple/Classes/Utils/CWLSynthesizeSingleton/CWLSynthesizeSingleton.h

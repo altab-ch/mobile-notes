@@ -1,0 +1,207 @@
+PODS:
+  - cdebug (0.1.1)
+  - FoundationExtension/FoundationExtension (0.46):
+    - cdebug (~> 0.1)
+  - FoundationExtension/UIKitExtension (0.46):
+    - cdebug (~> 0.1)
+    - FoundationExtension/FoundationExtension
+  - GIKPopoverBackgroundView/Core (0.0.1)
+  - MCSwipeTableViewCell (2.1.0)
+  - MMDrawerController (0.5.6):
+    - MMDrawerController/Core
+    - MMDrawerController/MMDrawerBarButtonItem
+    - MMDrawerController/MMDrawerVisualStates
+    - MMDrawerController/Subclass
+  - MMDrawerController/Core (0.5.6)
+  - MMDrawerController/MMDrawerBarButtonItem (0.5.6):
+    - MMDrawerController/Core
+  - MMDrawerController/MMDrawerVisualStates (0.5.6):
+    - MMDrawerController/Core
+  - MMDrawerController/Subclass (0.5.6):
+    - MMDrawerController/Core
+  - PryvApiKit (0.0.3):
+    - PryvApiKit/API
+    - PryvApiKit/Authorization
+    - PryvApiKit/Filter
+    - PryvApiKit/Model
+    - PryvApiKit/Utils
+  - PryvApiKit/API (0.0.3):
+    - PryvApiKit/API/Cache
+    - PryvApiKit/API/Online
+  - PryvApiKit/API/Cache (0.0.3)
+  - PryvApiKit/API/Online (0.0.3)
+  - PryvApiKit/Authorization (0.0.3)
+  - PryvApiKit/Filter (0.0.3)
+  - PryvApiKit/Model (0.0.3):
+    - PryvApiKit/Model/DataTypes
+  - PryvApiKit/Model/DataTypes (0.0.3):
+    - PryvApiKit/Model/DataTypes/Numerical
+  - PryvApiKit/Model/DataTypes/Numerical (0.0.3)
+  - PryvApiKit/Utils (0.0.3):
+    - PryvApiKit/Utils/CWLSynthesizeSingleton
+    - PryvApiKit/Utils/Reachability
+  - PryvApiKit/Utils/CWLSynthesizeSingleton (0.0.3)
+  - PryvApiKit/Utils/Reachability (0.0.3)
+  - SevenSwitch (1.3.0)
+  - SSKeychain (1.1.0)
+  - UI7Kit (0.9.18):
+    - UI7Kit/All
+  - UI7Kit/All (0.9.18):
+    - UI7Kit/UI7ActionSheet
+    - UI7Kit/UI7ActivityViewController
+    - UI7Kit/UI7AlertView
+    - UI7Kit/UI7BarButtonItem
+    - UI7Kit/UI7Button
+    - UI7Kit/UI7Color
+    - UI7Kit/UI7Font
+    - UI7Kit/UI7NavigationBar
+    - UI7Kit/UI7NavigationController
+    - UI7Kit/UI7PickerView
+    - UI7Kit/UI7PopoverController
+    - UI7Kit/UI7ProgressView
+    - UI7Kit/UI7SearchBar
+    - UI7Kit/UI7SegmentedControl
+    - UI7Kit/UI7Slider
+    - UI7Kit/UI7Stepper
+    - UI7Kit/UI7Switch/SevenSwitch
+    - UI7Kit/UI7TabBar
+    - UI7Kit/UI7TabBarController
+    - UI7Kit/UI7TabBarItem
+    - UI7Kit/UI7TableView
+    - UI7Kit/UI7TableViewCell
+    - UI7Kit/UI7TextField
+    - UI7Kit/UI7Toolbar
+    - UI7Kit/UI7View
+    - UI7Kit/UI7ViewController
+    - UI7Kit/UI7Window
+  - UI7Kit/Core (0.9.18):
+    - cdebug
+    - UI7Kit/UI7Color
+  - UI7Kit/UI7ActionSheet (0.9.18):
+    - UI7Kit/Core
+    - UI7Kit/UI7Color
+    - UI7Kit/UI7Font
+  - UI7Kit/UI7ActivityViewController (0.9.18):
+    - UI7Kit/Core
+    - UI7Kit/UI7Font
+  - UI7Kit/UI7AlertView (0.9.18):
+    - UI7Kit/Core
+    - UI7Kit/UI7Button
+    - UI7Kit/UI7Color
+    - UI7Kit/UI7Font
+  - UI7Kit/UI7BarButtonItem (0.9.18):
+    - UI7Kit/Core
+    - UI7Kit/UI7Font
+    - UIKitResources/UIButtonBar
+  - UI7Kit/UI7Button (0.9.18):
+    - UI7Kit/Core
+    - UI7Kit/UI7BarButtonItem
+    - UI7Kit/UI7Font
+    - UI7Kit/UI7View
+  - UI7Kit/UI7Color (0.9.18):
+    - FoundationExtension/UIKitExtension (~> 0.46)
+    - UIKitResources/UIAccessoryButton
+  - UI7Kit/UI7Font (0.9.18):
+    - UI7Kit/Core
+  - UI7Kit/UI7NavigationBar (0.9.18):
+    - UI7Kit/Core
+    - UI7Kit/UI7BarButtonItem
+    - UI7Kit/UI7Color
+    - UI7Kit/UI7Font
+  - UI7Kit/UI7NavigationController (0.9.18):
+    - UI7Kit/Core
+    - UI7Kit/UI7NavigationBar
+    - UI7Kit/UI7Toolbar
+  - UI7Kit/UI7PickerView (0.9.18):
+    - UI7Kit/Core
+    - UI7Kit/UI7Font
+    - UI7Kit/UI7TableView
+    - UI7Kit/UI7TableViewCell
+    - UI7Kit/UI7View
+  - UI7Kit/UI7PopoverController (0.9.18):
+    - GIKPopoverBackgroundView/Core
+    - UI7Kit/Core
+  - UI7Kit/UI7ProgressView (0.9.18):
+    - UI7Kit/Core
+    - UI7Kit/UI7Color
+    - UI7Kit/UI7View
+  - UI7Kit/UI7SearchBar (0.9.18):
+    - UI7Kit/Core
+    - UI7Kit/UI7Color
+  - UI7Kit/UI7SegmentedControl (0.9.18):
+    - UI7Kit/Core
+    - UI7Kit/UI7Font
+    - UI7Kit/UI7View
+  - UI7Kit/UI7Slider (0.9.18):
+    - UI7Kit/Core
+    - UI7Kit/UI7Color
+    - UI7Kit/UI7View
+  - UI7Kit/UI7Stepper (0.9.18):
+    - UI7Kit/Core
+    - UI7Kit/UI7View
+  - UI7Kit/UI7Switch/SevenSwitch (0.9.18):
+    - SevenSwitch (~> 1.3.0)
+    - UI7Kit/Core
+  - UI7Kit/UI7TabBar (0.9.18):
+    - UI7Kit/Core
+    - UI7Kit/UI7Color
+    - UI7Kit/UI7Font
+    - UI7Kit/UI7View
+  - UI7Kit/UI7TabBarController (0.9.18):
+    - UI7Kit/Core
+  - UI7Kit/UI7TabBarItem (0.9.18):
+    - UI7Kit/Core
+    - UIKitResources/UITabBar
+  - UI7Kit/UI7TableView (0.9.18):
+    - UI7Kit/Core
+    - UI7Kit/UI7Color
+    - UI7Kit/UI7Font
+    - UI7Kit/UI7View
+  - UI7Kit/UI7TableViewCell (0.9.18):
+    - UI7Kit/Core
+    - UI7Kit/UI7Color
+    - UI7Kit/UI7Font
+    - UI7Kit/UI7View
+  - UI7Kit/UI7TextField (0.9.18):
+    - UI7Kit/Core
+  - UI7Kit/UI7Toolbar (0.9.18):
+    - UI7Kit/Core
+    - UI7Kit/UI7Color
+  - UI7Kit/UI7View (0.9.18):
+    - UI7Kit/Core
+  - UI7Kit/UI7ViewController (0.9.18):
+    - UI7Kit/Core
+    - UI7Kit/UI7BarButtonItem
+    - UI7Kit/UI7NavigationBar
+  - UI7Kit/UI7Window (0.9.18):
+    - UI7Kit/Core
+    - UI7Kit/UI7View
+  - UIKitResources/UIAccessoryButton (7.0)
+  - UIKitResources/UIButtonBar (7.0)
+  - UIKitResources/UITabBar (7.0)
+
+DEPENDENCIES:
+  - MCSwipeTableViewCell (~> 2.1.0)
+  - MMDrawerController (~> 0.5.3)
+  - PryvApiKit (from `../../sdk-objectivec-apple/PryvApiKit.podspec`)
+  - PryvApiKit (HEAD)
+  - SSKeychain (~> 1.1.0)
+  - UI7Kit (~> 0.9.17)
+
+EXTERNAL SOURCES:
+  PryvApiKit:
+    :path: ../../sdk-objectivec-apple/PryvApiKit.podspec
+
+SPEC CHECKSUMS:
+  cdebug: 0404c00c53512b97358e13340b59dd465e4389ac
+  FoundationExtension: 8fe9b8b991906bd8225fcde2554a4d4a10f66a33
+  GIKPopoverBackgroundView: 459aef9b0a17d10b831b1714f2d686e72bbcc63c
+  MCSwipeTableViewCell: 713086e29ce3c2171a0102fc594bf583fa7dd323
+  MMDrawerController: 4bae84535ca7a5f4cb55a66a001e6035c3571677
+  PryvApiKit: ac7c1f704633b1aae1d426e2cd62f34d66c30af6
+  SevenSwitch: 70af67d75bc2e477d45a984cf1f3123564b04eee
+  SSKeychain: aeaba39f3a8c77bc01fa759f83dbd105c160b27c
+  UI7Kit: 5fe658e3e185618f3968a4d0d8f9b28c2ee38f3e
+  UIKitResources: 834daec56f3546164cef79034ed9efc3bf6d2512
+
+COCOAPODS: 0.32.1
