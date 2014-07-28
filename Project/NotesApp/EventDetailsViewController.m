@@ -252,7 +252,7 @@ typedef enum
         }
         if (! _event.stream && [NotesAppController sharedInstance].connection) {
             PYStream* found = [PYStream findStreamMatchingId:@"diary"
-                                                     orNames:@[@"Journal", @"Diary", @"Me"]
+                                                     orNames:@[@"journal", @"diary", @"me"]
                                                       onList:_event.connection.fetchedStreamsRoots];
             if (found) {
                 _event.streamId = found.streamId;
