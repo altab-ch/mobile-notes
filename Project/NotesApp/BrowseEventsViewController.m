@@ -80,7 +80,6 @@ static NSString *browseCellIdentifier = @"BrowseEventsCell_ID";
 
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 
-@property (nonatomic, strong) NSArray* events;
 @property (nonatomic, strong) NSMutableDictionary *sectionsMap;
 @property (nonatomic, strong) NSMutableOrderedSet *sectionsMapTitles;
 
@@ -354,7 +353,7 @@ BOOL displayNonStandardEvents;
 }
 
 - (void)rebuildSectionMap {
-    
+    NSArray* events = nil;
     if (self.filter != nil) {
         if (self.sectionsMap == nil) {
             self.sectionsMap = [[NSMutableDictionary alloc] init];
@@ -363,14 +362,14 @@ BOOL displayNonStandardEvents;
             [self.sectionsMap removeAllObjects];
             [self.sectionsMapTitles removeAllObjects];
         }
-        _events = [self.filter currentEventsSet];
+        events = [self.filter currentEventsSet];
     }
     
     
-    if (_events == nil) return;
+    if (events == nil) return;
     
     // go thru all events and set one section per date
-    for (PYEvent* event in _events) {
+    for (PYEvent* event in events) {
         if ([self clientFilterMatchEvent:event]) {
             [self addToSectionMapEvent:event];
         }
@@ -450,20 +449,20 @@ BOOL displayNonStandardEvents;
         [self rebuildSectionMap];
     }
     
-    if (!_events || [_events count] == 0)
+    if ([self.sectionsMap count] == 0)
         return 1;
     
     return [self.sectionsMapTitles count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (!_events || [_events count] == 0) return 0;
+    if ([self.sectionsMap count] == 0) return 0;
     return 20;
 }
 
 -(UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    if (!_events || [_events count]==0) return nil;
+    if ([self.sectionsMap count] == 0) return nil;
     
     UITableViewCell *headerCell = [tableView dequeueReusableCellWithIdentifier:kSectionCell];
     UILabel *targetedLabel = (UILabel *)[headerCell viewWithTag:kSectionLabel];
@@ -481,7 +480,7 @@ BOOL displayNonStandardEvents;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (!_events || [_events count]==0)
+    if ([self.sectionsMap count] ==0)
         return 1;
     
     return [[self sectionDataAtIndex:section] count];
@@ -494,7 +493,7 @@ BOOL displayNonStandardEvents;
 
 -(CGFloat) heightForCell:(NSIndexPath *)indexPath
 {
-    if (!_events || [_events count]==0) return 50;
+    if ([self.sectionsMap count] ==0) return 50;
     
     CGFloat result = 100.0;
     PYEvent *event = [self eventAtIndexPath:indexPath];
@@ -545,7 +544,7 @@ BOOL displayNonStandardEvents;
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (!_events || [_events count]==0) {
+    if ([self.sectionsMap count] == 0) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"add_new_cell_id"];
         return cell;
     }
