@@ -1,1 +1,0 @@
-../../../../../sdk-objectivec-apple/Classes/API/PYConnection+ProfileAndInfos.h
