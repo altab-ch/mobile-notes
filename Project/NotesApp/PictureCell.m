@@ -108,6 +108,9 @@
         }
     }
     
+    [self.dateLabel setHidden:YES];
+    [self.streamLabel setHidden:YES];
+    
     StreamAccessory *st = [[StreamAccessory alloc] initText:[event eventBreadcrumbs] color:[[event stream] getColor]];
     [self addSubview:st];
     
