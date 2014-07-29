@@ -8,7 +8,6 @@
 
 #import "BrowseEventsCell.h"
 #import "CellStyleModel.h"
-#import "TagView.h"
 #import "PYEvent+Helper.h"
 #import "PYStream+Helper.h"
 #import "UserHistoryEntry.h"
@@ -51,7 +50,6 @@
 - (void)setupWithUserHistroyEntry:(UserHistoryEntry *)entry
 {
     PYEvent *event = [entry reconstructEvent];
-    //[self updateTags:event.tags];
     self.streamBreadcrumbs.text = [event eventBreadcrumbs];
     [self.pastille setBackgroundColor:[[event stream] getColor]];
     
@@ -124,22 +122,5 @@
     }
     return @"icon_small_text_grey";
 }
-
-/*- (void)updateTags:(NSArray *)tags
-{
-    [self.tagContainer.subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        [obj removeFromSuperview];
-    }];
-    int offset = 0;
-    for(NSString *tag in tags)
-    {
-        TagView *tagView = [[TagView alloc] initWithText:tag andStyle:TagViewStandardStyle];
-        CGRect frame = tagView.frame;
-        frame.origin.x = offset;
-        offset+=frame.size.width + 4;
-        tagView.frame = frame;
-        [self.tagContainer addSubview:tagView];
-    }
-}*/
 
 @end

@@ -21,8 +21,6 @@
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
 @property (nonatomic, weak) PYEvent *event;
 
-- (void)updateTags:(NSArray*)tags;
-
 - (void)updateWithEvent:(PYEvent*)event;
 
 @end

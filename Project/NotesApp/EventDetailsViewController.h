@@ -12,7 +12,7 @@
 
 @class PYEvent,UserHistoryEntry,TextEditorViewController,AddNumericalValueViewController;
 
-@interface EventDetailsViewController : UITableViewController
+@interface EventDetailsViewController : UITableViewController <UIActionSheetDelegate>
 
 @property (nonatomic, strong) PYEvent *event;
 @property (nonatomic) UIImagePickerControllerSourceType imagePickerType;

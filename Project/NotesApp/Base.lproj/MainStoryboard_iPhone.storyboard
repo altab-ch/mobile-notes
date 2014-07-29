@@ -1112,7 +1112,7 @@ height=123312</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o7f-58-EH3">
-                                                    <rect key="frame" x="5" y="5" width="310" height="345"/>
+                                                    <rect key="frame" x="5" y="5" width="310" height="50"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                                 </view>
@@ -1124,7 +1124,7 @@ height=123312</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NXC-Fb-9Cg">
-                                                    <rect key="frame" x="10" y="23" width="297" height="325"/>
+                                                    <rect key="frame" x="10" y="23" width="297" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
@@ -1252,8 +1252,72 @@ height=123312</string>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="66" id="4WF-p0-dfL" userLabel="EndDatePicker" customClass="BaseDetailCell">
+                                        <rect key="frame" x="0.0" y="520" width="320" height="66"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4WF-p0-dfL" id="c4A-co-GMa">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="65"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pIy-PM-2zo">
+                                                    <rect key="frame" x="5" y="5" width="310" height="55"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </view>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Duration" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xlD-km-qhL">
+                                                    <rect key="frame" x="13" y="7" width="104" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t1K-pT-Itq" userLabel="AddView">
+                                                    <rect key="frame" x="9" y="24" width="291" height="33"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <subviews>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icon_add.png" translatesAutoresizingMaskIntoConstraints="NO" id="F8g-rF-bvQ">
+                                                            <rect key="frame" x="0.0" y="6" width="20" height="20"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                        </imageView>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Add end date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WaW-os-8gu">
+                                                            <rect key="frame" x="28" y="5" width="190" height="22"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
+                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                </view>
+                                                <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s2J-gg-bn3" userLabel="SetRunningView">
+                                                    <rect key="frame" x="9" y="24" width="291" height="33"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <subviews>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="22/02/23 07:00 AM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="09N-st-iMJ" userLabel="lbState">
+                                                            <rect key="frame" x="3" y="7" width="154" height="19"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="lbDuration" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gYg-tn-clt" userLabel="lbDuration" customClass="DurationLabel">
+                                                            <rect key="frame" x="157" y="6" width="134" height="21"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                </view>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="borderView" destination="pIy-PM-2zo" id="K1C-1H-us8"/>
+                                        </connections>
+                                    </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="73" id="LxQ-1k-RMX" userLabel="Tags" customClass="BaseDetailCell">
-                                        <rect key="frame" x="0.0" y="520" width="320" height="73"/>
+                                        <rect key="frame" x="0.0" y="586" width="320" height="73"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LxQ-1k-RMX" id="WPC-fb-neJ">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="72"/>
@@ -1298,14 +1362,14 @@ height=123312</string>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="60" id="u6i-ge-JBI" userLabel="Description" customClass="BaseDetailCell">
-                                        <rect key="frame" x="0.0" y="593" width="320" height="60"/>
+                                        <rect key="frame" x="0.0" y="659" width="320" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="u6i-ge-JBI" id="xf6-e0-o3f">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="59"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e2k-L7-Jgv">
-                                                    <rect key="frame" x="5" y="5" width="310" height="345"/>
+                                                    <rect key="frame" x="5" y="5" width="310" height="50"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                                 </view>
@@ -1317,7 +1381,7 @@ height=123312</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mhu-oP-0V0">
-                                                    <rect key="frame" x="10" y="23" width="297" height="325"/>
+                                                    <rect key="frame" x="10" y="23" width="297" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
@@ -1348,7 +1412,7 @@ height=123312</string>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="50" id="0mi-hf-46B" userLabel="DeleteButton">
-                                        <rect key="frame" x="0.0" y="653" width="320" height="50"/>
+                                        <rect key="frame" x="0.0" y="719" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0mi-hf-46B" id="a74-Jz-CE1">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
@@ -1394,11 +1458,14 @@ height=123312</string>
                     </navigationItem>
                     <size key="freeformSize" width="320" height="800"/>
                     <connections>
+                        <outlet property="addView" destination="t1K-pT-Itq" id="FUG-kg-T8J"/>
                         <outlet property="dateExtCell" destination="Rbw-eZ-4JN" id="51P-QC-Ior"/>
                         <outlet property="deleteButton" destination="nJa-8k-SZK" id="eSz-RQ-gAN"/>
                         <outlet property="descCell" destination="u6i-ge-JBI" id="6pa-SV-1yO"/>
                         <outlet property="descriptionText" destination="mhu-oP-0V0" id="afm-jM-hOy"/>
                         <outlet property="editButton" destination="WZR-qv-yGq" id="eQm-dP-Mko"/>
+                        <outlet property="lbDuration" destination="gYg-tn-clt" id="VhR-7J-6wl"/>
+                        <outlet property="lbState" destination="09N-st-iMJ" id="sNR-N9-mAd"/>
                         <outlet property="noteCell" destination="Ap8-HV-ERy" id="Slr-5C-Y7N"/>
                         <outlet property="noteText" destination="NXC-Fb-9Cg" id="CVi-DM-SXo"/>
                         <outlet property="numericalValue" destination="Vkr-ZE-Y9C" id="A78-XV-uei"/>
@@ -1406,6 +1473,7 @@ height=123312</string>
                         <outlet property="numericalValue_TypeLabel" destination="5CG-CS-llM" id="rPu-fr-fuX"/>
                         <outlet property="pastille" destination="1Uz-I1-qg4" id="a6x-jG-TWd"/>
                         <outlet property="picture_ImageView" destination="Kf5-YO-ohH" id="cfB-FC-Npc"/>
+                        <outlet property="setRunningView" destination="s2J-gg-bn3" id="uBV-EP-JxR"/>
                         <outlet property="streamsLabel" destination="alS-c0-B26" id="2Rc-M8-JfS"/>
                         <outlet property="tagsCell" destination="LxQ-1k-RMX" id="v0F-8v-UeJ"/>
                         <outlet property="timeLabel" destination="arJ-Hz-3ZZ" id="PFd-3X-teR"/>
@@ -1416,6 +1484,7 @@ height=123312</string>
                         <outletCollection property="cells" destination="LxQ-1k-RMX" id="Tqd-aW-W0i"/>
                         <outletCollection property="cells" destination="DaY-9z-BH7" id="d3i-3s-EQh"/>
                         <outletCollection property="cells" destination="Ap8-HV-ERy" id="VFN-wQ-ZIo"/>
+                        <outletCollection property="cells" destination="4WF-p0-dfL" id="xV6-Pb-ig3"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ap2-TI-2GA" userLabel="First Responder" sceneMemberID="firstResponder"/>

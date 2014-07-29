@@ -699,8 +699,6 @@ BOOL displayNonStandardEvents;
     [_tableView scrollToRowAtIndexPath:[self getIndexPathForEvent:event] atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
 }
 
-#warning Revoir la structure de données pour les sections, les méthodes et les algo.
-
 -(NSIndexPath*)getIndexPathForEvent:(PYEvent*)event
 {
     NSString *sectionKey = [self.sectionsKeyFormatter stringFromDate:event.eventDate];

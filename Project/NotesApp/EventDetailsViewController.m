@@ -25,6 +25,7 @@
 #import "MMDrawerController.h"
 #import "MenuNavController.h"
 #import "ZenKeyboard.h"
+#import "DurationLabel.h"
 
 #define kStreamCellHeight 54
 #define kDeleteCellHeight 50
@@ -44,6 +45,7 @@ typedef enum
     DetailCellTypeStreams,
     DetailCellTypeTime,
     DetailCellTypeTimeExt,
+    DetailCellTypeTimeEnd,
     DetailCellTypeTags,
     DetailCellTypeDescription,
     DetailCellTypeDelete
@@ -56,6 +58,7 @@ typedef enum
 @property (nonatomic, strong) NSDate *previousDate;
 @property (nonatomic, strong) NSDictionary *initialEventValue;
 @property (nonatomic) BOOL isDateExtHidden;
+@property (nonatomic) BOOL isDateExtOwnedByStart;
 @property (nonatomic) BOOL isInitialDraft;
 @property (nonatomic) BOOL autoSetDiaryStream;
 @property (nonatomic) BOOL isInEditMode;
@@ -86,6 +89,10 @@ typedef enum
 @property (nonatomic, strong) DetailsBottomButtonsContainer *bottomButtonsContainer;
 @property (nonatomic, strong) UIDatePicker *datePicker;
 @property (nonatomic, strong) UIDatePicker *timePicker;
+@property (nonatomic, weak) IBOutlet UIView* addView;
+@property (nonatomic, weak) IBOutlet UIView* setRunningView;
+@property (nonatomic, weak) IBOutlet DurationLabel* lbDuration;
+@property (nonatomic, weak) IBOutlet UILabel* lbState;
 
 @property (strong, nonatomic) IBOutlet UIButton *deleteButton;
 
@@ -263,7 +270,15 @@ typedef enum
     
     self.streamsLabel.text = [self.event eventBreadcrumbs];
     
+    if (_event.duration == 0) {
+        [_setRunningView setHidden:YES];
+        [_addView setHidden:NO];
+    }else{
+        [_setRunningView setHidden:NO];
+        [_addView setHidden:YES];
+    }
     
+    [_lbDuration setEventDate:_event.eventDate];
     
     if (_event.stream) [self.pastille setBackgroundColor:[[self.event stream] getColor]];
     
@@ -442,6 +457,9 @@ typedef enum
             
         case DetailCellTypeStreams:
             return kStreamCellHeight;
+        
+        case DetailCellTypeTimeEnd:
+            return kDateCellHeight;
             
         case DetailCellTypeDelete:
         {
@@ -457,30 +475,27 @@ typedef enum
     return kStreamCellHeight;
 }
 
-#pragma mark - UITableViewDeleagate methods
+#pragma mark - UITableViewDelegate methods
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    DetailCellType cellType = indexPath.row;
-    if (cellType != DetailCellTypeNote && cellType != DetailCellTypeDescription && cellType != DetailCellTypeTags && cellType != DetailCellTypeValue){[self.view endEditing:YES];}
+    
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    DetailCellType cellType = indexPath.row;
+    
+    if (cellType == DetailCellTypeImage) return;
+    if(!self.isInEditMode) return;
+    
+    
+    if (cellType != DetailCellTypeNote && cellType != DetailCellTypeDescription && cellType != DetailCellTypeTags && cellType != DetailCellTypeValue)
+        [self.view endEditing:YES];
     
     if (cellType != DetailCellTypeTime && !_isDateExtHidden){
         _isDateExtHidden = true;
         [self.tableView beginUpdates];
         [self.tableView endUpdates];
-    }
-    if (cellType == DetailCellTypeImage) {
-        /*ImageViewController *imagePreview = [[ImageViewController alloc] initWithNibName:@"ImageViewController" bundle:nil];
-         imagePreview.image = self.picture_ImageView.image;
-         [self.navigationController pushViewController:imagePreview animated:YES];*/
-        return;
-    }
-    
-    if(!self.isInEditMode)
-    {
-        return;
     }
     
     switch (cellType) {
@@ -502,6 +517,9 @@ typedef enum
         case DetailCellTypeTime:
         {
             _isDateExtHidden = !_isDateExtHidden;
+            _isDateExtOwnedByStart=true;
+            if (_datePicker) [_datePicker setDate:_event.eventDate];
+            if (_timePicker) [_timePicker setDate:_event.eventDate];
             [self.tableView beginUpdates];
             [self.tableView endUpdates];
             if (!_isDateExtHidden) {
@@ -534,11 +552,128 @@ typedef enum
         }
             break;
             
-        case DetailCellTypeDelete:
+        case DetailCellTypeTimeEnd:
+        {
+            if (_isDateExtHidden)
+                _isDateExtOwnedByStart=false;
+            
+            if (!_isDateExtHidden && !_isDateExtOwnedByStart) {
+                _isDateExtHidden = !_isDateExtHidden;
+                [self.tableView beginUpdates];
+                [self.tableView endUpdates];
+            }else
+            {
+                [[self getActionSheet] showInView:self.view];
+            }
+        }
             break;
         default:
             break;
     }
+}
+
+#pragma mark - UIActionSheetDelegate methods
+
+- (void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:NO];
+    
+    if (_event.duration == 0) {
+        switch (buttonIndex) {
+            case 0:
+            {
+                [self setAsRunning];
+            }
+                break;
+                
+            case 1:
+            {
+                [self setEndDate];
+            }
+                break;
+                
+            case 2:
+            {
+                
+            }
+                break;
+                
+            default:
+                break;
+        }
+    }
+    
+    if (_event.duration < 0) {
+        switch (buttonIndex) {
+            case 0:
+            {
+                
+            }
+                break;
+                
+            case 1:
+            {
+                
+            }
+                break;
+                
+            case 2:
+            {
+                
+            }
+                break;
+                
+            default:
+                break;
+        }
+    }
+    
+    if (_event.duration > 0) {
+        switch (buttonIndex) {
+            case 0:
+            {
+                
+            }
+                break;
+                
+            case 1:
+            {
+                
+            }
+                break;
+                
+            case 2:
+            {
+                
+            }
+                break;
+                
+            default:
+                break;
+        }
+    }
+}
+
+-(void) setAsRunning
+{
+    [_lbDuration start];
+    _event.duration = -1;
+    [_setRunningView setHidden:NO];
+    [_addView setHidden:YES];
+}
+
+-(void) setEndDate
+{
+    [_setRunningView setHidden:NO];
+    [_addView setHidden:YES];
+    [_lbDuration stop];
+    _event.duration = [[NSDate date] timeIntervalSinceDate:_event.eventDate];
+    _isDateExtHidden = !_isDateExtHidden;
+    if (_datePicker) [_datePicker setDate:[_event.eventDate dateByAddingTimeInterval:_event.duration]];
+    if (_timePicker) [_timePicker setDate:[_event.eventDate dateByAddingTimeInterval:_event.duration]];
+    [self.tableView beginUpdates];
+    [self.tableView endUpdates];
+    [self.tableView scrollToRowAtIndexPath:[self.tableView indexPathForCell:_dateExtCell] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
 }
 
 #pragma mark - IBActions, segue
@@ -569,18 +704,38 @@ typedef enum
 
 -(void)datePickerValueChanged:(id)sender
 {
-    self.timeLabel.text = [[NotesAppController sharedInstance].dateFormatter stringFromDate:_datePicker.date];
-    [_timePicker setDate:_datePicker.date];
-    [_event setEventDate:_datePicker.date];
+    if (_isDateExtOwnedByStart) {
+        self.timeLabel.text = [[NotesAppController sharedInstance].dateFormatter stringFromDate:_datePicker.date];
+        [_timePicker setDate:_datePicker.date];
+        [_event setEventDate:_datePicker.date];
+
+    }else
+    {
+        _lbState.text = [[NotesAppController sharedInstance].dateFormatter stringFromDate:_datePicker.date];
+        [_timePicker setDate:_datePicker.date];
+        NSTimeInterval duration = [_datePicker.date timeIntervalSinceDate:_event.eventDate];
+        [_lbDuration setEndDate:_datePicker.date];
+        [_event setDuration:duration];
+    }
+    
     self.shouldUpdateEvent=true;
 }
 
 -(void)timePickerValueChanged:(id)sender
 {
-    self.timeLabel.text = [[NotesAppController sharedInstance].dateFormatter stringFromDate:_timePicker.date];
-    [_datePicker setDate:_timePicker.date];
-    [_event setEventDate:_timePicker.date];
-    self.shouldUpdateEvent=true;
+    if (_isDateExtOwnedByStart) {
+        self.timeLabel.text = [[NotesAppController sharedInstance].dateFormatter stringFromDate:_timePicker.date];
+        [_datePicker setDate:_timePicker.date];
+        [_event setEventDate:_timePicker.date];
+        self.shouldUpdateEvent=true;
+    }else
+    {
+        _lbState.text = [[NotesAppController sharedInstance].dateFormatter stringFromDate:_timePicker.date];
+        [_datePicker setDate:_timePicker.date];
+        NSTimeInterval duration = [_timePicker.date timeIntervalSinceDate:_event.eventDate];
+        [_lbDuration setEndDate:_timePicker.date];
+        [_event setDuration:duration];
+    }
 }
 
 - (IBAction)segmentSwitch:(id)sender {
@@ -825,6 +980,21 @@ typedef enum
 }
 
 #pragma mark - Utils
+
+-(UIActionSheet*)getActionSheet
+{
+    UIActionSheet *actionSheet;
+    if (_event.duration == 0) {
+        actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Detail.AddDuration", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Detail.SetAsRunning", nil),NSLocalizedString(@"Detail.SetEndDate", nil), nil];
+    }
+    if (_event.duration < 0) {
+        actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Detail.AddDuration", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:NSLocalizedString(@"Delete", nil) otherButtonTitles:NSLocalizedString(@"Detail.StopNow", nil),NSLocalizedString(@"Detail.SetEndDate", nil), nil];
+    }
+    if (_event.duration > 0) {
+        actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Detail.AddDuration", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:NSLocalizedString(@"Delete", nil) otherButtonTitles:NSLocalizedString(@"Detail.SetAsRunning", nil),NSLocalizedString(@"Detail.SetEndDate", nil), nil];
+    }
+    return actionSheet;
+}
 
 -(CGFloat) heightForNoteTextViewWithString:(NSString*)s
 {

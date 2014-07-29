@@ -24,8 +24,6 @@
 #define kGroupComponentProportionalWidth 0.5
 #define kGroupComponentHeight 77
 
-#define IS_IPHONE_5 ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
-
 @interface AddNumericalValueViewController () <KSAdvancedPickerDataSource, KSAdvancedPickerDelegate>
 
 @property (nonatomic, strong) IBOutlet CustomNumericalKeyboard *customKeyborad;
