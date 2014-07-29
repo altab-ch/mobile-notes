@@ -230,7 +230,6 @@
 		B6B59070178C752E0009E413 /* cell_left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B6B59064178C752E0009E413 /* cell_left@2x.png */; };
 		B6B59071178C752E0009E413 /* cell_left.png in Resources */ = {isa = PBXBuildFile; fileRef = B6B59065178C752E0009E413 /* cell_left.png */; };
 		B6B59075178C761A0009E413 /* CellStyleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B6B59074178C761A0009E413 /* CellStyleModel.m */; };
-		B6B5907F178C8BC70009E413 /* TopMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6B5907E178C8BC70009E413 /* TopMenuCell.m */; };
 		B6B59082178C8FD50009E413 /* UIBarButtonItem+PrYv.m in Sources */ = {isa = PBXBuildFile; fileRef = B6B59081178C8FD50009E413 /* UIBarButtonItem+PrYv.m */; };
 		B6B5908B178CBB030009E413 /* KSAdvancedPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = B6B5908A178CBB030009E413 /* KSAdvancedPicker.m */; };
 		B6B59090178DE42F0009E413 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B6B5908E178DE4280009E413 /* Icon@2x.png */; };
@@ -745,8 +744,6 @@
 		B6B59065178C752E0009E413 /* cell_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cell_left.png; sourceTree = "<group>"; };
 		B6B59073178C761A0009E413 /* CellStyleModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellStyleModel.h; sourceTree = "<group>"; };
 		B6B59074178C761A0009E413 /* CellStyleModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellStyleModel.m; sourceTree = "<group>"; };
-		B6B5907D178C8BC70009E413 /* TopMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopMenuCell.h; sourceTree = "<group>"; };
-		B6B5907E178C8BC70009E413 /* TopMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopMenuCell.m; sourceTree = "<group>"; };
 		B6B59080178C8FD50009E413 /* UIBarButtonItem+PrYv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+PrYv.h"; sourceTree = "<group>"; };
 		B6B59081178C8FD50009E413 /* UIBarButtonItem+PrYv.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+PrYv.m"; sourceTree = "<group>"; };
 		B6B59089178CBB030009E413 /* KSAdvancedPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSAdvancedPicker.h; sourceTree = "<group>"; };
@@ -1657,8 +1654,6 @@
 				B6D8EAAC175A2A4F00A3AA8F /* CategoryCell.m */,
 				B6D0ED861787804A00665DE8 /* BrowseEventsCell.h */,
 				B6D0ED871787804A00665DE8 /* BrowseEventsCell.m */,
-				B6B5907D178C8BC70009E413 /* TopMenuCell.h */,
-				B6B5907E178C8BC70009E413 /* TopMenuCell.m */,
 			);
 			name = Cell;
 			sourceTree = "<group>";
@@ -2260,7 +2255,6 @@
 				B6D0ED881787804A00665DE8 /* BrowseEventsCell.m in Sources */,
 				B6D0ED8B1787827400665DE8 /* BrowseEventsViewController.m in Sources */,
 				B6B59075178C761A0009E413 /* CellStyleModel.m in Sources */,
-				B6B5907F178C8BC70009E413 /* TopMenuCell.m in Sources */,
 				B6DC81E9181E63F500118ED9 /* BrowseCell.m in Sources */,
 				B6B59082178C8FD50009E413 /* UIBarButtonItem+PrYv.m in Sources */,
 				4EBB85F3192A4B2300BBDB61 /* PYEventTypes+Helper.m in Sources */,
