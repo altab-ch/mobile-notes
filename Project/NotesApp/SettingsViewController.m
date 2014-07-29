@@ -15,6 +15,7 @@
 #import "MenuNavController.h"
 #import "BrowseEventsViewController.h"
 #import "InboardingViewController.h"
+#import "UIBarButtonItem+PrYv.h"
 
 #define Stream_Menu_Default @"stream_menu_default"
 

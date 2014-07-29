@@ -6,13 +6,11 @@
 //  Copyright (c) 2013 PrYv. All rights reserved.
 //
 
-#import "BaseViewController.h"
-
 @class UserHistoryEntry;
 
 @protocol StreamsPickerDelegate;
 
-@interface StreamPickerViewController : BaseViewController
+@interface StreamPickerViewController : UIViewController
 
 @property (nonatomic, weak) id<StreamsPickerDelegate> delegate;
 @property (nonatomic, strong) PYStream *stream;

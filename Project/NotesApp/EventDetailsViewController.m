@@ -13,7 +13,6 @@
 #import "PYConnection.h"
 #import <PryvApiKit/PYEvent.h>
 #import <PryvApiKit/PYEventType.h>
-#import "AddNumericalValueViewController.h"
 #import "StreamPickerViewController.h"
 #import "DataService.h"
 #import "JSTokenField.h"

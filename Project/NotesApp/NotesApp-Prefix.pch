@@ -11,7 +11,6 @@
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
-    #import "BaseViewController.h"
     #import "UIView+Frame.h"
     #import "UIStoryboard+Main.h"
     #import "NotesAppController.h"

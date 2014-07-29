@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BaseWithMenuViewController.h"
 
 @interface BrowseEventsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 

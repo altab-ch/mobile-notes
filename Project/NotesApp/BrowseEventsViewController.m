@@ -10,7 +10,6 @@
 #import "BrowseEventsCell.h"
 #import "DataService.h"
 #import "CellStyleModel.h"
-#import "AddNumericalValueViewController.h"
 #import "PhotoNoteViewController.h"
 #import "SettingsViewController.h"
 #import "LRUManager.h"

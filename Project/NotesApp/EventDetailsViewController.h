@@ -6,9 +6,6 @@
 //  Copyright (c) 2014 PrYv. All rights reserved.
 //
 
-#import "BaseViewController.h"
-
-
 
 @class PYEvent,UserHistoryEntry,TextEditorViewController,AddNumericalValueViewController;
 
