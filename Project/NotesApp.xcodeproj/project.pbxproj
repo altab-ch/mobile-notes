@@ -21,7 +21,6 @@
 		291ED1991917A4F5009A9B3D /* checkbox_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 291ED1931917A4F5009A9B3D /* checkbox_selected@2x.png */; };
 		291ED19A1917A4F5009A9B3D /* checkbox_undefined.png in Resources */ = {isa = PBXBuildFile; fileRef = 291ED1941917A4F5009A9B3D /* checkbox_undefined.png */; };
 		291ED19B1917A4F5009A9B3D /* checkbox_undefined@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 291ED1951917A4F5009A9B3D /* checkbox_undefined@2x.png */; };
-		292ACD671972A3A800036084 /* AddEventButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 292ACD661972A3A800036084 /* AddEventButton.m */; };
 		292ACD6A1973EFEF00036084 /* ZenKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 292ACD691973EFEF00036084 /* ZenKeyboard.m */; };
 		292ACD6E1973F22E00036084 /* KeyboardNumericEntryKeyPressedTextured@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 292ACD6C1973F22E00036084 /* KeyboardNumericEntryKeyPressedTextured@2x.png */; };
 		292ACD701973F2FB00036084 /* KeyboardNumericEntryKeyTextured@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 292ACD6F1973F2FB00036084 /* KeyboardNumericEntryKeyTextured@2x.png */; };
@@ -145,7 +144,6 @@
 		B6783A37174168030083AE50 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6783A36174168030083AE50 /* SystemConfiguration.framework */; };
 		B6783A3D174178FB0083AE50 /* NotesAppController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6783A3C174178FB0083AE50 /* NotesAppController.m */; };
 		B6993FD21891C07700D88127 /* BaseDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6993FD11891C07700D88127 /* BaseDetailCell.m */; };
-		B69940371899C45A00D88127 /* DetailsBottomButtonsContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = B69940361899C45A00D88127 /* DetailsBottomButtonsContainer.m */; };
 		B6B2EE7518C50A6700E40DB4 /* arrow-stream.png in Resources */ = {isa = PBXBuildFile; fileRef = B6B2EE7318C50A6700E40DB4 /* arrow-stream.png */; };
 		B6B2EE7618C50A6700E40DB4 /* arrow-stream@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B6B2EE7418C50A6700E40DB4 /* arrow-stream@2x.png */; };
 		B6B2EE7818C533EB00E40DB4 /* welcome.html in Resources */ = {isa = PBXBuildFile; fileRef = B6B2EE7718C533EB00E40DB4 /* welcome.html */; };
@@ -250,7 +248,6 @@
 		B6D0ED8B1787827400665DE8 /* BrowseEventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6D0ED8A1787827400665DE8 /* BrowseEventsViewController.m */; };
 		B6D8EAA5175A185A00A3AA8F /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = B6D8EAA4175A185A00A3AA8F /* MBProgressHUD.m */; };
 		B6D8EAAA175A18F000A3AA8F /* UIViewController+LoadingOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = B6D8EAA9175A18F000A3AA8F /* UIViewController+LoadingOverlay.m */; };
-		B6D8EAAD175A2A4F00A3AA8F /* CategoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6D8EAAC175A2A4F00A3AA8F /* CategoryCell.m */; };
 		B6DC81E9181E63F500118ED9 /* BrowseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6DC81E8181E63F500118ED9 /* BrowseCell.m */; };
 		B6DC81EE181E665B00118ED9 /* NoteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6DC81ED181E665B00118ED9 /* NoteCell.m */; };
 		B6DC81F1181E666C00118ED9 /* ValueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6DC81F0181E666C00118ED9 /* ValueCell.m */; };
@@ -372,8 +369,6 @@
 		291ED1931917A4F5009A9B3D /* checkbox_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox_selected@2x.png"; sourceTree = "<group>"; };
 		291ED1941917A4F5009A9B3D /* checkbox_undefined.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkbox_undefined.png; sourceTree = "<group>"; };
 		291ED1951917A4F5009A9B3D /* checkbox_undefined@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox_undefined@2x.png"; sourceTree = "<group>"; };
-		292ACD651972A3A800036084 /* AddEventButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddEventButton.h; sourceTree = "<group>"; };
-		292ACD661972A3A800036084 /* AddEventButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddEventButton.m; sourceTree = "<group>"; };
 		292ACD681973EFEF00036084 /* ZenKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZenKeyboard.h; sourceTree = "<group>"; };
 		292ACD691973EFEF00036084 /* ZenKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZenKeyboard.m; sourceTree = "<group>"; };
 		292ACD6C1973F22E00036084 /* KeyboardNumericEntryKeyPressedTextured@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "KeyboardNumericEntryKeyPressedTextured@2x.png"; sourceTree = "<group>"; };
@@ -657,8 +652,6 @@
 		B6783A3C174178FB0083AE50 /* NotesAppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotesAppController.m; sourceTree = "<group>"; };
 		B6993FD01891C07700D88127 /* BaseDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseDetailCell.h; sourceTree = "<group>"; };
 		B6993FD11891C07700D88127 /* BaseDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseDetailCell.m; sourceTree = "<group>"; };
-		B69940351899C45A00D88127 /* DetailsBottomButtonsContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailsBottomButtonsContainer.h; sourceTree = "<group>"; };
-		B69940361899C45A00D88127 /* DetailsBottomButtonsContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailsBottomButtonsContainer.m; sourceTree = "<group>"; };
 		B6B2EE7318C50A6700E40DB4 /* arrow-stream.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow-stream.png"; sourceTree = "<group>"; };
 		B6B2EE7418C50A6700E40DB4 /* arrow-stream@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow-stream@2x.png"; sourceTree = "<group>"; };
 		B6B2EE7718C533EB00E40DB4 /* welcome.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = welcome.html; sourceTree = "<group>"; };
@@ -776,8 +769,6 @@
 		B6D8EAA4175A185A00A3AA8F /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		B6D8EAA8175A18F000A3AA8F /* UIViewController+LoadingOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+LoadingOverlay.h"; sourceTree = "<group>"; };
 		B6D8EAA9175A18F000A3AA8F /* UIViewController+LoadingOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+LoadingOverlay.m"; sourceTree = "<group>"; };
-		B6D8EAAB175A2A4F00A3AA8F /* CategoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryCell.h; sourceTree = "<group>"; };
-		B6D8EAAC175A2A4F00A3AA8F /* CategoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryCell.m; sourceTree = "<group>"; };
 		B6DC81E7181E63F500118ED9 /* BrowseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowseCell.h; sourceTree = "<group>"; };
 		B6DC81E8181E63F500118ED9 /* BrowseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrowseCell.m; sourceTree = "<group>"; };
 		B6DC81EC181E665B00118ED9 /* NoteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteCell.h; sourceTree = "<group>"; };
@@ -857,15 +848,6 @@
 			children = (
 				291ED18D1917A25F009A9B3D /* StreamCheckButton.h */,
 				291ED18E1917A25F009A9B3D /* StreamCheckButton.m */,
-			);
-			name = Button;
-			sourceTree = "<group>";
-		};
-		292ACD641972A39600036084 /* Button */ = {
-			isa = PBXGroup;
-			children = (
-				292ACD651972A3A800036084 /* AddEventButton.h */,
-				292ACD661972A3A800036084 /* AddEventButton.m */,
 			);
 			name = Button;
 			sourceTree = "<group>";
@@ -1635,11 +1617,8 @@
 			isa = PBXGroup;
 			children = (
 				2934FBCD1986C4D200407D2B /* Label */,
-				292ACD641972A39600036084 /* Button */,
 				B64ACAE3175544BF00E2F6F7 /* Keyboard */,
 				B6F5AFFC173260E5000BC60A /* Cell */,
-				B69940351899C45A00D88127 /* DetailsBottomButtonsContainer.h */,
-				B69940361899C45A00D88127 /* DetailsBottomButtonsContainer.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1650,8 +1629,6 @@
 				29004294193810DA00436A4B /* Accessory */,
 				B6993FC81891C05100D88127 /* DetailCells */,
 				B6DC81E6181E63E000118ED9 /* BrowseCell */,
-				B6D8EAAB175A2A4F00A3AA8F /* CategoryCell.h */,
-				B6D8EAAC175A2A4F00A3AA8F /* CategoryCell.m */,
 				B6D0ED861787804A00665DE8 /* BrowseEventsCell.h */,
 				B6D0ED871787804A00665DE8 /* BrowseEventsCell.m */,
 			);
@@ -2214,7 +2191,6 @@
 				4E8AAFE71859EA440083DE8C /* UnkownCell.m in Sources */,
 				B617F21F188EEF77002DEF0B /* EventDetailsViewController.m in Sources */,
 				4E0901071857640400A2F044 /* AddNumericalValueCellFormat.m in Sources */,
-				292ACD671972A3A800036084 /* AddEventButton.m in Sources */,
 				B6BA3E721732E91000464C2F /* UIView+Frame.m in Sources */,
 				4E8AAFF8185A07A30083DE8C /* AppConstants.m in Sources */,
 				4E713D3F18965FBD00CDB397 /* AppConstantsPrivate.m in Sources */,
@@ -2234,7 +2210,6 @@
 				B64ACAE9175544E100E2F6F7 /* CustomNumericalKeyboard.m in Sources */,
 				B6D8EAA5175A185A00A3AA8F /* MBProgressHUD.m in Sources */,
 				B6D8EAAA175A18F000A3AA8F /* UIViewController+LoadingOverlay.m in Sources */,
-				B6D8EAAD175A2A4F00A3AA8F /* CategoryCell.m in Sources */,
 				291ED18F1917A25F009A9B3D /* StreamCheckButton.m in Sources */,
 				B678307117613D04008E6C1C /* UserHistoryEntry.m in Sources */,
 				B6F1AEB717846D0D000ECD60 /* DALinedTextView.m in Sources */,
@@ -2244,7 +2219,6 @@
 				291ED17F1913E717009A9B3D /* MenuTableViewController.m in Sources */,
 				290042A21938111400436A4B /* StreamAccessory.m in Sources */,
 				B6F1AEC117847420000ECD60 /* JSBackspaceReportingTextField.m in Sources */,
-				B69940371899C45A00D88127 /* DetailsBottomButtonsContainer.m in Sources */,
 				B6993FD21891C07700D88127 /* BaseDetailCell.m in Sources */,
 				4E3E4905194B2C5F00F238C1 /* XMMDrawerController.m in Sources */,
 				2934FBB819829A8000407D2B /* InboardingViewController.m in Sources */,

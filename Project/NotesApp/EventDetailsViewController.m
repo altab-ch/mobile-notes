@@ -17,7 +17,6 @@
 #import "DataService.h"
 #import "JSTokenField.h"
 #import "JSTokenButton.h"
-#import "DetailsBottomButtonsContainer.h"
 #import "UIAlertView+PrYv.h"
 #import "ImageViewController.h"
 #import "NotesAppController.h"
@@ -85,7 +84,6 @@ typedef enum
 @property (nonatomic, weak) IBOutlet UIView *pastille;
 @property (nonatomic, weak) IBOutlet JSTokenField *tokenField;
 @property (nonatomic, weak) IBOutlet UILabel *streamsLabel;
-@property (nonatomic, strong) DetailsBottomButtonsContainer *bottomButtonsContainer;
 @property (nonatomic, strong) UIDatePicker *datePicker;
 @property (nonatomic, strong) UIDatePicker *timePicker;
 @property (nonatomic, weak) IBOutlet UIView* addView;
@@ -185,40 +183,6 @@ typedef enum
     [self.deleteButton.layer setBorderWidth:1];
     self.deleteButton.layer.cornerRadius = 5;
 }
-
-/*- (void)initBottomButtonsContainer
- {
- __block EventDetailsViewController *weakSelf = self;
- self.bottomButtonsContainer = [[[UINib nibWithNibName:@"DetailsBottomButtonsContainer" bundle:[NSBundle mainBundle]] instantiateWithOwner:nil options:nil] objectAtIndex:0];
- [self.bottomButtonsContainer setShareButtonTouchHandler:^(UIButton *shareButton) {
- [weakSelf shareEvent];
- }];
- [self.bottomButtonsContainer setDeleteButtonTouchHandler:^(UIButton *deleteButton) {
- UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Alert.Message.DeleteConfirmation", nil) message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"NO", nil) otherButtonTitles:NSLocalizedString(@"YES", nil), nil];
- [alertView showWithCompletionBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
- if(alertView.cancelButtonIndex != buttonIndex)
- {
- [weakSelf deleteEvent];
- }
- }];
- }];
- CGRect frame = self.bottomButtonsContainer.frame;
- frame.origin.y = self.tableView.frame.size.height - 64 - self.bottomButtonsContainer.frame.size.height;
- if(![UIDevice isiOS7Device])
- {
- frame.origin.y+=20;
- }
- self.bottomButtonsContainer.frame = frame;
- [self.view addSubview:self.bottomButtonsContainer];
- [self.view bringSubviewToFront:self.bottomButtonsContainer];
- }*/
-
-/*- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
- CGRect frame = self.bottomButtonsContainer.frame;
- frame.origin.y = scrollView.contentOffset.y + self.tableView.frame.size.height - self.bottomButtonsContainer.frame.size.height;
- self.bottomButtonsContainer.frame = frame;
- [self.view bringSubviewToFront:self.bottomButtonsContainer];
- }*/
 
 #pragma mark - UI update
 
