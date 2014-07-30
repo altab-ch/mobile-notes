@@ -448,8 +448,7 @@ typedef enum
     
     DetailCellType cellType = indexPath.row;
     
-    if (cellType == DetailCellTypeImage) return;
-    if(!self.isInEditMode) return;
+    if(!self.isInEditMode && cellType!=DetailCellTypeImage) return;
     
     
     if (cellType != DetailCellTypeNote && cellType != DetailCellTypeDescription && cellType != DetailCellTypeTags && cellType != DetailCellTypeValue)
@@ -475,7 +474,11 @@ typedef enum
             break;
             
         case DetailCellTypeImage:
-            
+        {
+            ImageViewController* imvc = [[UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil] instantiateViewControllerWithIdentifier:@"ImagePreviewViewController_ID"];
+            [imvc setImage:self.picture_ImageView.image];
+            [self presentViewController:imvc animated:YES completion:nil];
+        }
             break;
         case DetailCellTypeTime:
         {

@@ -35,21 +35,46 @@
     self.contentImageView.image = self.image;
     //[self.contentImageView setContentMode:UIViewContentModeScaleAspectFit];
     //self.navigationController.navigationBarHidden = YES;
-    [self.contentImageView setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [self.scrollView setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    //[self.contentImageView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    //[self.scrollView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    //[self.navigationController setNavigationBarHidden:YES animated:YES];
     
 }
 
 -(void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    if (!IS_IPHONE_5){
+    [_contentImageView setFrame:_scrollView.bounds];
+
+    /*if (!IS_IPHONE_5){
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:0.2];
         [self.contentImageView setFrame:CGRectMake(0, 0, 320.0, 480.0)];
         [UIView commitAnimations];
-    }
+    }*/
+}
+
+-(BOOL)shouldAutorotate
+{
+    return YES;
+}
+
+- (NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskAllButUpsideDown;
+}
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+                                duration:(NSTimeInterval)duration
+{
+    [UIView setAnimationsEnabled:NO];
+}
+
+- (void) didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    [UIView setAnimationsEnabled:YES];
+    [_contentImageView setCenter:_scrollView.center];
+    [self updateViewConstraints];
+    [_contentImageView setFrame:_scrollView.bounds];
 }
 
 - (UIView*)viewForZoomingInScrollView:(UIScrollView*)scrollView
@@ -65,8 +90,7 @@
 
 - (void)closeButtonTouched:(id)sender
 {
-    [self.navigationController setNavigationBarHidden:NO animated:NO];
-    [self.navigationController popViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

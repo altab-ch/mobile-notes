@@ -1102,9 +1102,6 @@ height=123312</string>
                                                 <constraint firstAttribute="trailing" secondItem="Kf5-YO-ohH" secondAttribute="trailing" id="xDI-9J-Ixs"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="X6x-eW-BIA" kind="push" identifier="ShowImagePreviewSegue_ID" customClass="ConditionallyAnimatedPushSegue" id="h8v-bs-Rba"/>
-                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="60" id="Ap8-HV-ERy" userLabel="Note" customClass="BaseDetailCell">
                                         <rect key="frame" x="0.0" y="134" width="320" height="60"/>
@@ -1496,7 +1493,7 @@ height=123312</string>
         <!--Image View Controller-->
         <scene sceneID="jim-X5-3TW">
             <objects>
-                <viewController storyboardIdentifier="ImagePreviewViewController_ID" id="X6x-eW-BIA" customClass="ImageViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ImagePreviewViewController_ID" automaticallyAdjustsScrollViewInsets="NO" id="X6x-eW-BIA" customClass="ImageViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Bo7-ll-r6S"/>
                         <viewControllerLayoutGuide type="bottom" id="oFm-vt-MDh"/>
@@ -1505,7 +1502,7 @@ height=123312</string>
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" maximumZoomScale="4" translatesAutoresizingMaskIntoConstraints="NO" id="ph6-nl-gbV">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" maximumZoomScale="4" translatesAutoresizingMaskIntoConstraints="NO" id="ph6-nl-gbV">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
@@ -1521,9 +1518,15 @@ height=123312</string>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ph6-nl-gbV" firstAttribute="top" secondItem="iHm-A6-akf" secondAttribute="top" id="2sp-RM-jO1"/>
+                            <constraint firstItem="ph6-nl-gbV" firstAttribute="leading" secondItem="iHm-A6-akf" secondAttribute="leading" id="HJI-25-kvF"/>
+                            <constraint firstItem="oFm-vt-MDh" firstAttribute="top" secondItem="ph6-nl-gbV" secondAttribute="bottom" id="jiD-bq-w8Q"/>
+                            <constraint firstAttribute="trailing" secondItem="ph6-nl-gbV" secondAttribute="trailing" id="xcS-jj-u9f"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="eHy-B2-dVx"/>
-                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="contentImageView" destination="oL5-gF-Kmn" id="8FE-pT-uv5"/>

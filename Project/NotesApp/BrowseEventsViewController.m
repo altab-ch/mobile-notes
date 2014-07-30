@@ -193,6 +193,15 @@ BOOL displayNonStandardEvents;
     [self loadData];
 }
 
+/*-(BOOL)shouldAutorotate
+{
+    return NO;
+}
+
+- (NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
+}*/
+
 -(void) initTableView
 {
     if (IS_IPHONE_5) {
