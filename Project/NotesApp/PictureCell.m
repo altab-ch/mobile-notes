@@ -101,10 +101,10 @@
         }
         else
         {
-            [self.pictureView setAlpha:1.0f];
+            //[self.pictureView setAlpha:1.0f];
             [self.pictureView setImage:self.currentImage];
-            self.loadingIndicator.hidden = YES;
-            [self.loadingIndicator stopAnimating];
+            //self.loadingIndicator.hidden = YES;
+            //[self.loadingIndicator stopAnimating];
             
         }
         
@@ -149,8 +149,8 @@
             [self updateWithImage:image andEventId:event.clientId animated:NO];
         } else {
             // then the preview
-            self.loadingIndicator.hidden = NO;
-            [self.loadingIndicator startAnimating];
+            //self.loadingIndicator.hidden = NO;
+            //[self.loadingIndicator startAnimating];
             [event preview:^(UIImage *image) {
                 
                 [self updateWithImage:image andEventId:event.clientId animated:[PictureCell shouldAnimateImagePresentationForStartLoadTime:self.startLoadTime]];

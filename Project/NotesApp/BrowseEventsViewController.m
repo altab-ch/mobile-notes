@@ -78,25 +78,22 @@ static NSString *browseCellIdentifier = @"BrowseEventsCell_ID";
 
 
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) IBOutlet NSLayoutConstraint *topTableConstraint;
+@property (nonatomic, strong) IBOutlet NSLayoutConstraint *bottomTableConstraint;
 
 @property (nonatomic, strong) NSMutableDictionary *sectionsMap;
 @property (nonatomic, strong) NSMutableOrderedSet *sectionsMapTitles;
-
 @property (nonatomic, strong) NSDateFormatter *sectionsKeyFormatter;
 @property (nonatomic, strong) NSDateFormatter *sectionsTitleFormatter;
 @property (nonatomic, strong) NSDateFormatter *cellDateFormatter;
-
 @property (nonatomic, strong) NSArray *shortcuts;
 @property (nonatomic, strong) MNMPullToRefreshManager *pullToRefreshManager;
 @property (nonatomic, strong) PYEvent *eventToShowOnAppear;
-
 @property (nonatomic, strong) PYEventFilter *filter;
 @property (nonatomic, strong) UserHistoryEntry *tempEntry;
-
 @property (nonatomic, strong) NSIndexPath *lastIndexPath;
 
 @property (nonatomic) NSTimeInterval *lastTimeFocus;
-
 @property (nonatomic) AggregationStep aggregationStep;
 
 - (void)loadData;
@@ -188,11 +185,26 @@ BOOL displayNonStandardEvents;
     [[NSUserDefaults standardUserDefaults] addObserver:self
                                             forKeyPath:kPYAppSettingUIDisplayNonStandardEvents
                                                options:(NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld) context:nil];
+    [self initTableView];
     
-    self.pullToRefreshManager = [[MNMPullToRefreshManager alloc] initWithPullToRefreshViewHeight:60 tableView:self.tableView withClient:self];
+    //self.pullToRefreshManager = [[MNMPullToRefreshManager alloc] initWithPullToRefreshViewHeight:60 tableView:self.tableView withClient:self];
     
     [self setupLeftMenuButton];
     [self loadData];
+}
+
+-(void) initTableView
+{
+    if (IS_IPHONE_5) {
+        [_topTableConstraint setConstant:-252];
+        [_bottomTableConstraint setConstant:-252];
+        [_tableView setContentInset:UIEdgeInsetsMake(252, 0, 252, 0)];
+    }else
+    {
+        [_topTableConstraint setConstant:-208];
+        [_bottomTableConstraint setConstant:-208];
+        [_tableView setContentInset:UIEdgeInsetsMake(208, 0, 208, 0)];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
