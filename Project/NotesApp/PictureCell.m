@@ -18,6 +18,9 @@
 @property (nonatomic, strong) NSDate *startLoadTime;
 @property (nonatomic, weak) IBOutlet UIActivityIndicatorView *loadingIndicator;
 @property (nonatomic, strong) UIImage *currentImage;
+@property (nonatomic, strong) dispatch_queue_t imageQueue_;
+
+- (void)setUp;
 
 @end
 
@@ -27,9 +30,22 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code
+        [self setUp];
     }
     return self;
+}
+
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        [self setUp];
+    }
+    return self;
+}
+
+- (void)setUp {
+    
 }
 
 /*
@@ -121,13 +137,18 @@
     self.startLoadTime = [NSDate date];
     self.currentEventId = event.clientId;
     
-    // anyway try to load the first attachement
-    UIImage* image = [event firstAttachmentFromMemoryOrCache];
-    if (image) {
-         [self updateWithImage:image andEventId:event.clientId animated:NO];
-    } else {
-        // then the preview
-        dispatch_async(dispatch_get_main_queue(), ^{
+    if (! _imageQueue_) {
+        _imageQueue_ = dispatch_queue_create("com.company.app.imageQueue", NULL);
+    }
+    
+    
+    dispatch_async(_imageQueue_, ^{
+        // anyway try to load the first attachement
+        UIImage* image = [event firstAttachmentFromMemoryOrCache];
+        if (image) {
+            [self updateWithImage:image andEventId:event.clientId animated:NO];
+        } else {
+            // then the preview
             self.loadingIndicator.hidden = NO;
             [self.loadingIndicator startAnimating];
             [event preview:^(UIImage *image) {
@@ -139,8 +160,8 @@
                 [self updateWithImage:nil andEventId:event.clientId animated:NO];
                 
             }];
-        });
-    };
+        };
+    });
     
     
 }
