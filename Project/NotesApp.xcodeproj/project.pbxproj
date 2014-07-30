@@ -51,6 +51,7 @@
 		2934FBA0197E67EA00407D2B /* KeyboardNumericEntryKeyBackspaceGlyphTextured@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2934FB9F197E67EA00407D2B /* KeyboardNumericEntryKeyBackspaceGlyphTextured@2x.png */; };
 		2934FBB819829A8000407D2B /* InboardingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2934FBB719829A8000407D2B /* InboardingViewController.m */; };
 		2934FBDB1986C66F00407D2B /* DurationLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2934FBDA1986C66F00407D2B /* DurationLabel.m */; };
+		2934FBF81989266200407D2B /* BrowserNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2934FBF71989266200407D2B /* BrowserNavigationController.m */; };
 		29FF5D7C196ED0B60002D124 /* UnitPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29FF5D7B196ED0B60002D124 /* UnitPickerViewController.m */; };
 		4E0901071857640400A2F044 /* AddNumericalValueCellFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0901061857640400A2F044 /* AddNumericalValueCellFormat.m */; };
 		4E37857517953BBD00ED94DF /* Manifest.lock in Resources */ = {isa = PBXBuildFile; fileRef = 4E37852F17953BBD00ED94DF /* Manifest.lock */; };
@@ -402,6 +403,8 @@
 		2934FBB719829A8000407D2B /* InboardingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InboardingViewController.m; sourceTree = "<group>"; };
 		2934FBD91986C66F00407D2B /* DurationLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DurationLabel.h; sourceTree = "<group>"; };
 		2934FBDA1986C66F00407D2B /* DurationLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DurationLabel.m; sourceTree = "<group>"; };
+		2934FBF61989266200407D2B /* BrowserNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowserNavigationController.h; sourceTree = "<group>"; };
+		2934FBF71989266200407D2B /* BrowserNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrowserNavigationController.m; sourceTree = "<group>"; };
 		29FF5D7A196ED0B60002D124 /* UnitPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitPickerViewController.h; sourceTree = "<group>"; };
 		29FF5D7B196ED0B60002D124 /* UnitPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitPickerViewController.m; sourceTree = "<group>"; };
 		4E0901051857640400A2F044 /* AddNumericalValueCellFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddNumericalValueCellFormat.h; sourceTree = "<group>"; };
@@ -1650,6 +1653,8 @@
 				B6D0ED8A1787827400665DE8 /* BrowseEventsViewController.m */,
 				290042B219640ADE00436A4B /* AddEventTableViewController.h */,
 				290042B319640ADE00436A4B /* AddEventTableViewController.m */,
+				2934FBF61989266200407D2B /* BrowserNavigationController.h */,
+				2934FBF71989266200407D2B /* BrowserNavigationController.m */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -2200,6 +2205,7 @@
 				B6BA3E961733E4F500464C2F /* StreamGroupingManager.m in Sources */,
 				B6783A3D174178FB0083AE50 /* NotesAppController.m in Sources */,
 				B61F38B017477DC700B94960 /* SettingsViewController.m in Sources */,
+				2934FBF81989266200407D2B /* BrowserNavigationController.m in Sources */,
 				B6DC81F4181E667700118ED9 /* PictureCell.m in Sources */,
 				B64ACAC61750F21900E2F6F7 /* DataService.m in Sources */,
 				4E41A62D18587EE000BC0C28 /* AddNumericalValueCellClass.m in Sources */,

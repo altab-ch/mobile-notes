@@ -406,10 +406,10 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
             </objects>
             <point key="canvasLocation" x="-1908" y="-1155"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Browser Navigation Controller-->
         <scene sceneID="liD-uM-FWe">
             <objects>
-                <navigationController storyboardIdentifier="main_nav_c" definesPresentationContext="YES" id="gda-j5-RoP" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="main_nav_c" definesPresentationContext="YES" id="gda-j5-RoP" customClass="BrowserNavigationController" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="25e-xG-hcr">
                         <rect key="frame" x="0.0" y="0.0" width="0.0" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
