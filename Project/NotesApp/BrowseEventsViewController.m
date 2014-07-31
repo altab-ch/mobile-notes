@@ -186,9 +186,6 @@ BOOL displayNonStandardEvents;
                                             forKeyPath:kPYAppSettingUIDisplayNonStandardEvents
                                                options:(NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld) context:nil];
     [self initTableView];
-    
-    //self.pullToRefreshManager = [[MNMPullToRefreshManager alloc] initWithPullToRefreshViewHeight:60 tableView:self.tableView withClient:self];
-    
     [self setupLeftMenuButton];
     [self loadData];
 }
@@ -222,7 +219,7 @@ BOOL displayNonStandardEvents;
     
     NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
     if(indexPath) [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+    if (!_pullToRefreshManager) self.pullToRefreshManager = [[MNMPullToRefreshManager alloc] initWithPullToRefreshViewHeight:60 tableView:self.tableView withClient:self];
     self.title = NSLocalizedString(@"BrowserViewController.Title", nil);
 }
 

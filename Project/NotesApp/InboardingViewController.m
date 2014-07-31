@@ -47,13 +47,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSLog(@"%@", _btBackLocalTag);
     // Do any additional setup after loading the view.
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc]
                                    initWithTitle: NSLocalizedString(@"inboarding.back", nil)
                                    style: UIBarButtonItemStyleBordered
                                    target:self action: @selector(btDoneTouched)];
     [self.navigationItem setLeftBarButtonItem:doneButton];
+}
+
+-(void) didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    [_webView setFrame:self.view.bounds];
 }
 
 -(void) btDoneTouched

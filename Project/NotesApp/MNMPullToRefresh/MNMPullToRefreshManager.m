@@ -83,11 +83,19 @@ static CGFloat const kAnimationDuration = 0.2f;
         
         CGFloat offset = [table_ contentOffset].y;
 
-        if (offset >= 0.0f) {
+        float offsetLimit = 0.0f;
+        if (IS_IPHONE_5) {
+            offsetLimit = -252.0f;
+        }else
+        {
+            offsetLimit = -208.0f;
+        }
+        
+        if (offset >= offsetLimit) {
         
             [pullToRefreshView_ changeStateOfControl:MNMPullToRefreshViewStateIdle withOffset:offset];
             
-        } else if (offset <= 0.0f && offset >= -[pullToRefreshView_ fixedHeight]) {
+        } else if (offset <= offsetLimit && offset >= -[pullToRefreshView_ fixedHeight]+offsetLimit) {
                 
             [pullToRefreshView_ changeStateOfControl:MNMPullToRefreshViewStatePull withOffset:offset];
             
@@ -106,17 +114,24 @@ static CGFloat const kAnimationDuration = 0.2f;
     if (![pullToRefreshView_ isHidden] && ![pullToRefreshView_ isLoading]) {
         
         CGFloat offset = [table_ contentOffset].y;
+        float offsetLimit = 0.0f;
+        if (IS_IPHONE_5) {
+            offsetLimit = -252.0f;
+        }else
+        {
+            offsetLimit = -208.0f;
+        }
         
-        if (offset <= 0.0f && offset < -[pullToRefreshView_ fixedHeight]) {
+        if (offset <= offsetLimit && offset < -[pullToRefreshView_ fixedHeight]+offsetLimit) {
             
             [pullToRefreshView_ changeStateOfControl:MNMPullToRefreshViewStateLoading withOffset:offset];
             
-            UIEdgeInsets insets = UIEdgeInsetsMake([pullToRefreshView_ fixedHeight], 0.0f, 0.0f, 0.0f);
+            /*UIEdgeInsets insets = UIEdgeInsetsMake([pullToRefreshView_ fixedHeight]-offsetLimit, 0.0f, -offsetLimit, 0.0f);
             
             [UIView animateWithDuration:kAnimationDuration animations:^{
 
                 [table_ setContentInset:insets];
-            }];
+            }];*/
             
             [client_ pullToRefreshTriggered:self];
         }
@@ -130,8 +145,16 @@ static CGFloat const kAnimationDuration = 0.2f;
     
     [UIView animateWithDuration:(animated ? kAnimationDuration : 0.0f) animations:^{
         
-        [table_ setContentInset:UIEdgeInsetsZero];
+        //[table_ setContentInset:UIEdgeInsetsZero];
     
+        /*if (IS_IPHONE_5) {
+            
+            [table_ setContentInset:UIEdgeInsetsMake(252, 0, 252, 0)];
+        }else
+        {
+            
+            [table_ setContentInset:UIEdgeInsetsMake(208, 0, 208, 0)];
+        }*/
     } completion:^(BOOL finished) {
         
         [pullToRefreshView_ setLastUpdateDate:[self.client lastUpdateDateForManager:self]];

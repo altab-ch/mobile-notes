@@ -422,7 +422,8 @@ typedef enum
             return kStreamCellHeight;
         
         case DetailCellTypeTimeEnd:
-            return kDateCellHeight;
+            return 0;
+            //return kDateCellHeight;
             
         case DetailCellTypeDelete:
         {
@@ -972,7 +973,6 @@ typedef enum
     if ([s characterAtIndex:s.length-1]=='\n')
         rect.size.height += 20;
     
-    NSLog(@"%f", rect.size.height);
     return rect.size.height+56 ;
 }
 
