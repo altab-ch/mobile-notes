@@ -13,6 +13,8 @@
 
 @property (nonatomic, weak) IBOutlet UIView *borderView;
 
+-(BOOL) shouldUpdateBorder;
+
 @end
 
 @implementation BaseDetailCell
@@ -37,9 +39,21 @@
 - (void)setIsInEditMode:(BOOL)isInEditMode
 {
     _isInEditMode = isInEditMode;
-    [UIView animateWithDuration:0.2 animations:^{
-        self.borderView.alpha = _isInEditMode ? 1.0f : 0.0f;
-    }];
+    if ([self shouldUpdateBorder] && _borderView)
+        [UIView animateWithDuration:0.2 animations:^{
+            self.borderView.alpha = _isInEditMode ? 1.0f : 0.0f;
+        }];
+    
+}
+
+-(void) updateWithEvent:(PYEvent*)event
+{
+    _event = event;
+}
+
+-(BOOL) shouldUpdateBorder
+{
+    return NO;
 }
 
 @end

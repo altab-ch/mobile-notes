@@ -11,5 +11,8 @@
 @interface BaseDetailCell : UITableViewCell
 
 @property (nonatomic) BOOL isInEditMode;
+@property (nonatomic, weak) PYEvent *event;
+
+-(void) updateWithEvent:(PYEvent*)event;
 
 @end

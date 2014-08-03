@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment defaultVersion="1552" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="60" id="x2T-w0-PxQ" userLabel="Note" customClass="NoteDetailCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="x2T-w0-PxQ" id="LXi-cj-l6r">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="59"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ROM-sr-cvp">
+                        <rect key="frame" x="5" y="5" width="310" height="50"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Note" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ech-RJ-gWD">
+                        <rect key="frame" x="13" y="7" width="80" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2BJ-A9-Svd">
+                        <rect key="frame" x="10" y="23" width="297" height="30"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    </textView>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="2BJ-A9-Svd" secondAttribute="trailing" constant="13" id="4AD-az-LcA" userLabel="N6 - Horizontal Space - (13) - Content View - Text View"/>
+                    <constraint firstItem="ROM-sr-cvp" firstAttribute="leading" secondItem="LXi-cj-l6r" secondAttribute="leading" constant="5" id="4e9-ru-y46" userLabel="N4 - Horizontal Space - (5) - View - Content View"/>
+                    <constraint firstItem="ROM-sr-cvp" firstAttribute="top" secondItem="LXi-cj-l6r" secondAttribute="top" constant="5" id="Am1-U2-MaS" userLabel="N5 - Vertical Space - (5) - View - Content View"/>
+                    <constraint firstAttribute="bottom" secondItem="ROM-sr-cvp" secondAttribute="bottom" constant="5" id="DxS-Ra-Xcd" userLabel="N3 - Vertical Space - (5) - Content View - View"/>
+                    <constraint firstAttribute="trailing" secondItem="ROM-sr-cvp" secondAttribute="trailing" constant="5" id="Ke2-1Q-Ygj" userLabel="N1 - Horizontal Space - (5) - Content View - View"/>
+                    <constraint firstItem="2BJ-A9-Svd" firstAttribute="leading" secondItem="LXi-cj-l6r" secondAttribute="leading" constant="10" id="TmK-hS-NpR" userLabel="N8 - Horizontal Space - (10) - Text View - Content View"/>
+                    <constraint firstItem="ROM-sr-cvp" firstAttribute="bottom" secondItem="2BJ-A9-Svd" secondAttribute="bottom" constant="2" id="Zpc-fc-Nwf" userLabel="N2 - Bottom Alignment - (2) - View - Text View"/>
+                    <constraint firstItem="2BJ-A9-Svd" firstAttribute="top" secondItem="LXi-cj-l6r" secondAttribute="top" constant="23" id="vWo-gp-pOJ" userLabel="N7 - Vertical Space - (23) - Text View - Content View"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <connections>
+                <outlet property="borderView" destination="ROM-sr-cvp" id="dn9-Vi-59O"/>
+                <outlet property="noteText" destination="2BJ-A9-Svd" id="6Ho-CG-SkK"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+</document>
