@@ -33,7 +33,6 @@
 #define kNoteTextViewWidth 297
 
 #define kShowImagePreviewSegue @"ShowImagePreviewSegue_ID"
-#define isiPhone5 ([UIScreen mainScreen].bounds.size.height == 568.0f)
 
 typedef enum
 {
