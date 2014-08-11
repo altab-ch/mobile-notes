@@ -50,6 +50,7 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="borderView" destination="ROM-sr-cvp" id="dn9-Vi-59O"/>
+                <outlet property="header" destination="Ech-RJ-gWD" id="xTU-eN-Mt8"/>
                 <outlet property="noteText" destination="2BJ-A9-Svd" id="6Ho-CG-SkK"/>
             </connections>
         </tableViewCell>

@@ -31,6 +31,12 @@
     _descriptionText.text = self.event.eventDescription;
 }
 
+-(void) setIsInEditMode:(BOOL)isInEditMode
+{
+    [super setIsInEditMode:isInEditMode];
+    [_descriptionText setEditable:isInEditMode];
+}
+
 #pragma mark - Border
 
 -(BOOL) shouldUpdateBorder

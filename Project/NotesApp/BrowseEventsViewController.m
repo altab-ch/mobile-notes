@@ -33,6 +33,7 @@
 #import "MenuNavController.h"
 #import "PYEventTypes+Helper.h"
 #import "XMMDrawerController.h"
+#import "DetailViewController.h"
 
 #define kPictureToDetailSegue_ID @"kPictureToDetailSegue_ID"
 #define kNoteToDetailSegue_ID @"kNoteToDetailSegue_ID"
@@ -611,7 +612,8 @@ BOOL displayNonStandardEvents;
         || [[segue identifier] isEqualToString:kPictureToDetailSegue_ID]
         || [[segue identifier] isEqualToString:kNoteToDetailSegue_ID]) {
         
-        EventDetailsViewController *detail = [segue destinationViewController];
+        //EventDetailsViewController *detail = [segue destinationViewController];
+        DetailViewController *detail = [segue destinationViewController];
         BrowseCell *cell = (BrowseCell*)[self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
         [detail setEvent:cell.event];
     }

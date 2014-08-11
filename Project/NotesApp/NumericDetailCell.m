@@ -60,6 +60,13 @@
     return value;
 }
 
+-(void) setIsInEditMode:(BOOL)isInEditMode
+{
+    [super setIsInEditMode:isInEditMode];
+    [_numericalValue setEnabled:isInEditMode];
+    if (self.event.isDraft && isInEditMode) [_numericalValue becomeFirstResponder];
+}
+
 #pragma mark - Border
 
 -(BOOL) shouldUpdateBorder

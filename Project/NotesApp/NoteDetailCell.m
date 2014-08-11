@@ -32,6 +32,12 @@
     _noteText.text = event.eventContentAsString;
 }
 
+-(void) setIsInEditMode:(BOOL)isInEditMode
+{
+    [super setIsInEditMode:isInEditMode];
+    [_noteText setEditable:isInEditMode];
+    if (self.event.isDraft && isInEditMode) [_noteText becomeFirstResponder];
+}
 
 #pragma mark - Border
 

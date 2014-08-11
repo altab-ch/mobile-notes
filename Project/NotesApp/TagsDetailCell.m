@@ -28,10 +28,27 @@
     return self;
 }
 
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(tokenContainerDidChangeFrameNotification:)
+                                                     name:JSTokenFieldFrameDidChangeNotification
+                                                   object:nil];
+    }
+    return self;
+}
+
 -(void) updateWithEvent:(PYEvent*)event
 {
     [super updateWithEvent:event];
     [self initTags];
+}
+
+-(void)awakeFromNib{
+    [super awakeFromNib];
+    
 }
 
 #pragma mark - JSTokenFieldDelegate methods
@@ -69,7 +86,13 @@
 
 - (void)tokenContainerDidChangeFrameNotification:(NSNotification*)note
 {
-    [self updateConstraints];
+    
+}
+
+-(void) setIsInEditMode:(BOOL)isInEditMode
+{
+    [super setIsInEditMode:isInEditMode];
+    [self.tokenField setUserInteractionEnabled:isInEditMode];
 }
 
 #pragma mark - Border

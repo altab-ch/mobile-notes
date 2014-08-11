@@ -12,6 +12,7 @@
 @interface BaseDetailCell ()
 
 @property (nonatomic, weak) IBOutlet UIView *borderView;
+@property (nonatomic, weak) IBOutlet UILabel *header;
 
 -(BOOL) shouldUpdateBorder;
 
@@ -39,16 +40,20 @@
 - (void)setIsInEditMode:(BOOL)isInEditMode
 {
     _isInEditMode = isInEditMode;
-    if ([self shouldUpdateBorder] && _borderView)
-        [UIView animateWithDuration:0.2 animations:^{
+    if ([self shouldUpdateBorder] && _header)
+        [_header setTextColor:_isInEditMode?[UIColor colorWithRed:32.0f/255.0f green:169.0f/255.0f blue:215.0f/255.0f alpha:1] : [UIColor lightGrayColor]];
+        /*[UIView animateWithDuration:0.2 animations:^{
             self.borderView.alpha = _isInEditMode ? 1.0f : 0.0f;
-        }];
+        }];*/
     
 }
 
 -(void) updateWithEvent:(PYEvent*)event
 {
     _event = event;
+    if (_event.isDraft)
+        [self setIsInEditMode:true];
+    
 }
 
 -(BOOL) shouldUpdateBorder
