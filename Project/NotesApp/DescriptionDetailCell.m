@@ -8,7 +8,7 @@
 
 #import "DescriptionDetailCell.h"
 
-@interface DescriptionDetailCell ()
+@interface DescriptionDetailCell () <UITextViewDelegate>
 
 @property (nonatomic, weak) IBOutlet UITextView *descriptionText;
 
@@ -28,6 +28,7 @@
 -(void) updateWithEvent:(PYEvent*)event
 {
     [super updateWithEvent:event];
+    self.descriptionText.delegate = self;
     _descriptionText.text = self.event.eventDescription;
 }
 
@@ -35,6 +36,25 @@
 {
     [super setIsInEditMode:isInEditMode];
     [_descriptionText setEditable:isInEditMode];
+    [self.descriptionText resignFirstResponder];
+}
+
+#pragma mark - UITextViewDelegate
+
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView
+{
+    //_isDateExtHidden = true;
+    [self.tableView beginUpdates];
+    [self.tableView endUpdates];
+    return self.isInEditMode;
+}
+
+- (void) textViewDidChange:(UITextView *)textView
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:kDetailShouldUpdateEventNotification object:nil];
+    [self.tableView beginUpdates];
+    [self.tableView endUpdates];
+    self.event.eventDescription = self.descriptionText.text;
 }
 
 #pragma mark - Border
@@ -44,6 +64,29 @@
     return YES;
 }
 
+-(CGFloat) getHeight
+{
+    if([self.descriptionText.text length] == 0)
+        return 74;
+
+    if ([self.descriptionText.text length] > 0)
+        return [self heightForNoteTextViewWithString:self.descriptionText.text];
+    
+    return 0;
+}
+
+-(CGFloat) heightForNoteTextViewWithString:(NSString*)s
+{
+    NSDictionary *attributes = @{NSFontAttributeName: self.descriptionText.font};
+    CGRect rect = [s boundingRectWithSize:CGSizeMake(self.descriptionText.frame.size.width-10, CGFLOAT_MAX)
+                                  options:NSStringDrawingUsesLineFragmentOrigin
+                               attributes:attributes
+                                  context:nil];
+    if ([s characterAtIndex:s.length-1]=='\n')
+        rect.size.height += 20;
+    
+    return rect.size.height+56 ;
+}
 
 /*
 // Only override drawRect: if you perform custom drawing.

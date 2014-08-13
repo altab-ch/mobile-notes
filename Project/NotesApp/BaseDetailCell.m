@@ -56,6 +56,11 @@
     
 }
 
+-(CGFloat) getHeight
+{
+    return 44;
+}
+
 -(BOOL) shouldUpdateBorder
 {
     return NO;

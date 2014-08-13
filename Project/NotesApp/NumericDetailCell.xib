@@ -24,6 +24,9 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="42"/>
                         <textInputTraits key="textInputTraits"/>
+                        <connections>
+                            <action selector="valueTextFieldDidChange:" destination="tCi-J9-exy" eventType="valueChanged" id="zHK-oY-b8D"/>
+                        </connections>
                     </textField>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="kg" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="28" translatesAutoresizingMaskIntoConstraints="NO" id="wyb-We-JnB">
                         <rect key="frame" x="238" y="3" width="79" height="62"/>

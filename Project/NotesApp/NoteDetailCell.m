@@ -9,7 +9,7 @@
 #import "NoteDetailCell.h"
 #import "PYEvent+Helper.h"
 
-@interface NoteDetailCell ()
+@interface NoteDetailCell () <UITextViewDelegate>
 
 @property (nonatomic, weak) IBOutlet UITextView *noteText;
 
@@ -29,14 +29,37 @@
 -(void) updateWithEvent:(PYEvent*)event
 {
     [super updateWithEvent:event];
-    _noteText.text = event.eventContentAsString;
+    self.noteText.delegate = self;
+    self.noteText.text = event.eventContentAsString;
+    [self setFrame:CGRectMake(0, 0, 320, [self getHeight])];
+    [self layoutIfNeeded];
 }
 
 -(void) setIsInEditMode:(BOOL)isInEditMode
 {
     [super setIsInEditMode:isInEditMode];
-    [_noteText setEditable:isInEditMode];
-    if (self.event.isDraft && isInEditMode) [_noteText becomeFirstResponder];
+    [self.noteText setEditable:isInEditMode];
+    if (self.event.isDraft && isInEditMode) [self.noteText becomeFirstResponder];
+    else [self.noteText resignFirstResponder];
+}
+
+#pragma mark - UITextViewDelegate
+
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView
+{
+    //_isDateExtHidden = true;
+    [self.tableView beginUpdates];
+    [self.tableView endUpdates];
+    return self.isInEditMode;
+}
+
+- (void) textViewDidChange:(UITextView *)textView
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:kDetailShouldUpdateEventNotification object:nil];
+    [self setFrame:CGRectMake(0, 0, 320, [self getHeight])];
+    [self layoutIfNeeded];
+    [self.delegate updateTableview];
+    self.event.eventContent = self.noteText.text;
 }
 
 #pragma mark - Border
@@ -45,6 +68,32 @@
 {
     return YES;
 }
+
+-(CGFloat) getHeight
+{
+    if([self.noteText.text length] == 0) {
+        return 74;
+    }
+    if ([self.noteText.text length] > 0)
+    {
+        return [self heightForNoteTextViewWithString:self.noteText.text];
+    }
+    return 44;
+}
+
+-(CGFloat) heightForNoteTextViewWithString:(NSString*)s
+{
+    NSDictionary *attributes = @{NSFontAttributeName: self.noteText.font};
+    CGRect rect = [s boundingRectWithSize:CGSizeMake(self.noteText.frame.size.width-10, CGFLOAT_MAX)
+                                  options:NSStringDrawingUsesLineFragmentOrigin
+                               attributes:attributes
+                                  context:nil];
+    if ([s characterAtIndex:s.length-1]=='\n')
+        rect.size.height += 20;
+    
+    return rect.size.height+56 ;
+}
+
 
 /*
 // Only override drawRect: if you perform custom drawing.

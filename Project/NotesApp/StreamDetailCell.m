@@ -35,11 +35,22 @@
     if (event.stream) [_pastille setBackgroundColor:[[event stream] getColor]];
 }
 
+-(void) setIsInEditMode:(BOOL)isInEditMode
+{
+    [super setIsInEditMode:isInEditMode];
+    if (!isInEditMode) [self.streamsLabel setTextColor:[UIColor blackColor]];
+}
+
 #pragma mark - Border
 
 -(BOOL) shouldUpdateBorder
 {
     return YES;
+}
+
+-(CGFloat) getHeight
+{
+    return 54;
 }
 
 @end

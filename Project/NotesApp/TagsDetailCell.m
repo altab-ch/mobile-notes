@@ -73,6 +73,7 @@
         [tokens addObject:[token representedObject]];
     }
     self.event.tags = tokens;
+    [[NSNotificationCenter defaultCenter] postNotificationName:kDetailShouldUpdateEventNotification object:nil];
 }
 
 - (void)initTags
@@ -86,13 +87,16 @@
 
 - (void)tokenContainerDidChangeFrameNotification:(NSNotification*)note
 {
-    
+    [self.tableView beginUpdates];
+    [self.tableView endUpdates];
+    //[self.tableView setContentOffset:CGPointMake(self.tableView.contentOffset.x, self.tableView.contentOffset.y+20) animated:YES];
 }
 
 -(void) setIsInEditMode:(BOOL)isInEditMode
 {
     [super setIsInEditMode:isInEditMode];
     [self.tokenField setUserInteractionEnabled:isInEditMode];
+    [self.tokenField resignFirstResponder];
 }
 
 #pragma mark - Border
@@ -100,6 +104,11 @@
 -(BOOL) shouldUpdateBorder
 {
     return YES;
+}
+
+-(CGFloat) getHeight
+{
+    return self.tokenField.frame.size.height + 38;
 }
 
 

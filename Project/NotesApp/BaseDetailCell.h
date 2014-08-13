@@ -13,6 +13,7 @@
 @property (nonatomic) BOOL isInEditMode;
 @property (nonatomic, weak) PYEvent *event;
 
+-(CGFloat) getHeight;
 -(void) updateWithEvent:(PYEvent*)event;
 
 @end

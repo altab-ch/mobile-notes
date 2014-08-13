@@ -67,6 +67,7 @@
 		2934FBDB1986C66F00407D2B /* DurationLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2934FBDA1986C66F00407D2B /* DurationLabel.m */; };
 		2934FBF81989266200407D2B /* BrowserNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2934FBF71989266200407D2B /* BrowserNavigationController.m */; };
 		2934FBFA19892BC400407D2B /* AddNumericalValueCellFormat.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2934FBF919892BC400407D2B /* AddNumericalValueCellFormat.xib */; };
+		293EDC1E19991164003D6E3D /* EventDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 293EDC1D19991164003D6E3D /* EventDetailCell.m */; };
 		29FF5D7C196ED0B60002D124 /* UnitPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29FF5D7B196ED0B60002D124 /* UnitPickerViewController.m */; };
 		4E0901071857640400A2F044 /* AddNumericalValueCellFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0901061857640400A2F044 /* AddNumericalValueCellFormat.m */; };
 		4E37857517953BBD00ED94DF /* Manifest.lock in Resources */ = {isa = PBXBuildFile; fileRef = 4E37852F17953BBD00ED94DF /* Manifest.lock */; };
@@ -446,6 +447,9 @@
 		2934FBF61989266200407D2B /* BrowserNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowserNavigationController.h; sourceTree = "<group>"; };
 		2934FBF71989266200407D2B /* BrowserNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrowserNavigationController.m; sourceTree = "<group>"; };
 		2934FBF919892BC400407D2B /* AddNumericalValueCellFormat.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddNumericalValueCellFormat.xib; sourceTree = "<group>"; };
+		293EDC1C19991164003D6E3D /* EventDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventDetailCell.h; sourceTree = "<group>"; };
+		293EDC1D19991164003D6E3D /* EventDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventDetailCell.m; sourceTree = "<group>"; };
+		293EDC2B19991F8C003D6E3D /* EventDetailCellDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventDetailCellDelegate.h; sourceTree = "<group>"; };
 		29FF5D7A196ED0B60002D124 /* UnitPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitPickerViewController.h; sourceTree = "<group>"; };
 		29FF5D7B196ED0B60002D124 /* UnitPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitPickerViewController.m; sourceTree = "<group>"; };
 		4E0901051857640400A2F044 /* AddNumericalValueCellFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddNumericalValueCellFormat.h; sourceTree = "<group>"; };
@@ -909,6 +913,9 @@
 				290712E0198C0EF900C3819B /* PhotoDetailCell.h */,
 				290712E1198C0EF900C3819B /* PhotoDetailCell.m */,
 				290712E3198C0F1A00C3819B /* PhotoDetailCell.xib */,
+				293EDC1C19991164003D6E3D /* EventDetailCell.h */,
+				293EDC1D19991164003D6E3D /* EventDetailCell.m */,
+				293EDC2B19991F8C003D6E3D /* EventDetailCellDelegate.h */,
 			);
 			name = EventCells;
 			sourceTree = "<group>";
@@ -2329,6 +2336,7 @@
 				B6D0ED881787804A00665DE8 /* BrowseEventsCell.m in Sources */,
 				B6D0ED8B1787827400665DE8 /* BrowseEventsViewController.m in Sources */,
 				B6B59075178C761A0009E413 /* CellStyleModel.m in Sources */,
+				293EDC1E19991164003D6E3D /* EventDetailCell.m in Sources */,
 				B6DC81E9181E63F500118ED9 /* BrowseCell.m in Sources */,
 				290712D3198BF15700C3819B /* DeleteDetailCell.m in Sources */,
 				B6B59082178C8FD50009E413 /* UIBarButtonItem+PrYv.m in Sources */,

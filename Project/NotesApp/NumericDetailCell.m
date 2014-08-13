@@ -33,12 +33,12 @@
 {
     [super updateWithEvent:event];
     
-    [_numericalValue_TypeLabel setText:[event.pyType localizedName]];
-    [_numericalValue_Label setText:[event.pyType symbol]];
-    [_numericalValue setText:[self getNumericalValueFormatted:event]];
+    [self.numericalValue_TypeLabel setText:[event.pyType localizedName]];
+    [self.numericalValue_Label setText:[event.pyType symbol]];
+    [self.numericalValue setText:[self getNumericalValueFormatted:event]];
     
     ZenKeyboard *keyboard = [[ZenKeyboard alloc]initWithFrame:CGRectMake(0, 0, 320, 216)];
-    [keyboard setTextField:_numericalValue];
+    [keyboard setTextField:self.numericalValue];
 }
 
 -(NSString*) getNumericalValueFormatted:(PYEvent*)event
@@ -63,8 +63,15 @@
 -(void) setIsInEditMode:(BOOL)isInEditMode
 {
     [super setIsInEditMode:isInEditMode];
-    [_numericalValue setEnabled:isInEditMode];
-    if (self.event.isDraft && isInEditMode) [_numericalValue becomeFirstResponder];
+    [self.numericalValue setEnabled:isInEditMode];
+    if (self.event.isDraft && isInEditMode) [self.numericalValue becomeFirstResponder];
+    else [self.numericalValue resignFirstResponder];
+}
+
+-(IBAction)valueTextFieldDidChange:(id)sender
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:kDetailShouldUpdateEventNotification object:nil];
+    self.event.eventContent = self.numericalValue.text;
 }
 
 #pragma mark - Border
@@ -72,6 +79,11 @@
 -(BOOL) shouldUpdateBorder
 {
     return YES;
+}
+
+-(CGFloat) getHeight
+{
+    return 90;
 }
 
 /*

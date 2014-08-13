@@ -45,6 +45,11 @@
     return YES;
 }
 
+-(CGFloat) getHeight
+{
+    return 66;
+}
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

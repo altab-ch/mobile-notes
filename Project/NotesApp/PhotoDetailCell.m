@@ -36,10 +36,14 @@
     [event preview:^(UIImage *img) {
         if(self.picture_ImageView.image) return;
         self.picture_ImageView.image = img;
+        [self setFrame:CGRectMake(0, 0, 320, [self getHeight])];
+        [self layoutIfNeeded];
     } failure:nil];
     
     [event firstAttachmentAsImage:^(UIImage *image) {
         self.picture_ImageView.image = image;
+        [self setFrame:CGRectMake(0, 0, 320, [self getHeight])];
+        [self layoutIfNeeded];
     } errorHandler:nil];
 }
 
@@ -48,6 +52,19 @@
 -(BOOL) shouldUpdateBorder
 {
     return NO;
+}
+
+-(CGFloat) getHeight
+{
+    /*CGFloat height = 44;
+    UIImage* image = self.picture_ImageView.image;
+    if(image)
+    {
+        CGFloat scaleFactor = 320 / image.size.width;
+        height = image.size.height * scaleFactor;
+    }
+    return height;*/
+    return 160;
 }
 
 /*

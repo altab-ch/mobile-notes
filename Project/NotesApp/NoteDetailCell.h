@@ -7,7 +7,8 @@
 //
 
 #import "BaseDetailCell.h"
+#import "EventDetailCellDelegate.h"
 
 @interface NoteDetailCell : BaseDetailCell
-
+@property (nonatomic, strong) id<EventDetailCellDelegate> delegate;
 @end

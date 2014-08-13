@@ -17,24 +17,19 @@
 #import "TagsDetailCell.h"
 #import "DescriptionDetailCell.h"
 #import "DeleteDetailCell.h"
-
+#import "EventDetailCell.h"
 #import "PYEvent+Helper.h"
-
-#define kStreamCellHeight 54
-#define kNoteCellHeight 74
-#define kDeleteCellHeight 50
-#define kDateCellHeight 66
-#define kDatePickerCellHeight 210
-#define kValueCellHeight 90
-#define kImageCellHeight 160
-#define kNoteTextViewWidth 297
+#import "UIAlertView+PrYv.h"
+#import "DataService.h"
 
 typedef enum
 {
     DetailCellTypeEvent,
     DetailCellTypeStreams,
     DetailCellTypeTime,
+    DetailCellTypeTimePicker,
     DetailCellTypeTimeEnd,
+    DetailCellTypeTimeEndPicker,
     DetailCellTypeTags,
     DetailCellTypeDescription,
     DetailCellTypeDelete
@@ -48,6 +43,18 @@ typedef enum
 @property (nonatomic) BOOL isEndDatePicker;
 @property (nonatomic) BOOL shouldUpdateEvent;
 @property (nonatomic, strong) NSDictionary* initialEventValue;
+
+@property (nonatomic, weak) IBOutlet EventDetailCell *eventDetailCell;
+@property (nonatomic, weak) IBOutlet StreamDetailCell *streamDetailCell;
+@property (nonatomic, weak) IBOutlet DateDetailCell *dateDetailCell;
+@property (nonatomic, weak) IBOutlet DatePickerDetailCell *datePickerDetailCell;
+@property (nonatomic, weak) IBOutlet EndDateDetailCell *endDateDetailCell;
+@property (nonatomic, weak) IBOutlet DatePickerDetailCell *endDatePickerDetailCell;
+@property (nonatomic, weak) IBOutlet TagsDetailCell *tagsDetailCell;
+@property (nonatomic, weak) IBOutlet DescriptionDetailCell *descriptionDetailCell;
+@property (nonatomic, weak) IBOutlet DeleteDetailCell *deleteDetailCell;
+
+@property (nonatomic, strong) IBOutletCollection(BaseDetailCell) NSArray *cells;
 
 @end
 
@@ -65,16 +72,22 @@ typedef enum
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    _isEdit = _event.isDraft;
-    _initialEventValue = [self.event cachingDictionary];
-    _isDatePicker = false;
-    _isEndDatePicker = false;
-    UINib *nib = [UINib nibWithNibName:@"NoteDetailCell" bundle:nil];
-    [[self tableView] registerNib:nib forCellReuseIdentifier:@"NoteDetailCell_ID"];
-    nib = [UINib nibWithNibName:@"NumericDetailCell" bundle:nil];
-    [[self tableView] registerNib:nib forCellReuseIdentifier:@"NumericDetailCell_ID"];
-    nib = [UINib nibWithNibName:@"PhotoDetailCell" bundle:nil];
-    [[self tableView] registerNib:nib forCellReuseIdentifier:@"PhotoDetailCell_ID"];
+    self.isEdit = self.event.isDraft;
+    self.initialEventValue = [self.event cachingDictionary];
+    self.isDatePicker = false;
+    self.isEndDatePicker = false;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(willUpdateEvent)
+                                                 name:kDetailShouldUpdateEventNotification
+                                               object:nil];
+    
+    [self updateEvent];
+}
+
+-(void) willUpdateEvent
+{
+    self.shouldUpdateEvent = true;
 }
 
 -(void) viewDidAppear:(BOOL)animated
@@ -87,211 +100,113 @@ typedef enum
     [super didReceiveMemoryWarning];
 }
 
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+-(void) updateEvent
 {
-    return 7;
+    [self.cells enumerateObjectsUsingBlock:^(BaseDetailCell *cell, NSUInteger idx, BOOL *stop) {
+        [cell updateWithEvent:self.event];
+    }];
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    NSInteger numberOfRows = 1;
-    if (section==DetailCellTypeTime) {
-        if (_isDatePicker)
-            numberOfRows=2;
-        else
-            numberOfRows=1;
-    }
-    if (section==DetailCellTypeTimeEnd) {
-        if (_isEndDatePicker)
-            numberOfRows=2;
-        else
-            numberOfRows=1;
-    }
-    return numberOfRows;
-}
+#pragma mark - IBAction
 
-
-/*- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (IBAction)editButtonTouched:(id)sender
 {
-    switch (indexPath.section) {
-            
-        case DetailCellTypeEvent:
-        {
-            EventDataType type = [_event eventDataType];
-            switch (type) {
-                case EventDataTypeImage:
-                {
-                    PhotoDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PhotoDetailCell_ID"];
-                    [cell updateWithEvent:_event];
-                    return cell;
-                }
-                    break;
-                    
-                case EventDataTypeValueMeasure:
-                {
-                    NumericDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NumericDetailCell_ID"];
-                    [cell updateWithEvent:_event];
-                    return cell;
-                }
-                    break;
-                    
-                case EventDataTypeNote:
-                {
-                    NoteDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NoteDetailCell_ID"];
-                    [cell updateWithEvent:_event];
-                    return cell;
-                }
-                    break;
-                    
-                default:
-                    break;
-            }
-            
-        }
-            break;
-            
-        case DetailCellTypeStreams:
-        {
-            StreamDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"StreamDetailCell_ID"];
-            [cell updateWithEvent:_event];
-            return cell;
-        }
-            break;
-            
-        case DetailCellTypeTime:
-        {
-            if (indexPath.row==0) {
-                DateDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DateDetailCell_ID"];
-                [cell updateWithEvent:_event];
-                return cell;
-            }else if (indexPath.row==1){
-                DatePickerDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DatePickerDetailCell_ID"];
-                [cell updateWithEvent:_event];
-                return cell;
-            }
-            
-        }
-            break;
-            
-        case DetailCellTypeTimeEnd:
-        {
-            if (indexPath.row==0) {
-                EndDateDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DateEndDetailCell_ID"];
-                [cell updateWithEvent:_event];
-                return cell;
-            }else if (indexPath.row==1){
-                DatePickerDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DatePickerDetailCell_ID"];
-                [cell updateWithEvent:_event];
-                return cell;
-            }
-            
-        }
-            break;
-            
-        case DetailCellTypeTags:
-        {
-            TagsDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TagsDetailCell_ID"];
-            [cell updateWithEvent:_event];
-            return cell;
-        }
-            break;
-            
-        case DetailCellTypeDescription:
-        {
-            DescriptionDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DescriptionDetailCell_ID"];
-            [cell updateWithEvent:_event];
-            return cell;
-        }
-            break;
-            
-        case DetailCellTypeDelete:
-        {
-            DeleteDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DeleteDetailCell_ID"];
-            [cell updateWithEvent:_event];
-            return cell;
-        }
-            break;
-            
-        default:
-            break;
+    if (self.isEdit && (_event.stream == nil || _event.streamId == nil)) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Alert.DetailViewController.NoStream", nil) message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
+        [alertView show];
+        return;
     }
     
-    return nil;
-}*/
+    if (_event.eventDataType != EventDataTypeImage && (!_event.eventContent || [_event.eventContentAsString isEqualToString:@""])) {
+        
+        if (_event.eventDataType == EventDataTypeValueMeasure) {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Alert.DetailViewController.NoValue", nil) message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
+            [alertView show];
+        }
+        
+        if (_event.eventDataType == EventDataTypeNote) {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Alert.DetailViewController.NoNote", nil) message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
+            [alertView show];
+        }
+        
+        return;
+    }
+    
+    [self updateUIEditMode:!self.isEdit];
+}
+
+- (IBAction)deleteButtonTouched:(id)sender {
+    NSString* title = NSLocalizedString(@"Alert.Message.DeleteConfirmation", nil);
+    if(self.event.isDraft)
+    {
+        title = NSLocalizedString(@"Alert.Message.CancelConfirmation", nil);
+    }
+    
+    
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"NO", nil) otherButtonTitles:NSLocalizedString(@"YES", nil), nil];
+    [alertView showWithCompletionBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+        if(alertView.cancelButtonIndex != buttonIndex)
+        {
+            
+            [self deleteEvent];
+        }
+    }];
+}
+
+- (void)cancelButtonTouched:(id)sender
+{
+    if (self.event.isDraft) [self.navigationController popViewControllerAnimated:YES];
+    else
+    {
+        if (self.initialEventValue) [self.event resetFromCachingDictionary:self.initialEventValue];
+        
+        [self updateEvent];
+        self.shouldUpdateEvent = NO;
+        [self updateUIEditMode:false];
+    }
+}
+
+#pragma mark - Table view data source
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGFloat height = 44;
+    CGFloat height = 0;
     
     switch (indexPath.row) {
         case DetailCellTypeEvent:
-        {
-            EventDataType type = [_event eventDataType];
-            switch (type) {
-                case EventDataTypeImage:
-                    height = kImageCellHeight;
-                    break;
-                    
-                case EventDataTypeValueMeasure:
-                    height = kValueCellHeight;
-                    break;
-                    
-                case EventDataTypeNote:
-                {
-                    if([_event.eventContentAsString length] == 0)
-                        height = kNoteCellHeight;
-                    else
-                        height = [self heightForNoteTextViewWithString:_event.eventContentAsString];
-                    
-                }
-                    break;
-                    
-                default:
-                    break;
-            }
-            
-        }
+            height = self.eventDetailCell.getHeight;
             break;
             
         case DetailCellTypeStreams:
-            height = kStreamCellHeight;
+            height = self.streamDetailCell.getHeight;
             break;
             
         case DetailCellTypeTime:
-        {
-            if (indexPath.row == 0)
-                height = kDateCellHeight;
-            else
-                height = kDatePickerCellHeight;
-        }
+            height = self.dateDetailCell.getHeight;
+            break;
+        
+        case DetailCellTypeTimePicker:
+            if (self.isDatePicker) height = self.datePickerDetailCell.getHeight;
             break;
             
         case DetailCellTypeTimeEnd:
-        {
-            if (indexPath.row == 0)
-                height = kDateCellHeight;
-            else
-                height = kDatePickerCellHeight;
-        }
+            height = self.endDateDetailCell.getHeight;
+            break;
+            
+        case DetailCellTypeTimeEndPicker:
+            if (self.isEndDatePicker) height = self.endDatePickerDetailCell.getHeight;
             break;
             
         case DetailCellTypeTags:
-            height = kStreamCellHeight;
+            if (self.isEdit || self.event.tags.count > 0) height = self.tagsDetailCell.getHeight;
             break;
         
         case DetailCellTypeDescription:
-        {
-            if([_event.eventDescription length] == 0)
-                height = kNoteCellHeight;
-            else
-                height = [self heightForNoteTextViewWithString:_event.eventDescription];
-        }
+            if (self.isEdit || [self.event.eventDescription length] > 0) height = self.descriptionDetailCell.getHeight;
             break;
 
         case DetailCellTypeDelete:
-            height = kDeleteCellHeight;
+            if (self.isEdit) height = self.deleteDetailCell.getHeight;
             break;
             
         default:
@@ -305,29 +220,84 @@ typedef enum
 
 #pragma mark - utils
 
--(CGFloat) heightForNoteTextViewWithString:(NSString*)s
+-(void) updateUIEditMode:(BOOL)edit
 {
-    NSDictionary *attributes = @{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Light" size:17.0f]};
-    CGRect rect = [s boundingRectWithSize:CGSizeMake(kNoteTextViewWidth-10, CGFLOAT_MAX)
-                                  options:NSStringDrawingUsesLineFragmentOrigin
-                               attributes:attributes
-                                  context:nil];
-    if ([s characterAtIndex:s.length-1]=='\n')
-        rect.size.height += 20;
+    [self.tableView beginUpdates];
+    self.isEdit = edit;
     
-    return rect.size.height+56 ;
+    if(self.event.isDraft && !edit)
+        [self saveEvent];
+    else if(self.shouldUpdateEvent && !edit)
+        [self eventSaveModifications];
+    
+    [self.cells enumerateObjectsUsingBlock:^(BaseDetailCell *cell, NSUInteger idx, BOOL *stop) {
+        [cell setIsInEditMode:edit];
+    }];
+    [self.tableView endUpdates];
 }
 
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+- (void)saveEvent
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    [NotesAppController sharedConnectionWithID:nil noConnectionCompletionBlock:nil
+                           withCompletionBlock:^(PYConnection *connection)
+     {
+         
+         [connection eventCreate:self.event andCacheFirst:YES
+                  successHandler:^(NSString *newEventId, NSString *stoppedId, PYEvent* event)
+          {
+              [[NSNotificationCenter defaultCenter] postNotificationName:kUserDidCreateEventNotification object:[self event]];
+              
+              BOOL shouldTakePictureFlag = NO;
+              [[DataService sharedInstance] saveEventAsShortcut:self.event andShouldTakePictureFlag:shouldTakePictureFlag];
+              
+          } errorHandler:^(NSError *error) {
+              UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                              message:[error localizedDescription]
+                                                             delegate:nil
+                                                    cancelButtonTitle:@"OK"
+                                                    otherButtonTitles:nil];
+              [alert show];
+          }];
+         
+     }];
 }
-*/
+
+- (void)deleteEvent
+{
+    
+    [NotesAppController sharedConnectionWithID:nil noConnectionCompletionBlock:nil withCompletionBlock:^(PYConnection *connection)
+     {
+         [connection eventTrashOrDelete:self.event successHandler:^{
+             [self.navigationController popViewControllerAnimated:YES];
+             [self hideLoadingOverlay];
+         } errorHandler:^(NSError *error) {
+             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
+             [alert show];
+             [self cancelButtonTouched:nil];
+             //[self hideLoadingOverlay];
+         }];
+         
+     }];
+}
+
+- (void)eventSaveModifications
+{
+    self.shouldUpdateEvent = false;
+    [NotesAppController sharedConnectionWithID:nil
+                   noConnectionCompletionBlock:nil
+                           withCompletionBlock:^(PYConnection *connection)
+     {
+         [connection eventSaveModifications:self.event successHandler:^(NSString *stoppedId)
+          {
+          } errorHandler:^(NSError *error) {
+              UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                              message:[error localizedDescription]
+                                                             delegate:nil
+                                                    cancelButtonTitle:@"OK"
+                                                    otherButtonTitles:nil];
+              [alert show];
+          }];
+     }];
+}
 
 @end

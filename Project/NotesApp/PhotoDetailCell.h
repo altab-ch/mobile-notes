@@ -7,7 +7,10 @@
 //
 
 #import "BaseDetailCell.h"
+#import "EventDetailCellDelegate.h"
 
 @interface PhotoDetailCell : BaseDetailCell
+
+@property (nonatomic, strong) id<EventDetailCellDelegate> delegate;
 
 @end
