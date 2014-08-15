@@ -26,6 +26,7 @@ NSString *const kUserDidAddStreamNotification = @"kUserDidAddStreamNotification"
 NSString *const kBrowserShouldUpdateNotification = @"kBrowserShouldUpdateNotification";
 NSString *const kBrowserShouldScrollToEvent = @"kBrowserShouldScrollToEvent";
 
+
 @interface NotesAppController ()
 
 - (void)initObject;

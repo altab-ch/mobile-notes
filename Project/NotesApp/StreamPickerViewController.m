@@ -64,7 +64,7 @@
 - (void)streamsLabelTouched:(id)sender
 {
     self.visible = !self.visible;
-    [self.delegate closeStreamPicker];
+    [self.delegate closeStreamPicker:self.stream];
 }
 
 
@@ -88,13 +88,13 @@
     self.stream = [self.stream parent];
     [self.tableView reloadData];
     [self updateUIElements];
-    [self.delegate streamPickerDidSelectStream:self.stream];
+    //[self.delegate streamPickerDidSelectStream:self.stream];
 }
 
 - (IBAction)cancelButtonTouched:(id)sender
 {
     self.visible = !self.visible;
-    [self.delegate cancelStreamPicker];
+    [self.delegate closeStreamPicker:nil];
 }
 
 #pragma mark - UITableViewDataSource methods
@@ -167,7 +167,7 @@
         self.stream = stream;
         [self.tableView reloadData];
         [self updateUIElements];
-        [self.delegate streamPickerDidSelectStream:self.stream];
+        //[self.delegate streamPickerDidSelectStream:self.stream];
         [self streamsLabelTouched:nil];
     }];
     [cell setStreamAccessoryTappedHandler:^(StreamCell *tappedCell, NSInteger index) {
@@ -202,7 +202,7 @@
                 
                  [self updateUIElements];
                  [self hideLoadingOverlay];
-                 [self.delegate streamPickerDidSelectStream:stream];
+                 //[self.delegate streamPickerDidSelectStream:stream];
                  
              } errorHandler:^(NSError *error) {
                  [self hideLoadingOverlay];
