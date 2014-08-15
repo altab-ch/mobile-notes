@@ -25,7 +25,8 @@
 
 @protocol StreamsPickerDelegate <NSObject>
 
-- (void)closeStreamPicker;
+- (void)closeStreamPicker:(PYStream*)stream;
+@optional
 - (void)cancelStreamPicker;
 - (void)streamPickerDidSelectStream:(PYStream*)stream;
 

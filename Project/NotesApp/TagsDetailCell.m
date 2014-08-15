@@ -46,9 +46,9 @@
     [self initTags];
 }
 
--(void)awakeFromNib{
-    [super awakeFromNib];
-    
+-(void) didSelectCell:(UIViewController *)controller
+{
+    [self.tokenField.textField becomeFirstResponder];
 }
 
 #pragma mark - JSTokenFieldDelegate methods
@@ -61,7 +61,7 @@
 
 - (void)tokenFieldWillBeginEditing:(JSTokenField *)tokenField
 {
-    
+    [self.delegate closePickers];
 }
 
 - (void)tokenFieldDidEndEditing:(JSTokenField *)tokenField
@@ -73,7 +73,7 @@
         [tokens addObject:[token representedObject]];
     }
     self.event.tags = tokens;
-    [[NSNotificationCenter defaultCenter] postNotificationName:kDetailShouldUpdateEventNotification object:nil];
+    [self.delegate detailShouldUpdateEvent];
 }
 
 - (void)initTags

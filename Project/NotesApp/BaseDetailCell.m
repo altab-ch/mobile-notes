@@ -41,10 +41,8 @@
 {
     _isInEditMode = isInEditMode;
     if ([self shouldUpdateBorder] && _header)
-        [_header setTextColor:_isInEditMode?[UIColor colorWithRed:32.0f/255.0f green:169.0f/255.0f blue:215.0f/255.0f alpha:1] : [UIColor lightGrayColor]];
-        /*[UIView animateWithDuration:0.2 animations:^{
-            self.borderView.alpha = _isInEditMode ? 1.0f : 0.0f;
-        }];*/
+        [self.header setTextColor:self.isInEditMode?[UIColor colorWithRed:32.0f/255.0f green:169.0f/255.0f blue:215.0f/255.0f alpha:1] : [UIColor lightGrayColor]];
+        //[UIView animateWithDuration:0.2 animations:^{self.borderView.alpha = _isInEditMode ? 1.0f : 0.0f;}];
     
 }
 
@@ -55,6 +53,13 @@
         [self setIsInEditMode:true];
     
 }
+
+-(void) didSelectCell:(UIViewController*)controller
+{}
+
+-(void) update
+{}
+
 
 -(CGFloat) getHeight
 {

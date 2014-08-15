@@ -10,7 +10,7 @@
 
 @interface DeleteDetailCell ()
 
-@property (strong, nonatomic) IBOutlet UIButton *deleteButton;
+@property (weak, nonatomic) IBOutlet UIButton *deleteButton;
 
 @end
 
@@ -28,9 +28,9 @@
 -(void) updateWithEvent:(PYEvent*)event
 {
     [super updateWithEvent:event];
-    /*[self.deleteButton.layer setBorderColor:[UIColor colorWithRed:189.0/255.0 green:16.0/255.0 blue:38.0/255.0 alpha:1].CGColor];
+    [self.deleteButton.layer setBorderColor:[UIColor colorWithRed:189.0/255.0 green:16.0/255.0 blue:38.0/255.0 alpha:1].CGColor];
     [self.deleteButton.layer setBorderWidth:1];
-    self.deleteButton.layer.cornerRadius = 5;*/
+    self.deleteButton.layer.cornerRadius = 5;
 }
 
 #pragma mark - Border

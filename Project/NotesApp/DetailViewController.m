@@ -21,6 +21,7 @@
 #import "PYEvent+Helper.h"
 #import "UIAlertView+PrYv.h"
 #import "DataService.h"
+#import "StreamPickerViewController.h"
 
 typedef enum
 {
@@ -36,11 +37,10 @@ typedef enum
     
 } DetailCellType;
 
-@interface DetailViewController ()
+@interface DetailViewController () <StreamsPickerDelegate, DetailCellDelegate>
 
+@property (nonatomic) BOOL autoSetDiaryStream;
 @property (nonatomic) BOOL isEdit;
-@property (nonatomic) BOOL isDatePicker;
-@property (nonatomic) BOOL isEndDatePicker;
 @property (nonatomic) BOOL shouldUpdateEvent;
 @property (nonatomic, strong) NSDictionary* initialEventValue;
 
@@ -74,20 +74,10 @@ typedef enum
     [super viewDidLoad];
     self.isEdit = self.event.isDraft;
     self.initialEventValue = [self.event cachingDictionary];
-    self.isDatePicker = false;
-    self.isEndDatePicker = false;
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(willUpdateEvent)
-                                                 name:kDetailShouldUpdateEventNotification
-                                               object:nil];
+    self.dateDetailCell.isDatePicker = false;
+    self.endDateDetailCell.isEndDatePicker = false;
     
     [self updateEvent];
-}
-
--(void) willUpdateEvent
-{
-    self.shouldUpdateEvent = true;
 }
 
 -(void) viewDidAppear:(BOOL)animated
@@ -103,6 +93,7 @@ typedef enum
 -(void) updateEvent
 {
     [self.cells enumerateObjectsUsingBlock:^(BaseDetailCell *cell, NSUInteger idx, BOOL *stop) {
+        [cell setDelegate:self];
         [cell updateWithEvent:self.event];
     }];
 }
@@ -186,7 +177,7 @@ typedef enum
             break;
         
         case DetailCellTypeTimePicker:
-            if (self.isDatePicker) height = self.datePickerDetailCell.getHeight;
+            if (self.dateDetailCell.isDatePicker) height = self.datePickerDetailCell.getHeight;
             break;
             
         case DetailCellTypeTimeEnd:
@@ -194,7 +185,7 @@ typedef enum
             break;
             
         case DetailCellTypeTimeEndPicker:
-            if (self.isEndDatePicker) height = self.endDatePickerDetailCell.getHeight;
+            if (self.endDateDetailCell.isEndDatePicker) height = self.endDatePickerDetailCell.getHeight;
             break;
             
         case DetailCellTypeTags:
@@ -218,22 +209,164 @@ typedef enum
 
 #pragma mark - Table View Delegate
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    DetailCellType cellType = indexPath.row;
+    
+    //if(!self.isEdit && cellType!=DetailCellTypeImage) return;
+    
+    
+    //if (cellType != DetailCellTypeNote && cellType != DetailCellTypeDescription && cellType != DetailCellTypeTags && cellType != DetailCellTypeValue)
+    [self.view endEditing:YES];
+    
+    
+    if (cellType != DetailCellTypeTime && cellType != DetailCellTypeTimePicker && self.dateDetailCell.isDatePicker){
+        self.dateDetailCell.isDatePicker = false;
+        [self.tableView beginUpdates];
+        [self.tableView endUpdates];
+    }
+    
+    if (cellType != DetailCellTypeTimeEnd && cellType != DetailCellTypeTimeEndPicker && self.endDateDetailCell.isEndDatePicker){
+        self.endDateDetailCell.isEndDatePicker = false;
+        [self.tableView beginUpdates];
+        [self.tableView endUpdates];
+    }
+    
+    switch (cellType) {
+        case DetailCellTypeEvent:
+            [self.eventDetailCell didSelectCell:self];
+            break;
+            
+        case DetailCellTypeTime:
+        {
+            if (self.isEdit) {
+                self.dateDetailCell.isDatePicker = !self.dateDetailCell.isDatePicker;
+                self.endDateDetailCell.isEndDatePicker = false;
+                [self.tableView beginUpdates];
+                [self.tableView endUpdates];
+                if (self.dateDetailCell.isDatePicker) {
+                    [self.tableView scrollToRowAtIndexPath:[self.tableView indexPathForCell:self.datePickerDetailCell] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+                }
+            }
+        }
+            break;
+            
+        case DetailCellTypeDescription:
+            [self.descriptionDetailCell didSelectCell:self];
+            break;
+        case DetailCellTypeTags:
+            [self.tagsDetailCell didSelectCell:self];
+            break;
+        
+        case DetailCellTypeStreams:
+        {
+            if (self.isEdit) {
+                StreamPickerViewController *streamPickerVC = [[UIStoryboard mainStoryBoard] instantiateViewControllerWithIdentifier:@"StreamPickerViewController_ID"];
+                
+                [self setupStreamPickerViewController:streamPickerVC];
+            }
+        }
+            break;
+            
+        case DetailCellTypeTimeEnd:
+        {
+            
+            if (self.endDateDetailCell.isEndDatePicker) {
+                self.endDateDetailCell.isEndDatePicker = false;
+                [self.tableView beginUpdates];
+                [self.tableView endUpdates];
+            }else if (self.isEdit)
+            {
+                [self.endDateDetailCell didSelectCell:self];
+            }
+        }
+            break;
+        default:
+            break;
+    }
+}
+
+#pragma mark - DetailCellDelegate
+
+-(void) updateEndDateCell
+{
+    [self.endDateDetailCell updateLabels];
+}
+
+-(void) detailShouldUpdateEvent
+{
+    self.shouldUpdateEvent = true;
+}
+
+-(void) closePickers
+{
+    if (self.dateDetailCell.isDatePicker || self.endDateDetailCell.isEndDatePicker) {
+        self.dateDetailCell.isDatePicker = false;
+        self.endDateDetailCell.isEndDatePicker = false;
+        [self.tableView beginUpdates];
+        [self.tableView endUpdates];
+    }
+}
+
+#pragma mark - StreamPickerDelegate methods
+
+
+- (void)closeStreamPicker:(PYStream*)stream
+{
+    if (stream) {
+        self.event.streamId = stream.streamId;
+        self.shouldUpdateEvent = YES;
+    }
+    [self.streamDetailCell update];
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+}
+
 #pragma mark - utils
 
 -(void) updateUIEditMode:(BOOL)edit
 {
     [self.tableView beginUpdates];
     self.isEdit = edit;
-    
+    if (!edit) {
+        self.dateDetailCell.isDatePicker = false;
+        self.endDateDetailCell.isEndDatePicker = false;
+        self.navigationItem.leftBarButtonItem = nil;
+        [self.navigationItem setHidesBackButton:NO];
+    }else
+    {
+        [self.navigationItem setHidesBackButton:YES];
+        UIBarButtonItem *btbrowse= [[UIBarButtonItem alloc]
+                                    initWithTitle: NSLocalizedString(@"Cancel", nil)
+                                    style:UIBarButtonItemStylePlain
+                                    target:self
+                                    action:@selector(cancelButtonTouched:)];
+        self.navigationItem.leftBarButtonItem = btbrowse;
+
+    }
     if(self.event.isDraft && !edit)
         [self saveEvent];
     else if(self.shouldUpdateEvent && !edit)
         [self eventSaveModifications];
     
+    self.initialEventValue = [self.event cachingDictionary];
     [self.cells enumerateObjectsUsingBlock:^(BaseDetailCell *cell, NSUInteger idx, BOOL *stop) {
         [cell setIsInEditMode:edit];
     }];
     [self.tableView endUpdates];
+}
+
+- (void)setupStreamPickerViewController:(StreamPickerViewController*)streamPickerVC
+{
+    if (self.autoSetDiaryStream) {
+        streamPickerVC.stream = nil;
+    } else {
+        streamPickerVC.stream = [self.event stream];
+    }
+    streamPickerVC.delegate = self;
+    //self.streamPickerVC = streamPickerVC;
+    [self.navigationController presentViewController:streamPickerVC animated:YES completion:nil];
 }
 
 - (void)saveEvent
@@ -298,6 +431,11 @@ typedef enum
               [alert show];
           }];
      }];
+}
+
+-(void) dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

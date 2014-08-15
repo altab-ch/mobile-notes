@@ -8,6 +8,7 @@
 
 #import "PhotoDetailCell.h"
 #import "PYEvent+Helper.h"
+#import "ImageViewController.h"
 
 @interface PhotoDetailCell ()
 
@@ -45,6 +46,13 @@
         [self setFrame:CGRectMake(0, 0, 320, [self getHeight])];
         [self layoutIfNeeded];
     } errorHandler:nil];
+}
+
+-(void) didSelectCell:(UIViewController*)controller
+{
+    ImageViewController* imvc = [[UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil] instantiateViewControllerWithIdentifier:@"ImagePreviewViewController_ID"];
+    [imvc setImage:self.picture_ImageView.image];
+    [controller presentViewController:imvc animated:YES completion:nil];
 }
 
 #pragma mark - Border

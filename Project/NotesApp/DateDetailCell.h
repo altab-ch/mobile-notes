@@ -9,5 +9,5 @@
 #import "BaseDetailCell.h"
 
 @interface DateDetailCell : BaseDetailCell
-
+@property (nonatomic) BOOL isDatePicker;
 @end

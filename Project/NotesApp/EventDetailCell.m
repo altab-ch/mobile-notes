@@ -38,7 +38,7 @@
         {
             NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"PhotoDetailCell" owner:self options:nil];
             self.eventCell = (PhotoDetailCell *)[nib objectAtIndex:0];
-            [(PhotoDetailCell *)self.eventCell setDelegate:self];
+            [(PhotoDetailCell *)self.eventCell setEventDelegate:self];
         }
             break;
             
@@ -46,7 +46,7 @@
         {
             NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"NumericDetailCell" owner:self options:nil];
             self.eventCell = (NumericDetailCell *)[nib objectAtIndex:0];
-            [(NumericDetailCell *)self.eventCell setDelegate:self];
+            [(NumericDetailCell *)self.eventCell setEventDelegate:self];
         }
             break;
             
@@ -54,7 +54,7 @@
         {
             NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"NoteDetailCell" owner:self options:nil];
             self.eventCell = (NoteDetailCell *)[nib objectAtIndex:0];
-            [(NoteDetailCell *)self.eventCell setDelegate:self];
+            [(NoteDetailCell *)self.eventCell setEventDelegate:self];
         }
             break;
             
@@ -62,8 +62,14 @@
             break;
     }
     [self.eventCell updateWithEvent:event];
+    [self.eventCell setDelegate:self.delegate];
     [self.contentView addSubview:self.eventCell.contentView];
     
+}
+
+-(void) didSelectCell:(UIViewController*)controller
+{
+    [self.eventCell didSelectCell:controller];
 }
 
 -(void) updateTableview

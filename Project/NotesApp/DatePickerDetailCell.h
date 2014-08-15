@@ -10,6 +10,4 @@
 
 @interface DatePickerDetailCell : BaseDetailCell
 
-@property (nonatomic) BOOL isEndDate;
-
 @end

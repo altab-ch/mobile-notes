@@ -1,5 +1,5 @@
 //
-//  EndDateDetailCell.h
+//  DatePickerDetailCell.h
 //  NotesApp
 //
 //  Created by Mathieu Knecht on 01.08.14.
@@ -8,8 +8,6 @@
 
 #import "BaseDetailCell.h"
 
-@interface EndDateDetailCell : BaseDetailCell
-@property (nonatomic) BOOL isEndDatePicker;
--(void) updateLabels;
+@interface EndDatePickerDetailCell : BaseDetailCell
 
 @end

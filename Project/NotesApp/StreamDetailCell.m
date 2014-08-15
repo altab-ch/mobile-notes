@@ -31,8 +31,7 @@
 -(void) updateWithEvent:(PYEvent*)event
 {
     [super updateWithEvent:event];
-    _streamsLabel.text = [event eventBreadcrumbs];
-    if (event.stream) [_pastille setBackgroundColor:[[event stream] getColor]];
+    [self update];
 }
 
 -(void) setIsInEditMode:(BOOL)isInEditMode
@@ -42,6 +41,12 @@
 }
 
 #pragma mark - Border
+
+-(void) update
+{
+    self.streamsLabel.text = [self.event eventBreadcrumbs];
+    if (self.event.stream) [_pastille setBackgroundColor:[[self.event stream] getColor]];
+}
 
 -(BOOL) shouldUpdateBorder
 {

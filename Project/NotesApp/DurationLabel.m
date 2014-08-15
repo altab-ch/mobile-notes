@@ -27,7 +27,8 @@
 
 -(void) start
 {
-    _timer = [NSTimer timerWithTimeInterval:1 target:self selector:@selector(updateDate) userInfo:nil repeats:YES];
+    [self updateDateUI:[NSDate date]];
+    _timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateDate) userInfo:nil repeats:YES];
 }
 
 -(void) stop

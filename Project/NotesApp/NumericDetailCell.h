@@ -10,5 +10,5 @@
 #import "EventDetailCellDelegate.h"
 
 @interface NumericDetailCell : BaseDetailCell
-@property (nonatomic, strong) id<EventDetailCellDelegate> delegate;
+@property (nonatomic, assign) id<EventDetailCellDelegate> eventDelegate;
 @end

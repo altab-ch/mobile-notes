@@ -39,11 +39,16 @@
     [self.descriptionText resignFirstResponder];
 }
 
+-(void) didSelectCell:(UIViewController *)controller
+{
+    [self.descriptionText becomeFirstResponder];
+}
+
 #pragma mark - UITextViewDelegate
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView
 {
-    //_isDateExtHidden = true;
+    [self.delegate closePickers];
     [self.tableView beginUpdates];
     [self.tableView endUpdates];
     return self.isInEditMode;
@@ -51,7 +56,7 @@
 
 - (void) textViewDidChange:(UITextView *)textView
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kDetailShouldUpdateEventNotification object:nil];
+    [self.delegate detailShouldUpdateEvent];
     [self.tableView beginUpdates];
     [self.tableView endUpdates];
     self.event.eventDescription = self.descriptionText.text;

@@ -26,6 +26,7 @@
                         <textInputTraits key="textInputTraits"/>
                         <connections>
                             <action selector="valueTextFieldDidChange:" destination="tCi-J9-exy" eventType="valueChanged" id="zHK-oY-b8D"/>
+                            <outlet property="delegate" destination="tCi-J9-exy" id="8yY-Lr-WoQ"/>
                         </connections>
                     </textField>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="kg" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="28" translatesAutoresizingMaskIntoConstraints="NO" id="wyb-We-JnB">

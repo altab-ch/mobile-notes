@@ -6,44 +6,27 @@
 //  Copyright (c) 2014 PrYv. All rights reserved.
 //
 
-#import "DatePickerDetailCell.h"
+#import "EndDatePickerDetailCell.h"
 #import "DatePickerManager.h"
 
-@interface DatePickerDetailCell ()
+@interface EndDatePickerDetailCell ()
 
 @property (nonatomic, weak) UIDatePicker *datePicker;
 @property (nonatomic, weak) UIDatePicker *timePicker;
 
 @end
 
-@implementation DatePickerDetailCell
+@implementation EndDatePickerDetailCell
 
 -(void) updateWithEvent:(PYEvent*)event
 {
-    //[super updateWithEvent:event];
-    /*if (_isEndDate) {
-        [_datePicker setDate:[event.eventDate dateByAddingTimeInterval:event.duration]];
-        [_timePicker setDate:[event.eventDate dateByAddingTimeInterval:event.duration]];
-        [_timePicker setMinimumDate:event.eventDate];
-        [_datePicker setMinimumDate:event.eventDate];
-    }else{
-        NSDate *date = [event eventDate];
-        if (date == nil) date = [NSDate date];
-        [_datePicker setDate:date];
-        [_timePicker setDate:date];
-        //[_timePicker setMinimumDate:[NSDate dateWithTimeIntervalSince1970:0]];
-        //[_datePicker setMinimumDate:[NSDate dateWithTimeIntervalSince1970:0]];
-        [_datePicker setMinimumDate:nil];
-        [_timePicker setMinimumDate:nil];
-    }*/
-    
-    self.datePicker = [DatePickerManager sharedInstance].datePicker;
+    self.datePicker = [DatePickerManager sharedInstance].endDatePicker;
+    [self.datePicker setHidden:NO];
     [self addSubview:self.datePicker];
     
-    self.timePicker = [DatePickerManager sharedInstance].timePicker;
+    self.timePicker = [DatePickerManager sharedInstance].endTimePicker;
     [self.timePicker setHidden:YES];
     [self addSubview:self.timePicker];
-    
 }
 
 - (IBAction)segmentSwitch:(UISegmentedControl*)seg {

@@ -68,6 +68,8 @@
 		2934FBF81989266200407D2B /* BrowserNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2934FBF71989266200407D2B /* BrowserNavigationController.m */; };
 		2934FBFA19892BC400407D2B /* AddNumericalValueCellFormat.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2934FBF919892BC400407D2B /* AddNumericalValueCellFormat.xib */; };
 		293EDC1E19991164003D6E3D /* EventDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 293EDC1D19991164003D6E3D /* EventDetailCell.m */; };
+		293EDC30199DCA00003D6E3D /* DatePickerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 293EDC2F199DCA00003D6E3D /* DatePickerManager.m */; };
+		293EDC33199DE4E6003D6E3D /* EndDatePickerDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 293EDC32199DE4E6003D6E3D /* EndDatePickerDetailCell.m */; };
 		29FF5D7C196ED0B60002D124 /* UnitPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29FF5D7B196ED0B60002D124 /* UnitPickerViewController.m */; };
 		4E0901071857640400A2F044 /* AddNumericalValueCellFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0901061857640400A2F044 /* AddNumericalValueCellFormat.m */; };
 		4E37857517953BBD00ED94DF /* Manifest.lock in Resources */ = {isa = PBXBuildFile; fileRef = 4E37852F17953BBD00ED94DF /* Manifest.lock */; };
@@ -450,6 +452,11 @@
 		293EDC1C19991164003D6E3D /* EventDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventDetailCell.h; sourceTree = "<group>"; };
 		293EDC1D19991164003D6E3D /* EventDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventDetailCell.m; sourceTree = "<group>"; };
 		293EDC2B19991F8C003D6E3D /* EventDetailCellDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventDetailCellDelegate.h; sourceTree = "<group>"; };
+		293EDC2C199D1B69003D6E3D /* DetailCellDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailCellDelegate.h; sourceTree = "<group>"; };
+		293EDC2E199DCA00003D6E3D /* DatePickerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatePickerManager.h; sourceTree = "<group>"; };
+		293EDC2F199DCA00003D6E3D /* DatePickerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatePickerManager.m; sourceTree = "<group>"; };
+		293EDC31199DE4E6003D6E3D /* EndDatePickerDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EndDatePickerDetailCell.h; sourceTree = "<group>"; };
+		293EDC32199DE4E6003D6E3D /* EndDatePickerDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EndDatePickerDetailCell.m; sourceTree = "<group>"; };
 		29FF5D7A196ED0B60002D124 /* UnitPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitPickerViewController.h; sourceTree = "<group>"; };
 		29FF5D7B196ED0B60002D124 /* UnitPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitPickerViewController.m; sourceTree = "<group>"; };
 		4E0901051857640400A2F044 /* AddNumericalValueCellFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddNumericalValueCellFormat.h; sourceTree = "<group>"; };
@@ -891,6 +898,8 @@
 				290712C6198BEC0800C3819B /* DatePickerDetailCell.m */,
 				290712C8198BEF6200C3819B /* EndDateDetailCell.h */,
 				290712C9198BEF6200C3819B /* EndDateDetailCell.m */,
+				293EDC31199DE4E6003D6E3D /* EndDatePickerDetailCell.h */,
+				293EDC32199DE4E6003D6E3D /* EndDatePickerDetailCell.m */,
 				290712CB198BF00000C3819B /* TagsDetailCell.h */,
 				290712CC198BF00000C3819B /* TagsDetailCell.m */,
 				290712CE198BF0D300C3819B /* DescriptionDetailCell.h */,
@@ -956,6 +965,15 @@
 				2934FBDA1986C66F00407D2B /* DurationLabel.m */,
 			);
 			name = Label;
+			sourceTree = "<group>";
+		};
+		293EDC2D199DC995003D6E3D /* DatePicker */ = {
+			isa = PBXGroup;
+			children = (
+				293EDC2E199DCA00003D6E3D /* DatePickerManager.h */,
+				293EDC2F199DCA00003D6E3D /* DatePickerManager.m */,
+			);
+			name = DatePicker;
 			sourceTree = "<group>";
 		};
 		4E3784D217953BBD00ED94DF /* Pods */ = {
@@ -1537,6 +1555,7 @@
 				290712D4198C0B1800C3819B /* CommonCells */,
 				B6993FD01891C07700D88127 /* BaseDetailCell.h */,
 				B6993FD11891C07700D88127 /* BaseDetailCell.m */,
+				293EDC2C199D1B69003D6E3D /* DetailCellDelegate.h */,
 			);
 			name = DetailCells;
 			sourceTree = "<group>";
@@ -1707,6 +1726,7 @@
 		B6F5AFFB173260E0000BC60A /* View */ = {
 			isa = PBXGroup;
 			children = (
+				293EDC2D199DC995003D6E3D /* DatePicker */,
 				2934FBCD1986C4D200407D2B /* Label */,
 				B64ACAE3175544BF00E2F6F7 /* Keyboard */,
 				B6F5AFFC173260E5000BC60A /* Cell */,
@@ -2343,6 +2363,7 @@
 				4EBB85F3192A4B2300BBDB61 /* PYEventTypes+Helper.m in Sources */,
 				B6DC81F1181E666C00118ED9 /* ValueCell.m in Sources */,
 				B6B5908B178CBB030009E413 /* KSAdvancedPicker.m in Sources */,
+				293EDC30199DCA00003D6E3D /* DatePickerManager.m in Sources */,
 				B6F207BB1793DE18006FC5B0 /* LRUManager.m in Sources */,
 				290712DD198C0D5900C3819B /* NumericDetailCell.m in Sources */,
 				290712D0198BF0D300C3819B /* DescriptionDetailCell.m in Sources */,
@@ -2356,6 +2377,7 @@
 				B61D55B517EC68C80016D0C4 /* UIAlertView+PrYv.m in Sources */,
 				B6C9D468181ED7F200EB5FF9 /* UIDevice+Utils.m in Sources */,
 				291ED1711913CF44009A9B3D /* MenuNavController.m in Sources */,
+				293EDC33199DE4E6003D6E3D /* EndDatePickerDetailCell.m in Sources */,
 				B61D55C017EEDEF00016D0C4 /* UIImage+PrYv.m in Sources */,
 				29FF5D7C196ED0B60002D124 /* UnitPickerViewController.m in Sources */,
 				B62BF06D18D627E9007BD68E /* MNMPullToRefreshManager.m in Sources */,

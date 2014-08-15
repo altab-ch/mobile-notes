@@ -11,6 +11,6 @@
 
 @interface PhotoDetailCell : BaseDetailCell
 
-@property (nonatomic, strong) id<EventDetailCellDelegate> delegate;
+@property (nonatomic, assign) id<EventDetailCellDelegate> eventDelegate;
 
 @end

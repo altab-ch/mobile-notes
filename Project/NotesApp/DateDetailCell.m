@@ -7,6 +7,7 @@
 //
 
 #import "DateDetailCell.h"
+#import "DatePickerManager.h"
 
 @interface DateDetailCell ()
 
@@ -28,14 +29,41 @@
 -(void) updateWithEvent:(PYEvent*)event
 {
     [super updateWithEvent:event];
-    NSDate *date = [event eventDate];
-    if (!date)
-    {
-        date = [NSDate date];
-        event.eventDate = date;
-    }
+    if (![self.event eventDate])
+        self.event.eventDate = [NSDate date];
+
+    [[DatePickerManager sharedInstance].datePicker addTarget:self action:@selector(datePickerValueChanged:) forControlEvents:UIControlEventValueChanged];
+    [[DatePickerManager sharedInstance].timePicker addTarget:self action:@selector(timePickerValueChanged:) forControlEvents:UIControlEventValueChanged];
+    self.timeLabel.text = [[NotesAppController sharedInstance].dateFormatter stringFromDate:self.event.eventDate];
+    [[DatePickerManager sharedInstance].timePicker setDate:self.event.eventDate];
+    [[DatePickerManager sharedInstance].datePicker setDate:self.event.eventDate];
+}
+
+-(void)datePickerValueChanged:(id)sender
+{
+    self.timeLabel.text = [[NotesAppController sharedInstance].dateFormatter stringFromDate:[DatePickerManager sharedInstance].datePicker.date];
+    [[DatePickerManager sharedInstance].timePicker setDate:[DatePickerManager sharedInstance].datePicker.date];
+    [self.event setEventDate:[DatePickerManager sharedInstance].datePicker.date];
     
-    _timeLabel.text = [[NotesAppController sharedInstance].dateFormatter stringFromDate:date];
+    [self delegateShouldUpdateEvent];
+}
+
+-(void)timePickerValueChanged:(id)sender
+{
+    self.timeLabel.text = [[NotesAppController sharedInstance].dateFormatter stringFromDate:[DatePickerManager sharedInstance].timePicker.date];
+    [[DatePickerManager sharedInstance].datePicker setDate:[DatePickerManager sharedInstance].timePicker.date];
+    [self.event setEventDate:[DatePickerManager sharedInstance].timePicker.date];
+    [self delegateShouldUpdateEvent];
+    
+}
+
+-(void) delegateShouldUpdateEvent
+{
+    [self.delegate detailShouldUpdateEvent];
+    [self.delegate updateEndDateCell];
+    [[DatePickerManager sharedInstance].endDatePicker setMinimumDate:self.event.eventDate];
+    [[DatePickerManager sharedInstance].endTimePicker setMinimumDate:self.event.eventDate];
+    
 }
 
 #pragma mark - Border

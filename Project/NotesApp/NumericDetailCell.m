@@ -10,7 +10,7 @@
 #import "PYEvent+Helper.h"
 #import "ZenKeyboard.h"
 
-@interface NumericDetailCell ()
+@interface NumericDetailCell () <UITextFieldDelegate>
 
 @property (nonatomic, weak) IBOutlet UILabel *numericalValue_Label;
 @property (nonatomic, weak) IBOutlet UILabel *numericalValue_TypeLabel;
@@ -68,10 +68,22 @@
     else [self.numericalValue resignFirstResponder];
 }
 
+-(void) didSelectCell:(UIViewController*)controller
+{
+    [self.numericalValue becomeFirstResponder];
+}
+
 -(IBAction)valueTextFieldDidChange:(id)sender
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kDetailShouldUpdateEventNotification object:nil];
+    [self.delegate detailShouldUpdateEvent];
     self.event.eventContent = self.numericalValue.text;
+}
+
+#pragma mark - UITextFieldDelegate
+
+-(void) textFieldDidBeginEditing:(UITextField *)textField
+{
+    [self.delegate closePickers];
 }
 
 #pragma mark - Border
