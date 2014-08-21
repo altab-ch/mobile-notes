@@ -56,6 +56,7 @@
 {
     self.lbState.text = [[NotesAppController sharedInstance].dateFormatter stringFromDate:[DatePickerManager sharedInstance].endDatePicker.date];
     [self.lbDuration setEndDate:[DatePickerManager sharedInstance].endDatePicker.date];
+    
     [[DatePickerManager sharedInstance].endTimePicker setDate:[DatePickerManager sharedInstance].endDatePicker.date];
     [self.event setDuration:[[DatePickerManager sharedInstance].endDatePicker.date timeIntervalSinceDate:self.event.eventDate]];
     
@@ -138,19 +139,17 @@
 -(void) setAsRunning
 {
     [self.lbState setText:@"Running"];
-    [self.lbDuration start];
     [self.event setDuration:-1];
     [self.setRunningView setHidden:NO];
     [self.addView setHidden:YES];
     [self delegateShouldUpdateEvent];
+    [self.lbDuration start];
 }
 
 -(void) setEndDate
 {
     [self stopNow];
     self.isEndDatePicker = YES;
-    //if (self.datePicker) [self.datePicker setDate:[self.event.eventDate dateByAddingTimeInterval:_event.duration]];
-    //if (self.timePicker) [self.timePicker setDate:[self.event.eventDate dateByAddingTimeInterval:_event.duration]];
     [self.tableView beginUpdates];
     [self.tableView endUpdates];
     [self.tableView scrollToRowAtIndexPath:[self.tableView indexPathForCell:self] atScrollPosition:UITableViewScrollPositionTop animated:YES];
@@ -172,10 +171,10 @@
 
 -(void) reset
 {
+    [self.lbDuration stop];
     [self.event setDuration:0];
     [self.setRunningView setHidden:YES];
     [self.addView setHidden:NO];
-    [self.lbDuration stop];
     [self delegateShouldUpdateEvent];
 }
 
@@ -188,12 +187,16 @@
 
 -(void) syncDatePickers
 {
-    if (self.event.duration < 0)
+    if (self.event.duration < 0){
         [[DatePickerManager sharedInstance].datePicker setMaximumDate:[NSDate date]];
-    else if (self.event.duration == 0)
+        [[DatePickerManager sharedInstance].timePicker setMaximumDate:[NSDate date]];
+    }else if (self.event.duration == 0){
         [[DatePickerManager sharedInstance].datePicker setMaximumDate:nil];
-    else if (self.event.duration > 0)
+        [[DatePickerManager sharedInstance].timePicker setMaximumDate:nil];
+    }else if (self.event.duration > 0){
         [[DatePickerManager sharedInstance].datePicker setMaximumDate:[self.event.eventDate dateByAddingTimeInterval:self.event.duration]];
+        [[DatePickerManager sharedInstance].timePicker setMaximumDate:[self.event.eventDate dateByAddingTimeInterval:self.event.duration]];
+    }
 }
 
 #pragma mark - Border
@@ -220,7 +223,11 @@
 -(void) updateLabels
 {
     if (self.event.duration < 0)
+    {
+        [self.lbDuration stop];
         [self.lbDuration setEventDate:self.event.eventDate];
+        [self.lbDuration start];
+    }
     else if (self.event.duration > 0)
     {
         [self.lbDuration setEventDate:self.event.eventDate];

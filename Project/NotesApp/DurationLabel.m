@@ -11,16 +11,16 @@
 @interface DurationLabel ()
 
 @property (nonatomic, strong) NSTimer *timer;
-
+@property (nonatomic, strong) NSLock *updateUILock;
 @end
 
 @implementation DurationLabel
 
-- (id)initWithFrame:(CGRect)frame
+- (id)initWithCoder:(NSCoder *)aDecoder
 {
-    self = [super initWithFrame:frame];
+    self = [super initWithCoder:aDecoder];
     if (self) {
-        // Initialization code
+        self.updateUILock = [[NSLock alloc] init];
     }
     return self;
 }
@@ -48,7 +48,8 @@
 
 -(void) updateDateUI:(NSDate*)date
 {
-    NSInteger duration = (NSInteger)[date timeIntervalSinceDate:_eventDate];
+    [self.updateUILock lock];
+    NSInteger duration = (NSInteger)[date timeIntervalSinceDate:self.eventDate];
     NSInteger seconds = duration % 60;
     NSInteger minutes = (duration / 60) % 60;
     NSInteger hours = (duration / 3600);
@@ -61,6 +62,7 @@
         time=[NSString stringWithFormat:@"%02ld", (long)seconds];
     
     [self setText:[NSString stringWithFormat:@"%@", time]];
+    [self.updateUILock unlock];
 }
 
 /*
