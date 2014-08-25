@@ -898,9 +898,8 @@ height=123312</string>
                     </tableView>
                     <navigationItem key="navigationItem" id="sTC-VS-NLV"/>
                     <connections>
-                        <segue destination="CxF-oj-23z" kind="push" identifier="kAddToDetailSegue_ID" id="wRi-lB-rhw"/>
                         <segue destination="Zqa-hU-bZe" kind="push" identifier="kAddToUnitSegue_ID" id="8Do-gk-NtP"/>
-                        <segue destination="NTF-kp-JcL" kind="push" identifier="kAddToDetailSegue_ID2" id="k3F-vo-G48"/>
+                        <segue destination="NTF-kp-JcL" kind="push" identifier="kAddToDetailSegue_ID" id="k3F-vo-G48"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4ey-Dd-Oxp" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1036,7 +1035,7 @@ height=123312</string>
             <objects>
                 <tableViewController storyboardIdentifier="EventDetailsViewController_ID" id="CxF-oj-23z" customClass="EventDetailsViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="static" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="23g-7S-fYE">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
@@ -1861,7 +1860,7 @@ height=123312</string>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="AuM-e3-JEC">
-                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="iaZ-ig-H3d">
+                        <barButtonItem key="rightBarButtonItem" title="Edit" id="iaZ-ig-H3d">
                             <connections>
                                 <action selector="editButtonTouched:" destination="NTF-kp-JcL" id="4df-RT-aSl"/>
                             </connections>
@@ -1872,6 +1871,7 @@ height=123312</string>
                         <outlet property="datePickerDetailCell" destination="lcN-9b-mUD" id="3hg-0L-3Kf"/>
                         <outlet property="deleteDetailCell" destination="Gsg-Or-Ptz" id="Jm1-fN-mNN"/>
                         <outlet property="descriptionDetailCell" destination="wkE-V7-t0I" id="qbO-zD-OTP"/>
+                        <outlet property="editButton" destination="iaZ-ig-H3d" id="SfL-3w-5Io"/>
                         <outlet property="endDateDetailCell" destination="YOm-m0-spq" id="VkV-N3-hn7"/>
                         <outlet property="endDatePickerDetailCell" destination="v56-xl-zKD" id="syK-kQ-vP6"/>
                         <outlet property="eventDetailCell" destination="mwA-kr-DK1" id="5hg-P6-0Lc"/>
@@ -2162,6 +2162,6 @@ height=123312</string>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="dsN-2e-Wot"/>
-        <segue reference="BRl-c6-cTJ"/>
+        <segue reference="k3F-vo-G48"/>
     </inferredMetricsTieBreakers>
 </document>

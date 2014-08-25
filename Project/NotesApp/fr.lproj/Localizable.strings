@@ -25,6 +25,7 @@
 "Delete" = "Effacer";
 "Done" = "OK";
 "Edit" = "Modifier";
+"day" = "jour";
 
 "inboarding.back" = "Démarrer";
 
@@ -51,6 +52,11 @@
 "DetailViewController.TitleNote" = "Note";
 "DetailViewController.TitlePicture" = "Photo";
 "DetailViewController.TitleMeasure" = "Valeur";
+"Detail.AddDuration" = "Ajouter une durée";
+"Detail.StopNow" = "Arrêter le chronomètre";
+"Detail.SetEndDate" = "Fixer une date de fin";
+"Detail.SetAsRunning" = "Démarrer le chronomètre";
+"Detail.CantRun" = "Chronomètre impossible pour une date future";
 
 "TextEditorViewController.Title" = "Prendre une note";
 

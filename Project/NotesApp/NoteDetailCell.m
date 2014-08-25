@@ -86,6 +86,9 @@
 
 -(CGFloat) heightForNoteTextViewWithString:(NSString*)s
 {
+    /*if (!self.noteText.isFirstResponder)
+        return 140;*/
+
     NSDictionary *attributes = @{NSFontAttributeName: self.noteText.font};
     CGRect rect = [s boundingRectWithSize:CGSizeMake(self.noteText.frame.size.width-10, CGFLOAT_MAX)
                                   options:NSStringDrawingUsesLineFragmentOrigin

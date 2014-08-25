@@ -138,12 +138,19 @@
 
 -(void) setAsRunning
 {
-    [self.lbState setText:@"Running"];
-    [self.event setDuration:-1];
-    [self.setRunningView setHidden:NO];
-    [self.addView setHidden:YES];
-    [self delegateShouldUpdateEvent];
-    [self.lbDuration start];
+    if ([self.event.eventDate compare:[NSDate date]] == NSOrderedAscending) {
+        [self.lbState setText:@"Running"];
+        [self.event setDuration:-1];
+        [self.setRunningView setHidden:NO];
+        [self.addView setHidden:YES];
+        [self delegateShouldUpdateEvent];
+        [self.lbDuration start];
+    }else{
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Detail.CantRun", nil) message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alertView show];
+    }
+        
+    
 }
 
 -(void) setEndDate
@@ -187,7 +194,7 @@
 
 -(void) syncDatePickers
 {
-    if (self.event.duration < 0){
+    /*if (self.event.duration < 0){
         [[DatePickerManager sharedInstance].datePicker setMaximumDate:[NSDate date]];
         [[DatePickerManager sharedInstance].timePicker setMaximumDate:[NSDate date]];
     }else if (self.event.duration == 0){
@@ -196,7 +203,7 @@
     }else if (self.event.duration > 0){
         [[DatePickerManager sharedInstance].datePicker setMaximumDate:[self.event.eventDate dateByAddingTimeInterval:self.event.duration]];
         [[DatePickerManager sharedInstance].timePicker setMaximumDate:[self.event.eventDate dateByAddingTimeInterval:self.event.duration]];
-    }
+    }*/
 }
 
 #pragma mark - Border
@@ -239,13 +246,13 @@
 {
     UIActionSheet *actionSheet;
     if (self.event.duration == 0) {
-        actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Detail.AddDuration", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Detail.SetAsRunning", nil),NSLocalizedString(@"Detail.SetEndDate", nil), nil];
+        actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Detail.SetAsRunning", nil),NSLocalizedString(@"Detail.SetEndDate", nil), nil];
     }
     if (self.event.duration < 0) {
-        actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Detail.AddDuration", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:NSLocalizedString(@"Delete", nil) otherButtonTitles:NSLocalizedString(@"Detail.StopNow", nil),NSLocalizedString(@"Detail.SetEndDate", nil), nil];
+        actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:NSLocalizedString(@"Delete", nil) otherButtonTitles:NSLocalizedString(@"Detail.StopNow", nil),NSLocalizedString(@"Detail.SetEndDate", nil), nil];
     }
     if (self.event.duration > 0) {
-        actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Detail.AddDuration", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:NSLocalizedString(@"Delete", nil) otherButtonTitles:NSLocalizedString(@"Detail.SetAsRunning", nil),NSLocalizedString(@"Detail.SetEndDate", nil), nil];
+        actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:NSLocalizedString(@"Delete", nil) otherButtonTitles:NSLocalizedString(@"Detail.SetAsRunning", nil),NSLocalizedString(@"Detail.SetEndDate", nil), nil];
     }
     return actionSheet;
 }

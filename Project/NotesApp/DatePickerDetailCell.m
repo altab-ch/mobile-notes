@@ -20,23 +20,6 @@
 
 -(void) updateWithEvent:(PYEvent*)event
 {
-    //[super updateWithEvent:event];
-    /*if (_isEndDate) {
-        [_datePicker setDate:[event.eventDate dateByAddingTimeInterval:event.duration]];
-        [_timePicker setDate:[event.eventDate dateByAddingTimeInterval:event.duration]];
-        [_timePicker setMinimumDate:event.eventDate];
-        [_datePicker setMinimumDate:event.eventDate];
-    }else{
-        NSDate *date = [event eventDate];
-        if (date == nil) date = [NSDate date];
-        [_datePicker setDate:date];
-        [_timePicker setDate:date];
-        //[_timePicker setMinimumDate:[NSDate dateWithTimeIntervalSince1970:0]];
-        //[_datePicker setMinimumDate:[NSDate dateWithTimeIntervalSince1970:0]];
-        [_datePicker setMinimumDate:nil];
-        [_timePicker setMinimumDate:nil];
-    }*/
-    
     self.datePicker = [DatePickerManager sharedInstance].datePicker;
     [self addSubview:self.datePicker];
     

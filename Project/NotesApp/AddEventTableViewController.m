@@ -17,9 +17,8 @@
 #import "UnitPickerViewController.h"
 #import "DetailViewController.h"
 
-#define showDetailSegue @"kAddToDetailSegue_ID"
 #define kAddToUnitSegue_ID @"kAddToUnitSegue_ID"
-#define kAddToUnitSegue_ID2 @"kAddToDetailSegue_ID2"
+#define kAddToDetailSegue_ID @"kAddToDetailSegue_ID"
 
 @interface AddEventTableViewController () <MCSwipeTableViewCellDelegate, UIActionSheetDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate, UnitPickerDelegate>
 
@@ -146,7 +145,7 @@
         {
             PYEvent *event = [[PYEvent alloc] init];
             event.type = @"number";
-            [self performSegueWithIdentifier:kAddToUnitSegue_ID2 sender:event];
+            [self performSegueWithIdentifier:kAddToUnitSegue_ID sender:event];
         }
             break;
         case 3:
@@ -165,7 +164,7 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(PYEvent*)sender
 {
-    if ([[segue identifier] isEqualToString:kAddToUnitSegue_ID2]) {
+    if ([[segue identifier] isEqualToString:kAddToDetailSegue_ID]) {
         DetailViewController *detail = [segue destinationViewController];
         [detail setEvent:sender];
     }
@@ -330,7 +329,7 @@
 - (void)showEventDetailsForEvent:(PYEvent*)event
 {
     if (event == nil) return;
-    [self performSegueWithIdentifier:kAddToUnitSegue_ID2 sender:event];
+    [self performSegueWithIdentifier:kAddToDetailSegue_ID sender:event];
 }
 
 @end

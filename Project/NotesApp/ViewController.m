@@ -12,8 +12,9 @@
 #import "LRUManager.h"
 #import "XMMDrawerController.h"
 #import "InboardingViewController.h"
+#import "DatePickerManager.h"
 
-#define FIRST_LAUNCH @"First_launch_date222222"
+#define FIRST_LAUNCH @"First_launch_date"
 
 @interface ViewController ()
 
@@ -90,7 +91,7 @@
 
 -(void) initDrawer
 {
-    
+    [DatePickerManager sharedInstance];
     UINavigationController * leftDrawer = [[UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil] instantiateViewControllerWithIdentifier:@"menu_nav_id"];
     UINavigationController * center = [[UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil] instantiateViewControllerWithIdentifier:@"main_nav_c"];
     
@@ -102,6 +103,7 @@
 
 -(void) launchDrawer
 {
+    
     if (self.pyLoginViewController) {
         [self.pyLoginViewController dismissViewControllerAnimated:YES completion:^{
             [self initDrawer];

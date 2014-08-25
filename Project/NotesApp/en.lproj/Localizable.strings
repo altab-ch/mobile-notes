@@ -25,6 +25,7 @@
 "Delete" = "Delete";
 "Done" = "Done";
 "Edit" = "Edit";
+"day" = "day";
 
 "UnitPicker.Next" = "Next";
 "UnitPicker.Select" = "Select a unit";
@@ -50,6 +51,11 @@
 "DetailViewController.TitleNote" = "Note";
 "DetailViewController.TitlePicture" = "Picture";
 "DetailViewController.TitleMeasure" = "Value";
+"Detail.AddDuration" = "Add a duration";
+"Detail.StopNow" = "Stop now";
+"Detail.SetEndDate" = "Set an end date";
+"Detail.SetAsRunning" = "Set as running";
+"Detail.CantRun" = "Can't run future date";
 
 "TextEditorViewController.Title" = "Take a note";
 

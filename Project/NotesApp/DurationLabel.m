@@ -54,7 +54,11 @@
     NSInteger minutes = (duration / 60) % 60;
     NSInteger hours = (duration / 3600);
     NSString* time;
-    if (hours!=0)
+    if (hours >= 48)
+        time=[NSString stringWithFormat:@"%d %@s", hours/24, NSLocalizedString(@"day", nil)];
+    else if (hours >= 24)
+        time=[NSString stringWithFormat:@"%d %@", hours/24, NSLocalizedString(@"day", nil)];
+    else if (hours>0)
         time=[NSString stringWithFormat:@"%02ld:%02ld:%02ld", (long)hours, (long)minutes, (long)seconds];
     else if (hours==0)
         time=[NSString stringWithFormat:@"%02ld:%02ld", (long)minutes, (long)seconds];

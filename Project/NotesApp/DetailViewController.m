@@ -19,6 +19,8 @@
 #import "DeleteDetailCell.h"
 #import "EventDetailCell.h"
 #import "PYEvent+Helper.h"
+#import "PYStream+Helper.h"
+#import "PYStream+Utils.h"
 #import "UIAlertView+PrYv.h"
 #import "DataService.h"
 #import "StreamPickerViewController.h"
@@ -44,6 +46,7 @@ typedef enum
 @property (nonatomic) BOOL shouldUpdateEvent;
 @property (nonatomic, strong) NSDictionary* initialEventValue;
 
+@property (nonatomic, weak) IBOutlet UIBarButtonItem *editButton;
 @property (nonatomic, weak) IBOutlet EventDetailCell *eventDetailCell;
 @property (nonatomic, weak) IBOutlet StreamDetailCell *streamDetailCell;
 @property (nonatomic, weak) IBOutlet DateDetailCell *dateDetailCell;
@@ -317,6 +320,7 @@ typedef enum
 {
     if (stream) {
         self.event.streamId = stream.streamId;
+        
         self.shouldUpdateEvent = YES;
     }
     [self.streamDetailCell update];
@@ -334,8 +338,9 @@ typedef enum
         self.endDateDetailCell.isEndDatePicker = false;
         self.navigationItem.leftBarButtonItem = nil;
         [self.navigationItem setHidesBackButton:NO];
-    }else
-    {
+        [self.editButton setTitle:NSLocalizedString(@"Edit", nil)];
+    }else{
+        [self.editButton setTitle:NSLocalizedString(@"Done", nil)];
         [self.navigationItem setHidesBackButton:YES];
         UIBarButtonItem *btbrowse= [[UIBarButtonItem alloc]
                                     initWithTitle: NSLocalizedString(@"Cancel", nil)

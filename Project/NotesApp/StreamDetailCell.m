@@ -45,7 +45,8 @@
 -(void) update
 {
     self.streamsLabel.text = [self.event eventBreadcrumbs];
-    if (self.event.stream) [_pastille setBackgroundColor:[[self.event stream] getColor]];
+    if (self.event.stream)
+        [_pastille setBackgroundColor:[[self.event stream] getColor]];
 }
 
 -(BOOL) shouldUpdateBorder
