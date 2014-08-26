@@ -715,7 +715,7 @@ BOOL displayNonStandardEvents;
 -(void) scrollToEvent:(PYEvent*)event
 {
     
-    [_tableView scrollToRowAtIndexPath:[self getIndexPathForEvent:event] atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+    [self.tableView scrollToRowAtIndexPath:[self getIndexPathForEvent:event] atScrollPosition:UITableViewScrollPositionTop animated:NO];
 }
 
 -(NSIndexPath*)getIndexPathForEvent:(PYEvent*)event
@@ -737,7 +737,7 @@ BOOL displayNonStandardEvents;
         }
     }
 
-    return [NSIndexPath indexPathForRow:0 inSection:[_sectionsMapTitles count]-1];
+    return [NSIndexPath indexPathForRow:0 inSection:[self.sectionsMapTitles count]-1];
     
 }
 

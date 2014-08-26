@@ -25,7 +25,7 @@
                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="42"/>
                         <textInputTraits key="textInputTraits"/>
                         <connections>
-                            <action selector="valueTextFieldDidChange:" destination="tCi-J9-exy" eventType="valueChanged" id="zHK-oY-b8D"/>
+                            <action selector="valueTextFieldDidChange:" destination="tCi-J9-exy" eventType="editingChanged" id="Ms9-l4-9LU"/>
                             <outlet property="delegate" destination="tCi-J9-exy" id="8yY-Lr-WoQ"/>
                         </connections>
                     </textField>
@@ -49,8 +49,8 @@
             <connections>
                 <outlet property="borderView" destination="S1u-Cd-kHx" id="aGk-xj-3wE"/>
                 <outlet property="numericalValue" destination="xhM-yM-1Lj" id="29l-yb-FHM"/>
-                <outlet property="numericalValue_Label" destination="KiJ-a4-ozY" id="k8P-9g-a4B"/>
-                <outlet property="numericalValue_TypeLabel" destination="wyb-We-JnB" id="hWf-jY-53J"/>
+                <outlet property="numericalValue_Label" destination="wyb-We-JnB" id="0yR-GD-Y6m"/>
+                <outlet property="numericalValue_TypeLabel" destination="KiJ-a4-ozY" id="l4Y-A0-ft1"/>
             </connections>
         </tableViewCell>
     </objects>

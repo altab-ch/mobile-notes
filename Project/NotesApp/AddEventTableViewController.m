@@ -136,14 +136,14 @@
     switch (sender.tag) {
         case 1:
         {
-            PYEvent *event = [[PYEvent alloc] init];
+            PYEvent *event = [self getNewEvent];
             event.type = @"note/txt";
             [self showEventDetailsForEvent:event];
         }
             break;
         case 2:
         {
-            PYEvent *event = [[PYEvent alloc] init];
+            PYEvent *event = [self getNewEvent];
             event.type = @"number";
             [self performSegueWithIdentifier:kAddToUnitSegue_ID sender:event];
         }
@@ -280,9 +280,10 @@
         PYEvent *newEvent;
         if (self.tempEntry) {
             newEvent = [self.tempEntry reconstructEvent];
+            [newEvent setConnection:[NotesAppController sharedInstance].connection];
             self.tempEntry = nil;
         }else{
-            newEvent = [[PYEvent alloc] init];
+            newEvent = [self getNewEvent];
             newEvent.type = @"picture/attached";
         }
         
@@ -329,7 +330,15 @@
 - (void)showEventDetailsForEvent:(PYEvent*)event
 {
     if (event == nil) return;
+    [event setConnection:[NotesAppController sharedInstance].connection];
     [self performSegueWithIdentifier:kAddToDetailSegue_ID sender:event];
+}
+
+-(PYEvent*) getNewEvent
+{
+    PYEvent *event = [[PYEvent alloc] init];
+    event.connection = [NotesAppController sharedInstance].connection;
+    return event;
 }
 
 @end

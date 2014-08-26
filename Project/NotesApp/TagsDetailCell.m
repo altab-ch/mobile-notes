@@ -61,7 +61,7 @@
 
 - (void)tokenFieldWillBeginEditing:(JSTokenField *)tokenField
 {
-    [self.delegate closePickers];
+    [self.delegate closePickers:NO];
 }
 
 - (void)tokenFieldDidEndEditing:(JSTokenField *)tokenField

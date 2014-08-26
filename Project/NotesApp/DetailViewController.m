@@ -24,6 +24,7 @@
 #import "UIAlertView+PrYv.h"
 #import "DataService.h"
 #import "StreamPickerViewController.h"
+#import "UserHistoryEntry.h"
 
 typedef enum
 {
@@ -41,10 +42,10 @@ typedef enum
 
 @interface DetailViewController () <StreamsPickerDelegate, DetailCellDelegate>
 
-@property (nonatomic) BOOL autoSetDiaryStream;
 @property (nonatomic) BOOL isEdit;
 @property (nonatomic) BOOL shouldUpdateEvent;
-@property (nonatomic, strong) NSDictionary* initialEventValue;
+@property (nonatomic, strong) NSDictionary *initialEventValue;
+@property (nonatomic, strong) UIBarButtonItem *btBrowse, *btCancel;
 
 @property (nonatomic, weak) IBOutlet UIBarButtonItem *editButton;
 @property (nonatomic, weak) IBOutlet EventDetailCell *eventDetailCell;
@@ -75,8 +76,21 @@ typedef enum
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     self.isEdit = self.event.isDraft;
     self.initialEventValue = [self.event cachingDictionary];
+
+    self.btBrowse= [[UIBarButtonItem alloc]
+                    initWithTitle: NSLocalizedString(@"Browser", nil)
+                    style:UIBarButtonItemStylePlain
+                    target:self
+                    action:@selector(btBrowsePressed:)];
+    self.btCancel= [[UIBarButtonItem alloc]
+                    initWithTitle: NSLocalizedString(@"Cancel", nil)
+                    style:UIBarButtonItemStylePlain
+                    target:self
+                    action:@selector(cancelButtonTouched:)];
+    
     self.dateDetailCell.isDatePicker = false;
     self.endDateDetailCell.isEndDatePicker = false;
     
@@ -103,6 +117,16 @@ typedef enum
 
 #pragma mark - IBAction
 
+-(void) btBrowsePressed:(id)sender
+{
+    if (![[self.initialEventValue objectForKey:@"streamId"] isEqualToString:self.event.streamId]){
+        [[NSNotificationCenter defaultCenter] postNotificationName:kUserDidAddStreamNotification object:[self event]];
+    }else if ([[NSDate dateWithTimeIntervalSince1970:[[self.initialEventValue  objectForKey:@"time"] doubleValue]] compare:self.event.eventDate] != NSOrderedSame)
+        [[NSNotificationCenter defaultCenter] postNotificationName:kBrowserShouldScrollToEvent object:[self event]];
+    
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
 - (IBAction)editButtonTouched:(id)sender
 {
     if (self.isEdit && (_event.stream == nil || _event.streamId == nil)) {
@@ -111,7 +135,7 @@ typedef enum
         return;
     }
     
-    if (_event.eventDataType != EventDataTypeImage && (!_event.eventContent || [_event.eventContentAsString isEqualToString:@""])) {
+    if (self.event.eventDataType != EventDataTypeImage && (!self.event.eventContent || [self.event.eventContentAsString isEqualToString:@""])) {
         
         if (_event.eventDataType == EventDataTypeValueMeasure) {
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Alert.DetailViewController.NoValue", nil) message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
@@ -140,10 +164,8 @@ typedef enum
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"NO", nil) otherButtonTitles:NSLocalizedString(@"YES", nil), nil];
     [alertView showWithCompletionBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
         if(alertView.cancelButtonIndex != buttonIndex)
-        {
-            
             [self deleteEvent];
-        }
+
     }];
 }
 
@@ -153,7 +175,6 @@ typedef enum
     else
     {
         if (self.initialEventValue) [self.event resetFromCachingDictionary:self.initialEventValue];
-        
         [self updateEvent];
         self.shouldUpdateEvent = NO;
         [self updateUIEditMode:false];
@@ -303,11 +324,15 @@ typedef enum
     self.shouldUpdateEvent = true;
 }
 
--(void) closePickers
+-(void) closePickers:(BOOL)forceUpdateUI
 {
     if (self.dateDetailCell.isDatePicker || self.endDateDetailCell.isEndDatePicker) {
         self.dateDetailCell.isDatePicker = false;
         self.endDateDetailCell.isEndDatePicker = false;
+        [self.tableView beginUpdates];
+        [self.tableView endUpdates];
+    }else if (forceUpdateUI)
+    {
         [self.tableView beginUpdates];
         [self.tableView endUpdates];
     }
@@ -337,17 +362,14 @@ typedef enum
         self.dateDetailCell.isDatePicker = false;
         self.endDateDetailCell.isEndDatePicker = false;
         self.navigationItem.leftBarButtonItem = nil;
-        [self.navigationItem setHidesBackButton:NO];
+        [self.navigationItem setHidesBackButton:YES];
+        self.navigationItem.leftBarButtonItem = self.btBrowse;
         [self.editButton setTitle:NSLocalizedString(@"Edit", nil)];
     }else{
         [self.editButton setTitle:NSLocalizedString(@"Done", nil)];
         [self.navigationItem setHidesBackButton:YES];
-        UIBarButtonItem *btbrowse= [[UIBarButtonItem alloc]
-                                    initWithTitle: NSLocalizedString(@"Cancel", nil)
-                                    style:UIBarButtonItemStylePlain
-                                    target:self
-                                    action:@selector(cancelButtonTouched:)];
-        self.navigationItem.leftBarButtonItem = btbrowse;
+        
+        self.navigationItem.leftBarButtonItem = self.btCancel;
 
     }
     if(self.event.isDraft && !edit)
@@ -355,7 +377,7 @@ typedef enum
     else if(self.shouldUpdateEvent && !edit)
         [self eventSaveModifications];
     
-    self.initialEventValue = [self.event cachingDictionary];
+    //self.initialEventValue = [self.event cachingDictionary];
     [self.cells enumerateObjectsUsingBlock:^(BaseDetailCell *cell, NSUInteger idx, BOOL *stop) {
         [cell setIsInEditMode:edit];
     }];
@@ -364,13 +386,7 @@ typedef enum
 
 - (void)setupStreamPickerViewController:(StreamPickerViewController*)streamPickerVC
 {
-    if (self.autoSetDiaryStream) {
-        streamPickerVC.stream = nil;
-    } else {
-        streamPickerVC.stream = [self.event stream];
-    }
     streamPickerVC.delegate = self;
-    //self.streamPickerVC = streamPickerVC;
     [self.navigationController presentViewController:streamPickerVC animated:YES completion:nil];
 }
 

@@ -12,19 +12,9 @@
 @interface NoteDetailCell () <UITextViewDelegate>
 
 @property (nonatomic, weak) IBOutlet UITextView *noteText;
-
 @end
 
 @implementation NoteDetailCell
-
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-    }
-    return self;
-}
 
 -(void) updateWithEvent:(PYEvent*)event
 {
@@ -52,7 +42,7 @@
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView
 {
-    [self.delegate closePickers];
+    [self.delegate closePickers:true];
     return self.isInEditMode;
 }
 
@@ -86,9 +76,6 @@
 
 -(CGFloat) heightForNoteTextViewWithString:(NSString*)s
 {
-    /*if (!self.noteText.isFirstResponder)
-        return 140;*/
-
     NSDictionary *attributes = @{NSFontAttributeName: self.noteText.font};
     CGRect rect = [s boundingRectWithSize:CGSizeMake(self.noteText.frame.size.width-10, CGFLOAT_MAX)
                                   options:NSStringDrawingUsesLineFragmentOrigin
