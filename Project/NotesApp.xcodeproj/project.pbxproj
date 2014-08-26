@@ -70,6 +70,9 @@
 		293EDC1E19991164003D6E3D /* EventDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 293EDC1D19991164003D6E3D /* EventDetailCell.m */; };
 		293EDC30199DCA00003D6E3D /* DatePickerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 293EDC2F199DCA00003D6E3D /* DatePickerManager.m */; };
 		293EDC33199DE4E6003D6E3D /* EndDatePickerDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 293EDC32199DE4E6003D6E3D /* EndDatePickerDetailCell.m */; };
+		297A071019AC707800F91ABE /* LocationDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 297A070F19AC707800F91ABE /* LocationDetailCell.m */; };
+		297A071D19AC70B400F91ABE /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 297A071C19AC70B400F91ABE /* MapKit.framework */; };
+		297A071F19AC70E400F91ABE /* LocationDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 297A071E19AC70E400F91ABE /* LocationDetailCell.xib */; };
 		29FF5D7C196ED0B60002D124 /* UnitPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29FF5D7B196ED0B60002D124 /* UnitPickerViewController.m */; };
 		4E0901071857640400A2F044 /* AddNumericalValueCellFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0901061857640400A2F044 /* AddNumericalValueCellFormat.m */; };
 		4E37857517953BBD00ED94DF /* Manifest.lock in Resources */ = {isa = PBXBuildFile; fileRef = 4E37852F17953BBD00ED94DF /* Manifest.lock */; };
@@ -132,7 +135,6 @@
 		B6016BCA172873D40056CD3F /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6016BC8172873D40056CD3F /* MainStoryboard_iPhone.storyboard */; };
 		B6016BD0172873D40056CD3F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6016BCF172873D40056CD3F /* ViewController.m */; };
 		B6087DD118A0494C00891C75 /* MNMPullToRefresh.strings in Resources */ = {isa = PBXBuildFile; fileRef = B6087DD318A0494C00891C75 /* MNMPullToRefresh.strings */; };
-		B617F21F188EEF77002DEF0B /* EventDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B617F21E188EEF77002DEF0B /* EventDetailsViewController.m */; };
 		B61A193B185A321000E9F9BE /* circle-add.png in Resources */ = {isa = PBXBuildFile; fileRef = B61A193A185A321000E9F9BE /* circle-add.png */; };
 		B61A193D185A322900E9F9BE /* circle-add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B61A193C185A322900E9F9BE /* circle-add@2x.png */; };
 		B61A1944185A49E900E9F9BE /* StreamPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B61A1943185A49E900E9F9BE /* StreamPickerViewController.m */; };
@@ -457,6 +459,10 @@
 		293EDC2F199DCA00003D6E3D /* DatePickerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatePickerManager.m; sourceTree = "<group>"; };
 		293EDC31199DE4E6003D6E3D /* EndDatePickerDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EndDatePickerDetailCell.h; sourceTree = "<group>"; };
 		293EDC32199DE4E6003D6E3D /* EndDatePickerDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EndDatePickerDetailCell.m; sourceTree = "<group>"; };
+		297A070E19AC707800F91ABE /* LocationDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationDetailCell.h; sourceTree = "<group>"; };
+		297A070F19AC707800F91ABE /* LocationDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationDetailCell.m; sourceTree = "<group>"; };
+		297A071C19AC70B400F91ABE /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		297A071E19AC70E400F91ABE /* LocationDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationDetailCell.xib; sourceTree = "<group>"; };
 		29FF5D7A196ED0B60002D124 /* UnitPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitPickerViewController.h; sourceTree = "<group>"; };
 		29FF5D7B196ED0B60002D124 /* UnitPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitPickerViewController.m; sourceTree = "<group>"; };
 		4E0901051857640400A2F044 /* AddNumericalValueCellFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddNumericalValueCellFormat.h; sourceTree = "<group>"; };
@@ -656,8 +662,6 @@
 		B6016BCF172873D40056CD3F /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		B6087DD218A0494C00891C75 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/MNMPullToRefresh.strings; sourceTree = "<group>"; };
 		B6087DD418A0495000891C75 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/MNMPullToRefresh.strings; sourceTree = "<group>"; };
-		B617F21D188EEF77002DEF0B /* EventDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventDetailsViewController.h; sourceTree = "<group>"; };
-		B617F21E188EEF77002DEF0B /* EventDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventDetailsViewController.m; sourceTree = "<group>"; };
 		B61A193A185A321000E9F9BE /* circle-add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "circle-add.png"; sourceTree = "<group>"; };
 		B61A193C185A322900E9F9BE /* circle-add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "circle-add@2x.png"; sourceTree = "<group>"; };
 		B61A1942185A49E900E9F9BE /* StreamPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamPickerViewController.h; sourceTree = "<group>"; };
@@ -857,6 +861,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				297A071D19AC70B400F91ABE /* MapKit.framework in Frameworks */,
 				B6B7CE4D18B29D3A0001CA28 /* ImageIO.framework in Frameworks */,
 				B6B7CE4B18B29C050001CA28 /* AssetsLibrary.framework in Frameworks */,
 				4EBC55961897E67800C4A136 /* MessageUI.framework in Frameworks */,
@@ -922,6 +927,9 @@
 				290712E0198C0EF900C3819B /* PhotoDetailCell.h */,
 				290712E1198C0EF900C3819B /* PhotoDetailCell.m */,
 				290712E3198C0F1A00C3819B /* PhotoDetailCell.xib */,
+				297A070E19AC707800F91ABE /* LocationDetailCell.h */,
+				297A070F19AC707800F91ABE /* LocationDetailCell.m */,
+				297A071E19AC70E400F91ABE /* LocationDetailCell.xib */,
 				293EDC1C19991164003D6E3D /* EventDetailCell.h */,
 				293EDC1D19991164003D6E3D /* EventDetailCell.m */,
 				293EDC2B19991F8C003D6E3D /* EventDetailCellDelegate.h */,
@@ -1344,6 +1352,7 @@
 		B6016BAF172873D30056CD3F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				297A071C19AC70B400F91ABE /* MapKit.framework */,
 				B6B7CE4C18B29D3A0001CA28 /* ImageIO.framework */,
 				B6B7CE4A18B29C050001CA28 /* AssetsLibrary.framework */,
 				4EBC55951897E67800C4A136 /* MessageUI.framework */,
@@ -1396,15 +1405,6 @@
 				B6B2EE7718C533EB00E40DB4 /* welcome.html */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		B617F21C188EEF5D002DEF0B /* EventDetails */ = {
-			isa = PBXGroup;
-			children = (
-				B617F21D188EEF77002DEF0B /* EventDetailsViewController.h */,
-				B617F21E188EEF77002DEF0B /* EventDetailsViewController.m */,
-			);
-			name = EventDetails;
 			sourceTree = "<group>";
 		};
 		B61A1945185A64CB00E9F9BE /* Cells */ = {
@@ -1460,7 +1460,6 @@
 		B61D55C117EF1BDD0016D0C4 /* Details */ = {
 			isa = PBXGroup;
 			children = (
-				B617F21C188EEF5D002DEF0B /* EventDetails */,
 				B681B68018552E7A0067DF37 /* Pickers */,
 			);
 			name = Details;
@@ -2093,6 +2092,7 @@
 				96088A9C1861F1230090ECC7 /* Icon-Small@2x.png in Resources */,
 				B6F1AEC81784742D000ECD60 /* tokenNormal.png in Resources */,
 				292ACD801977E14300036084 /* pickercenter@2x.png in Resources */,
+				297A071F19AC70E400F91ABE /* LocationDetailCell.xib in Resources */,
 				B6F1AEC91784742D000ECD60 /* tokenNormal@2x.png in Resources */,
 				B6B5900B178B60B60009E413 /* add_circle.png in Resources */,
 				B61A194C185A665900E9F9BE /* circle-chevron-right@2x.png in Resources */,
@@ -2308,7 +2308,6 @@
 				B61A1944185A49E900E9F9BE /* StreamPickerViewController.m in Sources */,
 				B6016BD0172873D40056CD3F /* ViewController.m in Sources */,
 				4E8AAFE71859EA440083DE8C /* UnkownCell.m in Sources */,
-				B617F21F188EEF77002DEF0B /* EventDetailsViewController.m in Sources */,
 				4E0901071857640400A2F044 /* AddNumericalValueCellFormat.m in Sources */,
 				B6BA3E721732E91000464C2F /* UIView+Frame.m in Sources */,
 				4E8AAFF8185A07A30083DE8C /* AppConstants.m in Sources */,
@@ -2324,6 +2323,7 @@
 				290712CA198BEF6200C3819B /* EndDateDetailCell.m in Sources */,
 				B6DC81F4181E667700118ED9 /* PictureCell.m in Sources */,
 				290712E8198DAEAF00C3819B /* DetailViewController.m in Sources */,
+				297A071019AC707800F91ABE /* LocationDetailCell.m in Sources */,
 				B64ACAC61750F21900E2F6F7 /* DataService.m in Sources */,
 				4E41A62D18587EE000BC0C28 /* AddNumericalValueCellClass.m in Sources */,
 				B64ACAD71753F28D00E2F6F7 /* MeasurementSettingsViewController.m in Sources */,

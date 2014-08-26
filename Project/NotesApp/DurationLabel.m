@@ -12,6 +12,7 @@
 
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, strong) NSLock *updateUILock;
+
 @end
 
 @implementation DurationLabel
@@ -25,31 +26,45 @@
     return self;
 }
 
+-(void) setEndDate:(NSDate *)endDate
+{
+    _endDate = endDate;
+    [self updateDateUI:endDate];
+}
+
 -(void) start
 {
+    [self stop];
     [self updateDateUI:[NSDate date]];
-    _timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateDate) userInfo:nil repeats:YES];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(update) userInfo:nil repeats:YES];
 }
 
 -(void) stop
 {
-    if (_timer) [_timer invalidate];
+    if (self.timer){
+        [self.timer invalidate];
+        self.timer = nil;
+    }
+    self.endDate = nil;
 }
 
--(void) setEndDate:(NSDate*)endDate
+-(void) update
 {
-    [self updateDateUI:endDate];
-}
-
--(void) updateDate
-{
-    [self updateDateUI:[NSDate date]];
+    if (self.endDate)
+        [self updateDateUI:self.endDate];
+    else
+        [self updateDateUI:[NSDate date]];
 }
 
 -(void) updateDateUI:(NSDate*)date
 {
     [self.updateUILock lock];
-    NSInteger duration = (NSInteger)[date timeIntervalSinceDate:self.eventDate];
+    BOOL isMinus = false;
+    NSInteger duration = (NSInteger)[date timeIntervalSinceDate:self.event.eventDate];
+    if (duration<0) {
+        duration = abs(duration);
+        isMinus = true;
+    }
     NSInteger seconds = duration % 60;
     NSInteger minutes = (duration / 60) % 60;
     NSInteger hours = (duration / 3600);
@@ -64,8 +79,10 @@
         time=[NSString stringWithFormat:@"%02ld:%02ld", (long)minutes, (long)seconds];
     else if (minutes==0)
         time=[NSString stringWithFormat:@"%02ld", (long)seconds];
-    
-    [self setText:[NSString stringWithFormat:@"%@", time]];
+    if (isMinus)
+        [self setText:[NSString stringWithFormat:@"-%@", time]];
+    else
+        [self setText:[NSString stringWithFormat:@"%@", time]];
     [self.updateUILock unlock];
 }
 

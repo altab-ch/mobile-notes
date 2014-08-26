@@ -11,7 +11,6 @@
 #import "BrowseEventsCell.h"
 #import "PhotoNoteViewController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
-#import "EventDetailsViewController.h"
 #import "NSString+Utils.h"
 #import "PYEvent+Helper.h"
 #import "UnitPickerViewController.h"

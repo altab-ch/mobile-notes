@@ -54,16 +54,14 @@
     [[DatePickerManager sharedInstance].datePicker setDate:[DatePickerManager sharedInstance].timePicker.date];
     [self.event setEventDate:[DatePickerManager sharedInstance].timePicker.date];
     [self delegateShouldUpdateEvent];
-    
 }
 
 -(void) delegateShouldUpdateEvent
 {
     [self.delegate detailShouldUpdateEvent];
     [self.delegate updateEndDateCell];
-    [[DatePickerManager sharedInstance].endDatePicker setMinimumDate:self.event.eventDate];
-    [[DatePickerManager sharedInstance].endTimePicker setMinimumDate:self.event.eventDate];
-    
+    //[[DatePickerManager sharedInstance].endDatePicker setMinimumDate:self.event.eventDate];
+    //[[DatePickerManager sharedInstance].endTimePicker setMinimumDate:self.event.eventDate];
 }
 
 #pragma mark - Border

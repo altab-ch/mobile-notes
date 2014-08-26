@@ -9,7 +9,6 @@
 #import "TagsDetailCell.h"
 #import "JSTokenField.h"
 #import "JSTokenButton.h"
-#import "EventDetailsViewController.h"
 
 @interface TagsDetailCell () <JSTokenFieldDelegate>
 

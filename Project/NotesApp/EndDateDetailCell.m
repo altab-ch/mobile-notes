@@ -33,26 +33,26 @@
 -(void) updateWithEvent:(PYEvent*)event
 {
     [super updateWithEvent:event];
-    [self.lbDuration setEventDate:event.eventDate];
+    [self.lbDuration setEvent:event];
     
-    [[DatePickerManager sharedInstance].endDatePicker addTarget:self action:@selector(datePickerValueChanged:) forControlEvents:UIControlEventValueChanged];
-    [[DatePickerManager sharedInstance].endTimePicker addTarget:self action:@selector(timePickerValueChanged:) forControlEvents:UIControlEventValueChanged];
+    [[DatePickerManager sharedInstance].endDatePicker addTarget:self action:@selector(endDatePickerValueChanged:) forControlEvents:UIControlEventValueChanged];
+    [[DatePickerManager sharedInstance].endTimePicker addTarget:self action:@selector(endTimePickerValueChanged:) forControlEvents:UIControlEventValueChanged];
     [[DatePickerManager sharedInstance].endDatePicker setDate:[self.event.eventDate dateByAddingTimeInterval:self.event.duration]];
     [[DatePickerManager sharedInstance].endTimePicker setDate:[self.event.eventDate dateByAddingTimeInterval:self.event.duration]];
     
-    if (event.duration == 0) {
+    if (event.duration == 0)
         [self reset];
-    }else if(event.duration < 0){
+    else if(event.isRunning)
         [self setAsRunning];
-    }else if (event.duration > 0){
+    else
         [self stopNow];
-    }
-    [[DatePickerManager sharedInstance].endDatePicker setMinimumDate:[self.event eventDate]];
+    
+    /*[[DatePickerManager sharedInstance].endDatePicker setMinimumDate:[self.event eventDate]];
     [[DatePickerManager sharedInstance].endTimePicker setMinimumDate:[self.event eventDate]];
-    [self syncDatePickers];
+    [self syncDatePickers];*/
 }
 
--(void)datePickerValueChanged:(id)sender
+-(void)endDatePickerValueChanged:(id)sender
 {
     self.lbState.text = [[NotesAppController sharedInstance].dateFormatter stringFromDate:[DatePickerManager sharedInstance].endDatePicker.date];
     [self.lbDuration setEndDate:[DatePickerManager sharedInstance].endDatePicker.date];
@@ -63,7 +63,7 @@
     [self delegateShouldUpdateEvent];
 }
 
--(void)timePickerValueChanged:(id)sender
+-(void)endTimePickerValueChanged:(id)sender
 {
     self.lbState.text = [[NotesAppController sharedInstance].dateFormatter stringFromDate:[DatePickerManager sharedInstance].endTimePicker.date];
     [self.lbDuration setEndDate:[DatePickerManager sharedInstance].endTimePicker.date];
@@ -95,7 +95,7 @@
         
     }
     
-    else if (self.event.duration < 0) {
+    else if (self.event.isRunning) {
         switch (buttonIndex) {
             case 0:
                 [self reset];
@@ -114,7 +114,7 @@
         }
     }
     
-    else if (self.event.duration > 0) {
+    else {
         switch (buttonIndex) {
             case 0:
                 [self reset];
@@ -138,18 +138,19 @@
 
 -(void) setAsRunning
 {
-    if ([self.event.eventDate compare:[NSDate date]] == NSOrderedAscending) {
-        [self.lbState setText:@"Running"];
-        [self.event setDuration:-1];
-        [self.setRunningView setHidden:NO];
-        [self.addView setHidden:YES];
-        [self delegateShouldUpdateEvent];
-        [self.lbDuration start];
+    /*if ([self.event.eventDate compare:[NSDate date]] == NSOrderedAscending) {
+     
     }else{
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Detail.CantRun", nil) message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alertView show];
-    }
-        
+    }*/
+    
+    [self.lbState setText:@"Running"];
+    [self.event setStateRunning];
+    [self.setRunningView setHidden:NO];
+    [self.addView setHidden:YES];
+    [self delegateShouldUpdateEvent];
+    [self.lbDuration start];
     
 }
 
@@ -167,8 +168,9 @@
     [self.setRunningView setHidden:NO];
     [self.addView setHidden:YES];
     [self.lbDuration stop];
-    [self.lbDuration setEndDate:[NSDate date]];
+    //[self.lbDuration setEndDate:[NSDate date]];
     self.event.duration = [[NSDate date] timeIntervalSinceDate:self.event.eventDate];
+    [self.lbDuration update];
     [[DatePickerManager sharedInstance].endDatePicker setDate:[self.event.eventDate dateByAddingTimeInterval:self.event.duration]];
     [[DatePickerManager sharedInstance].endTimePicker setDate:[self.event.eventDate dateByAddingTimeInterval:self.event.duration]];
     [self.lbState setText:[[NotesAppController sharedInstance].dateFormatter stringFromDate:[self.event.eventDate dateByAddingTimeInterval:self.event.duration]]];
@@ -229,15 +231,15 @@
 
 -(void) updateLabels
 {
-    if (self.event.duration < 0)
+    if (self.event.isRunning)
     {
         [self.lbDuration stop];
-        [self.lbDuration setEventDate:self.event.eventDate];
+        [self.lbDuration update];
         [self.lbDuration start];
     }
-    else if (self.event.duration > 0)
+    else if (self.event.duration != 0)
     {
-        [self.lbDuration setEventDate:self.event.eventDate];
+        [self.lbDuration update];
         [self.lbState setText:[[NotesAppController sharedInstance].dateFormatter stringFromDate:[self.event.eventDate dateByAddingTimeInterval:self.event.duration]]];
     }
 }
@@ -247,23 +249,19 @@
     UIActionSheet *actionSheet;
     if (self.event.duration == 0) {
         actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Detail.SetAsRunning", nil),NSLocalizedString(@"Detail.SetEndDate", nil), nil];
-    }
-    if (self.event.duration < 0) {
+    }else if (self.event.isRunning) {
         actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:NSLocalizedString(@"Delete", nil) otherButtonTitles:NSLocalizedString(@"Detail.StopNow", nil),NSLocalizedString(@"Detail.SetEndDate", nil), nil];
-    }
-    if (self.event.duration > 0) {
+    }else
+    {
         actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:NSLocalizedString(@"Delete", nil) otherButtonTitles:NSLocalizedString(@"Detail.SetAsRunning", nil),NSLocalizedString(@"Detail.SetEndDate", nil), nil];
     }
     return actionSheet;
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
+-(void) dealloc
 {
-    // Drawing code
+    [[DatePickerManager sharedInstance].endDatePicker removeTarget:self action:@selector(endDatePickerValueChanged:) forControlEvents:UIControlEventValueChanged];
+    [[DatePickerManager sharedInstance].endTimePicker removeTarget:self action:@selector(endTimePickerValueChanged:) forControlEvents:UIControlEventValueChanged];
 }
-*/
 
 @end

@@ -10,10 +10,11 @@
 
 @interface DurationLabel : UILabel
 
-@property(nonatomic, strong) NSDate* eventDate;
+@property(nonatomic, strong) PYEvent* event;
+@property (nonatomic, strong) NSDate *endDate;
 
 -(void) start;
 -(void) stop;
--(void) setEndDate:(NSDate*)endDate;
+-(void) update;
 
 @end
