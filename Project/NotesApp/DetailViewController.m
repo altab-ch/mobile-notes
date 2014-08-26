@@ -80,6 +80,18 @@ typedef enum
     self.isEdit = self.event.isDraft;
     self.initialEventValue = [self.event cachingDictionary];
 
+    [self initControls];
+    
+    self.dateDetailCell.isDatePicker = false;
+    self.endDateDetailCell.isEndDatePicker = false;
+    
+    [self updateControls];
+    [self updateEvent];
+}
+
+-(void) initControls
+{
+    [self.navigationItem setHidesBackButton:YES];
     self.btBrowse= [[UIBarButtonItem alloc]
                     initWithTitle: NSLocalizedString(@"Browser", nil)
                     style:UIBarButtonItemStylePlain
@@ -90,11 +102,6 @@ typedef enum
                     style:UIBarButtonItemStylePlain
                     target:self
                     action:@selector(cancelButtonTouched:)];
-    
-    self.dateDetailCell.isDatePicker = false;
-    self.endDateDetailCell.isEndDatePicker = false;
-    
-    [self updateEvent];
 }
 
 -(void) viewDidAppear:(BOOL)animated
@@ -105,6 +112,17 @@ typedef enum
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+}
+
+-(void) updateControls
+{
+    if (self.isEdit) {
+        [self.editButton setTitle:NSLocalizedString(@"Done", nil)];
+        self.navigationItem.leftBarButtonItem = self.btCancel;
+    }else{
+        self.navigationItem.leftBarButtonItem = self.btBrowse;
+        [self.editButton setTitle:NSLocalizedString(@"Edit", nil)];
+    }
 }
 
 -(void) updateEvent
@@ -119,9 +137,9 @@ typedef enum
 
 -(void) btBrowsePressed:(id)sender
 {
-    if (![[self.initialEventValue objectForKey:@"streamId"] isEqualToString:self.event.streamId]){
+    if (![[self.initialEventValue objectForKey:@"streamId"] isEqualToString:self.event.streamId])
         [[NSNotificationCenter defaultCenter] postNotificationName:kUserDidAddStreamNotification object:[self event]];
-    }else if ([[NSDate dateWithTimeIntervalSince1970:[[self.initialEventValue  objectForKey:@"time"] doubleValue]] compare:self.event.eventDate] != NSOrderedSame)
+    else if ([[NSDate dateWithTimeIntervalSince1970:[[self.initialEventValue  objectForKey:@"time"] doubleValue]] compare:self.event.eventDate] != NSOrderedSame)
         [[NSNotificationCenter defaultCenter] postNotificationName:kBrowserShouldScrollToEvent object:[self event]];
     
     [self.navigationController popToRootViewControllerAnimated:YES];
@@ -156,10 +174,7 @@ typedef enum
 - (IBAction)deleteButtonTouched:(id)sender {
     NSString* title = NSLocalizedString(@"Alert.Message.DeleteConfirmation", nil);
     if(self.event.isDraft)
-    {
         title = NSLocalizedString(@"Alert.Message.CancelConfirmation", nil);
-    }
-    
     
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"NO", nil) otherButtonTitles:NSLocalizedString(@"YES", nil), nil];
     [alertView showWithCompletionBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
@@ -356,31 +371,26 @@ typedef enum
 
 -(void) updateUIEditMode:(BOOL)edit
 {
-    [self.tableView beginUpdates];
     self.isEdit = edit;
+    [self updateControls];
+    
+    [self.tableView beginUpdates];
+    
     if (!edit) {
         self.dateDetailCell.isDatePicker = false;
         self.endDateDetailCell.isEndDatePicker = false;
-        self.navigationItem.leftBarButtonItem = nil;
-        [self.navigationItem setHidesBackButton:YES];
-        self.navigationItem.leftBarButtonItem = self.btBrowse;
-        [self.editButton setTitle:NSLocalizedString(@"Edit", nil)];
-    }else{
-        [self.editButton setTitle:NSLocalizedString(@"Done", nil)];
-        [self.navigationItem setHidesBackButton:YES];
-        
-        self.navigationItem.leftBarButtonItem = self.btCancel;
-
     }
+    
     if(self.event.isDraft && !edit)
         [self saveEvent];
     else if(self.shouldUpdateEvent && !edit)
         [self eventSaveModifications];
     
-    //self.initialEventValue = [self.event cachingDictionary];
+    //self.initialEventValue = [self.event cachingDictionary]; create tempEventValue while editing
     [self.cells enumerateObjectsUsingBlock:^(BaseDetailCell *cell, NSUInteger idx, BOOL *stop) {
         [cell setIsInEditMode:edit];
     }];
+    
     [self.tableView endUpdates];
 }
 
