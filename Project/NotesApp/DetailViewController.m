@@ -93,7 +93,7 @@ typedef enum
 {
     [self.navigationItem setHidesBackButton:YES];
     self.btBrowse= [[UIBarButtonItem alloc]
-                    initWithTitle: NSLocalizedString(@"Browser", nil)
+                    initWithTitle: NSLocalizedString(@"Pryv", nil)
                     style:UIBarButtonItemStylePlain
                     target:self
                     action:@selector(btBrowsePressed:)];
