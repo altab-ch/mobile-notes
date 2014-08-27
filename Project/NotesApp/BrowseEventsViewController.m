@@ -518,11 +518,11 @@ BOOL displayNonStandardEvents;
     if (cellStyleType == CellStyleTypePhoto)
         result = 160.0;
     else if (cellStyleType == CellStyleTypeText)
-        result = 90.0;
+        result = 120.0;
     else if (cellStyleType == CellStyleTypeMeasure)
-        result = 65.0;
+        result = 91.0;
     else if (cellStyleType == CellStyleTypeMoney)
-        result = 65.0;
+        result = 91.0;
     else
         NSLog(@"Warnign : type cell is not photo, text or measure.");
     return result;
@@ -530,10 +530,8 @@ BOOL displayNonStandardEvents;
 
 - (void)loadMoreDataForIndexPath:(NSIndexPath*)indexPath
 {
-    if(self.lastIndexPath.row == indexPath.row)
-    {
-        return;
-    }
+    if(self.lastIndexPath.row == indexPath.row) return;
+    
     self.lastIndexPath = indexPath;
     self.filter.limit+=kFilterIncrement;
     [self loadData];
