@@ -73,6 +73,7 @@
 		297A071019AC707800F91ABE /* LocationDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 297A070F19AC707800F91ABE /* LocationDetailCell.m */; };
 		297A071D19AC70B400F91ABE /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 297A071C19AC70B400F91ABE /* MapKit.framework */; };
 		297A071F19AC70E400F91ABE /* LocationDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 297A071E19AC70E400F91ABE /* LocationDetailCell.xib */; };
+		29BDFAD919ADD8500026BFE5 /* TagLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BDFAD819ADD8500026BFE5 /* TagLabel.m */; };
 		29FF5D7C196ED0B60002D124 /* UnitPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29FF5D7B196ED0B60002D124 /* UnitPickerViewController.m */; };
 		4E0901071857640400A2F044 /* AddNumericalValueCellFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0901061857640400A2F044 /* AddNumericalValueCellFormat.m */; };
 		4E37857517953BBD00ED94DF /* Manifest.lock in Resources */ = {isa = PBXBuildFile; fileRef = 4E37852F17953BBD00ED94DF /* Manifest.lock */; };
@@ -463,6 +464,8 @@
 		297A070F19AC707800F91ABE /* LocationDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationDetailCell.m; sourceTree = "<group>"; };
 		297A071C19AC70B400F91ABE /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		297A071E19AC70E400F91ABE /* LocationDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationDetailCell.xib; sourceTree = "<group>"; };
+		29BDFAD719ADD8500026BFE5 /* TagLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagLabel.h; sourceTree = "<group>"; };
+		29BDFAD819ADD8500026BFE5 /* TagLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagLabel.m; sourceTree = "<group>"; };
 		29FF5D7A196ED0B60002D124 /* UnitPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitPickerViewController.h; sourceTree = "<group>"; };
 		29FF5D7B196ED0B60002D124 /* UnitPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitPickerViewController.m; sourceTree = "<group>"; };
 		4E0901051857640400A2F044 /* AddNumericalValueCellFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddNumericalValueCellFormat.h; sourceTree = "<group>"; };
@@ -971,6 +974,8 @@
 			children = (
 				2934FBD91986C66F00407D2B /* DurationLabel.h */,
 				2934FBDA1986C66F00407D2B /* DurationLabel.m */,
+				29BDFAD719ADD8500026BFE5 /* TagLabel.h */,
+				29BDFAD819ADD8500026BFE5 /* TagLabel.m */,
 			);
 			name = Label;
 			sourceTree = "<group>";
@@ -2347,6 +2352,7 @@
 				B6F1AEC117847420000ECD60 /* JSBackspaceReportingTextField.m in Sources */,
 				B6993FD21891C07700D88127 /* BaseDetailCell.m in Sources */,
 				4E3E4905194B2C5F00F238C1 /* XMMDrawerController.m in Sources */,
+				29BDFAD919ADD8500026BFE5 /* TagLabel.m in Sources */,
 				2934FBB819829A8000407D2B /* InboardingViewController.m in Sources */,
 				B62BF07218D62D1A007BD68E /* LoadingCell.m in Sources */,
 				B61AE1E2188DD845004385D6 /* PhotoNoteViewController.m in Sources */,
