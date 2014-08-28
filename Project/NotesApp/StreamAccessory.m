@@ -33,7 +33,7 @@
             [self.label setFrame:CGRectMake(18, 0, lbSize.width, 14)];
             [self setFrame:CGRectMake(10, 6, lbSize.width+22, 16)];
             [self.label setText:self.text];
-            [self setPastille:[[UIView alloc] initWithFrame:CGRectMake(2, 2, 10, 11)]];
+            [self setPastille:[[UIView alloc] initWithFrame:CGRectMake(2, 2, 10, 10)]];
             [self.pastille.layer setCornerRadius:5];
             [self.pastille setBackgroundColor:color];
             [self addSubview:self.pastille];
