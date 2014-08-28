@@ -10,6 +10,7 @@
 #import "PYStream+Helper.h"
 #import "PictureCell.h"
 #import <QuartzCore/QuartzCore.h>
+#import "TagLabel.h"
 
 @interface BrowseCell ()
 @end
@@ -50,12 +51,7 @@
     if (self.dateLabel)
         self.dateLabel.text = [self.dateFormatter stringFromDate:date];
     
-}
-
--(void) updateTags:(NSArray*)tags
-{
-    [self.tagContainer.subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){[obj removeFromSuperview];}];
-    
+    [self.tagContainer updateWithTags:event.tags];
 }
 
 @end

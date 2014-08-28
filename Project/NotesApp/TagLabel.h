@@ -10,4 +10,6 @@
 
 @interface TagLabel : UILabel
 
+-(id) initWithText:(NSString*)text;
+
 @end

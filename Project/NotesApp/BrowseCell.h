@@ -8,13 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "PYEvent+Helper.h"
+#import "TagContainer.h"
 
 @interface BrowseCell : UITableViewCell
 
 @property (nonatomic, strong) IBOutlet UILabel *dateLabel;
 @property (nonatomic, strong) IBOutlet UILabel *streamLabel;
 @property (nonatomic, strong) IBOutlet UILabel *commentLabel;
-@property (nonatomic, strong) IBOutlet UIView *tagContainer;
+@property (nonatomic, strong) IBOutlet TagContainer *tagContainer;
 @property (nonatomic, strong) IBOutlet UIView *streamContainer;
 @property (nonatomic, weak) IBOutlet UIView *pastille;
 @property (nonatomic, weak) IBOutlet UIView *backView;

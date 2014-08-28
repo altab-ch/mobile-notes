@@ -66,13 +66,7 @@
 - (void)tokenFieldDidEndEditing:(JSTokenField *)tokenField
 {
     [self.tokenField updateTokensInTextField:self.tokenField.textField];
-    NSMutableArray *tokens = [NSMutableArray array];
-    for(JSTokenButton *token in self.tokenField.tokens)
-    {
-        [tokens addObject:[token representedObject]];
-    }
-    self.event.tags = tokens;
-    [self.delegate detailShouldUpdateEvent];
+    [self updateEventWithTags];
 }
 
 - (void)initTags
@@ -82,6 +76,26 @@
     {
         [self.tokenField addTokenWithTitle:tag representedObject:tag];
     }
+}
+
+- (void)tokenField:(JSTokenField *)tokenField didAddToken:(NSString *)title representedObject:(id)obj
+{
+    [self updateEventWithTags];
+}
+
+- (void)tokenField:(JSTokenField *)tokenField didRemoveToken:(NSString *)title representedObject:(id)obj
+{
+    [self updateEventWithTags];
+}
+
+-(void) updateEventWithTags
+{
+    NSMutableArray *tokens = [NSMutableArray array];
+    for(JSTokenButton *token in self.tokenField.tokens)
+    {
+        [tokens addObject:[token representedObject]];
+    }
+    self.event.tags = tokens;
 }
 
 - (void)tokenContainerDidChangeFrameNotification:(NSNotification*)note
