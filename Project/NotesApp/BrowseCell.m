@@ -52,4 +52,10 @@
     
 }
 
+-(void) updateTags:(NSArray*)tags
+{
+    [self.tagContainer.subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){[obj removeFromSuperview];}];
+    
+}
+
 @end
