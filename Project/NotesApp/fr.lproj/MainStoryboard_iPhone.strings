@@ -1,6 +1,3 @@
-/* Class = "IBUILabel"; text = "kg"; ObjectID = "0IL-wh-WJX"; */
-"0IL-wh-WJX.text" = "kg";
-
 /* Class = "IBUILabel"; text = "STREAM"; ObjectID = "2Ck-6r-pz7"; */
 "2Ck-6r-pz7.text" = "STREAM";
 
@@ -13,17 +10,17 @@
 /* Class = "IBUILabel"; text = "lat=1231\nlon=12331\nheight=123312"; ObjectID = "4iU-sD-fHV"; */
 "4iU-sD-fHV.text" = "lat=1231\nlon=12331\nheight=123312";
 
-/* Class = "IBUILabel"; text = "format information"; ObjectID = "5CG-CS-llM"; */
-"5CG-CS-llM.text" = "format information";
-
 /* Class = "IBUILabel"; text = "Subtitle"; ObjectID = "5Cp-ke-Xzp"; */
 "5Cp-ke-Xzp.text" = "Subtitle";
+
+/* Class = "IBUILabel"; text = "Description"; ObjectID = "5Rb-hE-a26"; */
+"5Rb-hE-a26.text" = "Description";
 
 /* Class = "IBUILabel"; text = "Kg"; ObjectID = "5lf-3U-2IK"; */
 "5lf-3U-2IK.text" = "Kg";
 
-/* Class = "IBUIBarButtonItem"; title = "Back"; ObjectID = "7yw-mL-DXN"; */
-"7yw-mL-DXN.title" = "Retour";
+/* Class = "IBUILabel"; text = "Add new ..."; ObjectID = "6Ht-yq-Cg1"; */
+"6Ht-yq-Cg1.text" = "Ajouter une ...";
 
 /* Class = "IBUILabel"; text = "0.0.0 build 12312"; ObjectID = "807-mj-rC2"; */
 "807-mj-rC2.text" = "0.0.0 build 12312";
@@ -37,8 +34,8 @@
 /* Class = "IBUILabel"; text = "Streams / Streams"; ObjectID = "8y2-8R-0LT"; */
 "8y2-8R-0LT.text" = "Streams / Streams";
 
-/* Class = "IBUILabel"; text = "Date"; ObjectID = "DPx-Xc-SUn"; */
-"DPx-Xc-SUn.text" = "Date";
+/* Class = "IBUILabel"; text = "Durée: 2 Days"; ObjectID = "B26-fR-8fu"; */
+"B26-fR-8fu.text" = "Durée: 2 Days";
 
 /* Class = "IBUILabel"; text = "Label"; ObjectID = "Dsw-Bx-rzg"; */
 "Dsw-Bx-rzg.text" = "Label";
@@ -46,8 +43,20 @@
 /* Class = "IBUILabel"; text = "Title"; ObjectID = "EBY-uc-6iB"; */
 "EBY-uc-6iB.text" = "Title";
 
+/* Class = "IBUILabel"; text = "Durée: 2 Days"; ObjectID = "EbH-dM-SeM"; */
+"EbH-dM-SeM.text" = "Durée: 2 Days";
+
+/* Class = "IBUILabel"; text = "22/02/23 07:00 AM"; ObjectID = "EbL-wj-IE6"; */
+"EbL-wj-IE6.text" = "22/02/23 07:00 AM";
+
 /* Class = "IBUILabel"; text = "Label"; ObjectID = "F31-l3-5W9"; */
 "F31-l3-5W9.text" = "Label";
+
+/* Class = "IBUISegmentedControl"; FK5-wf-bQu.segmentTitles[0] = "Date"; ObjectID = "FK5-wf-bQu"; */
+"FK5-wf-bQu.segmentTitles[0]" = "Date";
+
+/* Class = "IBUISegmentedControl"; FK5-wf-bQu.segmentTitles[1] = "Time"; ObjectID = "FK5-wf-bQu"; */
+"FK5-wf-bQu.segmentTitles[1]" = "Heure";
 
 /* Class = "IBUINavigationItem"; title = "Settings"; ObjectID = "HRt-yB-UlR"; */
 "HRt-yB-UlR.title" = "Paramètres";
@@ -79,20 +88,17 @@
 /* Class = "IBUILabel"; text = "time"; ObjectID = "NAT-FG-frw"; */
 "NAT-FG-frw.text" = "heure";
 
-/* Class = "IBUITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "NXC-Fb-9Cg"; */
-"NXC-Fb-9Cg.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
-
-/* Class = "IBUILabel"; text = "Description"; ObjectID = "OnF-Wb-Prh"; */
-"OnF-Wb-Prh.text" = "Description";
-
 /* Class = "IBUILabel"; text = "EventType"; ObjectID = "PyS-S7-lJS"; */
 "PyS-S7-lJS.text" = "EventType";
 
-/* Class = "IBUILabel"; text = "Sets of measurements"; ObjectID = "QD0-Mh-VXY"; */
-"QD0-Mh-VXY.text" = "Listes de mesures";
+/* Class = "IBUILabel"; text = "Durée: 2 Days"; ObjectID = "Q9R-Uv-I5h"; */
+"Q9R-Uv-I5h.text" = "Durée: 2 Days";
 
 /* Class = "IBUIButton"; normalTitle = "All"; ObjectID = "QLu-p3-UH9"; */
 "QLu-p3-UH9.normalTitle" = "Tout";
+
+/* Class = "IBUILabel"; text = "22/02/23 07:00 AM"; ObjectID = "U2K-F8-28A"; */
+"U2K-F8-28A.text" = "22/02/23 07:00 AM";
 
 /* Class = "IBUILabel"; text = "Time"; ObjectID = "V7b-Xo-17S"; */
 "V7b-Xo-17S.text" = "Heure";
@@ -100,35 +106,17 @@
 /* Class = "IBUILabel"; text = "Subtitle"; ObjectID = "VVH-my-Xds"; */
 "VVH-my-Xds.text" = "Subtitle";
 
-/* Class = "IBUITextField"; placeholder = "Enter value"; ObjectID = "Vkr-ZE-Y9C"; */
-"Vkr-ZE-Y9C.placeholder" = "Entrer valeur";
+/* Class = "IBUIButton"; normalTitle = "Delete"; ObjectID = "aPj-r5-HPX"; */
+"aPj-r5-HPX.normalTitle" = "Delete";
 
-/* Class = "IBUIBarButtonItem"; title = "Edit"; ObjectID = "WZR-qv-yGq"; */
-"WZR-qv-yGq.title" = "Editer";
-
-/* Class = "IBUISegmentedControl"; Xre-KO-Fcg.segmentTitles[0] = "Date"; ObjectID = "Xre-KO-Fcg"; */
-"Xre-KO-Fcg.segmentTitles[0]" = "Date";
-
-/* Class = "IBUISegmentedControl"; Xre-KO-Fcg.segmentTitles[1] = "Time"; ObjectID = "Xre-KO-Fcg"; */
-"Xre-KO-Fcg.segmentTitles[1]" = "Heure";
-
-/* Class = "IBUILabel"; text = "Stream"; ObjectID = "alS-c0-B26"; */
-"alS-c0-B26.text" = "Stream";
-
-/* Class = "IBUILabel"; text = "22/02/23 07:00 AM"; ObjectID = "arJ-Hz-3ZZ"; */
-"arJ-Hz-3ZZ.text" = "22/02/23 07:00 AM";
+/* Class = "IBUITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "c3N-f8-xSv"; */
+"c3N-f8-xSv.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
 
 /* Class = "IBUILabel"; text = "section"; ObjectID = "dQ2-4x-1j1"; */
 "dQ2-4x-1j1.text" = "section";
 
-/* Class = "IBUILabel"; text = "XXX"; ObjectID = "fFb-Rb-p5z"; */
-"fFb-Rb-p5z.text" = "XXX";
-
-/* Class = "IBUILabel"; text = "Tags"; ObjectID = "fk2-sw-f81"; */
-"fk2-sw-f81.text" = "Tags";
-
-/* Class = "IBUILabel"; text = "Note"; ObjectID = "fxB-VB-cml"; */
-"fxB-VB-cml.text" = "Note";
+/* Class = "IBUILabel"; text = "Add end date"; ObjectID = "dfC-NX-Nvq"; */
+"dfC-NX-Nvq.text" = "Ajouter une durée";
 
 /* Class = "IBUILabel"; text = "Stream"; ObjectID = "gqK-pT-cXF"; */
 "gqK-pT-cXF.text" = "Stream";
@@ -139,17 +127,32 @@
 /* Class = "IBUILabel"; text = "date"; ObjectID = "hd9-NC-zZx"; */
 "hd9-NC-zZx.text" = "date";
 
+/* Class = "IBUILabel"; text = "0:00"; ObjectID = "hiy-gQ-w4T"; */
+"hiy-gQ-w4T.text" = "0:00";
+
+/* Class = "IBUIBarButtonItem"; title = "Edit"; ObjectID = "iaZ-ig-H3d"; */
+"iaZ-ig-H3d.title" = "Edit";
+
+/* Class = "IBUILabel"; text = "Tags"; ObjectID = "jD3-8W-Oc6"; */
+"jD3-8W-Oc6.text" = "Tags";
+
 /* Class = "IBUILabel"; text = "date"; ObjectID = "m86-7q-Vwt"; */
 "m86-7q-Vwt.text" = "date";
 
-/* Class = "IBUITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "mhu-oP-0V0"; */
-"mhu-oP-0V0.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
+/* Class = "IBUISegmentedControl"; mpr-KM-1BM.segmentTitles[0] = "Date"; ObjectID = "mpr-KM-1BM"; */
+"mpr-KM-1BM.segmentTitles[0]" = "Date";
+
+/* Class = "IBUISegmentedControl"; mpr-KM-1BM.segmentTitles[1] = "Time"; ObjectID = "mpr-KM-1BM"; */
+"mpr-KM-1BM.segmentTitles[1]" = "Time";
 
 /* Class = "IBUITableViewSection"; headerTitle = "Support"; ObjectID = "n0u-Ra-Pd1"; */
-"n0u-Ra-Pd1.headerTitle" = "Support";
+"n0u-Ra-Pd1.headerTitle" = "Assistance";
 
-/* Class = "IBUIButton"; normalTitle = "Delete"; ObjectID = "nJa-8k-SZK"; */
-"nJa-8k-SZK.normalTitle" = "Effacer";
+/* Class = "IBUILabel"; text = "Date"; ObjectID = "nYB-Ln-6L7"; */
+"nYB-Ln-6L7.text" = "Date";
+
+/* Class = "IBUILabel"; text = "Stream"; ObjectID = "oFu-F1-ebI"; */
+"oFu-F1-ebI.text" = "Stream";
 
 /* Class = "IBUILabel"; text = "Additional units"; ObjectID = "qbG-0Q-bg3"; */
 "qbG-0Q-bg3.text" = "Plus d'unitées";
@@ -157,17 +160,17 @@
 /* Class = "IBUILabel"; text = "Label"; ObjectID = "rlb-Cy-myO"; */
 "rlb-Cy-myO.text" = "Label";
 
-/* Class = "IBUITableViewSection"; headerTitle = "Data Types"; ObjectID = "vAi-tW-8yG"; */
-"vAi-tW-8yG.headerTitle" = "Types de données";
-
 /* Class = "IBUIButton"; normalTitle = "Cancel"; ObjectID = "vDF-xX-nng"; */
-"vDF-xX-nng.normalTitle" = "Cancel";
+"vDF-xX-nng.normalTitle" = "Annuler";
 
 /* Class = "IBUILabel"; text = "Logout"; ObjectID = "vr1-gz-IHO"; */
-"vr1-gz-IHO.text" = "Logout";
+"vr1-gz-IHO.text" = "Déconnexion";
 
 /* Class = "IBUILabel"; text = "Label"; ObjectID = "wjM-b3-7Q0"; */
 "wjM-b3-7Q0.text" = "Label";
+
+/* Class = "IBUILabel"; text = "Description"; ObjectID = "xWZ-Zn-flo"; */
+"xWZ-Zn-flo.text" = "Description";
 
 /* Class = "IBUITableViewSection"; headerTitle = "User"; ObjectID = "yBz-f3-Ly3"; */
 "yBz-f3-Ly3.headerTitle" = "Utilisateur";
@@ -183,6 +186,9 @@
 
 /* Class = "IBUILabel"; text = "Title"; ObjectID = "z8x-r1-vMU"; */
 "z8x-r1-vMU.text" = "Titre";
+
+/* Class = "IBUILabel"; text = "Duration"; ObjectID = "zXa-v3-KX2"; */
+"zXa-v3-KX2.text" = "Durée";
 
 /* Class = "IBUILabel"; text = "Stream"; ObjectID = "zcg-t9-UBY"; */
 "zcg-t9-UBY.text" = "Stream";
