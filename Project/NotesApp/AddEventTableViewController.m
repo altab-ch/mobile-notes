@@ -11,15 +11,13 @@
 #import "BrowseEventsCell.h"
 #import "PhotoNoteViewController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
-#import "EventDetailsViewController.h"
 #import "NSString+Utils.h"
 #import "PYEvent+Helper.h"
 #import "UnitPickerViewController.h"
 #import "DetailViewController.h"
 
-#define showDetailSegue @"kAddToDetailSegue_ID"
 #define kAddToUnitSegue_ID @"kAddToUnitSegue_ID"
-#define kAddToUnitSegue_ID2 @"kAddToDetailSegue_ID2"
+#define kAddToDetailSegue_ID @"kAddToDetailSegue_ID"
 
 @interface AddEventTableViewController () <MCSwipeTableViewCellDelegate, UIActionSheetDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate, UnitPickerDelegate>
 
@@ -137,16 +135,16 @@
     switch (sender.tag) {
         case 1:
         {
-            PYEvent *event = [[PYEvent alloc] init];
+            PYEvent *event = [self getNewEvent];
             event.type = @"note/txt";
             [self showEventDetailsForEvent:event];
         }
             break;
         case 2:
         {
-            PYEvent *event = [[PYEvent alloc] init];
+            PYEvent *event = [self getNewEvent];
             event.type = @"number";
-            [self performSegueWithIdentifier:kAddToUnitSegue_ID2 sender:event];
+            [self performSegueWithIdentifier:kAddToUnitSegue_ID sender:event];
         }
             break;
         case 3:
@@ -165,7 +163,7 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(PYEvent*)sender
 {
-    if ([[segue identifier] isEqualToString:kAddToUnitSegue_ID2]) {
+    if ([[segue identifier] isEqualToString:kAddToDetailSegue_ID]) {
         DetailViewController *detail = [segue destinationViewController];
         [detail setEvent:sender];
     }
@@ -281,9 +279,10 @@
         PYEvent *newEvent;
         if (self.tempEntry) {
             newEvent = [self.tempEntry reconstructEvent];
+            [newEvent setConnection:[NotesAppController sharedInstance].connection];
             self.tempEntry = nil;
         }else{
-            newEvent = [[PYEvent alloc] init];
+            newEvent = [self getNewEvent];
             newEvent.type = @"picture/attached";
         }
         
@@ -330,7 +329,15 @@
 - (void)showEventDetailsForEvent:(PYEvent*)event
 {
     if (event == nil) return;
-    [self performSegueWithIdentifier:kAddToUnitSegue_ID2 sender:event];
+    [event setConnection:[NotesAppController sharedInstance].connection];
+    [self performSegueWithIdentifier:kAddToDetailSegue_ID sender:event];
+}
+
+-(PYEvent*) getNewEvent
+{
+    PYEvent *event = [[PYEvent alloc] init];
+    event.connection = [NotesAppController sharedInstance].connection;
+    return event;
 }
 
 @end

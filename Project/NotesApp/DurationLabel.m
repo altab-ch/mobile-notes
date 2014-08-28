@@ -11,65 +11,87 @@
 @interface DurationLabel ()
 
 @property (nonatomic, strong) NSTimer *timer;
+@property (nonatomic, strong) NSLock *updateUILock;
 
 @end
 
 @implementation DurationLabel
 
-- (id)initWithFrame:(CGRect)frame
+- (id)initWithCoder:(NSCoder *)aDecoder
 {
-    self = [super initWithFrame:frame];
+    self = [super initWithCoder:aDecoder];
     if (self) {
-        // Initialization code
+        self.updateUILock = [[NSLock alloc] init];
     }
     return self;
 }
 
+-(void) setEndDate:(NSDate *)endDate
+{
+    _endDate = endDate;
+    [self updateDateUI:endDate];
+}
+
 -(void) start
 {
+    [self stop];
     [self updateDateUI:[NSDate date]];
-    _timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateDate) userInfo:nil repeats:YES];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(update) userInfo:nil repeats:YES];
 }
 
 -(void) stop
 {
-    if (_timer) [_timer invalidate];
+    if (self.timer){
+        [self.timer invalidate];
+        self.timer = nil;
+    }
+    self.endDate = nil;
 }
 
--(void) setEndDate:(NSDate*)endDate
+-(void) update
 {
-    [self updateDateUI:endDate];
-}
-
--(void) updateDate
-{
-    [self updateDateUI:[NSDate date]];
+    if (self.endDate)
+        [self updateDateUI:self.endDate];
+    else
+        [self updateDateUI:[NSDate date]];
 }
 
 -(void) updateDateUI:(NSDate*)date
 {
-    NSInteger duration = (NSInteger)[date timeIntervalSinceDate:_eventDate];
+    [self.updateUILock lock];
+    
+    [self setText:[[NotesAppController sharedInstance] durationFromDate:self.event.eventDate toDate:date]];
+    
+    /*BOOL isMinus = false;
+    NSInteger duration = (NSInteger)[date timeIntervalSinceDate:self.event.eventDate];
+    if (duration<0) {
+        duration = abs(duration);
+        isMinus = true;
+    }
     NSInteger seconds = duration % 60;
     NSInteger minutes = (duration / 60) % 60;
     NSInteger hours = (duration / 3600);
     NSString* time;
-    if (hours!=0)
+    if (hours >= 48)
+        time=[NSString stringWithFormat:@"%d %@s", hours/24, NSLocalizedString(@"day", nil)];
+    else if (hours >= 24)
+        time=[NSString stringWithFormat:@"%d %@", hours/24, NSLocalizedString(@"day", nil)];
+    else if (hours>0)
         time=[NSString stringWithFormat:@"%02ld:%02ld:%02ld", (long)hours, (long)minutes, (long)seconds];
     else if (hours==0)
         time=[NSString stringWithFormat:@"%02ld:%02ld", (long)minutes, (long)seconds];
     else if (minutes==0)
         time=[NSString stringWithFormat:@"%02ld", (long)seconds];
-    
-    [self setText:[NSString stringWithFormat:@"%@", time]];
+    if (isMinus)
+        [self setText:[NSString stringWithFormat:@"-%@", time]];
+    else
+        [self setText:[NSString stringWithFormat:@"%@", time]];*/
+    [self.updateUILock unlock];
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
+-(void) dealloc
 {
-    // Drawing code
+    [self.timer invalidate];
 }
-*/
 
 @end

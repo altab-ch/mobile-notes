@@ -83,7 +83,7 @@
 
 -(void) textFieldDidBeginEditing:(UITextField *)textField
 {
-    [self.delegate closePickers];
+    [self.delegate closePickers:NO];
 }
 
 #pragma mark - Border

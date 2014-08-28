@@ -48,9 +48,7 @@
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView
 {
-    [self.delegate closePickers];
-    [self.tableView beginUpdates];
-    [self.tableView endUpdates];
+    [self.delegate closePickers:YES];
     return self.isInEditMode;
 }
 

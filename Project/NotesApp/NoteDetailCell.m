@@ -12,19 +12,9 @@
 @interface NoteDetailCell () <UITextViewDelegate>
 
 @property (nonatomic, weak) IBOutlet UITextView *noteText;
-
 @end
 
 @implementation NoteDetailCell
-
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-    }
-    return self;
-}
 
 -(void) updateWithEvent:(PYEvent*)event
 {
@@ -52,7 +42,7 @@
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView
 {
-    [self.delegate closePickers];
+    [self.delegate closePickers:true];
     return self.isInEditMode;
 }
 

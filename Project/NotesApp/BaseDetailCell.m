@@ -48,8 +48,8 @@
 
 -(void) updateWithEvent:(PYEvent*)event
 {
-    _event = event;
-    if (_event.isDraft)
+    self.event = event;
+    if (self.event.isDraft)
         [self setIsInEditMode:true];
     
 }

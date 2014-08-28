@@ -11,7 +11,7 @@
 @protocol DetailCellDelegate <NSObject>
 
 -(void) detailShouldUpdateEvent;
--(void) closePickers;
+-(void) closePickers:(BOOL)forceUpdateUI;
 -(void) updateEndDateCell;
 
 @end

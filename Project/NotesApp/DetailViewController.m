@@ -19,9 +19,12 @@
 #import "DeleteDetailCell.h"
 #import "EventDetailCell.h"
 #import "PYEvent+Helper.h"
+#import "PYStream+Helper.h"
+#import "PYStream+Utils.h"
 #import "UIAlertView+PrYv.h"
 #import "DataService.h"
 #import "StreamPickerViewController.h"
+#import "UserHistoryEntry.h"
 
 typedef enum
 {
@@ -39,11 +42,12 @@ typedef enum
 
 @interface DetailViewController () <StreamsPickerDelegate, DetailCellDelegate>
 
-@property (nonatomic) BOOL autoSetDiaryStream;
 @property (nonatomic) BOOL isEdit;
 @property (nonatomic) BOOL shouldUpdateEvent;
-@property (nonatomic, strong) NSDictionary* initialEventValue;
+@property (nonatomic, strong) NSDictionary *initialEventValue;
+@property (nonatomic, strong) UIBarButtonItem *btBrowse, *btCancel;
 
+@property (nonatomic, weak) IBOutlet UIBarButtonItem *editButton;
 @property (nonatomic, weak) IBOutlet EventDetailCell *eventDetailCell;
 @property (nonatomic, weak) IBOutlet StreamDetailCell *streamDetailCell;
 @property (nonatomic, weak) IBOutlet DateDetailCell *dateDetailCell;
@@ -72,12 +76,32 @@ typedef enum
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     self.isEdit = self.event.isDraft;
     self.initialEventValue = [self.event cachingDictionary];
+
+    [self initControls];
+    
     self.dateDetailCell.isDatePicker = false;
     self.endDateDetailCell.isEndDatePicker = false;
     
+    [self updateControls];
     [self updateEvent];
+}
+
+-(void) initControls
+{
+    [self.navigationItem setHidesBackButton:YES];
+    self.btBrowse= [[UIBarButtonItem alloc]
+                    initWithTitle: NSLocalizedString(@"Pryv", nil)
+                    style:UIBarButtonItemStylePlain
+                    target:self
+                    action:@selector(btBrowsePressed:)];
+    self.btCancel= [[UIBarButtonItem alloc]
+                    initWithTitle: NSLocalizedString(@"Cancel", nil)
+                    style:UIBarButtonItemStylePlain
+                    target:self
+                    action:@selector(cancelButtonTouched:)];
 }
 
 -(void) viewDidAppear:(BOOL)animated
@@ -90,6 +114,17 @@ typedef enum
     [super didReceiveMemoryWarning];
 }
 
+-(void) updateControls
+{
+    if (self.isEdit) {
+        [self.editButton setTitle:NSLocalizedString(@"Done", nil)];
+        self.navigationItem.leftBarButtonItem = self.btCancel;
+    }else{
+        self.navigationItem.leftBarButtonItem = self.btBrowse;
+        [self.editButton setTitle:NSLocalizedString(@"Edit", nil)];
+    }
+}
+
 -(void) updateEvent
 {
     [self.cells enumerateObjectsUsingBlock:^(BaseDetailCell *cell, NSUInteger idx, BOOL *stop) {
@@ -100,6 +135,16 @@ typedef enum
 
 #pragma mark - IBAction
 
+-(void) btBrowsePressed:(id)sender
+{
+    if (![[self.initialEventValue objectForKey:@"streamId"] isEqualToString:self.event.streamId])
+        [[NSNotificationCenter defaultCenter] postNotificationName:kUserDidAddStreamNotification object:[self event]];
+    else if ([[NSDate dateWithTimeIntervalSince1970:[[self.initialEventValue  objectForKey:@"time"] doubleValue]] compare:self.event.eventDate] != NSOrderedSame)
+        [[NSNotificationCenter defaultCenter] postNotificationName:kBrowserShouldScrollToEvent object:[self event]];
+    
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
 - (IBAction)editButtonTouched:(id)sender
 {
     if (self.isEdit && (_event.stream == nil || _event.streamId == nil)) {
@@ -108,7 +153,7 @@ typedef enum
         return;
     }
     
-    if (_event.eventDataType != EventDataTypeImage && (!_event.eventContent || [_event.eventContentAsString isEqualToString:@""])) {
+    if (self.event.eventDataType != EventDataTypeImage && (!self.event.eventContent || [self.event.eventContentAsString isEqualToString:@""])) {
         
         if (_event.eventDataType == EventDataTypeValueMeasure) {
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Alert.DetailViewController.NoValue", nil) message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
@@ -129,18 +174,13 @@ typedef enum
 - (IBAction)deleteButtonTouched:(id)sender {
     NSString* title = NSLocalizedString(@"Alert.Message.DeleteConfirmation", nil);
     if(self.event.isDraft)
-    {
         title = NSLocalizedString(@"Alert.Message.CancelConfirmation", nil);
-    }
-    
     
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"NO", nil) otherButtonTitles:NSLocalizedString(@"YES", nil), nil];
     [alertView showWithCompletionBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
         if(alertView.cancelButtonIndex != buttonIndex)
-        {
-            
             [self deleteEvent];
-        }
+
     }];
 }
 
@@ -150,7 +190,6 @@ typedef enum
     else
     {
         if (self.initialEventValue) [self.event resetFromCachingDictionary:self.initialEventValue];
-        
         [self updateEvent];
         self.shouldUpdateEvent = NO;
         [self updateUIEditMode:false];
@@ -300,11 +339,15 @@ typedef enum
     self.shouldUpdateEvent = true;
 }
 
--(void) closePickers
+-(void) closePickers:(BOOL)forceUpdateUI
 {
     if (self.dateDetailCell.isDatePicker || self.endDateDetailCell.isEndDatePicker) {
         self.dateDetailCell.isDatePicker = false;
         self.endDateDetailCell.isEndDatePicker = false;
+        [self.tableView beginUpdates];
+        [self.tableView endUpdates];
+    }else if (forceUpdateUI)
+    {
         [self.tableView beginUpdates];
         [self.tableView endUpdates];
     }
@@ -317,6 +360,7 @@ typedef enum
 {
     if (stream) {
         self.event.streamId = stream.streamId;
+        
         self.shouldUpdateEvent = YES;
     }
     [self.streamDetailCell update];
@@ -327,45 +371,32 @@ typedef enum
 
 -(void) updateUIEditMode:(BOOL)edit
 {
-    [self.tableView beginUpdates];
     self.isEdit = edit;
+    [self updateControls];
+    
+    [self.tableView beginUpdates];
+    
     if (!edit) {
         self.dateDetailCell.isDatePicker = false;
         self.endDateDetailCell.isEndDatePicker = false;
-        self.navigationItem.leftBarButtonItem = nil;
-        [self.navigationItem setHidesBackButton:NO];
-    }else
-    {
-        [self.navigationItem setHidesBackButton:YES];
-        UIBarButtonItem *btbrowse= [[UIBarButtonItem alloc]
-                                    initWithTitle: NSLocalizedString(@"Cancel", nil)
-                                    style:UIBarButtonItemStylePlain
-                                    target:self
-                                    action:@selector(cancelButtonTouched:)];
-        self.navigationItem.leftBarButtonItem = btbrowse;
-
     }
+    
     if(self.event.isDraft && !edit)
         [self saveEvent];
     else if(self.shouldUpdateEvent && !edit)
         [self eventSaveModifications];
     
-    self.initialEventValue = [self.event cachingDictionary];
+    //self.initialEventValue = [self.event cachingDictionary]; create tempEventValue while editing
     [self.cells enumerateObjectsUsingBlock:^(BaseDetailCell *cell, NSUInteger idx, BOOL *stop) {
         [cell setIsInEditMode:edit];
     }];
+    
     [self.tableView endUpdates];
 }
 
 - (void)setupStreamPickerViewController:(StreamPickerViewController*)streamPickerVC
 {
-    if (self.autoSetDiaryStream) {
-        streamPickerVC.stream = nil;
-    } else {
-        streamPickerVC.stream = [self.event stream];
-    }
     streamPickerVC.delegate = self;
-    //self.streamPickerVC = streamPickerVC;
     [self.navigationController presentViewController:streamPickerVC animated:YES completion:nil];
 }
 

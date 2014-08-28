@@ -37,7 +37,8 @@
         [self.datePicker setHidden:NO];
         [self.timePicker setHidden:YES];
     }
-    else{
+    else
+    {
         [self.timePicker setHidden:NO];
         [self.datePicker setHidden:YES];
     }

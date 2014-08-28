@@ -35,7 +35,6 @@ NSString *const kBrowserShouldScrollToEvent = @"kBrowserShouldScrollToEvent";
 - (void)saveConnection:(PYConnection*)connection;
 - (void)removeConnection:(PYConnection*)connection;
 - (void)setupConnection:(PYConnection*)connection;
-
 @end
 
 @implementation NotesAppController
@@ -147,6 +146,38 @@ NSString *const kBrowserShouldScrollToEvent = @"kBrowserShouldScrollToEvent";
         [_dateFormatter setDoesRelativeDateFormatting:YES];
     }
     return _dateFormatter;
+}
+
+-(NSString*) durationFromDate:(NSDate*)date toDate:(NSDate*)endDate
+{
+    NSString *result;
+    BOOL isMinus = false;
+    NSInteger duration = (NSInteger)[endDate timeIntervalSinceDate:date];
+    if (duration<0) {
+        duration = abs(duration);
+        isMinus = true;
+    }
+    NSInteger seconds = duration % 60;
+    NSInteger minutes = (duration / 60) % 60;
+    NSInteger hours = (duration / 3600);
+    NSString* time;
+    if (hours >= 48)
+        time=[NSString stringWithFormat:@"%d %@s", hours/24, NSLocalizedString(@"day", nil)];
+    else if (hours >= 24)
+        time=[NSString stringWithFormat:@"%d %@", hours/24, NSLocalizedString(@"day", nil)];
+    else if (hours>0)
+        time=[NSString stringWithFormat:@"%02ld:%02ld:%02ld", (long)hours, (long)minutes, (long)seconds];
+    else if (hours==0)
+        time=[NSString stringWithFormat:@"%02ld:%02ld", (long)minutes, (long)seconds];
+    else if (minutes==0)
+        time=[NSString stringWithFormat:@"%02ld", (long)seconds];
+    
+    if (isMinus)
+        result = [NSString stringWithFormat:@"-%@", time];
+    else
+        result = [NSString stringWithFormat:@"%@", time];
+    
+    return result;
 }
 
 - (void)setupConnection:(PYConnection*)connection {

@@ -116,6 +116,8 @@
 {
     [super updateWithEvent:event];
     
+    [self.commentLabel setText:self.event.eventDescription];
+    
     for (UIView *vi in self.subviews) {
         for (UIView *vi2 in vi.subviews) {
             if ([vi2 isKindOfClass:[StreamAccessory class]]) {

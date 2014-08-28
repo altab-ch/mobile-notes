@@ -10,6 +10,7 @@
 #import "PYStream+Helper.h"
 #import "PictureCell.h"
 #import <QuartzCore/QuartzCore.h>
+#import "TagLabel.h"
 
 @interface BrowseCell ()
 @end
@@ -50,6 +51,19 @@
     if (self.dateLabel)
         self.dateLabel.text = [self.dateFormatter stringFromDate:date];
     
+    [self.duration setEvent:event];
+    
+    if (event.isRunning){
+        [self.duration start];
+        [self.duration setTextColor:[UIColor redColor]];
+    }
+    else if (event.duration==0)
+        [self.duration setText:@""];
+    else if (event.duration>0)
+        [self.duration update];
+    
+    
+    [self.tagContainer updateWithTags:event.tags];
 }
 
 @end

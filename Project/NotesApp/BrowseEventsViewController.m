@@ -25,7 +25,6 @@
 #import "UnkownCell.h"
 #import "NSString+Utils.h"
 #import "AppConstants.h"
-#import "EventDetailsViewController.h"
 #import <PryvApiKit/PYkNotifications.h>
 #import "MCSwipeTableViewCell.h"
 #import "MMDrawerController.h"
@@ -519,11 +518,11 @@ BOOL displayNonStandardEvents;
     if (cellStyleType == CellStyleTypePhoto)
         result = 160.0;
     else if (cellStyleType == CellStyleTypeText)
-        result = 90.0;
+        result = 120.0;
     else if (cellStyleType == CellStyleTypeMeasure)
-        result = 65.0;
+        result = 91.0;
     else if (cellStyleType == CellStyleTypeMoney)
-        result = 65.0;
+        result = 91.0;
     else
         NSLog(@"Warnign : type cell is not photo, text or measure.");
     return result;
@@ -531,10 +530,8 @@ BOOL displayNonStandardEvents;
 
 - (void)loadMoreDataForIndexPath:(NSIndexPath*)indexPath
 {
-    if(self.lastIndexPath.row == indexPath.row)
-    {
-        return;
-    }
+    if(self.lastIndexPath.row == indexPath.row) return;
+    
     self.lastIndexPath = indexPath;
     self.filter.limit+=kFilterIncrement;
     [self loadData];
@@ -715,7 +712,7 @@ BOOL displayNonStandardEvents;
 -(void) scrollToEvent:(PYEvent*)event
 {
     
-    [_tableView scrollToRowAtIndexPath:[self getIndexPathForEvent:event] atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+    [self.tableView scrollToRowAtIndexPath:[self getIndexPathForEvent:event] atScrollPosition:UITableViewScrollPositionTop animated:NO];
 }
 
 -(NSIndexPath*)getIndexPathForEvent:(PYEvent*)event
@@ -737,7 +734,7 @@ BOOL displayNonStandardEvents;
         }
     }
 
-    return [NSIndexPath indexPathForRow:0 inSection:[_sectionsMapTitles count]-1];
+    return [NSIndexPath indexPathForRow:0 inSection:[self.sectionsMapTitles count]-1];
     
 }
 

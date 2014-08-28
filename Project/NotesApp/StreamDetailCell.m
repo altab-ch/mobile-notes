@@ -9,6 +9,7 @@
 #import "StreamDetailCell.h"
 #import "PYEvent+Helper.h"
 #import "PYStream+Helper.h"
+#import "PYStream+Utils.h"
 
 @interface StreamDetailCell ()
 
@@ -44,8 +45,17 @@
 
 -(void) update
 {
+    if (!self.event.streamId) {
+        
+        PYStream* found = [PYStream findStreamMatchingId:@"diary"
+                                                 orNames:@[@"journal", @"diary", @"me"]
+                                                  onList:self.event.connection.fetchedStreamsRoots];
+        if (found)
+            self.event.streamId = found.streamId;
+        
+    }
     self.streamsLabel.text = [self.event eventBreadcrumbs];
-    if (self.event.stream) [_pastille setBackgroundColor:[[self.event stream] getColor]];
+    [_pastille setBackgroundColor:[[self.event stream] getColor]];
 }
 
 -(BOOL) shouldUpdateBorder

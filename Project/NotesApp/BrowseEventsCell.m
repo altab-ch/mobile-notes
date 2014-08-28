@@ -13,6 +13,7 @@
 #import "UserHistoryEntry.h"
 #import <PryvApiKit/PYEventType.h>
 #import <PryvApiKit/PYEventClass.h>
+#import "TagContainer.h"
 
 #define kScreenSize 320
 
@@ -21,7 +22,7 @@
 @property (nonatomic, strong) IBOutlet UILabel *streamBreadcrumbs;
 //@property (nonatomic, strong) IBOutlet UILabel *valueLabel;
 @property (nonatomic, strong) IBOutlet UIImageView *iconImageView;
-//@property (nonatomic, strong) IBOutlet UIView *tagContainer;
+@property (nonatomic, strong) IBOutlet TagContainer *tagContainer;
 @property (nonatomic, weak) IBOutlet UILabel *lbHelp;
 @property (nonatomic, strong) IBOutlet UILabel *symbolLabel;
 @property (nonatomic, strong) IBOutlet UIView *pastille;
@@ -83,7 +84,8 @@
         default:
             break;
     }
-    [_lbHelp setText:help];
+    [self.lbHelp setText:help];
+    [self.tagContainer updateWithTags:event.tags];
     
     //self.valueLabel.text = [self stringRepresentationForEventType:event.pyType];
 }

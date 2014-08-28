@@ -31,7 +31,7 @@
     [super updateWithEvent:event];
     if (![self.event eventDate])
         self.event.eventDate = [NSDate date];
-
+    
     [[DatePickerManager sharedInstance].datePicker addTarget:self action:@selector(datePickerValueChanged:) forControlEvents:UIControlEventValueChanged];
     [[DatePickerManager sharedInstance].timePicker addTarget:self action:@selector(timePickerValueChanged:) forControlEvents:UIControlEventValueChanged];
     self.timeLabel.text = [[NotesAppController sharedInstance].dateFormatter stringFromDate:self.event.eventDate];
@@ -54,16 +54,14 @@
     [[DatePickerManager sharedInstance].datePicker setDate:[DatePickerManager sharedInstance].timePicker.date];
     [self.event setEventDate:[DatePickerManager sharedInstance].timePicker.date];
     [self delegateShouldUpdateEvent];
-    
 }
 
 -(void) delegateShouldUpdateEvent
 {
     [self.delegate detailShouldUpdateEvent];
     [self.delegate updateEndDateCell];
-    [[DatePickerManager sharedInstance].endDatePicker setMinimumDate:self.event.eventDate];
-    [[DatePickerManager sharedInstance].endTimePicker setMinimumDate:self.event.eventDate];
-    
+    //[[DatePickerManager sharedInstance].endDatePicker setMinimumDate:self.event.eventDate];
+    //[[DatePickerManager sharedInstance].endTimePicker setMinimumDate:self.event.eventDate];
 }
 
 #pragma mark - Border
@@ -76,6 +74,12 @@
 -(CGFloat) getHeight
 {
     return 66;
+}
+
+-(void) dealloc
+{
+    [[DatePickerManager sharedInstance].datePicker removeTarget:self action:@selector(datePickerValueChanged:) forControlEvents:UIControlEventValueChanged];
+    [[DatePickerManager sharedInstance].timePicker removeTarget:self action:@selector(timePickerValueChanged:) forControlEvents:UIControlEventValueChanged];
 }
 
 /*
