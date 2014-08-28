@@ -37,6 +37,8 @@ extern NSString *const kBrowserShouldScrollToEvent;
 
 @property (nonatomic, strong) SettingsController* settingController;
 
+- (NSString*) durationFromDate:(NSDate*)date toDate:(NSDate*)endDate;
+
 + (NotesAppController*)sharedInstance;
 
 /**
@@ -46,6 +48,5 @@ extern NSString *const kBrowserShouldScrollToEvent;
 + (void)sharedConnectionWithID:(NSString*)connectionID
     noConnectionCompletionBlock:(NoConnectionCompletionBlock)noConnectionCompletionBlock
      withCompletionBlock:(SharedConnectionCompletionBlock)completionBlock;
-
 
 @end

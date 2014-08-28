@@ -518,8 +518,17 @@ height=123312</string>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         </label>
-                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Durée: 2 Days" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EbH-dM-SeM">
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Durée: 2 Days" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EbH-dM-SeM" customClass="DurationLabel">
                                                             <rect key="frame" x="149" y="20" width="153" height="15"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <color key="shadowColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <size key="shadowOffset" width="1" height="1"/>
+                                                        </label>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xWZ-Zn-flo">
+                                                            <rect key="frame" x="10" y="109" width="290" height="16"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -539,7 +548,9 @@ height=123312</string>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="backView" destination="9pw-Tc-arb" id="3hg-2e-wmk"/>
+                                            <outlet property="commentLabel" destination="xWZ-Zn-flo" id="c8Z-ni-Bxn"/>
                                             <outlet property="dateLabel" destination="LNq-2E-K0w" id="ufv-WQ-M7N"/>
+                                            <outlet property="duration" destination="EbH-dM-SeM" id="y7h-Z3-m0c"/>
                                             <outlet property="loadingIndicator" destination="uwp-qs-D1b" id="Hx3-hr-ftY"/>
                                             <outlet property="pictureView" destination="2lr-AM-lat" id="h8S-nN-sFu"/>
                                             <outlet property="tagContainer" destination="VcU-gh-jK6" id="vwN-ST-UfP"/>
@@ -571,7 +582,7 @@ height=123312</string>
                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         </label>
-                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Durée: 2 Days" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q9R-Uv-I5h">
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Durée: 2 Days" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q9R-Uv-I5h" customClass="DurationLabel">
                                                             <rect key="frame" x="150" y="23" width="153" height="15"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
@@ -608,6 +619,7 @@ height=123312</string>
                                         <connections>
                                             <outlet property="backView" destination="bRG-UK-4v1" id="p2y-xz-nvn"/>
                                             <outlet property="dateLabel" destination="m86-7q-Vwt" id="yTZ-dB-TKq"/>
+                                            <outlet property="duration" destination="Q9R-Uv-I5h" id="5HL-qv-Jzv"/>
                                             <outlet property="noteLabel" destination="z8S-ea-rl4" id="6eW-kM-5J7"/>
                                             <outlet property="pastille" destination="UXr-Mx-fM0" id="rbK-iT-Vfx"/>
                                             <outlet property="streamLabel" destination="gqK-pT-cXF" id="BHX-0C-08g"/>
@@ -663,7 +675,7 @@ height=123312</string>
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
-                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Durée: 2 Days" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B26-fR-8fu">
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Durée: 2 Days" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B26-fR-8fu" customClass="DurationLabel">
                                                             <rect key="frame" x="150" y="23" width="153" height="15"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
@@ -684,6 +696,7 @@ height=123312</string>
                                         <connections>
                                             <outlet property="backView" destination="Nxu-VR-2B5" id="DwY-NU-800"/>
                                             <outlet property="dateLabel" destination="2dM-zy-UrD" id="3XU-ol-0Rb"/>
+                                            <outlet property="duration" destination="B26-fR-8fu" id="wkX-ji-vIl"/>
                                             <outlet property="formatDescriptionLabel" destination="KND-fu-tP9" id="jcS-Jq-eol"/>
                                             <outlet property="pastille" destination="5h8-sF-oZd" id="gVG-XQ-Hjd"/>
                                             <outlet property="streamLabel" destination="zcg-t9-UBY" id="kSz-Oh-vFX"/>
@@ -1743,6 +1756,6 @@ height=123312</string>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="dsN-2e-Wot"/>
-        <segue reference="k3F-vo-G48"/>
+        <segue reference="gt0-kL-XUL"/>
     </inferredMetricsTieBreakers>
 </document>

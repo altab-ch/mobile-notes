@@ -59,7 +59,10 @@
 -(void) updateDateUI:(NSDate*)date
 {
     [self.updateUILock lock];
-    BOOL isMinus = false;
+    
+    [self setText:[[NotesAppController sharedInstance] durationFromDate:self.event.eventDate toDate:date]];
+    
+    /*BOOL isMinus = false;
     NSInteger duration = (NSInteger)[date timeIntervalSinceDate:self.event.eventDate];
     if (duration<0) {
         duration = abs(duration);
@@ -82,17 +85,13 @@
     if (isMinus)
         [self setText:[NSString stringWithFormat:@"-%@", time]];
     else
-        [self setText:[NSString stringWithFormat:@"%@", time]];
+        [self setText:[NSString stringWithFormat:@"%@", time]];*/
     [self.updateUILock unlock];
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
+-(void) dealloc
 {
-    // Drawing code
+    [self.timer invalidate];
 }
-*/
 
 @end
