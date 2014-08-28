@@ -125,6 +125,7 @@
 {
     cell.accessoryImageView.image = [UIImage imageNamed:@"circle-add"];
     cell.streamName.text = NSLocalizedString(@"ViewController.Streams.AddNewStream", nil);
+    [[cell viewWithTag:10] setBackgroundColor:[UIColor whiteColor]];
     [cell setStreamCellTappedHandler:^(StreamCell *tappedCell, NSInteger index) {
         [self showAddNewStreamDialog];
     }];

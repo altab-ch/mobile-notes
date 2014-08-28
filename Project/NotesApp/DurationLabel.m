@@ -35,17 +35,19 @@
 -(void) start
 {
     [self stop];
+    self.textColor = [UIColor redColor];
     [self updateDateUI:[NSDate date]];
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(update) userInfo:nil repeats:YES];
 }
 
 -(void) stop
 {
+    self.textColor = [UIColor grayColor];
     if (self.timer){
         [self.timer invalidate];
         self.timer = nil;
     }
-    self.endDate = nil;
+    //self.endDate = nil;
 }
 
 -(void) update

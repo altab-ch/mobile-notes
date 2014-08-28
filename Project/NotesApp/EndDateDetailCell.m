@@ -144,7 +144,7 @@
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Detail.CantRun", nil) message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alertView show];
     }*/
-    
+    [self.lbDuration setEndDate:nil];
     [self.lbState setText:@"Running"];
     [self.event setStateRunning];
     [self.setRunningView setHidden:NO];
@@ -156,7 +156,7 @@
 
 -(void) setEndDate
 {
-    [self stopNow];
+    if (self.event.isRunning) [self stopNow];
     self.isEndDatePicker = YES;
     [self.tableView beginUpdates];
     [self.tableView endUpdates];

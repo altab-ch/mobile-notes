@@ -51,17 +51,19 @@
     if (self.dateLabel)
         self.dateLabel.text = [self.dateFormatter stringFromDate:date];
     
+    [self.duration stop];
     [self.duration setEvent:event];
     
     if (event.isRunning){
+        [self.duration setEndDate:nil];
         [self.duration start];
-        [self.duration setTextColor:[UIColor redColor]];
     }
     else if (event.duration==0)
         [self.duration setText:@""];
-    else if (event.duration>0)
+    else{
+        [self.duration setEndDate:[NSDate dateWithTimeInterval:self.event.duration sinceDate:self.event.eventDate]];
         [self.duration update];
-    
+    }
     
     [self.tagContainer updateWithTags:event.tags];
 }
