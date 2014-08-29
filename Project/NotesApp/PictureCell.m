@@ -117,6 +117,8 @@
     [super updateWithEvent:event];
     
     [self.commentLabel setText:self.event.eventDescription];
+    //[self.commentLabel sizeToFit];
+    [self.commentLabel setFrame:CGRectMake(10, 40, 150, 18)];
     
     for (UIView *vi in self.subviews) {
         for (UIView *vi2 in vi.subviews) {
@@ -166,6 +168,14 @@
     });
     
     
+}
+
+-(void) layoutSubviews
+{
+    [super layoutSubviews];
+    NSDictionary *attributes = @{NSFontAttributeName: self.commentLabel.font};
+    [self.commentLabel setFrame:CGRectMake(10, 40, 150, 18)];
+    //[self.commentLabel sizeToFit];
 }
 
 // animate only if loading took more than...
