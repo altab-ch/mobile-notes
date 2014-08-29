@@ -17,7 +17,7 @@
     if (self) {
         self.text = text;
         self.textColor = [UIColor whiteColor];
-        self.layer.borderWidth = 1;
+        self.layer.borderWidth = 0;
         self.layer.borderColor = [UIColor colorWithRed:23.0/255.0 green:150/255.0 blue:193/255.0 alpha:1].CGColor;
         self.layer.cornerRadius = 4;
         self.font = [UIFont fontWithName:@"HelveticaNeue" size:14];

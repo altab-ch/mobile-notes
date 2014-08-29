@@ -92,11 +92,25 @@ typedef enum
 -(void) initControls
 {
     [self.navigationItem setHidesBackButton:YES];
+    
+    UIButton *ba = [UIButton buttonWithType:UIButtonTypeSystem];
+    [ba setImage:[UIImage imageNamed:@"UI7NavigationBarBackButton"] forState:UIControlStateNormal];
+    [ba setTitle:NSLocalizedString(@"Back", nil) forState:UIControlStateNormal];
+    ba.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:18.0];
+    ba.titleEdgeInsets = UIEdgeInsetsMake(0, -52, 2, 28);
+    [ba addTarget:self action:@selector(btBrowsePressed:) forControlEvents:UIControlEventTouchUpInside];
+    ba.imageEdgeInsets = UIEdgeInsetsMake(-1, -20, 1, 0);
+    [ba setFrame:CGRectMake(0, 0, 100, 31)];
+    
     self.btBrowse= [[UIBarButtonItem alloc]
+                    initWithCustomView:ba];
+    
+    /*self.btBrowse= [[UIBarButtonItem alloc]
                     initWithTitle: NSLocalizedString(@"Pryv", nil)
                     style:UIBarButtonItemStylePlain
                     target:self
-                    action:@selector(btBrowsePressed:)];
+                    action:@selector(btBrowsePressed:)];*/
+    
     self.btCancel= [[UIBarButtonItem alloc]
                     initWithTitle: NSLocalizedString(@"Cancel", nil)
                     style:UIBarButtonItemStylePlain
@@ -168,7 +182,10 @@ typedef enum
         return;
     }
     
+    
     [self updateUIEditMode:!self.isEdit];
+    if (!self.isEdit)
+        [self btBrowsePressed:nil];
 }
 
 - (IBAction)deleteButtonTouched:(id)sender {

@@ -11,6 +11,7 @@
 #import <PryvApiKit/PYEvent+Utils.h>
 #import "StreamAccessory.h"
 #import "PYStream+Helper.h"
+#import "DescriptionLabel.h"
 
 @interface PictureCell ()
 
@@ -116,13 +117,13 @@
 {
     [super updateWithEvent:event];
     
-    [self.commentLabel setText:self.event.eventDescription];
+    //[self.commentLabel setText:self.event.eventDescription];
     //[self.commentLabel sizeToFit];
-    [self.commentLabel setFrame:CGRectMake(10, 40, 150, 18)];
+    //[self.commentLabel setFrame:CGRectMake(10, 40, 150, 18)];
     
     for (UIView *vi in self.subviews) {
         for (UIView *vi2 in vi.subviews) {
-            if ([vi2 isKindOfClass:[StreamAccessory class]]) {
+            if ([vi2 isKindOfClass:[StreamAccessory class]] || [vi2 isKindOfClass:[DescriptionLabel class]]) {
                 [vi2 removeFromSuperview];
             }
         }
@@ -130,7 +131,8 @@
     
     [self.dateLabel setHidden:YES];
     [self.streamLabel setHidden:YES];
-    
+    DescriptionLabel *desc = [[DescriptionLabel alloc] initWithText:self.event.eventDescription];
+    [self addSubview:desc];
     StreamAccessory *st = [[StreamAccessory alloc] initText:[event eventBreadcrumbs] color:[[event stream] getColor]];
     [self addSubview:st];
     
@@ -168,14 +170,6 @@
     });
     
     
-}
-
--(void) layoutSubviews
-{
-    [super layoutSubviews];
-    NSDictionary *attributes = @{NSFontAttributeName: self.commentLabel.font};
-    [self.commentLabel setFrame:CGRectMake(10, 40, 150, 18)];
-    //[self.commentLabel sizeToFit];
 }
 
 // animate only if loading took more than...

@@ -75,6 +75,7 @@
 		297A071F19AC70E400F91ABE /* LocationDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 297A071E19AC70E400F91ABE /* LocationDetailCell.xib */; };
 		29BDFAD919ADD8500026BFE5 /* TagLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BDFAD819ADD8500026BFE5 /* TagLabel.m */; };
 		29BDFAE819AF23350026BFE5 /* TagContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BDFAE719AF23350026BFE5 /* TagContainer.m */; };
+		29BDFAEC19B084D30026BFE5 /* DescriptionLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BDFAEB19B084D30026BFE5 /* DescriptionLabel.m */; };
 		29FF5D7C196ED0B60002D124 /* UnitPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29FF5D7B196ED0B60002D124 /* UnitPickerViewController.m */; };
 		4E0901071857640400A2F044 /* AddNumericalValueCellFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0901061857640400A2F044 /* AddNumericalValueCellFormat.m */; };
 		4E37857517953BBD00ED94DF /* Manifest.lock in Resources */ = {isa = PBXBuildFile; fileRef = 4E37852F17953BBD00ED94DF /* Manifest.lock */; };
@@ -469,6 +470,8 @@
 		29BDFAD819ADD8500026BFE5 /* TagLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagLabel.m; sourceTree = "<group>"; };
 		29BDFAE619AF23350026BFE5 /* TagContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagContainer.h; sourceTree = "<group>"; };
 		29BDFAE719AF23350026BFE5 /* TagContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagContainer.m; sourceTree = "<group>"; };
+		29BDFAEA19B084D20026BFE5 /* DescriptionLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DescriptionLabel.h; sourceTree = "<group>"; };
+		29BDFAEB19B084D30026BFE5 /* DescriptionLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DescriptionLabel.m; sourceTree = "<group>"; };
 		29FF5D7A196ED0B60002D124 /* UnitPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitPickerViewController.h; sourceTree = "<group>"; };
 		29FF5D7B196ED0B60002D124 /* UnitPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitPickerViewController.m; sourceTree = "<group>"; };
 		4E0901051857640400A2F044 /* AddNumericalValueCellFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddNumericalValueCellFormat.h; sourceTree = "<group>"; };
@@ -979,6 +982,8 @@
 				2934FBDA1986C66F00407D2B /* DurationLabel.m */,
 				29BDFAD719ADD8500026BFE5 /* TagLabel.h */,
 				29BDFAD819ADD8500026BFE5 /* TagLabel.m */,
+				29BDFAEA19B084D20026BFE5 /* DescriptionLabel.h */,
+				29BDFAEB19B084D30026BFE5 /* DescriptionLabel.m */,
 			);
 			name = Label;
 			sourceTree = "<group>";
@@ -2359,6 +2364,7 @@
 				B6F1AEB717846D0D000ECD60 /* DALinedTextView.m in Sources */,
 				B6F1AEBF17847420000ECD60 /* JSTokenField.m in Sources */,
 				B6F1AEC017847420000ECD60 /* JSTokenButton.m in Sources */,
+				29BDFAEC19B084D30026BFE5 /* DescriptionLabel.m in Sources */,
 				2912176F18F6C4A6000AC905 /* ImageViewController.m in Sources */,
 				291ED17F1913E717009A9B3D /* MenuTableViewController.m in Sources */,
 				290042A21938111400436A4B /* StreamAccessory.m in Sources */,
