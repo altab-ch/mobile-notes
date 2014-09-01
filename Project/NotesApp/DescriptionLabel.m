@@ -19,9 +19,9 @@
         [self setText:text];
         [self setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:12]];
         [self setTextColor:[UIColor whiteColor]];
-        CGSize lbSize = [self.text sizeWithFont:self.font constrainedToSize:CGSizeMake(280, 18)];
-        [self setFrame:CGRectMake(15, 116, lbSize.width+10, lbSize.height)];
-        [self setTextAlignment:NSTextAlignmentCenter];
+        CGSize lbSize = [self.text sizeWithFont:self.font constrainedToSize:CGSizeMake(300, 16)];
+        [self setFrame:CGRectMake(10, 116, lbSize.width, lbSize.height)];
+        [self setTextAlignment:NSTextAlignmentLeft];
     }
     return self;
 }

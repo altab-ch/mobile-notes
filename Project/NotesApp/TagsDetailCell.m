@@ -72,10 +72,14 @@
 - (void)initTags
 {
     self.tokenField.delegate = self;
-    for(NSString *tag in [self event].tags)
-    {
-        [self.tokenField addTokenWithTitle:tag representedObject:tag];
+    
+    if ([self.tokenField.tokens count] == 0) {
+        for(NSString *tag in [self event].tags)
+        {
+            [self.tokenField addTokenWithTitle:tag representedObject:tag];
+        }
     }
+    
 }
 
 - (void)tokenField:(JSTokenField *)tokenField didAddToken:(NSString *)title representedObject:(id)obj

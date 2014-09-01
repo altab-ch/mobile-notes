@@ -48,11 +48,12 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.navigationItem.hidesBackButton = YES;
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc]
                                    initWithTitle: NSLocalizedString(@"inboarding.back", nil)
                                    style: UIBarButtonItemStyleBordered
                                    target:self action: @selector(btDoneTouched)];
-    [self.navigationItem setLeftBarButtonItem:doneButton];
+    [self.navigationItem setRightBarButtonItem:doneButton];
 }
 
 -(void) didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation

@@ -28,6 +28,7 @@ extern NSString *const kUserDidCreateEventNotification;
 extern NSString *const kUserDidAddStreamNotification;
 extern NSString *const kBrowserShouldUpdateNotification;
 extern NSString *const kBrowserShouldScrollToEvent;
+extern NSString *const kBrowserShouldScrollToTop;
 
 @interface NotesAppController : NSObject
 

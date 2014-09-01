@@ -73,6 +73,8 @@
 		297A071019AC707800F91ABE /* LocationDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 297A070F19AC707800F91ABE /* LocationDetailCell.m */; };
 		297A071D19AC70B400F91ABE /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 297A071C19AC70B400F91ABE /* MapKit.framework */; };
 		297A071F19AC70E400F91ABE /* LocationDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 297A071E19AC70E400F91ABE /* LocationDetailCell.xib */; };
+		298DE1F919B492210088383F /* icon_key_backspace.png in Resources */ = {isa = PBXBuildFile; fileRef = 298DE1F819B492210088383F /* icon_key_backspace.png */; };
+		298DE20819B4BB1E0088383F /* BrowserNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 298DE20719B4BB1E0088383F /* BrowserNavigationBar.m */; };
 		29BDFAD919ADD8500026BFE5 /* TagLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BDFAD819ADD8500026BFE5 /* TagLabel.m */; };
 		29BDFAE819AF23350026BFE5 /* TagContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BDFAE719AF23350026BFE5 /* TagContainer.m */; };
 		29BDFAEC19B084D30026BFE5 /* DescriptionLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BDFAEB19B084D30026BFE5 /* DescriptionLabel.m */; };
@@ -466,6 +468,9 @@
 		297A070F19AC707800F91ABE /* LocationDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationDetailCell.m; sourceTree = "<group>"; };
 		297A071C19AC70B400F91ABE /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		297A071E19AC70E400F91ABE /* LocationDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationDetailCell.xib; sourceTree = "<group>"; };
+		298DE1F819B492210088383F /* icon_key_backspace.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_key_backspace.png; sourceTree = "<group>"; };
+		298DE20619B4BB1E0088383F /* BrowserNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowserNavigationBar.h; sourceTree = "<group>"; };
+		298DE20719B4BB1E0088383F /* BrowserNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrowserNavigationBar.m; sourceTree = "<group>"; };
 		29BDFAD719ADD8500026BFE5 /* TagLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagLabel.h; sourceTree = "<group>"; };
 		29BDFAD819ADD8500026BFE5 /* TagLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagLabel.m; sourceTree = "<group>"; };
 		29BDFAE619AF23350026BFE5 /* TagContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagContainer.h; sourceTree = "<group>"; };
@@ -995,6 +1000,15 @@
 				293EDC2F199DCA00003D6E3D /* DatePickerManager.m */,
 			);
 			name = DatePicker;
+			sourceTree = "<group>";
+		};
+		298DE20519B4BAFD0088383F /* NavigationBar */ = {
+			isa = PBXGroup;
+			children = (
+				298DE20619B4BB1E0088383F /* BrowserNavigationBar.h */,
+				298DE20719B4BB1E0088383F /* BrowserNavigationBar.m */,
+			);
+			name = NavigationBar;
 			sourceTree = "<group>";
 		};
 		29BDFAE519AF22E00026BFE5 /* View */ = {
@@ -1747,6 +1761,7 @@
 		B6F5AFFB173260E0000BC60A /* View */ = {
 			isa = PBXGroup;
 			children = (
+				298DE20519B4BAFD0088383F /* NavigationBar */,
 				29BDFAE519AF22E00026BFE5 /* View */,
 				293EDC2D199DC995003D6E3D /* DatePicker */,
 				2934FBCD1986C4D200407D2B /* Label */,
@@ -1815,6 +1830,7 @@
 		B6F9A2551729C28F009C8BAA /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				298DE1F819B492210088383F /* icon_key_backspace.png */,
 				292ACDA619791DD000036084 /* icon_add_unite.png */,
 				292ACDA719791DD000036084 /* icon_add_unite@2x.png */,
 				292ACD8D1977E87900036084 /* btn_add_note.png */,
@@ -2154,6 +2170,7 @@
 				963B8DE2186455B300F7CBF7 /* icon_picture.png in Resources */,
 				B62BF06C18D627E9007BD68E /* MNMPullToRefreshIcon@2x.png in Resources */,
 				B6B59024178B60B60009E413 /* icon_settings.png in Resources */,
+				298DE1F919B492210088383F /* icon_key_backspace.png in Resources */,
 				292ACDA01977E87900036084 /* btn_add_photo@2x.png in Resources */,
 				B6B59025178B60B60009E413 /* icon_settings@2x.png in Resources */,
 				B6B59026178B60B60009E413 /* icon_small_audio.png in Resources */,
@@ -2358,6 +2375,7 @@
 				290712D8198C0C3000C3819B /* NoteDetailCell.m in Sources */,
 				B64ACAE9175544E100E2F6F7 /* CustomNumericalKeyboard.m in Sources */,
 				B6D8EAA5175A185A00A3AA8F /* MBProgressHUD.m in Sources */,
+				298DE20819B4BB1E0088383F /* BrowserNavigationBar.m in Sources */,
 				B6D8EAAA175A18F000A3AA8F /* UIViewController+LoadingOverlay.m in Sources */,
 				291ED18F1917A25F009A9B3D /* StreamCheckButton.m in Sources */,
 				B678307117613D04008E6C1C /* UserHistoryEntry.m in Sources */,

@@ -121,14 +121,6 @@
     //[self.commentLabel sizeToFit];
     //[self.commentLabel setFrame:CGRectMake(10, 40, 150, 18)];
     
-    for (UIView *vi in self.subviews) {
-        for (UIView *vi2 in vi.subviews) {
-            if ([vi2 isKindOfClass:[StreamAccessory class]] || [vi2 isKindOfClass:[DescriptionLabel class]]) {
-                [vi2 removeFromSuperview];
-            }
-        }
-    }
-    
     [self.dateLabel setHidden:YES];
     [self.streamLabel setHidden:YES];
     DescriptionLabel *desc = [[DescriptionLabel alloc] initWithText:self.event.eventDescription];

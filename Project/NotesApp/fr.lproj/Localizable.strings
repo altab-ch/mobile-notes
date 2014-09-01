@@ -27,7 +27,7 @@
 "Edit" = "Modifier";
 "day" = "jour";
 
-"inboarding.back" = "Démarrer";
+"inboarding.back" = "Inscription";
 
 "UnitPicker.Next" = "Suivant";
 "UnitPicker.Select" = "Sélectionner une unité";
@@ -57,6 +57,7 @@
 "Detail.SetEndDate" = "Fixer une date de fin";
 "Detail.SetAsRunning" = "Démarrer le chronomètre";
 "Detail.CantRun" = "Chronomètre impossible pour une date future";
+"Detail.duration" = "durée";
 
 "TextEditorViewController.Title" = "Prendre une note";
 

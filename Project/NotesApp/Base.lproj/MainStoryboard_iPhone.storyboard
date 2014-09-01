@@ -386,7 +386,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <scene sceneID="liD-uM-FWe">
             <objects>
                 <navigationController storyboardIdentifier="main_nav_c" definesPresentationContext="YES" id="gda-j5-RoP" customClass="BrowserNavigationController" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="25e-xG-hcr">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="25e-xG-hcr" customClass="BrowserNavigationBar">
                         <rect key="frame" x="0.0" y="0.0" width="0.0" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -504,7 +504,7 @@ height=123312</string>
                                                             <size key="shadowOffset" width="1" height="1"/>
                                                         </label>
                                                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VcU-gh-jK6" userLabel="tagContainer" customClass="TagContainer">
-                                                            <rect key="frame" x="10" y="132" width="290" height="18"/>
+                                                            <rect key="frame" x="5" y="132" width="300" height="18"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         </view>
                                                     </subviews>
@@ -523,15 +523,15 @@ height=123312</string>
                                             <segue destination="NTF-kp-JcL" kind="push" identifier="kPictureToDetailSegue_ID" id="gt0-kL-XUL"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="NoteCell_ID" rowHeight="120" id="hpC-pA-cD5" userLabel="Note Table View Cell" customClass="NoteCell">
-                                        <rect key="frame" x="0.0" y="307" width="320" height="120"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="NoteCell_ID" rowHeight="124" id="hpC-pA-cD5" userLabel="Note Table View Cell" customClass="NoteCell">
+                                        <rect key="frame" x="0.0" y="307" width="320" height="124"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hpC-pA-cD5" id="nJN-kc-Qlv">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="124"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bRG-UK-4v1">
-                                                    <rect key="frame" x="5" y="2" width="310" height="116"/>
+                                                    <rect key="frame" x="5" y="2" width="310" height="120"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <subviews>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Stream" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gqK-pT-cXF">
@@ -572,7 +572,7 @@ height=123312</string>
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
                                                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pqq-A3-CEB" userLabel="tagContainer" customClass="TagContainer">
-                                                            <rect key="frame" x="10" y="94" width="290" height="18"/>
+                                                            <rect key="frame" x="5" y="97" width="300" height="18"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         </view>
@@ -593,19 +593,19 @@ height=123312</string>
                                             <segue destination="NTF-kp-JcL" kind="push" identifier="kNoteToDetailSegue_ID" id="BRl-c6-cTJ"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="ValueCell_ID" rowHeight="91" id="bJc-ol-sWC" userLabel="Value Table View Cell" customClass="ValueCell">
-                                        <rect key="frame" x="0.0" y="427" width="320" height="91"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="ValueCell_ID" rowHeight="132" id="bJc-ol-sWC" userLabel="Value Table View Cell" customClass="ValueCell">
+                                        <rect key="frame" x="0.0" y="431" width="320" height="132"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bJc-ol-sWC" id="TjZ-Vg-3wq">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="91"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="132"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nxu-VR-2B5">
-                                                    <rect key="frame" x="5" y="2" width="310" height="87"/>
+                                                    <rect key="frame" x="5" y="2" width="310" height="128"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <subviews>
-                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.39999999999999963" contentMode="left" fixedFrame="YES" text="Energy meter per seconds" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="110" translatesAutoresizingMaskIntoConstraints="NO" id="KND-fu-tP9" userLabel="Label - format description">
-                                                            <rect key="frame" x="195" y="36" width="110" height="35"/>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.39999999999999963" contentMode="left" fixedFrame="YES" text="Energy meter per seconds" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="290" translatesAutoresizingMaskIntoConstraints="NO" id="KND-fu-tP9" userLabel="Label - format description">
+                                                            <rect key="frame" x="10" y="69" width="290" height="18"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -625,8 +625,8 @@ height=123312</string>
                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         </label>
-                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="25kg" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8B1-Sy-z6K">
-                                                            <rect key="frame" x="5" y="23" width="180" height="58"/>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="25kg" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8B1-Sy-z6K">
+                                                            <rect key="frame" x="5" y="37" width="300" height="40"/>
                                                             <autoresizingMask key="autoresizingMask" heightSizable="YES"/>
                                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="24"/>
                                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -649,7 +649,7 @@ height=123312</string>
                                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         </label>
                                                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pYt-Da-k6H" userLabel="tagContainer" customClass="TagContainer">
-                                                            <rect key="frame" x="10" y="65" width="290" height="18"/>
+                                                            <rect key="frame" x="5" y="105" width="300" height="18"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         </view>
@@ -666,12 +666,13 @@ height=123312</string>
                                             <outlet property="formatDescriptionLabel" destination="KND-fu-tP9" id="jcS-Jq-eol"/>
                                             <outlet property="pastille" destination="5h8-sF-oZd" id="gVG-XQ-Hjd"/>
                                             <outlet property="streamLabel" destination="zcg-t9-UBY" id="kSz-Oh-vFX"/>
+                                            <outlet property="tagContainer" destination="pYt-Da-k6H" id="iQS-yU-aEz"/>
                                             <outlet property="valueLabel" destination="8B1-Sy-z6K" id="INn-0X-r6K"/>
                                             <segue destination="NTF-kp-JcL" kind="push" identifier="kValueToDetailSegue_ID" id="Ked-qu-1Da"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="section_cell_id" rowHeight="20" id="Tnc-Tr-PRa" userLabel="Section Table View Cell">
-                                        <rect key="frame" x="0.0" y="518" width="320" height="20"/>
+                                        <rect key="frame" x="0.0" y="563" width="320" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Tnc-Tr-PRa" id="c5f-m2-7HV">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="20"/>
@@ -689,7 +690,7 @@ height=123312</string>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="add_new_cell_id" rowHeight="50" id="Jiu-qK-8lQ" userLabel="Section Table View Cell">
-                                        <rect key="frame" x="0.0" y="538" width="320" height="50"/>
+                                        <rect key="frame" x="0.0" y="583" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Jiu-qK-8lQ" id="zAi-gp-Idm">
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="50"/>

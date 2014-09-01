@@ -56,10 +56,12 @@
 "Detail.SetEndDate" = "Set an end date";
 "Detail.SetAsRunning" = "Start timer";
 "Detail.CantRun" = "Can't run future date";
+"Detail.duration" = "duration";
+
 
 "TextEditorViewController.Title" = "Take a note";
 
-"inboarding.back" = "Get started";
+"inboarding.back" = "Sign In";
 
 "AddNumericalViewController.Title" = "Value";
 

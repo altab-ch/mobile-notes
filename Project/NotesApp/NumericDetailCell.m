@@ -15,6 +15,7 @@
 @property (nonatomic, weak) IBOutlet UILabel *numericalValue_Label;
 @property (nonatomic, weak) IBOutlet UILabel *numericalValue_TypeLabel;
 @property (nonatomic, weak) IBOutlet UITextField *numericalValue;
+@property (nonatomic, weak) IBOutlet UIButton *backspace;
 
 @end
 
@@ -66,6 +67,7 @@
     [self.numericalValue setEnabled:isInEditMode];
     if (self.event.isDraft && isInEditMode) [self.numericalValue becomeFirstResponder];
     else [self.numericalValue resignFirstResponder];
+    [self.backspace setHidden:YES];
 }
 
 -(void) didSelectCell:(UIViewController*)controller
@@ -84,6 +86,12 @@
 -(void) textFieldDidBeginEditing:(UITextField *)textField
 {
     [self.delegate closePickers:NO];
+    [self.backspace setHidden:NO];
+}
+
+-(void) textFieldDidEndEditing:(UITextField *)textField
+{
+    [self.backspace setHidden:YES];
 }
 
 #pragma mark - Border

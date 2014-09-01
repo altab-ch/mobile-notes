@@ -22,6 +22,7 @@
     self = [super initWithCoder:aDecoder];
     if (self) {
         self.updateUILock = [[NSLock alloc] init];
+        self.isHeader = false;
     }
     return self;
 }
@@ -62,7 +63,12 @@
 {
     [self.updateUILock lock];
     
-    [self setText:[[NotesAppController sharedInstance] durationFromDate:self.event.eventDate toDate:date]];
+    NSString *duration = [[NotesAppController sharedInstance] durationFromDate:self.event.eventDate toDate:date];
+    
+    if (self.isHeader)
+        [self setText:[NSString stringWithFormat:@"%@ : %@",NSLocalizedString(@"Detail.duration", nil), duration]];
+    else
+        [self setText:duration];
     
     /*BOOL isMinus = false;
     NSInteger duration = (NSInteger)[date timeIntervalSinceDate:self.event.eventDate];

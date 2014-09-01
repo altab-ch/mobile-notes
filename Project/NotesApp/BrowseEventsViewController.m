@@ -33,6 +33,7 @@
 #import "PYEventTypes+Helper.h"
 #import "XMMDrawerController.h"
 #import "DetailViewController.h"
+#import "UIAlertView+PrYv.h"
 
 #define kPictureToDetailSegue_ID @"kPictureToDetailSegue_ID"
 #define kNoteToDetailSegue_ID @"kNoteToDetailSegue_ID"
@@ -180,7 +181,10 @@ BOOL displayNonStandardEvents;
                                              selector:@selector(browserShouldScrollToEvent:)
                                                  name:kBrowserShouldScrollToEvent
                                                object:nil];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(browserShouldScrollToTop)
+                                                 name:kBrowserShouldScrollToTop
+                                               object:nil];
     
     [[NSUserDefaults standardUserDefaults] addObserver:self
                                             forKeyPath:kPYAppSettingUIDisplayNonStandardEvents
@@ -459,6 +463,33 @@ BOOL displayNonStandardEvents;
 
 #pragma mark - UITableViewDelegate and UITableViewDataSource methods
 
+- (void)tableView:(UITableView *)tableView
+commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
+forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Browser.deleteEvent", nil) message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"OK", nil), nil];
+        alertView.alertViewStyle = UIAlertViewStyleDefault;
+        [alertView showWithCompletionBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+            if(alertView.cancelButtonIndex != buttonIndex)
+                [self deleteEvent:indexPath];
+        }];
+        
+    }
+}
+
+- (void)deleteEvent:(NSIndexPath*)index
+{
+    [NotesAppController sharedConnectionWithID:nil noConnectionCompletionBlock:nil withCompletionBlock:^(PYConnection *connection)
+     {
+         [connection eventTrashOrDelete:[self eventAtIndexPath:index] successHandler:^{
+             [self.tableView reloadData];
+         } errorHandler:^(NSError *error) {
+             [self.tableView reloadData];
+         }];
+         
+     }];
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
         
@@ -518,11 +549,11 @@ BOOL displayNonStandardEvents;
     if (cellStyleType == CellStyleTypePhoto)
         result = 160.0;
     else if (cellStyleType == CellStyleTypeText)
-        result = 120.0;
+        result = 124.0;
     else if (cellStyleType == CellStyleTypeMeasure)
-        result = 91.0;
+        result = 132.0;
     else if (cellStyleType == CellStyleTypeMoney)
-        result = 91.0;
+        result = 132.0;
     else
         NSLog(@"Warnign : type cell is not photo, text or measure.");
     return result;
@@ -624,6 +655,13 @@ BOOL displayNonStandardEvents;
     [self refreshFilter];
     [self.tableView reloadData];
     [self scrollToEvent:event];
+}
+
+-(void) browserShouldScrollToTop
+{
+    if (self.navigationController.topViewController == self) {
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    }
 }
 
 -(void)browserShouldScrollToEvent:(NSNotification*)notification

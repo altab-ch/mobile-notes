@@ -333,7 +333,7 @@ typedef enum
                 self.endDateDetailCell.isEndDatePicker = false;
                 [self.tableView beginUpdates];
                 [self.tableView endUpdates];
-            }else if (self.isEdit)
+            }else if (self.isEdit || self.event.isRunning)
             {
                 [self.endDateDetailCell didSelectCell:self];
             }
