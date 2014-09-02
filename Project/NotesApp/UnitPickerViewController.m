@@ -59,10 +59,11 @@
     for (int i=0; i<[self.measurementGroups count]; i++) {
         PYMeasurementTypesGroup *mes = [self.measurementGroups objectAtIndex:i];
         if ([mes.name isEqualToString:@"mass"]){
-            [self.unitPicker selectRow:i inComponent:0 animated:YES];
+            [self.unitPicker selectRow:i inComponent:0 animated:NO];
             for (int j=0; j<[mes.formatKeyList count]; j++) {
-                if ([[mes.formatKeyList objectAtIndex:j] isEqualToString:@"kg"]) {
-                    [self.unitPicker selectRow:j inComponent:1 animated:YES];
+                if ([[mes.formatKeyList objectAtIndex:j] isEqualToString:@"kg"] ||
+                     [[mes.formatKeyList objectAtIndex:j] isEqualToString:@"lb"]) {
+                    [self.unitPicker selectRow:j inComponent:1 animated:NO];
                     return;
                 }
             }
