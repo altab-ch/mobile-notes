@@ -213,7 +213,10 @@
 
 -(void) didSelectCell:(UIViewController *)controller
 {
-    [[self getActionSheet] showInView:controller.view];
+    if (self.event.isRunning)
+        [self stopNow];
+    else
+        [[self getActionSheet] showInView:controller.view];
 }
 
 -(BOOL) shouldUpdateBorder
