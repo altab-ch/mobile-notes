@@ -27,43 +27,42 @@
     return self;
 }
 
--(void) setEndDate:(NSDate *)endDate
-{
-    _endDate = endDate;
-    [self updateDateUI:endDate];
-}
 
 -(void) start
 {
-    [self stop];
+    if (self.timer) return;
+
     self.textColor = [UIColor redColor];
-    [self updateDateUI:[NSDate date]];
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(update) userInfo:nil repeats:YES];
 }
 
 -(void) stop
 {
-    self.textColor = [UIColor grayColor];
+   self.textColor = [UIColor grayColor];
     if (self.timer){
         [self.timer invalidate];
         self.timer = nil;
     }
-    //self.endDate = nil;
 }
 
 -(void) update
 {
-    if (self.endDate)
-        [self updateDateUI:self.endDate];
-    else
-        [self updateDateUI:[NSDate date]];
-}
-
--(void) updateDateUI:(NSDate*)date
-{
     [self.updateUILock lock];
     
-    NSString *duration = [[NotesAppController sharedInstance] durationFromDate:self.event.eventDate toDate:date];
+    if (self.event.duration == 0) {
+        [self setText:@""];
+        [self.updateUILock unlock];
+        return;
+    }
+    
+    NSString *duration;
+    if (self.event.isRunning) {
+        [self start];
+        duration = [NotesAppController durationFromDate:self.event.eventDate toDate:[NSDate date]];
+    } else {
+        [self stop];
+        duration = [NotesAppController durationFormatter:self.event.duration];
+    }
     
     if (self.isHeader)
         [self setText:[NSString stringWithFormat:@"%@ : %@",NSLocalizedString(@"Detail.duration", nil), duration]];

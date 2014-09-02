@@ -55,21 +55,21 @@
 -(void)endDatePickerValueChanged:(id)sender
 {
     self.lbState.text = [[NotesAppController sharedInstance].dateFormatter stringFromDate:[DatePickerManager sharedInstance].endDatePicker.date];
-    [self.lbDuration setEndDate:[DatePickerManager sharedInstance].endDatePicker.date];
+    
     
     [[DatePickerManager sharedInstance].endTimePicker setDate:[DatePickerManager sharedInstance].endDatePicker.date];
     [self.event setDuration:[[DatePickerManager sharedInstance].endDatePicker.date timeIntervalSinceDate:self.event.eventDate]];
-    
+    [self updateLabels];
     [self delegateShouldUpdateEvent];
 }
 
 -(void)endTimePickerValueChanged:(id)sender
 {
     self.lbState.text = [[NotesAppController sharedInstance].dateFormatter stringFromDate:[DatePickerManager sharedInstance].endTimePicker.date];
-    [self.lbDuration setEndDate:[DatePickerManager sharedInstance].endTimePicker.date];
+    
     [[DatePickerManager sharedInstance].endDatePicker setDate:[DatePickerManager sharedInstance].endTimePicker.date];
     [self.event setDuration:[[DatePickerManager sharedInstance].endTimePicker.date timeIntervalSinceDate:self.event.eventDate]];
-    
+    [self updateLabels];
     [self delegateShouldUpdateEvent];
 }
 
@@ -145,13 +145,11 @@
         [alertView show];
     }*/
     [self setIsInEditMode:YES];
-    [self.lbDuration setEndDate:nil];
-    [self.lbState setText:@"Running"];
     [self.event setStateRunning];
     [self.setRunningView setHidden:NO];
     [self.addView setHidden:YES];
     [self delegateShouldUpdateEvent];
-    [self.lbDuration start];
+    [self updateLabels];
     
 }
 
@@ -168,24 +166,24 @@
 {
     [self.setRunningView setHidden:NO];
     [self.addView setHidden:YES];
-    [self.lbDuration stop];
-    //[self.lbDuration setEndDate:[NSDate date]];
+
     self.event.duration = [[NSDate date] timeIntervalSinceDate:self.event.eventDate];
-    [self.lbDuration update];
+
     [[DatePickerManager sharedInstance].endDatePicker setDate:[self.event.eventDate dateByAddingTimeInterval:self.event.duration]];
     [[DatePickerManager sharedInstance].endTimePicker setDate:[self.event.eventDate dateByAddingTimeInterval:self.event.duration]];
     [self.lbState setText:[[NotesAppController sharedInstance].dateFormatter stringFromDate:[self.event.eventDate dateByAddingTimeInterval:self.event.duration]]];
     [self delegateShouldUpdateEvent];
+    [self updateLabels];
 
 }
 
 -(void) reset
 {
-    [self.lbDuration stop];
     [self.event setDuration:0];
     [self.setRunningView setHidden:YES];
     [self.addView setHidden:NO];
     [self delegateShouldUpdateEvent];
+    [self updateLabels];
 }
 
 -(void) delegateShouldUpdateEvent
@@ -237,15 +235,13 @@
 {
     if (self.event.isRunning)
     {
-        [self.lbDuration stop];
-        [self.lbDuration update];
-        [self.lbDuration start];
+        [self.lbState setText:NSLocalizedString(@"Detail.Running", nil)];
     }
     else if (self.event.duration != 0)
     {
-        [self.lbDuration update];
         [self.lbState setText:[[NotesAppController sharedInstance].dateFormatter stringFromDate:[self.event.eventDate dateByAddingTimeInterval:self.event.duration]]];
     }
+    [self.lbDuration update];
 }
 
 -(UIActionSheet*)getActionSheet

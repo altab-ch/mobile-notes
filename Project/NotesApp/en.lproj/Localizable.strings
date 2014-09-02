@@ -57,6 +57,7 @@
 "Detail.SetAsRunning" = "Start timer";
 "Detail.CantRun" = "Can't run future date";
 "Detail.duration" = "duration";
+"Detail.Running" = "Running";
 
 
 "TextEditorViewController.Title" = "Take a note";

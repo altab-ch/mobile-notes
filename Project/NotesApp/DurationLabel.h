@@ -11,11 +11,8 @@
 @interface DurationLabel : UILabel
 
 @property(nonatomic, strong) PYEvent* event;
-@property (nonatomic, strong) NSDate *endDate;
 @property (nonatomic) BOOL isHeader;
 
--(void) start;
--(void) stop;
 -(void) update;
 
 @end

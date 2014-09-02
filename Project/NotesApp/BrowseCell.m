@@ -62,19 +62,12 @@
     if (self.dateLabel)
         self.dateLabel.text = [self.dateFormatter stringFromDate:date];
     
-    [self.duration stop];
-    [self.duration setEvent:event];
+   
+  
     
-    if (event.isRunning){
-        [self.duration setEndDate:nil];
-        [self.duration start];
-    }
-    else if (event.duration==0)
-        [self.duration setText:@""];
-    else{
-        [self.duration setEndDate:[NSDate dateWithTimeInterval:self.event.duration sinceDate:self.event.eventDate]];
-        [self.duration update];
-    }
+    [self.duration setEvent:event];
+    [self.duration update];
+
     
     [self.tagContainer updateWithTags:event.tags];
 }

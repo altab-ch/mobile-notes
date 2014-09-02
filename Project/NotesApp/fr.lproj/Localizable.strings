@@ -58,6 +58,7 @@
 "Detail.SetAsRunning" = "Démarrer le chronomètre";
 "Detail.CantRun" = "Chronomètre impossible pour une date future";
 "Detail.duration" = "durée";
+"Detail.Running" = "En cours";
 
 "TextEditorViewController.Title" = "Prendre une note";
 

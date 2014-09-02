@@ -149,18 +149,28 @@ NSString *const kBrowserShouldScrollToTop = @"kBrowserShouldScrollToTop";
     return _dateFormatter;
 }
 
--(NSString*) durationFromDate:(NSDate*)date toDate:(NSDate*)endDate
++(NSString*) durationFromDate:(NSDate*)date toDate:(NSDate*)endDate
 {
-    NSString *result;
-    BOOL isMinus = false;
     NSInteger duration = (NSInteger)[endDate timeIntervalSinceDate:date];
+    return [self durationFormatter:duration];
+}
+
++(NSString*) durationFormatter:(double)duration
+{
+    
+    BOOL isMinus = false;
     if (duration<0) {
         duration = abs(duration);
         isMinus = true;
     }
-    NSInteger seconds = duration % 60;
-    NSInteger minutes = (duration / 60) % 60;
-    NSInteger hours = (duration / 3600);
+    
+    NSInteger d = duration;
+    NSString *result;
+   
+   
+    NSInteger seconds = d % 60;
+    NSInteger minutes = (d / 60) % 60;
+    NSInteger hours = (d / 3600);
     NSString* time;
     
     if (hours >= 24)
