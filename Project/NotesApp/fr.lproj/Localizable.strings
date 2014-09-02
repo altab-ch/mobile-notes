@@ -73,3 +73,7 @@
 
 "Settings.User.LogoutFormat" = "Déconnexion (%@)";
 "Settings.User.Login" = "Login";
+
+"duration.template.minute" = "%02ldm%02ld";
+"duration.template.hour" = "%02ldh%02ld";
+"duration.template.day" = "%dj %02ldh";

@@ -162,16 +162,13 @@ NSString *const kBrowserShouldScrollToTop = @"kBrowserShouldScrollToTop";
     NSInteger minutes = (duration / 60) % 60;
     NSInteger hours = (duration / 3600);
     NSString* time;
-    if (hours >= 48)
-        time=[NSString stringWithFormat:@"%d %@s %dh", hours/24, NSLocalizedString(@"day", nil), hours%24];
-    else if (hours >= 24)
-        time=[NSString stringWithFormat:@"%d %@ %dh", hours/24, NSLocalizedString(@"day", nil), hours%24];
+    
+    if (hours >= 24)
+        time=[NSString stringWithFormat:NSLocalizedString(@"duration.template.day", nil), hours/24, hours%24];
     else if (hours>0)
-        time=[NSString stringWithFormat:@"%02ld:%02ld:%02ld", (long)hours, (long)minutes, (long)seconds];
-    else if (hours==0)
-        time=[NSString stringWithFormat:@"%02ld:%02ld", (long)minutes, (long)seconds];
-    else if (minutes==0)
-        time=[NSString stringWithFormat:@"%02ld", (long)seconds];
+        time=[NSString stringWithFormat:NSLocalizedString(@"duration.template.hour", nil), (long)hours, (long)minutes];
+    else
+        time=[NSString stringWithFormat:NSLocalizedString(@"duration.template.minute", nil), (long)minutes, (long)seconds];
     
     if (isMinus)
         result = [NSString stringWithFormat:@"-%@", time];

@@ -75,3 +75,8 @@
 
 "Settings.User.LogoutFormat" = "Log out (%@)";
 "Settings.User.Login" = "Sign in";
+
+"duration.template.minute" = "%02ld:%02ldm";
+"duration.template.hour" = "%02ld:%02ldh";
+"duration.template.day" = "%dd %02ldh";
+

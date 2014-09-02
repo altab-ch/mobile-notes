@@ -40,27 +40,35 @@
 
 @implementation UnitPickerViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [_lbManageUnits setText:NSLocalizedString(@"UnitPicker.Manage", nil)];
-    [_lbPickUnit setText:NSLocalizedString(@"UnitPicker.Select", nil)];
-    _top.constant = topConstraintConstant;
-    _isMeasureSetShow = false;
-    [_btNext setTitle:NSLocalizedString(@"UnitPicker.Next", nil)];
+    [self.lbManageUnits setText:NSLocalizedString(@"UnitPicker.Manage", nil)];
+    [self.lbPickUnit setText:NSLocalizedString(@"UnitPicker.Select", nil)];
+    self.top.constant = topConstraintConstant;
+    self.isMeasureSetShow = false;
+    [self.btNext setTitle:NSLocalizedString(@"UnitPicker.Next", nil)];
     [self updateMeasurementSets];
-    [_unitPicker setDelegate:self];
-    [_unitPicker setDataSource:self];
-    [_btShowMeasure.imageView setTransform:CGAffineTransformMakeRotation(M_PI)];
+    [self.unitPicker setDelegate:self];
+    [self.unitPicker setDataSource:self];
+    [self.btShowMeasure.imageView setTransform:CGAffineTransformMakeRotation(M_PI)];
+}
+
+-(void) viewDidAppear:(BOOL)animated
+{
+    for (int i=0; i<[self.measurementGroups count]; i++) {
+        PYMeasurementTypesGroup *mes = [self.measurementGroups objectAtIndex:i];
+        if ([mes.name isEqualToString:@"mass"]){
+            [self.unitPicker selectRow:i inComponent:0 animated:YES];
+            for (int j=0; j<[mes.formatKeyList count]; j++) {
+                if ([[mes.formatKeyList objectAtIndex:j] isEqualToString:@"kg"]) {
+                    [self.unitPicker selectRow:j inComponent:1 animated:YES];
+                    return;
+                }
+            }
+        }
+            
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -75,24 +83,24 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:kUnitToMeasureSegue_ID]) {
-        MeasurementSettingsViewController *measures = [segue destinationViewController];
-        _measuresViewController = measures;
-        [measures setChangeValueDelegate:self];
+        
+        self.measuresViewController = [segue destinationViewController];
+        [self.measuresViewController setChangeValueDelegate:self];
     }
 }
 
 -(IBAction)btShowMeasureSetPressed:(id)sender
 {
-    if (_isMeasureSetShow) {
-        [_btShowMeasure.imageView setTransform:CGAffineTransformMakeRotation(M_PI)];
+    if (self.isMeasureSetShow) {
+        [self.btShowMeasure.imageView setTransform:CGAffineTransformMakeRotation(M_PI)];
         [self animateConstraint:topConstraintConstant];
         [self animateMeasureSet:0];
-        _isMeasureSetShow = false;
+        self.isMeasureSetShow = false;
     }else{
-        [_btShowMeasure.imageView setTransform:CGAffineTransformIdentity];
+        [self.btShowMeasure.imageView setTransform:CGAffineTransformIdentity];
         [self animateConstraint:0];
         [self animateMeasureSet:1];
-        _isMeasureSetShow = true;
+        self.isMeasureSetShow = true;
     }
 }
 
@@ -100,7 +108,7 @@
 {
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.4];
-    [_measuresViewController.tableView setAlpha:alpha];
+    [self.measuresViewController.tableView setAlpha:alpha];
     [UIView commitAnimations];
 }
 
@@ -109,18 +117,18 @@
     [self.view layoutIfNeeded];
     [UIView animateWithDuration:0.4
                      animations:^{
-                         _top.constant = constant;
+                         self.top.constant = constant;
                          [self.view layoutIfNeeded]; // Called on parent view
                      }];
 }
 
 -(IBAction)btDonePressed:(id)sender
 {
-    NSInteger selectedGroup = [_unitPicker selectedRowInComponent:0];
-    PYMeasurementTypesGroup *group = [_measurementGroups objectAtIndex:selectedGroup];
-    PYEventType *pyType = [group pyTypeAtIndex:[_unitPicker selectedRowInComponent:1]];
+    NSInteger selectedGroup = [self.unitPicker selectedRowInComponent:0];
+    PYMeasurementTypesGroup *group = [self.measurementGroups objectAtIndex:selectedGroup];
+    PYEventType *pyType = [group pyTypeAtIndex:[self.unitPicker selectedRowInComponent:1]];
     self.event.type = pyType.key;
-    [self.delegate unitPickerController:self didFinishPickingUnit:_event];
+    [self.delegate unitPickerController:self didFinishPickingUnit:self.event];
 }
 
 #pragma mark - MeasuresDelegate
@@ -129,19 +137,19 @@
 {
     NSInteger selectedGroup = [_unitPicker selectedRowInComponent:0];
     PYMeasurementTypesGroup *group = [_measurementGroups objectAtIndex:selectedGroup];
-    PYEventType *type = [group pyTypeAtIndex:[_unitPicker selectedRowInComponent:1]];
+    PYEventType *type = [group pyTypeAtIndex:[self.unitPicker selectedRowInComponent:1]];
     [self updateMeasurementSets];
     NSInteger newGroupRow = [self getGroupRow:group];
-    [_unitPicker selectRow:newGroupRow inComponent:0 animated:NO];
-    [_unitPicker selectRow:[self getTypeRow:type forGroup:[_measurementGroups objectAtIndex:newGroupRow]] inComponent:1 animated:NO];
+    [self.unitPicker selectRow:newGroupRow inComponent:0 animated:NO];
+    [self.unitPicker selectRow:[self getTypeRow:type forGroup:[self.measurementGroups objectAtIndex:newGroupRow]] inComponent:1 animated:NO];
     
-    [_unitPicker reloadData];
+    [self.unitPicker reloadData];
 }
 
 -(NSInteger) getGroupRow:(PYMeasurementTypesGroup*)group
 {
     for (int i=0;i<[_measurementGroups count];i++)
-        if ([[[_measurementGroups objectAtIndex:i] classKey] isEqualToString:[group classKey]]) return i;
+        if ([[[self.measurementGroups objectAtIndex:i] classKey] isEqualToString:[group classKey]]) return i;
 
     return 0;
 }
@@ -165,10 +173,10 @@
 {
     if(component == kGroupComponentIndex)
     {
-        return [_measurementGroups count];
+        return [self.measurementGroups count];
     }
     NSInteger selectedGroup = [_unitPicker selectedRowInComponent:0];
-    return [[[_measurementGroups objectAtIndex:selectedGroup] formatKeys] count];
+    return [[[self.measurementGroups objectAtIndex:selectedGroup] formatKeys] count];
 }
 
 - (UIView *) advancedPicker:(KSAdvancedPicker *)picker viewForComponent:(NSInteger)component inRect:(CGRect)rect
@@ -192,13 +200,13 @@
         //UILabel *label = (UILabel*)view;
         UILabel *label = [(AddNumericalValueCellClass*)view classLabel];
         
-        PYMeasurementTypesGroup *group = [_measurementGroups objectAtIndex:row];
+        PYMeasurementTypesGroup *group = [self.measurementGroups objectAtIndex:row];
         [label setText:group.localizedName];
     }
     else
     {
-        NSInteger selectedGroup = [_unitPicker selectedRowInComponent:0];
-        PYMeasurementTypesGroup *group = [_measurementGroups objectAtIndex:selectedGroup];
+        NSInteger selectedGroup = [self.unitPicker selectedRowInComponent:0];
+        PYMeasurementTypesGroup *group = [self.measurementGroups objectAtIndex:selectedGroup];
         
         PYEventType *pyType = [group pyTypeAtIndex:(int)row];
         NSString *symbolText = pyType.type;
@@ -248,8 +256,8 @@
     }
     else if(component == 1)
     {
-        NSInteger selectedGroup = [_unitPicker selectedRowInComponent:0];
-        PYMeasurementTypesGroup *group = [_measurementGroups objectAtIndex:selectedGroup];
+        NSInteger selectedGroup = [self.unitPicker selectedRowInComponent:0];
+        PYMeasurementTypesGroup *group = [self.measurementGroups objectAtIndex:selectedGroup];
         PYEventType *pyType = [group pyTypeAtIndex:(int)row];
         NSString *descLabel = pyType.key;
         if (pyType && pyType.symbol) {
