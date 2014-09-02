@@ -125,6 +125,10 @@ BOOL displayNonStandardEvents;
 
 -(void)setupLeftMenuButton{
     MMDrawerBarButtonItem * leftDrawerButton = [[MMDrawerBarButtonItem alloc] initWithTarget:self action:@selector(leftDrawerButtonPress:)];
+    /*if (![[NotesAppController sharedInstance] isIOS7])
+        [leftDrawerButton setMenuButtonColor:[UIColor colorWithRed:32.0f/255.0f green:169.0f/255.0f blue:215.0f/255.0f alpha:1] forState:UIControlStateNormal];
+    */
+    
     [self.navigationItem setLeftBarButtonItem:leftDrawerButton animated:YES];
 }
 
@@ -817,6 +821,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 - (NSDate*)lastUpdateDateForManager:(MNMPullToRefreshManager *)manager
 {
     return [NSDate dateWithTimeIntervalSince1970:self.filter.modifiedSince];
+}
+
+-(void) dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 

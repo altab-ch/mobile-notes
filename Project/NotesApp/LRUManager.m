@@ -116,4 +116,9 @@
     [self saveToDisc];
 }
 
+-(void) dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 @end

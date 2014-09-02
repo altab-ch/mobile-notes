@@ -202,4 +202,11 @@ NSString *const kBrowserShouldScrollToTop = @"kBrowserShouldScrollToTop";
     }];
 }
 
+-(BOOL) isIOS7
+{
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
+        return true;
+    return false;
+}
+
 @end

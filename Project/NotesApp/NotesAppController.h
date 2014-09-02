@@ -39,6 +39,7 @@ extern NSString *const kBrowserShouldScrollToTop;
 @property (nonatomic, strong) SettingsController* settingController;
 
 - (NSString*) durationFromDate:(NSDate*)date toDate:(NSDate*)endDate;
+- (BOOL) isIOS7;
 
 + (NotesAppController*)sharedInstance;
 

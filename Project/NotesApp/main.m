@@ -7,15 +7,13 @@
 //
 
 #import <UI7Kit/UI7Kit.h>
-#import <UI7Kit/UI7Switch.h>
-#import <UI7Kit/UI7TableViewCell.h>
 
 #import "AppDelegate.h"
 
 int main(int argc, char *argv[])
 {
     @autoreleasepool {
-        [UI7ViewController patchIfNeeded];
+        /*[UI7ViewController patchIfNeeded];
         [UI7View patchIfNeeded];
         [UI7NavigationController patchIfNeeded];
         [UI7NavigationItem patchIfNeeded];
@@ -27,7 +25,10 @@ int main(int argc, char *argv[])
         [UI7AlertView patchIfNeeded];
         [UI7ActionSheet patchIfNeeded];
         [UI7Switch patchIfNeeded];
+        */
         
+        [UI7Kit patchIfNeeded];
+        //[[UI7Kit kit] setTintColor:[UIColor colorWithRed:32.0f/255.0f green:169.0f/255.0f blue:215.0f/255.0f alpha:1]];
         return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
     }
 
