@@ -152,13 +152,18 @@
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Detail.CantRun", nil) message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alertView show];
     }*/
-    [self setIsInEditMode:YES];
+    [self setActiv];
     [self.event setStateRunning];
     [self.setRunningView setHidden:NO];
     [self.addView setHidden:YES];
     [self delegateShouldUpdateEvent];
     [self updateLabels];
     
+}
+
+-(void) setActiv
+{
+    [self.header setTextColor:(self.event.isRunning || self.isInEditMode)?[UIColor colorWithRed:32.0f/255.0f green:169.0f/255.0f blue:215.0f/255.0f alpha:1] : [UIColor lightGrayColor]];
 }
 
 -(void) setEndDate
