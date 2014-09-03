@@ -124,7 +124,7 @@
         
         UIImage *iconImage = [UIImage imageNamed:MNM_PTR_ICON_IMAGE];
         
-        iconImageView_ = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, round(CGRectGetHeight(frame) / 2.0f) - round(iconImage.size.height / 2.0f), iconImage.size.width, iconImage.size.height)];
+        iconImageView_ = [[UIImageView alloc] initWithFrame:CGRectMake(180.0f, round(CGRectGetHeight(frame) / 2.0f) - round(iconImage.size.height / 2.0f), iconImage.size.width, iconImage.size.height)];
         [iconImageView_ setContentMode:UIViewContentModeCenter];
         [iconImageView_ setImage:iconImage];
         [iconImageView_ setAutoresizingMask:UIViewAutoresizingFlexibleRightMargin];
@@ -149,7 +149,7 @@
         [topLabel_ setFont:[UIFont systemFontOfSize:12.0f]];
         [topLabel_ setAutoresizingMask:UIViewAutoresizingFlexibleRightMargin];
         
-        [containerView_ addSubview:topLabel_];
+        //[containerView_ addSubview:topLabel_];
         
         bottomLabel_ = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX([topLabel_ frame]), CGRectGetMaxY([topLabel_ frame]), CGRectGetWidth([topLabel_ frame]), CGRectGetHeight([topLabel_ frame]))];
         [bottomLabel_ setBackgroundColor:[UIColor clearColor]];
@@ -157,7 +157,7 @@
         [bottomLabel_ setFont:[UIFont boldSystemFontOfSize:12.0f]];
         [bottomLabel_ setAutoresizingMask:UIViewAutoresizingFlexibleRightMargin];
         
-        [containerView_ addSubview:bottomLabel_];
+        //[containerView_ addSubview:bottomLabel_];
         
         fixedHeight_ = CGRectGetHeight(frame);
         rotateIconWhileBecomingVisible_ = YES;
