@@ -73,7 +73,7 @@
 - (void)update
 {
     [self.tokenField.tokens removeAllObjects];
-    [self.tokenField.subviews enumerateObjectsUsingBlock:^(UIView* vi, NSUInteger idx, BOOL *stop){
+    [self.tokenField.textField.subviews enumerateObjectsUsingBlock:^(UIView* vi, NSUInteger idx, BOOL *stop){
         [vi removeFromSuperview];
     }];
     

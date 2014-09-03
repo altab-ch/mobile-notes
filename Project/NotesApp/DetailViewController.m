@@ -263,7 +263,7 @@ typedef enum
             break;
 
         case DetailCellTypeDelete:
-            height = self.deleteDetailCell.getHeight;
+            if (!self.event.isDraft) height = self.deleteDetailCell.getHeight;
             break;
             
         default:

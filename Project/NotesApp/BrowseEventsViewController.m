@@ -471,13 +471,12 @@ BOOL displayNonStandardEvents;
 commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
 forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Browser.deleteEvent", nil) message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"OK", nil), nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Alert.Message.DeleteConfirmation", nil) message:@"" delegate:nil cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"OK", nil), nil];
         alertView.alertViewStyle = UIAlertViewStyleDefault;
         [alertView showWithCompletionBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
             if(alertView.cancelButtonIndex != buttonIndex)
                 [self deleteEvent:indexPath];
         }];
-        
     }
 }
 
