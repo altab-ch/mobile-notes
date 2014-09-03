@@ -206,10 +206,13 @@ typedef enum
     if (self.event.isDraft) [self.navigationController popViewControllerAnimated:YES];
     else
     {
+        
         if (self.initialEventValue) [self.event resetFromCachingDictionary:self.initialEventValue];
         [self updateEvent];
         self.shouldUpdateEvent = NO;
+        
         [self updateUIEditMode:false];
+        [self.view endEditing:NO];
     }
 }
 
@@ -275,7 +278,7 @@ typedef enum
     
     
     //if (cellType != DetailCellTypeNote && cellType != DetailCellTypeDescription && cellType != DetailCellTypeTags && cellType != DetailCellTypeValue)
-    [self.view endEditing:YES];
+    [self.view endEditing:NO];
     
     
     if (cellType != DetailCellTypeTime && cellType != DetailCellTypeTimePicker && self.dateDetailCell.isDatePicker){
