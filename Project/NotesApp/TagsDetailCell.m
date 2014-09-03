@@ -42,7 +42,8 @@
 -(void) updateWithEvent:(PYEvent*)event
 {
     [super updateWithEvent:event];
-    [self initTags];
+    self.tokenField.delegate = self;
+    [self update];
 }
 
 -(void) didSelectCell:(UIViewController *)controller
@@ -69,9 +70,12 @@
     [self updateEventWithTags];
 }
 
-- (void)initTags
+- (void)update
 {
-    self.tokenField.delegate = self;
+    [self.tokenField.tokens removeAllObjects];
+    [self.tokenField.subviews enumerateObjectsUsingBlock:^(UIView* vi, NSUInteger idx, BOOL *stop){
+        [vi removeFromSuperview];
+    }];
     
     if ([self.tokenField.tokens count] == 0) {
         for(NSString *tag in [self event].tags)

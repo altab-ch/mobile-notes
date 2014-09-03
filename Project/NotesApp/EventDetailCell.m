@@ -88,4 +88,9 @@
     return self.eventCell.getHeight;
 }
 
+-(void) update
+{
+    [self.eventCell update];
+}
+
 @end

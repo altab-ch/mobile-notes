@@ -21,6 +21,12 @@
     [super updateWithEvent:event];
     self.noteText.delegate = self;
     self.noteText.text = event.eventContentAsString;
+    [self update];
+}
+
+-(void) update
+{
+    self.noteText.text = self.event.eventContentAsString;
     [self setFrame:CGRectMake(0, 0, 320, [self getHeight])];
     [self layoutIfNeeded];
 }

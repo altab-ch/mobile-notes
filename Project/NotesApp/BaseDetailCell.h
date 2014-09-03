@@ -14,6 +14,7 @@
 @property (nonatomic) BOOL isInEditMode;
 @property (nonatomic, weak) PYEvent *event;
 @property (nonatomic, assign) id<DetailCellDelegate> delegate;
+@property (nonatomic, weak) IBOutlet UILabel *header;
 
 -(CGFloat) getHeight;
 -(void) updateWithEvent:(PYEvent*)event;

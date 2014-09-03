@@ -13,7 +13,6 @@
 @interface BaseDetailCell ()
 
 @property (nonatomic, weak) IBOutlet UIView *borderView;
-@property (nonatomic, weak) IBOutlet UILabel *header;
 
 -(BOOL) shouldUpdateBorder;
 
@@ -45,7 +44,7 @@
         [self.header setTextColor:self.isInEditMode?[UIColor colorWithRed:32.0f/255.0f green:169.0f/255.0f blue:215.0f/255.0f alpha:1] : [UIColor lightGrayColor]];
         //[UIView animateWithDuration:0.2 animations:^{self.borderView.alpha = _isInEditMode ? 1.0f : 0.0f;}];
     if ([self isKindOfClass:[EndDateDetailCell class]]) {
-        [self.header setTextColor:self.event.isRunning?[UIColor colorWithRed:32.0f/255.0f green:169.0f/255.0f blue:215.0f/255.0f alpha:1] : [UIColor lightGrayColor]];
+        [self.header setTextColor:(self.event.isRunning || isInEditMode)?[UIColor colorWithRed:32.0f/255.0f green:169.0f/255.0f blue:215.0f/255.0f alpha:1] : [UIColor lightGrayColor]];
     }
 }
 

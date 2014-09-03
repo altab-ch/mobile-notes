@@ -147,6 +147,13 @@ typedef enum
     }];
 }
 
+-(void) updateUI
+{
+    [self.cells enumerateObjectsUsingBlock:^(BaseDetailCell *cell, NSUInteger idx, BOOL *stop) {
+        [cell update];
+    }];
+}
+
 #pragma mark - IBAction
 
 -(void) btBrowsePressed:(id)sender
@@ -208,7 +215,7 @@ typedef enum
     {
         
         if (self.initialEventValue) [self.event resetFromCachingDictionary:self.initialEventValue];
-        [self updateEvent];
+        [self updateUI];
         self.shouldUpdateEvent = NO;
         
         [self updateUIEditMode:false];
