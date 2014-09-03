@@ -179,9 +179,11 @@
 {
     [self.setRunningView setHidden:NO];
     [self.addView setHidden:YES];
-
-    self.event.duration = [[NSDate date] timeIntervalSinceDate:self.event.eventDate];
-
+    
+    if(self.event.isRunning) {
+        self.event.duration = [[NSDate date] timeIntervalSinceDate:self.event.eventDate];
+    }
+        
     [[DatePickerManager sharedInstance].endDatePicker setDate:[self.event.eventDate dateByAddingTimeInterval:self.event.duration]];
     [[DatePickerManager sharedInstance].endTimePicker setDate:[self.event.eventDate dateByAddingTimeInterval:self.event.duration]];
     [self.lbState setText:[[NotesAppController sharedInstance].dateFormatter stringFromDate:[self.event.eventDate dateByAddingTimeInterval:self.event.duration]]];
