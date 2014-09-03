@@ -160,18 +160,18 @@ static int kPickerTag = 10;
 -(UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
     UITableViewCell *headerCell = [tableView dequeueReusableCellWithIdentifier:kSectionCellID];
-    UILabel *targetedLabel = (UILabel *)[headerCell viewWithTag:kSectionTag];
+    UIButton *targetedLabel = (UIButton *)[headerCell viewWithTag:kSectionTag];
     if (section==DATE_SECTION) {
-        targetedLabel.text = NSLocalizedString(@"MenuTableViewController.DateSelect",nil);
+        targetedLabel.titleLabel.text = NSLocalizedString(@"MenuTableViewController.DateSelect",nil);
         UIView *backIm = (UIView *)[headerCell viewWithTag:kBackTag];
         [backIm setHidden:YES];
         UIView *btAll = (UIView *)[headerCell viewWithTag:kAllTag];
         [btAll setHidden:YES];
     }else{
         if ([self getParent])
-            targetedLabel.text = [[self getParent] breadcrumbs];
+            targetedLabel.titleLabel.text = [[self getParent] breadcrumbs];
         else
-            targetedLabel.text = NSLocalizedString(@"MenuTableViewController.StreamSelect",nil);
+            targetedLabel.titleLabel.text = NSLocalizedString(@"MenuTableViewController.StreamSelect",nil);
         
         if (![self isChild]) {
             UIView *backIm = (UIView *)[headerCell viewWithTag:kBackTag];
@@ -184,7 +184,7 @@ static int kPickerTag = 10;
 
 -(CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 32.0;
+    return 44.0;
 }
 
 #pragma mark - Table view delegate
