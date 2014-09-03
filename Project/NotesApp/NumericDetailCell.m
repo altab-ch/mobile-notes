@@ -16,7 +16,7 @@
 @property (nonatomic, weak) IBOutlet UILabel *numericalValue_TypeLabel;
 @property (nonatomic, weak) IBOutlet UITextField *numericalValue;
 @property (nonatomic, weak) IBOutlet UIButton *backspace;
-
+@property (nonatomic, strong) ZenKeyboard *keyboard;
 @end
 
 @implementation NumericDetailCell
@@ -38,8 +38,8 @@
     [self.numericalValue_Label setText:[event.pyType symbol]];
     [self.numericalValue setText:[self getNumericalValueFormatted:event]];
     
-    ZenKeyboard *keyboard = [[ZenKeyboard alloc]initWithFrame:CGRectMake(0, 0, 320, 216)];
-    [keyboard setTextField:self.numericalValue];
+    self.keyboard = [[ZenKeyboard alloc]initWithFrame:CGRectMake(0, 0, 320, 216)];
+    [self.keyboard setTextField:self.numericalValue];
 }
 
 -(NSString*) getNumericalValueFormatted:(PYEvent*)event
@@ -79,6 +79,11 @@
 {
     [self.delegate detailShouldUpdateEvent];
     self.event.eventContent = self.numericalValue.text;
+}
+
+-(IBAction)btBackspaceTouched:(id)sender
+{
+    [self.keyboard pressBackspaceKey];
 }
 
 #pragma mark - UITextFieldDelegate

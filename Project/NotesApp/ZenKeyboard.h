@@ -21,6 +21,8 @@
 
 @interface ZenKeyboard : UIView
 
+- (void)pressBackspaceKey;
+
 @property (nonatomic, assign) UITextField *textField;
 
 @end

@@ -87,6 +87,12 @@
     return rect.size.height+56 ;
 }
 
+-(void) dealloc
+{
+    self.noteText.delegate = nil;
+    self.delegate = nil;
+}
+
 
 /*
 // Only override drawRect: if you perform custom drawing.
