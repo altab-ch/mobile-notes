@@ -46,6 +46,9 @@
                         <rect key="frame" x="283" y="25" width="28" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <state key="normal" image="icon_key_backspace.png"/>
+                        <connections>
+                            <action selector="btBackspaceTouched:" destination="tCi-J9-exy" eventType="touchUpInside" id="yxI-IP-vu4"/>
+                        </connections>
                     </button>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

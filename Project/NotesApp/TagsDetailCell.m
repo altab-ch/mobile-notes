@@ -47,7 +47,7 @@
 
 -(void) didSelectCell:(UIViewController *)controller
 {
-    [self.tokenField.textField becomeFirstResponder];
+    if (self.isInEditMode) [self.tokenField.textField becomeFirstResponder];
 }
 
 #pragma mark - JSTokenFieldDelegate methods

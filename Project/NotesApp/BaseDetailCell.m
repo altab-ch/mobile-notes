@@ -74,4 +74,9 @@
     return NO;
 }
 
+-(void) dealloc
+{
+    self.delegate = nil;
+}
+
 @end
