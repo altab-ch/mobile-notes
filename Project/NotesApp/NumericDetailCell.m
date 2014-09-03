@@ -36,10 +36,16 @@
     
     [self.numericalValue_TypeLabel setText:[event.pyType localizedName]];
     [self.numericalValue_Label setText:[event.pyType symbol]];
-    [self.numericalValue setText:[self getNumericalValueFormatted:event]];
     
     self.keyboard = [[ZenKeyboard alloc]initWithFrame:CGRectMake(0, 0, 320, 216)];
     [self.keyboard setTextField:self.numericalValue];
+    
+    [self update];
+}
+
+-(void) update
+{
+    [self.numericalValue setText:[self getNumericalValueFormatted:self.event]];
 }
 
 -(NSString*) getNumericalValueFormatted:(PYEvent*)event

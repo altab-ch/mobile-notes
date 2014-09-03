@@ -29,7 +29,12 @@
 {
     [super updateWithEvent:event];
     self.descriptionText.delegate = self;
-    _descriptionText.text = self.event.eventDescription;
+    [self update];
+}
+
+-(void) update
+{
+    self.descriptionText.text = self.event.eventDescription;
 }
 
 -(void) setIsInEditMode:(BOOL)isInEditMode

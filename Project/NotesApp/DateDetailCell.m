@@ -32,8 +32,17 @@
     if (![self.event eventDate])
         self.event.eventDate = [NSDate date];
     
+    [[DatePickerManager sharedInstance].datePicker setHidden:NO];
+    [[DatePickerManager sharedInstance].timePicker setHidden:YES];
+    
     [[DatePickerManager sharedInstance].datePicker addTarget:self action:@selector(datePickerValueChanged:) forControlEvents:UIControlEventValueChanged];
     [[DatePickerManager sharedInstance].timePicker addTarget:self action:@selector(timePickerValueChanged:) forControlEvents:UIControlEventValueChanged];
+    
+    [self update];
+}
+
+-(void) update
+{
     self.timeLabel.text = [[NotesAppController sharedInstance].dateFormatter stringFromDate:self.event.eventDate];
     [[DatePickerManager sharedInstance].timePicker setDate:self.event.eventDate];
     [[DatePickerManager sharedInstance].datePicker setDate:self.event.eventDate];

@@ -35,21 +35,29 @@
     [super updateWithEvent:event];
     [self.lbDuration setEvent:event];
     
+    [[DatePickerManager sharedInstance].endDatePicker setHidden:NO];
+    [[DatePickerManager sharedInstance].endTimePicker setHidden:YES];
+    
     [[DatePickerManager sharedInstance].endDatePicker addTarget:self action:@selector(endDatePickerValueChanged:) forControlEvents:UIControlEventValueChanged];
     [[DatePickerManager sharedInstance].endTimePicker addTarget:self action:@selector(endTimePickerValueChanged:) forControlEvents:UIControlEventValueChanged];
-    [[DatePickerManager sharedInstance].endDatePicker setDate:[self.event.eventDate dateByAddingTimeInterval:self.event.duration]];
-    [[DatePickerManager sharedInstance].endTimePicker setDate:[self.event.eventDate dateByAddingTimeInterval:self.event.duration]];
     
-    if (event.duration == 0)
-        [self reset];
-    else if(event.isRunning)
-        [self setAsRunning];
-    else
-        [self stopNow];
-    
+    [self update];
     /*[[DatePickerManager sharedInstance].endDatePicker setMinimumDate:[self.event eventDate]];
     [[DatePickerManager sharedInstance].endTimePicker setMinimumDate:[self.event eventDate]];
     [self syncDatePickers];*/
+}
+
+-(void) update
+{
+    [[DatePickerManager sharedInstance].endDatePicker setDate:[self.event.eventDate dateByAddingTimeInterval:self.event.duration]];
+    [[DatePickerManager sharedInstance].endTimePicker setDate:[self.event.eventDate dateByAddingTimeInterval:self.event.duration]];
+    
+    if (self.event.duration == 0)
+        [self reset];
+    else if(self.event.isRunning)
+        [self setAsRunning];
+    else
+        [self stopNow];
 }
 
 -(void)endDatePickerValueChanged:(id)sender
@@ -211,9 +219,11 @@
 
 -(void) didSelectCell:(UIViewController *)controller
 {
-    if (self.event.isRunning)
+    if (self.event.isRunning){
         [self stopNow];
-    else
+        [self.header setTextColor:self.isInEditMode?[UIColor colorWithRed:32.0f/255.0f green:169.0f/255.0f blue:215.0f/255.0f alpha:1] : [UIColor lightGrayColor]];
+            
+    }else
         [[self getActionSheet] showInView:controller.view];
 }
 
