@@ -2549,7 +2549,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "NotesApp/NotesApp-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/NotesApp/Vendor/TestFlightSDK3.0.2",
@@ -2563,7 +2563,7 @@
 					UIKit,
 				);
 				PRODUCT_NAME = Pryv;
-				PROVISIONING_PROFILE = "CE534A0D-63F3-4CE0-AE66-CA82C2769BCB";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -2585,7 +2585,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "NotesApp/NotesApp-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/NotesApp/Vendor/TestFlightSDK3.0.2",
@@ -2599,7 +2599,7 @@
 					UIKit,
 				);
 				PRODUCT_NAME = Pryv;
-				PROVISIONING_PROFILE = "CE534A0D-63F3-4CE0-AE66-CA82C2769BCB";
+				PROVISIONING_PROFILE = "ACF1ADBD-295A-444A-B587-6EE40D04F58A";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
