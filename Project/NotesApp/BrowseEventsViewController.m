@@ -148,7 +148,7 @@ BOOL displayNonStandardEvents;
         [menuNavController resetMenu];
         
         //[self unsetFilter];
-        [self loadData];
+        //[self loadData];
     }else{
         [menuNavController initStreams];
         [menuNavController reload];
@@ -280,7 +280,7 @@ BOOL displayNonStandardEvents;
         }];
         
     } else {
-        
+        NSLog(@"*263");
         self.filter.fromTime = [self fromTime];
         self.filter.toTime = [self toTime];
         self.filter.limit = 100;
@@ -288,7 +288,6 @@ BOOL displayNonStandardEvents;
         
         [self.filter update];
         
-        [[NotesAppController sharedInstance].connection updateCache:nil];
     }
 }
 
@@ -340,6 +339,7 @@ BOOL displayNonStandardEvents;
     [NotesAppController sharedConnectionWithID:nil noConnectionCompletionBlock:^{
         
     } withCompletionBlock:^(PYConnection *connection) {
+        NSLog(@"*262");
         [connection streamsOnlineWithFilterParams:nil successHandler:nil errorHandler:nil];
     }];
     [self refreshFilter];
@@ -378,6 +378,7 @@ BOOL displayNonStandardEvents;
 }
 
 - (void)rebuildSectionMap {
+    NSDate *afx5 = [NSDate date];
     NSArray* events = nil;
     if (self.filter != nil) {
         if (self.sectionsMap == nil) {
@@ -399,6 +400,7 @@ BOOL displayNonStandardEvents;
             [self addToSectionMapEvent:event];
         }
     }
+    NSLog(@"*afx5 rebuildSectionMap %f", [afx5 timeIntervalSinceNow]);
 }
 
 - (void)addToSectionMapEvent:(PYEvent*)event {
