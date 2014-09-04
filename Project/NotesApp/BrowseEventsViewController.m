@@ -163,6 +163,8 @@ BOOL displayNonStandardEvents;
     [self loadSettings];
     [self resetDateFormatters];
     
+    
+    
     //self.navigationController.navigationBar.layer.masksToBounds = NO;
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -275,18 +277,27 @@ BOOL displayNonStandardEvents;
                                                          name:kPYNotificationEvents object:self.filter];
             
             // get filter's data now ..
-            [self.filter update];
+            [self showLoadingTitle];
+            [self.filter update:^(NSError *error) {
+                [self hideLoadingTitle];
+                NSLog(@"********** init done **********");
+            }];
+
             //[self.tableView reloadData];
         }];
         
     } else {
         NSLog(@"*263");
+        [self showLoadingTitle];
         self.filter.fromTime = [self fromTime];
         self.filter.toTime = [self toTime];
         self.filter.limit = 100;
         self.filter.onlyStreamsIDs = [self listStreamFilter];
         
-        [self.filter update];
+        [self.filter update:^(NSError *error) {
+            [self hideLoadingTitle];
+            NSLog(@"********** refresh done **********");
+        }];
         
     }
 }
@@ -801,6 +812,26 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     return [_sectionsMapTitles count]-1;
 }
 
+
+#pragma mark - Loading indicator
+
+- (void)showLoadingTitle
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIActivityIndicatorView *aiView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        aiView.hidesWhenStopped = YES; //I added this just so I could see it
+        [aiView startAnimating];
+        self.navigationItem.titleView = aiView;
+    });
+}
+
+
+- (void)hideLoadingTitle
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.navigationItem.titleView = nil;
+    });
+}
 
 #pragma mark - MNMPullToRefreshManagerClient methods
 
