@@ -251,8 +251,14 @@ BOOL displayNonStandardEvents;
     displayNonStandardEvents = [[NSUserDefaults standardUserDefaults] boolForKey:kPYAppSettingUIDisplayNonStandardEvents];
 }
 
+BOOL alreadyRefreshing = NO;
 - (void)refreshFilter // called be loadData
 {
+    if (alreadyRefreshing) {
+        NSLog(@"alreadyRefreshing SKIPPING");
+        return;
+    }
+    alreadyRefreshing = YES;
     
     NSMutableArray* typeFilter = [NSMutableArray arrayWithObjects:@"note/txt", @"picture/attached", nil];
     [typeFilter addObjectsFromArray:[[PYEventTypes sharedInstance] classesFilterWithNumericalValues]];
@@ -261,6 +267,7 @@ BOOL displayNonStandardEvents;
         [self clearCurrentData];
         
         [NotesAppController sharedConnectionWithID:nil noConnectionCompletionBlock:^{
+            alreadyRefreshing = NO;
         } withCompletionBlock:^(PYConnection *connection) {
             
             self.filter = [[PYEventFilter alloc] initWithConnection:connection
@@ -280,6 +287,7 @@ BOOL displayNonStandardEvents;
             [self showLoadingTitle];
             [self.filter update:^(NSError *error) {
                 [self hideLoadingTitle];
+                alreadyRefreshing = NO;
                 NSLog(@"********** init done **********");
             }];
 
@@ -296,6 +304,7 @@ BOOL displayNonStandardEvents;
         
         [self.filter update:^(NSError *error) {
             [self hideLoadingTitle];
+            alreadyRefreshing = NO;
             NSLog(@"********** refresh done **********");
         }];
         
@@ -333,7 +342,7 @@ BOOL displayNonStandardEvents;
 }
 
 #pragma mark - data
-
+BOOL isLoadingStreams = NO;
 - (void)loadData
 {
     NSLog(@"*261");
@@ -346,13 +355,24 @@ BOOL displayNonStandardEvents;
     isLoading = NO;
     
     
-    // refresh stream.. can be done asynchronously
-    [NotesAppController sharedConnectionWithID:nil noConnectionCompletionBlock:^{
-        
-    } withCompletionBlock:^(PYConnection *connection) {
-        NSLog(@"*262");
-        [connection streamsOnlineWithFilterParams:nil successHandler:nil errorHandler:nil];
-    }];
+    if(!isLoadingStreams)
+    {
+        isLoadingStreams = YES;
+        // refresh stream.. can be done asynchronously
+        [NotesAppController sharedConnectionWithID:nil noConnectionCompletionBlock:^{
+            isLoadingStreams = NO;
+        } withCompletionBlock:^(PYConnection *connection) {
+            
+            NSLog(@"*162");
+            [connection streamsOnlineWithFilterParams:nil successHandler:^(NSArray *streamsList) {
+                isLoadingStreams = NO;
+            } errorHandler:^(NSError *error) {
+                isLoadingStreams = NO;
+            }];
+        }];
+    } else {
+       NSLog(@"*162 SKIPPING streams load");
+    }
     [self refreshFilter];
     
 }

@@ -64,15 +64,15 @@
 
 -(CGFloat) getHeight
 {
-    /*CGFloat height = 44;
+    CGFloat height = 44;
     UIImage* image = self.picture_ImageView.image;
     if(image)
     {
         CGFloat scaleFactor = 320 / image.size.width;
         height = image.size.height * scaleFactor;
     }
-    return height;*/
-    return 160;
+    return height;
+    //return 160;
 }
 
 /*
