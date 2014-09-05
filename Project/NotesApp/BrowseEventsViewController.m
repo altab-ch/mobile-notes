@@ -252,13 +252,16 @@ BOOL displayNonStandardEvents;
 }
 
 BOOL alreadyRefreshing = NO;
+BOOL needToRefreshOnceAgain = NO;
 - (void)refreshFilter // called be loadData
 {
     if (alreadyRefreshing) {
+        needToRefreshOnceAgain = YES;
         NSLog(@"alreadyRefreshing SKIPPING");
         return;
     }
     alreadyRefreshing = YES;
+    needToRefreshOnceAgain = NO;
     
     NSMutableArray* typeFilter = [NSMutableArray arrayWithObjects:@"note/txt", @"picture/attached", nil];
     [typeFilter addObjectsFromArray:[[PYEventTypes sharedInstance] classesFilterWithNumericalValues]];
@@ -289,6 +292,9 @@ BOOL alreadyRefreshing = NO;
                 [self hideLoadingTitle];
                 alreadyRefreshing = NO;
                 NSLog(@"********** init done **********");
+                if (needToRefreshOnceAgain) {
+                    [self refreshFilter];
+                }
             }];
 
             //[self.tableView reloadData];
@@ -306,6 +312,9 @@ BOOL alreadyRefreshing = NO;
             [self hideLoadingTitle];
             alreadyRefreshing = NO;
             NSLog(@"********** refresh done **********");
+            if (needToRefreshOnceAgain) {
+                [self refreshFilter];
+            }
         }];
         
     }
@@ -718,7 +727,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 {
     [self.pullToRefreshManager setPullToRefreshViewVisible:YES];
     [self clearCurrentData];
-    [self refreshFilter];
     [self loadData];
 }
 
