@@ -83,6 +83,7 @@ static NSString *browseCellIdentifier = @"BrowseEventsCell_ID";
 @property (nonatomic, strong) IBOutlet NSLayoutConstraint *bottomTableConstraint;
 
 @property (nonatomic, strong) NSMutableDictionary *sectionsMap;
+@property (nonatomic, strong) NSMutableDictionary *chartMap;
 @property (nonatomic, strong) NSMutableOrderedSet *sectionsMapTitles;
 @property (nonatomic, strong) NSDateFormatter *sectionsKeyFormatter;
 @property (nonatomic, strong) NSDateFormatter *sectionsTitleFormatter;
@@ -383,6 +384,7 @@ BOOL displayNonStandardEvents;
         if (self.sectionsMap == nil) {
             self.sectionsMap = [[NSMutableDictionary alloc] init];
             self.sectionsMapTitles = [[NSMutableOrderedSet alloc] init];
+            self.chartMap = [[NSMutableDictionary alloc] init];
         } else {
             [self.sectionsMap removeAllObjects];
             [self.sectionsMapTitles removeAllObjects];
@@ -399,6 +401,7 @@ BOOL displayNonStandardEvents;
             [self addToSectionMapEvent:event];
         }
     }
+    
 }
 
 - (void)addToSectionMapEvent:(PYEvent*)event {
@@ -413,7 +416,6 @@ BOOL displayNonStandardEvents;
         mySection.time = [event.eventDate timeIntervalSince1970];
         mySection.key = sectionKey;
         mySection.title = [self.sectionsTitleFormatter stringFromDate:event.eventDate];
-        
         
         // find the right place for this section
         MySection* kSection = nil;
@@ -721,15 +723,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (modify) {
         NSLog(@"*262 MODIFY %d", modify.count);
-
     }
     
     // events are sent ordered by time
     if (toAdd && toAdd.count > 0) {
-        
         NSLog(@"*262 ADD %d", toAdd.count);
-        
-        
     }
     
     
@@ -767,10 +765,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (eventList.count > 0) {
         for (int k = 0; k < eventList.count; k++) {
-            if ([[eventList objectAtIndex:k] getEventServerTime] == [event getEventServerTime])
-                return [NSIndexPath indexPathForRow:k inSection:[self sectionIndex:sectionKey]];
-            
-            if ([[eventList objectAtIndex:k] getEventServerTime] < [event getEventServerTime])
+            if ([[eventList objectAtIndex:k] getEventServerTime] <= [event getEventServerTime])
                 return [NSIndexPath indexPathForRow:k inSection:[self sectionIndex:sectionKey]];
         }
     }
