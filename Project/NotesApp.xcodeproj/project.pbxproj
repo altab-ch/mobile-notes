@@ -2526,7 +2526,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = "-ObjC";
-				PROVISIONING_PROFILE = "ACF1ADBD-295A-444A-B587-6EE40D04F58A";
+				PROVISIONING_PROFILE = "CE534A0D-63F3-4CE0-AE66-CA82C2769BCB";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
@@ -2537,7 +2537,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 91A9AE26FE674D77BDFC0299 /* Pods.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
@@ -2549,7 +2548,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "NotesApp/NotesApp-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/NotesApp/Vendor/TestFlightSDK3.0.2",
@@ -2572,7 +2571,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 91A9AE26FE674D77BDFC0299 /* Pods.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
@@ -2584,7 +2582,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "NotesApp/NotesApp-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/NotesApp/Vendor/TestFlightSDK3.0.2",

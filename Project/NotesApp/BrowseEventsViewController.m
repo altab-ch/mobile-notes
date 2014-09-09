@@ -149,7 +149,7 @@ BOOL displayNonStandardEvents;
         [menuNavController resetMenu];
         
         //[self unsetFilter];
-        [self loadData];
+        //[self loadData];
     }else{
         [menuNavController initStreams];
         [menuNavController reload];
@@ -163,6 +163,8 @@ BOOL displayNonStandardEvents;
     self.aggregationStep = AggregationStepDay;
     [self loadSettings];
     [self resetDateFormatters];
+    
+    
     
     //self.navigationController.navigationBar.layer.masksToBounds = NO;
     
@@ -250,8 +252,17 @@ BOOL displayNonStandardEvents;
     displayNonStandardEvents = [[NSUserDefaults standardUserDefaults] boolForKey:kPYAppSettingUIDisplayNonStandardEvents];
 }
 
+BOOL alreadyRefreshing = NO;
+BOOL needToRefreshOnceAgain = NO;
 - (void)refreshFilter // called be loadData
 {
+    if (alreadyRefreshing) {
+        needToRefreshOnceAgain = YES;
+        NSLog(@"alreadyRefreshing SKIPPING");
+        return;
+    }
+    alreadyRefreshing = YES;
+    needToRefreshOnceAgain = NO;
     
     NSMutableArray* typeFilter = [NSMutableArray arrayWithObjects:@"note/txt", @"picture/attached", nil];
     [typeFilter addObjectsFromArray:[[PYEventTypes sharedInstance] classesFilterWithNumericalValues]];
@@ -260,6 +271,7 @@ BOOL displayNonStandardEvents;
         [self clearCurrentData];
         
         [NotesAppController sharedConnectionWithID:nil noConnectionCompletionBlock:^{
+            alreadyRefreshing = NO;
         } withCompletionBlock:^(PYConnection *connection) {
             
             self.filter = [[PYEventFilter alloc] initWithConnection:connection
@@ -276,20 +288,36 @@ BOOL displayNonStandardEvents;
                                                          name:kPYNotificationEvents object:self.filter];
             
             // get filter's data now ..
-            [self.filter update];
+            [self showLoadingTitle];
+            [self.filter update:^(NSError *error) {
+                [self hideLoadingTitle];
+                alreadyRefreshing = NO;
+                NSLog(@"********** init done **********");
+                if (needToRefreshOnceAgain) {
+                    [self refreshFilter];
+                }
+            }];
+
             //[self.tableView reloadData];
         }];
         
     } else {
-        
+        NSLog(@"*263");
+        [self showLoadingTitle];
         self.filter.fromTime = [self fromTime];
         self.filter.toTime = [self toTime];
         self.filter.limit = 100;
         self.filter.onlyStreamsIDs = [self listStreamFilter];
         
-        [self.filter update];
+        [self.filter update:^(NSError *error) {
+            [self hideLoadingTitle];
+            alreadyRefreshing = NO;
+            NSLog(@"********** refresh done **********");
+            if (needToRefreshOnceAgain) {
+                [self refreshFilter];
+            }
+        }];
         
-        [[NotesAppController sharedInstance].connection updateCache:nil];
     }
 }
 
@@ -324,7 +352,7 @@ BOOL displayNonStandardEvents;
 }
 
 #pragma mark - data
-
+BOOL isLoadingStreams = NO;
 - (void)loadData
 {
     NSLog(@"*261");
@@ -337,12 +365,24 @@ BOOL displayNonStandardEvents;
     isLoading = NO;
     
     
-    // refresh stream.. can be done asynchronously
-    [NotesAppController sharedConnectionWithID:nil noConnectionCompletionBlock:^{
-        
-    } withCompletionBlock:^(PYConnection *connection) {
-        [connection streamsOnlineWithFilterParams:nil successHandler:nil errorHandler:nil];
-    }];
+    if(!isLoadingStreams)
+    {
+        isLoadingStreams = YES;
+        // refresh stream.. can be done asynchronously
+        [NotesAppController sharedConnectionWithID:nil noConnectionCompletionBlock:^{
+            isLoadingStreams = NO;
+        } withCompletionBlock:^(PYConnection *connection) {
+            
+            NSLog(@"*162");
+            [connection streamsOnlineWithFilterParams:nil successHandler:^(NSArray *streamsList) {
+                isLoadingStreams = NO;
+            } errorHandler:^(NSError *error) {
+                isLoadingStreams = NO;
+            }];
+        }];
+    } else {
+       NSLog(@"*162 SKIPPING streams load");
+    }
     [self refreshFilter];
     
 }
@@ -379,6 +419,7 @@ BOOL displayNonStandardEvents;
 }
 
 - (void)rebuildSectionMap {
+    NSDate *afx5 = [NSDate date];
     NSArray* events = nil;
     if (self.filter != nil) {
         if (self.sectionsMap == nil) {
@@ -401,7 +442,8 @@ BOOL displayNonStandardEvents;
             [self addToSectionMapEvent:event];
         }
     }
-    
+
+    NSLog(@"*afx5 rebuildSectionMap %f", [afx5 timeIntervalSinceNow]);
 }
 
 - (void)addToSectionMapEvent:(PYEvent*)event {
@@ -687,7 +729,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 {
     [self.pullToRefreshManager setPullToRefreshViewVisible:YES];
     [self clearCurrentData];
-    [self refreshFilter];
     [self loadData];
 }
 
@@ -794,6 +835,26 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     return [_sectionsMapTitles count]-1;
 }
 
+
+#pragma mark - Loading indicator
+
+- (void)showLoadingTitle
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIActivityIndicatorView *aiView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        aiView.hidesWhenStopped = YES; //I added this just so I could see it
+        [aiView startAnimating];
+        self.navigationItem.titleView = aiView;
+    });
+}
+
+
+- (void)hideLoadingTitle
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.navigationItem.titleView = nil;
+    });
+}
 
 #pragma mark - MNMPullToRefreshManagerClient methods
 
