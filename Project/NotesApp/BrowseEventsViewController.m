@@ -34,6 +34,7 @@
 #import "XMMDrawerController.h"
 #import "DetailViewController.h"
 #import "UIAlertView+PrYv.h"
+#import "BrowserSection.h"
 
 #define kPictureToDetailSegue_ID @"kPictureToDetailSegue_ID"
 #define kNoteToDetailSegue_ID @"kNoteToDetailSegue_ID"
@@ -83,7 +84,7 @@ static NSString *browseCellIdentifier = @"BrowseEventsCell_ID";
 @property (nonatomic, strong) IBOutlet NSLayoutConstraint *bottomTableConstraint;
 
 @property (nonatomic, strong) NSMutableDictionary *sectionsMap;
-@property (nonatomic, strong) NSMutableDictionary *chartMap;
+@property (nonatomic, strong) NSMutableDictionary *browserSections;
 @property (nonatomic, strong) NSMutableOrderedSet *sectionsMapTitles;
 @property (nonatomic, strong) NSDateFormatter *sectionsKeyFormatter;
 @property (nonatomic, strong) NSDateFormatter *sectionsTitleFormatter;
@@ -422,13 +423,15 @@ BOOL isLoadingStreams = NO;
     NSDate *afx5 = [NSDate date];
     NSArray* events = nil;
     if (self.filter != nil) {
-        if (self.sectionsMap == nil) {
-            self.sectionsMap = [[NSMutableDictionary alloc] init];
-            self.sectionsMapTitles = [[NSMutableOrderedSet alloc] init];
-            self.chartMap = [[NSMutableDictionary alloc] init];
+        if (self.browserSections == nil) {
+            self.browserSections = [NSMutableDictionary dictionary];
+            //self.sectionsMap = [[NSMutableDictionary alloc] init];
+            //self.sectionsMapTitles = [[NSMutableOrderedSet alloc] init];
+            //self.chartMap = [[NSMutableDictionary alloc] init];
         } else {
-            [self.sectionsMap removeAllObjects];
-            [self.sectionsMapTitles removeAllObjects];
+            [self.browserSections removeAllObjects];
+            //[self.sectionsMap removeAllObjects];
+            //[self.sectionsMapTitles removeAllObjects];
         }
         events = [self.filter currentEventsSet];
     }
@@ -443,14 +446,29 @@ BOOL isLoadingStreams = NO;
         }
     }
 
+    NSArray* keys = [self.browserSections allKeys];
+    keys = [keys sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+    
+    for (NSString * key in keys) {
+        NSLog(@"%@", [self.browserSections objectForKey:key]);
+    }
+    
     NSLog(@"*afx5 rebuildSectionMap %f", [afx5 timeIntervalSinceNow]);
 }
 
 - (void)addToSectionMapEvent:(PYEvent*)event {
 
-    NSString* sectionKey = [self.sectionsKeyFormatter stringFromDate:event.eventDate];
+    NSString* sectionKey = [[NotesAppController sharedInstance].sectionKeyFormatter stringFromDate:event.eventDate];
+    BrowserSection *section = [self.browserSections objectForKey:sectionKey];
     
-    NSMutableOrderedSet* eventList = [self.sectionsMap objectForKey:sectionKey];
+    if (section) {
+        [section addEvent:event withSort:NO];
+    }else{
+        BrowserSection *newSection = [[BrowserSection alloc] initWithDate:event.eventDate];
+        [newSection addEvent:event withSort:NO];
+        [self.browserSections setObject:newSection forKey:sectionKey];
+    }
+    /*NSMutableOrderedSet* eventList = [self.sectionsMap objectForKey:sectionKey];
     if (eventList == nil) {
         eventList = [[NSMutableOrderedSet alloc] init];
         [self.sectionsMap setValue:eventList forKey:sectionKey];
@@ -487,7 +505,7 @@ BOOL isLoadingStreams = NO;
             }
         }
     }
-    [eventList addObject:event];
+    [eventList addObject:event];*/
 }
 
 - (NSMutableOrderedSet*) sectionDataAtIndex:(NSInteger)index {

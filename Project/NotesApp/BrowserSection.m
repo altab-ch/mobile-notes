@@ -87,6 +87,7 @@
         
         accepted = [self.aggregateEventsList count]-1;
     }
+    
     return accepted;
 }
 
@@ -115,6 +116,23 @@
 {
     
     return [self.singleEvents count]+[self.aggregateEventsList count];
+}
+
+- (NSString *)description {
+    __block NSString* result = [NSString stringWithFormat:@"Section : key : %@", self.key];
+    if ([self.singleEvents count]) result = [result stringByAppendingFormat:@"\n Single Events : %d", [self.singleEvents count]];
+    [self.singleEvents enumerateObjectsUsingBlock:^(PYEvent* event, NSUInteger idx, BOOL *stop){
+        result = [result stringByAppendingFormat:@"\n   %@", event.pyType.key];
+    }];
+    if ([self.aggregateEventsList count]) result = [result stringByAppendingFormat:@"\n Aggregate Events : %d", [self.aggregateEventsList count]];
+    [self.aggregateEventsList enumerateObjectsUsingBlock:^(AggregateEvents* agg, NSUInteger idx, BOOL* stop){
+        if ([agg.events count]) {
+            result = [result stringByAppendingFormat:@"\n   %@ : %d events", [[[agg.events objectAtIndex:0] pyType]key], [agg.events count]];
+        }
+        
+    }];
+    
+    return result;
 }
 
 

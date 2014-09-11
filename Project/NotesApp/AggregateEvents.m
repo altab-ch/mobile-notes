@@ -15,6 +15,7 @@
     self = [super init];
     if (self) {
         self.events = [NSMutableArray array];
+        [self.events addObject:event];
     }
     return self;
 }

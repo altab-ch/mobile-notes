@@ -11,7 +11,7 @@
 @interface BrowserSection : NSObject
 
 -(id) initWithDate:(NSDate*)date;
--(NSInteger) addEvent:(PYEvent*) event;
+-(NSInteger) addEvent:(PYEvent*) event withSort:(BOOL)sort;
 -(void) sort;
 
 
