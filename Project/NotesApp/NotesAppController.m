@@ -36,6 +36,7 @@ NSString *const kBrowserShouldScrollToTop = @"kBrowserShouldScrollToTop";
 - (void)saveConnection:(PYConnection*)connection;
 - (void)removeConnection:(PYConnection*)connection;
 - (void)setupConnection:(PYConnection*)connection;
+
 @end
 
 @implementation NotesAppController
@@ -55,7 +56,23 @@ NSString *const kBrowserShouldScrollToTop = @"kBrowserShouldScrollToTop";
 {
     //[PYClient setDefaultDomainStaging];
     [PYClient setLanguageCodePrefered:kLocalizedKey];
-    
+    self.sectionKeyFormatter = [[NSDateFormatter alloc] init];
+    [self.sectionKeyFormatter setDateFormat:@"yyyy-MM-dd"];
+    self.sectionTitleFormatter = [[NSDateFormatter alloc] init];
+    [self.sectionTitleFormatter setDateStyle:NSDateFormatterMediumStyle];
+    [self.sectionTitleFormatter setDoesRelativeDateFormatting:YES];
+    /*switch (self.aggregationStep) {
+        case AggregationStepMonth:
+            [self.sectionsKeyFormatter setDateFormat:@"yyyy-MM"];
+            break;
+        case AggregationStepYear:
+            [self.sectionsKeyFormatter setDateFormat:@"yyyy"];
+            break;
+        default:
+            [self.sectionsKeyFormatter setDateFormat:@"yyyy-MM-dd"];
+            [self.cellDateFormatter setDateStyle:NSDateFormatterNoStyle];
+            break;
+    }*/
     _settingController = [[SettingsController alloc] init];
     [self loadSavedConnection];
 }

@@ -70,6 +70,13 @@
 		293EDC1E19991164003D6E3D /* EventDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 293EDC1D19991164003D6E3D /* EventDetailCell.m */; };
 		293EDC30199DCA00003D6E3D /* DatePickerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 293EDC2F199DCA00003D6E3D /* DatePickerManager.m */; };
 		293EDC33199DE4E6003D6E3D /* EndDatePickerDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 293EDC32199DE4E6003D6E3D /* EndDatePickerDetailCell.m */; };
+		2947D67D19BF1BB00010F040 /* BrowserSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 2947D67C19BF1BB00010F040 /* BrowserSection.m */; };
+		2947D69419C056C00010F040 /* AggregateEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 2947D69319C056C00010F040 /* AggregateEvents.m */; };
+		2947D69719C057CE0010F040 /* MapAggregateEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 2947D69619C057CE0010F040 /* MapAggregateEvents.m */; };
+		2947D69B19C064970010F040 /* NumberAggregateEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 2947D69A19C064970010F040 /* NumberAggregateEvents.m */; };
+		2947D69E19C065230010F040 /* CamembertAggregateEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 2947D69D19C065230010F040 /* CamembertAggregateEvents.m */; };
+		2947D6A119C0654F0010F040 /* GraphAggregateEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 2947D6A019C0654F0010F040 /* GraphAggregateEvents.m */; };
+		2947D6A419C0659B0010F040 /* BarAggregateEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 2947D6A319C0659B0010F040 /* BarAggregateEvents.m */; };
 		297A071019AC707800F91ABE /* LocationDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 297A070F19AC707800F91ABE /* LocationDetailCell.m */; };
 		297A071D19AC70B400F91ABE /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 297A071C19AC70B400F91ABE /* MapKit.framework */; };
 		297A071F19AC70E400F91ABE /* LocationDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 297A071E19AC70E400F91ABE /* LocationDetailCell.xib */; };
@@ -301,6 +308,27 @@
 			remoteGlobalIDString = D33B138F3AAF48EB930EE91D;
 			remoteInfo = "Pods-MMDrawerController";
 		};
+		2947D68C19BF1BB10010F040 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4E37853717953BBD00ED94DF /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EAAD9DA6309A4B5293AF87D7;
+			remoteInfo = "Pods-JBChartView";
+		};
+		2947D68E19BF1BB10010F040 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4E37853717953BBD00ED94DF /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2F000DE4A34D48A88039BBA3;
+			remoteInfo = "Pods-PNChart";
+		};
+		2947D69019BF1BB10010F040 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4E37853717953BBD00ED94DF /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DBB85707EF194D588486628C;
+			remoteInfo = "Pods-UICountingLabel";
+		};
 		4EF4B19D18B4A96D009C8A64 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4E37853717953BBD00ED94DF /* Pods.xcodeproj */;
@@ -464,6 +492,20 @@
 		293EDC2F199DCA00003D6E3D /* DatePickerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatePickerManager.m; sourceTree = "<group>"; };
 		293EDC31199DE4E6003D6E3D /* EndDatePickerDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EndDatePickerDetailCell.h; sourceTree = "<group>"; };
 		293EDC32199DE4E6003D6E3D /* EndDatePickerDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EndDatePickerDetailCell.m; sourceTree = "<group>"; };
+		2947D67B19BF1BB00010F040 /* BrowserSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowserSection.h; sourceTree = "<group>"; };
+		2947D67C19BF1BB00010F040 /* BrowserSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrowserSection.m; sourceTree = "<group>"; };
+		2947D69219C056C00010F040 /* AggregateEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AggregateEvents.h; sourceTree = "<group>"; };
+		2947D69319C056C00010F040 /* AggregateEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AggregateEvents.m; sourceTree = "<group>"; };
+		2947D69519C057CE0010F040 /* MapAggregateEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapAggregateEvents.h; sourceTree = "<group>"; };
+		2947D69619C057CE0010F040 /* MapAggregateEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapAggregateEvents.m; sourceTree = "<group>"; };
+		2947D69919C064970010F040 /* NumberAggregateEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumberAggregateEvents.h; sourceTree = "<group>"; };
+		2947D69A19C064970010F040 /* NumberAggregateEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NumberAggregateEvents.m; sourceTree = "<group>"; };
+		2947D69C19C065230010F040 /* CamembertAggregateEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CamembertAggregateEvents.h; sourceTree = "<group>"; };
+		2947D69D19C065230010F040 /* CamembertAggregateEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CamembertAggregateEvents.m; sourceTree = "<group>"; };
+		2947D69F19C0654F0010F040 /* GraphAggregateEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphAggregateEvents.h; sourceTree = "<group>"; };
+		2947D6A019C0654F0010F040 /* GraphAggregateEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphAggregateEvents.m; sourceTree = "<group>"; };
+		2947D6A219C0659B0010F040 /* BarAggregateEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BarAggregateEvents.h; sourceTree = "<group>"; };
+		2947D6A319C0659B0010F040 /* BarAggregateEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BarAggregateEvents.m; sourceTree = "<group>"; };
 		297A070E19AC707800F91ABE /* LocationDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationDetailCell.h; sourceTree = "<group>"; };
 		297A070F19AC707800F91ABE /* LocationDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationDetailCell.m; sourceTree = "<group>"; };
 		297A071C19AC70B400F91ABE /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -1002,6 +1044,31 @@
 			name = DatePicker;
 			sourceTree = "<group>";
 		};
+		2947D69819C0638A0010F040 /* AggregateEvents */ = {
+			isa = PBXGroup;
+			children = (
+				2947D69519C057CE0010F040 /* MapAggregateEvents.h */,
+				2947D69619C057CE0010F040 /* MapAggregateEvents.m */,
+				2947D69919C064970010F040 /* NumberAggregateEvents.h */,
+				2947D69A19C064970010F040 /* NumberAggregateEvents.m */,
+				2947D6A519C065B10010F040 /* NumberAggregateEvents */,
+			);
+			name = AggregateEvents;
+			sourceTree = "<group>";
+		};
+		2947D6A519C065B10010F040 /* NumberAggregateEvents */ = {
+			isa = PBXGroup;
+			children = (
+				2947D69C19C065230010F040 /* CamembertAggregateEvents.h */,
+				2947D69D19C065230010F040 /* CamembertAggregateEvents.m */,
+				2947D69F19C0654F0010F040 /* GraphAggregateEvents.h */,
+				2947D6A019C0654F0010F040 /* GraphAggregateEvents.m */,
+				2947D6A219C0659B0010F040 /* BarAggregateEvents.h */,
+				2947D6A319C0659B0010F040 /* BarAggregateEvents.m */,
+			);
+			name = NumberAggregateEvents;
+			sourceTree = "<group>";
+		};
 		298DE20519B4BAFD0088383F /* NavigationBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -1233,12 +1300,15 @@
 				B6F207CA17954F30006FC5B0 /* libPods.a */,
 				B6087DA2189F084200891C75 /* libPods-FoundationExtension.a */,
 				B6087DA4189F084200891C75 /* libPods-GIKPopoverBackgroundView.a */,
+				2947D68D19BF1BB10010F040 /* libPods-JBChartView.a */,
 				4EF4B19E18B4A96D009C8A64 /* libPods-MCSwipeTableViewCell.a */,
 				291ED16319128561009A9B3D /* libPods-MMDrawerController.a */,
+				2947D68F19BF1BB10010F040 /* libPods-PNChart.a */,
 				96453C6B18B77DD00050618E /* libPods-PryvApiKit.a */,
 				B6F207C817954F30006FC5B0 /* libPods-SSKeychain.a */,
 				B6087DA6189F084200891C75 /* libPods-SevenSwitch.a */,
 				B6087DA8189F084200891C75 /* libPods-UI7Kit.a */,
+				2947D69119BF1BB10010F040 /* libPods-UICountingLabel.a */,
 				B6087DAA189F084200891C75 /* libPods-UIKitResources.a */,
 				B6087DAC189F084200891C75 /* libPods-cdebug.a */,
 			);
@@ -1647,6 +1717,11 @@
 		B6BA3E821733CD0400464C2F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				2947D67B19BF1BB00010F040 /* BrowserSection.h */,
+				2947D67C19BF1BB00010F040 /* BrowserSection.m */,
+				2947D69219C056C00010F040 /* AggregateEvents.h */,
+				2947D69319C056C00010F040 /* AggregateEvents.m */,
+				2947D69819C0638A0010F040 /* AggregateEvents */,
 				B6B59072178C75F90009E413 /* CellStyleModels */,
 				B678306F17613D04008E6C1C /* UserHistoryEntry.h */,
 				B678307017613D04008E6C1C /* UserHistoryEntry.m */,
@@ -2039,6 +2114,27 @@
 			remoteRef = 291ED16219128561009A9B3D /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		2947D68D19BF1BB10010F040 /* libPods-JBChartView.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libPods-JBChartView.a";
+			remoteRef = 2947D68C19BF1BB10010F040 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2947D68F19BF1BB10010F040 /* libPods-PNChart.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libPods-PNChart.a";
+			remoteRef = 2947D68E19BF1BB10010F040 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2947D69119BF1BB10010F040 /* libPods-UICountingLabel.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libPods-UICountingLabel.a";
+			remoteRef = 2947D69019BF1BB10010F040 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		4EF4B19E18B4A96D009C8A64 /* libPods-MCSwipeTableViewCell.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -2346,9 +2442,11 @@
 				B6016BBD172873D40056CD3F /* main.m in Sources */,
 				B6016BC1172873D40056CD3F /* AppDelegate.m in Sources */,
 				B61A1944185A49E900E9F9BE /* StreamPickerViewController.m in Sources */,
+				2947D69B19C064970010F040 /* NumberAggregateEvents.m in Sources */,
 				B6016BD0172873D40056CD3F /* ViewController.m in Sources */,
 				4E8AAFE71859EA440083DE8C /* UnkownCell.m in Sources */,
 				4E0901071857640400A2F044 /* AddNumericalValueCellFormat.m in Sources */,
+				2947D67D19BF1BB00010F040 /* BrowserSection.m in Sources */,
 				B6BA3E721732E91000464C2F /* UIView+Frame.m in Sources */,
 				4E8AAFF8185A07A30083DE8C /* AppConstants.m in Sources */,
 				4E713D3F18965FBD00CDB397 /* AppConstantsPrivate.m in Sources */,
@@ -2364,9 +2462,13 @@
 				B6DC81F4181E667700118ED9 /* PictureCell.m in Sources */,
 				290712E8198DAEAF00C3819B /* DetailViewController.m in Sources */,
 				297A071019AC707800F91ABE /* LocationDetailCell.m in Sources */,
+				2947D6A119C0654F0010F040 /* GraphAggregateEvents.m in Sources */,
 				B64ACAC61750F21900E2F6F7 /* DataService.m in Sources */,
 				4E41A62D18587EE000BC0C28 /* AddNumericalValueCellClass.m in Sources */,
+				2947D69E19C065230010F040 /* CamembertAggregateEvents.m in Sources */,
+				2947D69419C056C00010F040 /* AggregateEvents.m in Sources */,
 				B64ACAD71753F28D00E2F6F7 /* MeasurementSettingsViewController.m in Sources */,
+				2947D6A419C0659B0010F040 /* BarAggregateEvents.m in Sources */,
 				B62BF06E18D627E9007BD68E /* MNMPullToRefreshView.m in Sources */,
 				290712C7198BEC0800C3819B /* DatePickerDetailCell.m in Sources */,
 				B64ACADA1753F76500E2F6F7 /* MeasurementController.m in Sources */,
@@ -2425,6 +2527,7 @@
 				B61D55C017EEDEF00016D0C4 /* UIImage+PrYv.m in Sources */,
 				29FF5D7C196ED0B60002D124 /* UnitPickerViewController.m in Sources */,
 				B62BF06D18D627E9007BD68E /* MNMPullToRefreshManager.m in Sources */,
+				2947D69719C057CE0010F040 /* MapAggregateEvents.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

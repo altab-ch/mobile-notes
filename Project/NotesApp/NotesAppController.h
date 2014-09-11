@@ -32,6 +32,8 @@ extern NSString *const kBrowserShouldScrollToTop;
 
 @interface NotesAppController : NSObject
 
+@property (nonatomic, strong) NSDateFormatter *sectionTitleFormatter;
+@property (nonatomic, strong) NSDateFormatter *sectionKeyFormatter;
 @property (nonatomic, strong) PYConnection *connection;
 @property (nonatomic, readonly) BOOL isOnline;
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
