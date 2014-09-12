@@ -116,12 +116,12 @@
     }];
 }
 
--(NSArray*) getEventsForRow:(NSUInteger)row
+-(id) getEventsForRow:(NSUInteger)row
 {
     if (row < [self.aggregateEventsList count])
         return [[self.aggregateEventsList objectAtIndex:row] events];
     
-    return [[self.singleEvents objectAtIndex:row-[self.aggregateEventsList count]] events];
+    return [self.singleEvents objectAtIndex:row-[self.aggregateEventsList count]];
 }
 
 -(NSUInteger) numberOfRow

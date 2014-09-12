@@ -34,6 +34,7 @@ extern NSString *const kBrowserShouldScrollToTop;
 
 @property (nonatomic, strong) NSDateFormatter *sectionTitleFormatter;
 @property (nonatomic, strong) NSDateFormatter *sectionKeyFormatter;
+@property (nonatomic, strong) NSDateFormatter *cellDateFormatter;
 @property (nonatomic, strong) PYConnection *connection;
 @property (nonatomic, readonly) BOOL isOnline;
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;

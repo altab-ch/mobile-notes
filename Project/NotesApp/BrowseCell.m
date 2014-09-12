@@ -62,9 +62,6 @@
     if (self.dateLabel)
         self.dateLabel.text = [self.dateFormatter stringFromDate:date];
     
-   
-  
-    
     [self.duration setEvent:event];
     [self.duration update];
 

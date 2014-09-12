@@ -8,13 +8,17 @@
 
 #import <UIKit/UIKit.h>
 #import "BrowserSection.h"
-
+#import "PYEvent+Helper.h"
+#import "CellStyleModel.h"
 
 @interface BrowseEventsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 - (void)toggleSlider;
-- (void)clearCurrentData;
+- (void)unsetFilter;
 
 @property (nonatomic, strong) NSMutableDictionary *sections;
+@property (nonatomic, strong) PYEventFilter *filter;
+@property (nonatomic) BOOL displayNonStandardEvents;
+@property (nonatomic, strong) IBOutlet UITableView *tableView;
 
 @end

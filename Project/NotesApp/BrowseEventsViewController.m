@@ -9,12 +9,10 @@
 #import "BrowseEventsViewController.h"
 #import "BrowseEventsCell.h"
 #import "DataService.h"
-#import "CellStyleModel.h"
 #import "PhotoNoteViewController.h"
 #import "SettingsViewController.h"
 #import "LRUManager.h"
 #import "UserHistoryEntry.h"
-#import "PYEvent+Helper.h"
 #import "UIImage+PrYv.h"
 #import "PYStream+Helper.h"
 #import "MNMPullToRefreshManager.h"
@@ -34,6 +32,7 @@
 #import "XMMDrawerController.h"
 #import "DetailViewController.h"
 #import "UIAlertView+PrYv.h"
+#import "BrowseEventsViewController+Sections.h"
 
 #define kPictureToDetailSegue_ID @"kPictureToDetailSegue_ID"
 #define kNoteToDetailSegue_ID @"kNoteToDetailSegue_ID"
@@ -78,7 +77,7 @@ static NSString *browseCellIdentifier = @"BrowseEventsCell_ID";
 @interface BrowseEventsViewController () <UIActionSheetDelegate,MNMPullToRefreshManagerClient,MCSwipeTableViewCellDelegate>
 
 
-@property (nonatomic, strong) IBOutlet UITableView *tableView;
+
 @property (nonatomic, strong) IBOutlet NSLayoutConstraint *topTableConstraint;
 @property (nonatomic, strong) IBOutlet NSLayoutConstraint *bottomTableConstraint;
 
@@ -90,12 +89,13 @@ static NSString *browseCellIdentifier = @"BrowseEventsCell_ID";
 @property (nonatomic, strong) NSArray *shortcuts;
 @property (nonatomic, strong) MNMPullToRefreshManager *pullToRefreshManager;
 @property (nonatomic, strong) PYEvent *eventToShowOnAppear;
-@property (nonatomic, strong) PYEventFilter *filter;
+
 @property (nonatomic, strong) UserHistoryEntry *tempEntry;
 @property (nonatomic, strong) NSIndexPath *lastIndexPath;
 
 @property (nonatomic) NSTimeInterval *lastTimeFocus;
 @property (nonatomic) AggregationStep aggregationStep;
+
 
 - (void)loadData;
 - (void)userDidReceiveAccessTokenNotification:(NSNotification*)notification;
@@ -103,14 +103,11 @@ static NSString *browseCellIdentifier = @"BrowseEventsCell_ID";
 
 - (void)resetDateFormatters;
 - (void)refreshFilter;
-- (void)unsetFilter;
 - (MMDrawerController*)mm_drawerController;
 
 @end
 
 @implementation BrowseEventsViewController
-
-BOOL displayNonStandardEvents;
 
 -(MMDrawerController*)mm_drawerController{
     UIViewController *parentViewController = self.parentViewController;
@@ -248,7 +245,7 @@ BOOL displayNonStandardEvents;
 
 - (void)loadSettings
 {
-    displayNonStandardEvents = [[NSUserDefaults standardUserDefaults] boolForKey:kPYAppSettingUIDisplayNonStandardEvents];
+    self.displayNonStandardEvents = [[NSUserDefaults standardUserDefaults] boolForKey:kPYAppSettingUIDisplayNonStandardEvents];
 }
 
 BOOL alreadyRefreshing = NO;
@@ -417,7 +414,7 @@ BOOL isLoadingStreams = NO;
     }
 }
 
-- (void)rebuildSectionMap {
+/*- (void)rebuildSectionMap {
     NSDate *afx5 = [NSDate date];
     NSArray* events = nil;
     if (self.filter != nil) {
@@ -434,27 +431,27 @@ BOOL isLoadingStreams = NO;
         }
     }
 
-    NSArray* keys = [self.browserSections allKeys];
+    /*NSArray* keys = [self.browserSections allKeys];
     keys = [keys sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
     
     for (NSString * key in keys) {
         NSLog(@"%@", [self.browserSections objectForKey:key]);
-    }
+    }*/
     
-    NSLog(@"*afx5 rebuildSectionMap %f", [afx5 timeIntervalSinceNow]);
-}
+    /*NSLog(@"*afx5 rebuildSectionMap %f", [afx5 timeIntervalSinceNow]);
+}*/
 
-- (void)addToSectionMapEvent:(PYEvent*)event {
+/*- (void)addToSectionMapEvent:(PYEvent*)event {
 
     NSString* sectionKey = [[NotesAppController sharedInstance].sectionKeyFormatter stringFromDate:event.eventDate];
-    BrowserSection *section = [self.browserSections objectForKey:sectionKey];
+    BrowserSection *section = [self.sections objectForKey:sectionKey];
     
     if (section) {
         [section addEvent:event];
     }else{
         BrowserSection *newSection = [[BrowserSection alloc] initWithDate:event.eventDate];
         [newSection addEvent:event];
-        [self.browserSections setObject:newSection forKey:sectionKey];
+        [self.sections setObject:newSection forKey:sectionKey];
     }
     /*NSMutableOrderedSet* eventList = [self.sectionsMap objectForKey:sectionKey];
     if (eventList == nil) {
@@ -494,7 +491,7 @@ BOOL isLoadingStreams = NO;
         }
     }
     [eventList addObject:event];*/
-}
+//}
 
 - (NSMutableOrderedSet*) sectionDataAtIndex:(NSInteger)index {
     
@@ -546,7 +543,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     if (! self.sectionsMap) {
-        [self rebuildSectionMap];
+        [self buildSections];
     }
     
     if ([self.sectionsMap count] == 0)
@@ -654,22 +651,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     return cell;
 }
 
-#pragma mark - Event List manipulations
-
-- (BOOL)clientFilterMatchEvent:(PYEvent*)event
-{
-    if (event.trashed) return NO;
-    return displayNonStandardEvents || ! ([event cellStyle] == CellStyleTypeUnkown );
-}
-
-- (void)clearCurrentData
-{
-    [self rebuildSectionMap];
-    [self unsetFilter];
-    [self.tableView reloadData];
-}
-
-
 #pragma mark - IBAction, segue
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(PYEvent*)sender
@@ -768,7 +749,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     }
     
     
-    [self rebuildSectionMap];
+    [self buildSections];
     
     
     // [_tableView endUpdates];

@@ -14,7 +14,7 @@
 -(void) addEvent:(PYEvent*)event;
 -(NSInteger) addEvent:(PYEvent*) event withSort:(BOOL)sort;
 -(void) sortAll;
--(NSArray*) getEventsForRow:(NSUInteger)row;
+-(id) getEventsForRow:(NSUInteger)row;
 -(NSUInteger) numberOfRow;
 
 @end

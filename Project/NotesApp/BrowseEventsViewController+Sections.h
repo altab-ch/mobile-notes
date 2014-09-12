@@ -13,5 +13,8 @@
 -(NSArray*) getEventsForIndex:(NSIndexPath*)index;
 -(NSUInteger)numberOfSection;
 -(NSUInteger)numberOfRowInSection:(NSUInteger)section;
+-(void)buildSections;
+-(void)addEventToSections:(PYEvent*)event;
+-(void)clearCurrentData;
 
 @end

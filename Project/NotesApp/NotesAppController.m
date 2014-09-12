@@ -56,11 +56,20 @@ NSString *const kBrowserShouldScrollToTop = @"kBrowserShouldScrollToTop";
 {
     //[PYClient setDefaultDomainStaging];
     [PYClient setLanguageCodePrefered:kLocalizedKey];
+    
     self.sectionKeyFormatter = [[NSDateFormatter alloc] init];
     [self.sectionKeyFormatter setDateFormat:@"yyyy-MM-dd"];
+    
     self.sectionTitleFormatter = [[NSDateFormatter alloc] init];
     [self.sectionTitleFormatter setDateStyle:NSDateFormatterMediumStyle];
     [self.sectionTitleFormatter setDoesRelativeDateFormatting:YES];
+    
+    self.cellDateFormatter = [[NSDateFormatter alloc] init];
+    //[self.cellDateFormatter setDateStyle:NSDateFormatterShortStyle];
+    //[self.cellDateFormatter setTimeStyle:NSDateFormatterShortStyle];
+    [self.cellDateFormatter setDoesRelativeDateFormatting:YES];
+    [self.cellDateFormatter setDateStyle:NSDateFormatterNoStyle];
+    
     /*switch (self.aggregationStep) {
         case AggregationStepMonth:
             [self.sectionsKeyFormatter setDateFormat:@"yyyy-MM"];
