@@ -16,4 +16,6 @@
 
 @property (nonatomic, strong) NSMutableArray* events;
 
++ (AggregateEvents*) createWithEvent:(PYEvent*)event;
+
 @end

@@ -34,7 +34,6 @@
 #import "XMMDrawerController.h"
 #import "DetailViewController.h"
 #import "UIAlertView+PrYv.h"
-#import "BrowserSection.h"
 
 #define kPictureToDetailSegue_ID @"kPictureToDetailSegue_ID"
 #define kNoteToDetailSegue_ID @"kNoteToDetailSegue_ID"
@@ -84,7 +83,6 @@ static NSString *browseCellIdentifier = @"BrowseEventsCell_ID";
 @property (nonatomic, strong) IBOutlet NSLayoutConstraint *bottomTableConstraint;
 
 @property (nonatomic, strong) NSMutableDictionary *sectionsMap;
-@property (nonatomic, strong) NSMutableDictionary *browserSections;
 @property (nonatomic, strong) NSMutableOrderedSet *sectionsMapTitles;
 @property (nonatomic, strong) NSDateFormatter *sectionsKeyFormatter;
 @property (nonatomic, strong) NSDateFormatter *sectionsTitleFormatter;
@@ -423,19 +421,9 @@ BOOL isLoadingStreams = NO;
     NSDate *afx5 = [NSDate date];
     NSArray* events = nil;
     if (self.filter != nil) {
-        if (self.browserSections == nil) {
-            self.browserSections = [NSMutableDictionary dictionary];
-            //self.sectionsMap = [[NSMutableDictionary alloc] init];
-            //self.sectionsMapTitles = [[NSMutableOrderedSet alloc] init];
-            //self.chartMap = [[NSMutableDictionary alloc] init];
-        } else {
-            [self.browserSections removeAllObjects];
-            //[self.sectionsMap removeAllObjects];
-            //[self.sectionsMapTitles removeAllObjects];
-        }
+        [self.sections removeAllObjects];
         events = [self.filter currentEventsSet];
     }
-    
     
     if (events == nil) return;
     
@@ -462,10 +450,10 @@ BOOL isLoadingStreams = NO;
     BrowserSection *section = [self.browserSections objectForKey:sectionKey];
     
     if (section) {
-        [section addEvent:event withSort:NO];
+        [section addEvent:event];
     }else{
         BrowserSection *newSection = [[BrowserSection alloc] initWithDate:event.eventDate];
-        [newSection addEvent:event withSort:NO];
+        [newSection addEvent:event];
         [self.browserSections setObject:newSection forKey:sectionKey];
     }
     /*NSMutableOrderedSet* eventList = [self.sectionsMap objectForKey:sectionKey];
@@ -557,7 +545,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-        
     if (! self.sectionsMap) {
         [self rebuildSectionMap];
     }
@@ -680,20 +667,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     [self rebuildSectionMap];
     [self unsetFilter];
     [self.tableView reloadData];
-}
-
-
-#pragma mark - Observers
-
-- (void)observeValueForKeyPath:(NSString *)keyPath
-                      ofObject:(id)object
-                        change:(NSDictionary *)change
-                       context:(void *)context {
-    if (keyPath == kPYAppSettingUIDisplayNonStandardEvents) {
-        [self loadSettings];
-        [self clearCurrentData];
-        [self refreshFilter];
-    }
 }
 
 

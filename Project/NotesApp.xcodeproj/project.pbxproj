@@ -77,6 +77,7 @@
 		2947D69E19C065230010F040 /* CamembertAggregateEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 2947D69D19C065230010F040 /* CamembertAggregateEvents.m */; };
 		2947D6A119C0654F0010F040 /* GraphAggregateEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 2947D6A019C0654F0010F040 /* GraphAggregateEvents.m */; };
 		2947D6A419C0659B0010F040 /* BarAggregateEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 2947D6A319C0659B0010F040 /* BarAggregateEvents.m */; };
+		2947D6AF19C1EB610010F040 /* BrowseEventsViewController+Sections.m in Sources */ = {isa = PBXBuildFile; fileRef = 2947D6AE19C1EB610010F040 /* BrowseEventsViewController+Sections.m */; };
 		297A071019AC707800F91ABE /* LocationDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 297A070F19AC707800F91ABE /* LocationDetailCell.m */; };
 		297A071D19AC70B400F91ABE /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 297A071C19AC70B400F91ABE /* MapKit.framework */; };
 		297A071F19AC70E400F91ABE /* LocationDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 297A071E19AC70E400F91ABE /* LocationDetailCell.xib */; };
@@ -506,6 +507,8 @@
 		2947D6A019C0654F0010F040 /* GraphAggregateEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphAggregateEvents.m; sourceTree = "<group>"; };
 		2947D6A219C0659B0010F040 /* BarAggregateEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BarAggregateEvents.h; sourceTree = "<group>"; };
 		2947D6A319C0659B0010F040 /* BarAggregateEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BarAggregateEvents.m; sourceTree = "<group>"; };
+		2947D6AD19C1EB610010F040 /* BrowseEventsViewController+Sections.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BrowseEventsViewController+Sections.h"; sourceTree = "<group>"; };
+		2947D6AE19C1EB610010F040 /* BrowseEventsViewController+Sections.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BrowseEventsViewController+Sections.m"; sourceTree = "<group>"; };
 		297A070E19AC707800F91ABE /* LocationDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationDetailCell.h; sourceTree = "<group>"; };
 		297A070F19AC707800F91ABE /* LocationDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationDetailCell.m; sourceTree = "<group>"; };
 		297A071C19AC70B400F91ABE /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -1067,6 +1070,15 @@
 				2947D6A319C0659B0010F040 /* BarAggregateEvents.m */,
 			);
 			name = NumberAggregateEvents;
+			sourceTree = "<group>";
+		};
+		2947D6AC19C1EB380010F040 /* BrowserExtensions */ = {
+			isa = PBXGroup;
+			children = (
+				2947D6AD19C1EB610010F040 /* BrowseEventsViewController+Sections.h */,
+				2947D6AE19C1EB610010F040 /* BrowseEventsViewController+Sections.m */,
+			);
+			name = BrowserExtensions;
 			sourceTree = "<group>";
 		};
 		298DE20519B4BAFD0088383F /* NavigationBar */ = {
@@ -1861,6 +1873,7 @@
 		B6F9A2491729BF55009C8BAA /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				2947D6AC19C1EB380010F040 /* BrowserExtensions */,
 				2934FBAA19829A5400407D2B /* Inboarding */,
 				291ED15619128561009A9B3D /* SideMenu */,
 				B61AE1DF188DD80E004385D6 /* Photo */,
@@ -2449,6 +2462,7 @@
 				2947D67D19BF1BB00010F040 /* BrowserSection.m in Sources */,
 				B6BA3E721732E91000464C2F /* UIView+Frame.m in Sources */,
 				4E8AAFF8185A07A30083DE8C /* AppConstants.m in Sources */,
+				2947D6AF19C1EB610010F040 /* BrowseEventsViewController+Sections.m in Sources */,
 				4E713D3F18965FBD00CDB397 /* AppConstantsPrivate.m in Sources */,
 				B6BA3E881733D0A000464C2F /* UIStoryboard+Main.m in Sources */,
 				B6BA3E921733E30800464C2F /* DataGroupingManager.m in Sources */,

@@ -54,6 +54,11 @@
     return NO;
 }
 
+-(void) addEvent:(PYEvent*)event
+{
+    [self addEvent:event withSort:NO];
+}
+
 -(NSInteger) addEvent:(PYEvent*)event withSort:(BOOL)sort
 {
     if ([self isSingleEvent:event]){
@@ -64,37 +69,41 @@
         }
         return -1;
     }else
-        return [self addAggregateEvent:event];
+        return [self addAggregateEvent:event withSort:sort];
     
     return -1;
 }
 
--(NSInteger) addAggregateEvent:(PYEvent*)event
+-(NSInteger) addAggregateEvent:(PYEvent*)event withSort:(BOOL)sort
 {
     __block NSInteger accepted = -1;
     [self.aggregateEventsList enumerateObjectsUsingBlock:^(AggregateEvents* aggEvents, NSUInteger idx, BOOL* stop){
         if ([aggEvents accept:event]) {
+            if (sort) [aggEvents sort];
             accepted = idx;
             *stop = YES;
         }
     }];
     
     if (accepted == -1) {
-        if ([event.pyType isNumerical])
-            [self.aggregateEventsList addObject:[[NumberAggregateEvents alloc] initWithEvent:event]];
-        else if([event.pyType.key isEqualToString:@"position/wgs84"])
-            [self.aggregateEventsList addObject:[[MapAggregateEvents alloc] initWithEvent:event]];
-        
-        accepted = [self.aggregateEventsList count]-1;
+        AggregateEvents* ag =[AggregateEvents createWithEvent:event];
+        if (ag) {
+            [self.aggregateEventsList addObject:ag];
+            accepted = [self.aggregateEventsList count]-1;
+        }
     }
     
     return accepted;
 }
 
--(void) sort
+-(void) sortAll
 {
     [self sortSingleEvents];
-    
+    [self sortAggregateEvents];
+}
+
+-(void) sortAggregateEvents
+{
     [self.aggregateEventsList enumerateObjectsUsingBlock:^(AggregateEvents* aggEvents, NSUInteger idx, BOOL* stop){
         [aggEvents sort];
     }];
@@ -107,7 +116,15 @@
     }];
 }
 
--(NSInteger) numberOfRow
+-(NSArray*) getEventsForRow:(NSUInteger)row
+{
+    if (row < [self.aggregateEventsList count])
+        return [[self.aggregateEventsList objectAtIndex:row] events];
+    
+    return [[self.singleEvents objectAtIndex:row-[self.aggregateEventsList count]] events];
+}
+
+-(NSUInteger) numberOfRow
 {
     return [self.singleEvents count]+[self.aggregateEventsList count];
 }

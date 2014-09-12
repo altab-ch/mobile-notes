@@ -7,6 +7,8 @@
 //
 
 #import "AggregateEvents.h"
+#import "NumberAggregateEvents.h"
+#import "MapAggregateEvents.h"
 
 @implementation AggregateEvents
 
@@ -30,6 +32,16 @@
     [self.events sortUsingComparator:^NSComparisonResult(PYEvent* a, PYEvent* b) {
         return [a.eventDate compare:b.eventDate]==NSOrderedDescending;
     }];
+}
+
++ (AggregateEvents*) createWithEvent:(PYEvent*)event {
+    if ([event.pyType isNumerical])
+        return [[NumberAggregateEvents alloc] initWithEvent:event];
+    
+    if([event.pyType.key isEqualToString:@"position/wgs84"])
+        return [[MapAggregateEvents alloc] initWithEvent:event];
+    
+    return nil;
 }
 
 @end

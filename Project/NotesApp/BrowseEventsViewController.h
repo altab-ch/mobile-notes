@@ -7,10 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BrowserSection.h"
+
 
 @interface BrowseEventsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 - (void)toggleSlider;
 - (void)clearCurrentData;
+
+@property (nonatomic, strong) NSMutableDictionary *sections;
 
 @end
