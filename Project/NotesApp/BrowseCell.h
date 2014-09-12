@@ -10,6 +10,7 @@
 #import "PYEvent+Helper.h"
 #import "TagContainer.h"
 #import "DurationLabel.h"
+#import "AggregateEvents.h"
 
 @interface BrowseCell : UITableViewCell
 
@@ -21,9 +22,9 @@
 @property (nonatomic, strong) IBOutlet DurationLabel *duration;
 @property (nonatomic, weak) IBOutlet UIView *pastille;
 @property (nonatomic, weak) IBOutlet UIView *backView;
-@property (nonatomic, strong) NSDateFormatter *dateFormatter;
 @property (nonatomic, weak) PYEvent *event;
 
 - (void)updateWithEvent:(PYEvent*)event;
+- (void)updateWithAggregateEvent:(AggregateEvents*)aggEvent;
 
 @end

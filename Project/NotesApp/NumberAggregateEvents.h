@@ -8,6 +8,13 @@
 
 #import "AggregateEvents.h"
 
+typedef enum{
+    AggregationAverage = 0,
+    AggregationTotal = 1
+}NumberAggregation;
+
 @interface NumberAggregateEvents : AggregateEvents
+
+@property (nonatomic) NumberAggregation numberAggregation;
 
 @end

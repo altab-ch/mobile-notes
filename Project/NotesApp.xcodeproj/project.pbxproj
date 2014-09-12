@@ -83,6 +83,8 @@
 		297A071F19AC70E400F91ABE /* LocationDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 297A071E19AC70E400F91ABE /* LocationDetailCell.xib */; };
 		298DE1F919B492210088383F /* icon_key_backspace.png in Resources */ = {isa = PBXBuildFile; fileRef = 298DE1F819B492210088383F /* icon_key_backspace.png */; };
 		298DE20819B4BB1E0088383F /* BrowserNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 298DE20719B4BB1E0088383F /* BrowserNavigationBar.m */; };
+		298F66EA19C31FFE00CD24E5 /* AggregateValueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 298F66E919C31FFE00CD24E5 /* AggregateValueCell.m */; };
+		298F66F819C32CBF00CD24E5 /* MapCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 298F66F719C32CBF00CD24E5 /* MapCell.m */; };
 		29BDFAD919ADD8500026BFE5 /* TagLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BDFAD819ADD8500026BFE5 /* TagLabel.m */; };
 		29BDFAE819AF23350026BFE5 /* TagContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BDFAE719AF23350026BFE5 /* TagContainer.m */; };
 		29BDFAEC19B084D30026BFE5 /* DescriptionLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BDFAEB19B084D30026BFE5 /* DescriptionLabel.m */; };
@@ -309,27 +311,6 @@
 			remoteGlobalIDString = D33B138F3AAF48EB930EE91D;
 			remoteInfo = "Pods-MMDrawerController";
 		};
-		2947D68C19BF1BB10010F040 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4E37853717953BBD00ED94DF /* Pods.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = EAAD9DA6309A4B5293AF87D7;
-			remoteInfo = "Pods-JBChartView";
-		};
-		2947D68E19BF1BB10010F040 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4E37853717953BBD00ED94DF /* Pods.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 2F000DE4A34D48A88039BBA3;
-			remoteInfo = "Pods-PNChart";
-		};
-		2947D69019BF1BB10010F040 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4E37853717953BBD00ED94DF /* Pods.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = DBB85707EF194D588486628C;
-			remoteInfo = "Pods-UICountingLabel";
-		};
 		4EF4B19D18B4A96D009C8A64 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4E37853717953BBD00ED94DF /* Pods.xcodeproj */;
@@ -516,6 +497,10 @@
 		298DE1F819B492210088383F /* icon_key_backspace.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_key_backspace.png; sourceTree = "<group>"; };
 		298DE20619B4BB1E0088383F /* BrowserNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowserNavigationBar.h; sourceTree = "<group>"; };
 		298DE20719B4BB1E0088383F /* BrowserNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrowserNavigationBar.m; sourceTree = "<group>"; };
+		298F66E819C31FFE00CD24E5 /* AggregateValueCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AggregateValueCell.h; sourceTree = "<group>"; };
+		298F66E919C31FFE00CD24E5 /* AggregateValueCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AggregateValueCell.m; sourceTree = "<group>"; };
+		298F66F619C32CBF00CD24E5 /* MapCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapCell.h; sourceTree = "<group>"; };
+		298F66F719C32CBF00CD24E5 /* MapCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapCell.m; sourceTree = "<group>"; };
 		29BDFAD719ADD8500026BFE5 /* TagLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagLabel.h; sourceTree = "<group>"; };
 		29BDFAD819ADD8500026BFE5 /* TagLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagLabel.m; sourceTree = "<group>"; };
 		29BDFAE619AF23350026BFE5 /* TagContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagContainer.h; sourceTree = "<group>"; };
@@ -1312,15 +1297,12 @@
 				B6F207CA17954F30006FC5B0 /* libPods.a */,
 				B6087DA2189F084200891C75 /* libPods-FoundationExtension.a */,
 				B6087DA4189F084200891C75 /* libPods-GIKPopoverBackgroundView.a */,
-				2947D68D19BF1BB10010F040 /* libPods-JBChartView.a */,
 				4EF4B19E18B4A96D009C8A64 /* libPods-MCSwipeTableViewCell.a */,
 				291ED16319128561009A9B3D /* libPods-MMDrawerController.a */,
-				2947D68F19BF1BB10010F040 /* libPods-PNChart.a */,
 				96453C6B18B77DD00050618E /* libPods-PryvApiKit.a */,
 				B6F207C817954F30006FC5B0 /* libPods-SSKeychain.a */,
 				B6087DA6189F084200891C75 /* libPods-SevenSwitch.a */,
 				B6087DA8189F084200891C75 /* libPods-UI7Kit.a */,
-				2947D69119BF1BB10010F040 /* libPods-UICountingLabel.a */,
 				B6087DAA189F084200891C75 /* libPods-UIKitResources.a */,
 				B6087DAC189F084200891C75 /* libPods-cdebug.a */,
 			);
@@ -1806,6 +1788,10 @@
 				4E8AAFE61859EA440083DE8C /* UnkownCell.m */,
 				B62BF07018D62D1A007BD68E /* LoadingCell.h */,
 				B62BF07118D62D1A007BD68E /* LoadingCell.m */,
+				298F66E819C31FFE00CD24E5 /* AggregateValueCell.h */,
+				298F66E919C31FFE00CD24E5 /* AggregateValueCell.m */,
+				298F66F619C32CBF00CD24E5 /* MapCell.h */,
+				298F66F719C32CBF00CD24E5 /* MapCell.m */,
 			);
 			name = BrowseCell;
 			sourceTree = "<group>";
@@ -2125,27 +2111,6 @@
 			fileType = archive.ar;
 			path = "libPods-MMDrawerController.a";
 			remoteRef = 291ED16219128561009A9B3D /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2947D68D19BF1BB10010F040 /* libPods-JBChartView.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libPods-JBChartView.a";
-			remoteRef = 2947D68C19BF1BB10010F040 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2947D68F19BF1BB10010F040 /* libPods-PNChart.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libPods-PNChart.a";
-			remoteRef = 2947D68E19BF1BB10010F040 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2947D69119BF1BB10010F040 /* libPods-UICountingLabel.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libPods-UICountingLabel.a";
-			remoteRef = 2947D69019BF1BB10010F040 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		4EF4B19E18B4A96D009C8A64 /* libPods-MCSwipeTableViewCell.a */ = {
@@ -2485,6 +2450,7 @@
 				2947D6A419C0659B0010F040 /* BarAggregateEvents.m in Sources */,
 				B62BF06E18D627E9007BD68E /* MNMPullToRefreshView.m in Sources */,
 				290712C7198BEC0800C3819B /* DatePickerDetailCell.m in Sources */,
+				298F66EA19C31FFE00CD24E5 /* AggregateValueCell.m in Sources */,
 				B64ACADA1753F76500E2F6F7 /* MeasurementController.m in Sources */,
 				290712C4198BEB2000C3819B /* DateDetailCell.m in Sources */,
 				4E8AAFFB185A0EE40083DE8C /* SettingsController.m in Sources */,
@@ -2497,6 +2463,7 @@
 				B678307117613D04008E6C1C /* UserHistoryEntry.m in Sources */,
 				B6F1AEB717846D0D000ECD60 /* DALinedTextView.m in Sources */,
 				B6F1AEBF17847420000ECD60 /* JSTokenField.m in Sources */,
+				298F66F819C32CBF00CD24E5 /* MapCell.m in Sources */,
 				B6F1AEC017847420000ECD60 /* JSTokenButton.m in Sources */,
 				29BDFAEC19B084D30026BFE5 /* DescriptionLabel.m in Sources */,
 				2912176F18F6C4A6000AC905 /* ImageViewController.m in Sources */,

@@ -35,6 +35,11 @@
     // Configure the view for the selected state
 }
 
+- (void)updateWithAggregateEvent:(AggregateEvents*)aggEvent
+{
+
+}
+
 - (void)updateWithEvent:(PYEvent *)event
 {
     for (UIView *vi in self.subviews) {
@@ -45,8 +50,8 @@
         }
     }
     
-    [_backView.layer setBorderWidth:1];
-    [_backView.layer setBorderColor:[UIColor lightGrayColor].CGColor];
+    [self.backView.layer setBorderWidth:1];
+    [self.backView.layer setBorderColor:[UIColor lightGrayColor].CGColor];
     //[_backView.layer setCornerRadius:4];
     
     self.event = event;
@@ -60,7 +65,7 @@
     NSDate *date = [event eventDate];
 
     if (self.dateLabel)
-        self.dateLabel.text = [self.dateFormatter stringFromDate:date];
+        self.dateLabel.text = [[NotesAppController sharedInstance].cellDateFormatter stringFromDate:date];
     
     [self.duration setEvent:event];
     [self.duration update];

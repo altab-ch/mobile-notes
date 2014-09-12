@@ -26,6 +26,8 @@
 "Done" = "Done";
 "Edit" = "Edit";
 "day" = "day";
+"Average" = "Average";
+"Total" = "Total";
 
 "UnitPicker.Next" = "Next";
 "UnitPicker.Select" = "Select a unit";

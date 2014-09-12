@@ -14,7 +14,10 @@
 -(BOOL) accept:(PYEvent*)event;
 -(void) sort;
 
+@property (nonatomic, weak) PYEventType* pyType;
+@property (nonatomic, strong) NSString* breadCrumbs;
 @property (nonatomic, strong) NSMutableArray* events;
+@property (nonatomic, strong) UIColor *streamColor;
 
 + (AggregateEvents*) createWithEvent:(PYEvent*)event;
 

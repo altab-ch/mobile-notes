@@ -129,7 +129,7 @@
     [self addSubview:st];
     
     NSDate *d = [event eventDate];
-    StreamAccessory *date = [[StreamAccessory alloc] initText:[self.dateFormatter stringFromDate:d] color:nil];
+    StreamAccessory *date = [[StreamAccessory alloc] initText:[[NotesAppController sharedInstance].dateFormatter stringFromDate:d] color:nil];
     [self addSubview:date];
     
     self.startLoadTime = [NSDate date];

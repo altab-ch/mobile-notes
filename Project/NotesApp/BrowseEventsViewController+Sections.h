@@ -7,14 +7,18 @@
 //
 
 #import "BrowseEventsViewController.h"
+#import "BrowseCell.h"
 
 @interface BrowseEventsViewController (Sections)
 
--(NSArray*) getEventsForIndex:(NSIndexPath*)index;
+-(BrowseCell*)cellAtIndex:(NSIndexPath*)index;
+-(UIView *) viewForHeaderInSection:(NSInteger)section;
 -(NSUInteger)numberOfSection;
 -(NSUInteger)numberOfRowInSection:(NSUInteger)section;
+-(CGFloat) heightForCell:(NSIndexPath *)indexPath;
 -(void)buildSections;
 -(void)addEventToSections:(PYEvent*)event;
 -(void)clearCurrentData;
+-(id) getEventsForIndex:(NSIndexPath*)index;
 
 @end

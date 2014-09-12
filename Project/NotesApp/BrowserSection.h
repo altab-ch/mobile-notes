@@ -10,6 +10,8 @@
 
 @interface BrowserSection : NSObject
 
+@property(nonatomic, strong) NSString* title;
+
 -(id) initWithDate:(NSDate*)date;
 -(void) addEvent:(PYEvent*)event;
 -(NSInteger) addEvent:(PYEvent*) event withSort:(BOOL)sort;

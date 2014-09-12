@@ -18,7 +18,6 @@
 @property(nonatomic, strong) NSDate *date;
 @property(nonatomic, strong) NSMutableArray *singleEvents;
 @property(nonatomic, strong) NSMutableArray *aggregateEventsList;
-@property(nonatomic, strong) NSString* title;
 
 @end
 
@@ -119,7 +118,7 @@
 -(id) getEventsForRow:(NSUInteger)row
 {
     if (row < [self.aggregateEventsList count])
-        return [[self.aggregateEventsList objectAtIndex:row] events];
+        return [self.aggregateEventsList objectAtIndex:row];
     
     return [self.singleEvents objectAtIndex:row-[self.aggregateEventsList count]];
 }

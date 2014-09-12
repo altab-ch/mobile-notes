@@ -9,6 +9,7 @@
 #import "AggregateEvents.h"
 #import "NumberAggregateEvents.h"
 #import "MapAggregateEvents.h"
+#import "PYEvent+Helper.h"
 
 @implementation AggregateEvents
 
@@ -28,6 +29,7 @@
     if (self) {
         self.events = [NSMutableArray array];
         [self.events addObject:event];
+        self.pyType = event.pyType;
     }
     return self;
 }

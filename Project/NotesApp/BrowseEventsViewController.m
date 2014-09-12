@@ -61,9 +61,6 @@
 #define kFilterInitialLimit 200
 #define kFilterIncrement 30
 
-#define kSectionCell @"section_cell_id"
-#define kSectionLabel 10
-
 
 typedef enum {
     AggregationStepDay = 1,
@@ -76,32 +73,19 @@ static NSString *browseCellIdentifier = @"BrowseEventsCell_ID";
 
 @interface BrowseEventsViewController () <UIActionSheetDelegate,MNMPullToRefreshManagerClient,MCSwipeTableViewCellDelegate>
 
-
-
 @property (nonatomic, strong) IBOutlet NSLayoutConstraint *topTableConstraint;
 @property (nonatomic, strong) IBOutlet NSLayoutConstraint *bottomTableConstraint;
-
-@property (nonatomic, strong) NSMutableDictionary *sectionsMap;
-@property (nonatomic, strong) NSMutableOrderedSet *sectionsMapTitles;
-@property (nonatomic, strong) NSDateFormatter *sectionsKeyFormatter;
-@property (nonatomic, strong) NSDateFormatter *sectionsTitleFormatter;
-@property (nonatomic, strong) NSDateFormatter *cellDateFormatter;
 @property (nonatomic, strong) NSArray *shortcuts;
 @property (nonatomic, strong) MNMPullToRefreshManager *pullToRefreshManager;
 @property (nonatomic, strong) PYEvent *eventToShowOnAppear;
-
 @property (nonatomic, strong) UserHistoryEntry *tempEntry;
 @property (nonatomic, strong) NSIndexPath *lastIndexPath;
-
 @property (nonatomic) NSTimeInterval *lastTimeFocus;
 @property (nonatomic) AggregationStep aggregationStep;
-
 
 - (void)loadData;
 - (void)userDidReceiveAccessTokenNotification:(NSNotification*)notification;
 - (void)filterEventUpdate:(NSNotification*)notification;
-
-- (void)resetDateFormatters;
 - (void)refreshFilter;
 - (MMDrawerController*)mm_drawerController;
 
@@ -157,10 +141,8 @@ static NSString *browseCellIdentifier = @"BrowseEventsCell_ID";
     [super viewDidLoad];
     //self.edgesForExtendedLayout = UIRectEdgeNone;
     self.aggregationStep = AggregationStepDay;
+    self.sections = [NSMutableDictionary dictionary];
     [self loadSettings];
-    [self resetDateFormatters];
-    
-    
     
     //self.navigationController.navigationBar.layer.masksToBounds = NO;
     
@@ -230,13 +212,6 @@ static NSString *browseCellIdentifier = @"BrowseEventsCell_ID";
     self.title = NSLocalizedString(@"BrowserViewController.Title", nil);
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [self unsetFilter];
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -250,7 +225,7 @@ static NSString *browseCellIdentifier = @"BrowseEventsCell_ID";
 
 BOOL alreadyRefreshing = NO;
 BOOL needToRefreshOnceAgain = NO;
-- (void)refreshFilter // called be loadData
+- (void)refreshFilter // called by loadData
 {
     if (alreadyRefreshing) {
         needToRefreshOnceAgain = YES;
@@ -383,135 +358,6 @@ BOOL isLoadingStreams = NO;
     
 }
 
-
-#pragma mark - Sections manipulations
-
-- (void)resetDateFormatters {
-    if (self.sectionsKeyFormatter == nil) {
-        self.sectionsKeyFormatter = [[NSDateFormatter alloc] init]; }
-    if (self.sectionsTitleFormatter == nil) { self.sectionsTitleFormatter = [[NSDateFormatter alloc] init];}
-    if (self.cellDateFormatter == nil) { self.cellDateFormatter = [[NSDateFormatter alloc] init];}
-    
-    [self.cellDateFormatter setDateStyle:NSDateFormatterShortStyle];
-    [self.cellDateFormatter setTimeStyle:NSDateFormatterShortStyle];
-    [self.cellDateFormatter setDoesRelativeDateFormatting:YES];
-
-    [self.sectionsTitleFormatter setDateStyle:NSDateFormatterMediumStyle];
-    //[self.sectionsTitleFormatter setDateFormat:@"dd.MM.yyyy"];
-    [self.sectionsTitleFormatter setDoesRelativeDateFormatting:YES];
-    
-    switch (self.aggregationStep) {
-        case AggregationStepMonth:
-            [self.sectionsKeyFormatter setDateFormat:@"yyyy-MM"];
-            break;
-        case AggregationStepYear:
-            [self.sectionsKeyFormatter setDateFormat:@"yyyy"];
-            break;
-        default:
-            [self.sectionsKeyFormatter setDateFormat:@"yyyy-MM-dd"];
-            [self.cellDateFormatter setDateStyle:NSDateFormatterNoStyle];
-            break;
-    }
-}
-
-/*- (void)rebuildSectionMap {
-    NSDate *afx5 = [NSDate date];
-    NSArray* events = nil;
-    if (self.filter != nil) {
-        [self.sections removeAllObjects];
-        events = [self.filter currentEventsSet];
-    }
-    
-    if (events == nil) return;
-    
-    // go thru all events and set one section per date
-    for (PYEvent* event in events) {
-        if ([self clientFilterMatchEvent:event]) {
-            [self addToSectionMapEvent:event];
-        }
-    }
-
-    /*NSArray* keys = [self.browserSections allKeys];
-    keys = [keys sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
-    
-    for (NSString * key in keys) {
-        NSLog(@"%@", [self.browserSections objectForKey:key]);
-    }*/
-    
-    /*NSLog(@"*afx5 rebuildSectionMap %f", [afx5 timeIntervalSinceNow]);
-}*/
-
-/*- (void)addToSectionMapEvent:(PYEvent*)event {
-
-    NSString* sectionKey = [[NotesAppController sharedInstance].sectionKeyFormatter stringFromDate:event.eventDate];
-    BrowserSection *section = [self.sections objectForKey:sectionKey];
-    
-    if (section) {
-        [section addEvent:event];
-    }else{
-        BrowserSection *newSection = [[BrowserSection alloc] initWithDate:event.eventDate];
-        [newSection addEvent:event];
-        [self.sections setObject:newSection forKey:sectionKey];
-    }
-    /*NSMutableOrderedSet* eventList = [self.sectionsMap objectForKey:sectionKey];
-    if (eventList == nil) {
-        eventList = [[NSMutableOrderedSet alloc] init];
-        [self.sectionsMap setValue:eventList forKey:sectionKey];
-        MySection* mySection = [[MySection alloc] init];
-        mySection.time = [event.eventDate timeIntervalSince1970];
-        mySection.key = sectionKey;
-        mySection.title = [self.sectionsTitleFormatter stringFromDate:event.eventDate];
-        
-        // find the right place for this section
-        MySection* kSection = nil;
-        BOOL found = false;
-        if (self.sectionsMapTitles.count > 0) {
-            for (int k = 0; k < self.sectionsMapTitles.count; k++) {
-                kSection = [self.sectionsMapTitles objectAtIndex:k];
-                if ([kSection time] < [mySection time]) {
-                    [self.sectionsMapTitles insertObject:mySection atIndex:k];
-                    found = true;
-                    break;
-                }
-            }
-        }
-        if (! found) {
-            [self.sectionsMapTitles addObject:mySection];
-        }
-    }
-    
-    PYEvent* kEvent = nil;
-    if (eventList.count > 0) {
-        for (int k = 0; k < eventList.count; k++) {
-            kEvent = [eventList objectAtIndex:k];
-            if ([kEvent getEventServerTime] < [event getEventServerTime]) {
-                [eventList insertObject:event atIndex:k];
-                return;
-            }
-        }
-    }
-    [eventList addObject:event];*/
-//}
-
-- (NSMutableOrderedSet*) sectionDataAtIndex:(NSInteger)index {
-    
-    if (! self.sectionsMapTitles) {
-        NSLog(@"<WARNING> BrowseEventsViewController.sectionDataAtIndex empty sectionsMapTitles");
-        return nil;
-    }
-    if (index >= self.sectionsMapTitles.count) {
-        NSLog(@"<WARNING> BrowseEventsViewController.sectionDataAtIndex index not reachable: %ld",(long)index);
-        return nil;
-    }
-    NSString* sectionKey = [[self.sectionsMapTitles objectAtIndex:index] key];
-    return [self.sectionsMap objectForKey:sectionKey];
-}
-
-- (PYEvent*) eventAtIndexPath:(NSIndexPath *)indexPath {
-    return [[self sectionDataAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-}
-
-
 #pragma mark - UITableViewDelegate and UITableViewDataSource methods
 
 - (void)tableView:(UITableView *)tableView
@@ -531,7 +377,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 {
     [NotesAppController sharedConnectionWithID:nil noConnectionCompletionBlock:nil withCompletionBlock:^(PYConnection *connection)
      {
-         [connection eventTrashOrDelete:[self eventAtIndexPath:index] successHandler:^{
+         [connection eventTrashOrDelete:(PYEvent*)[self getEventsForIndex:index] successHandler:^{
              [self.tableView reloadData];
          } errorHandler:^(NSError *error) {
              [self.tableView reloadData];
@@ -540,47 +386,26 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
      }];
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (! self.sectionsMap) {
-        [self buildSections];
-    }
-    
-    if ([self.sectionsMap count] == 0)
-        return 1;
-    
-    return [self.sectionsMapTitles count];
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if ([self.sectionsMap count] == 0) return 0;
+    if ([self.sections count] == 0) return 0;
     return 20;
 }
 
 -(UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    if ([self.sectionsMap count] == 0) return nil;
-    
-    UITableViewCell *headerCell = [tableView dequeueReusableCellWithIdentifier:kSectionCell];
-    UILabel *targetedLabel = (UILabel *)[headerCell viewWithTag:kSectionLabel];
-    
-    [headerCell.contentView setBackgroundColor:[UIColor colorWithRed:239.0/255.0 green:239.0/255.0 blue:244.0/255.0 alpha:0.8]];
-    
-    if (section >= self.sectionsMapTitles.count) {
-        NSLog(@"<WARNING> BrowseEventsViewController.tableView  index not reachable: %ld",(long)index);
-        [targetedLabel setText:@"..."];
-    } else [targetedLabel setText:[[self.sectionsMapTitles objectAtIndex:section] title]];
-    
-    return headerCell.contentView;
+    return [self viewForHeaderInSection:section];
 }
-
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if ([self.sectionsMap count] ==0)
-        return 1;
-    
-    return [[self sectionDataAtIndex:section] count];
+    return [self numberOfRowInSection:section];
+}
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    [self buildSections];
+    return [self numberOfSection];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -588,67 +413,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     return [self heightForCell:indexPath];
 }
 
--(CGFloat) heightForCell:(NSIndexPath *)indexPath
-{
-    if ([self.sectionsMap count] ==0) return 50;
-    
-    CGFloat result = 100.0;
-    PYEvent *event = [self eventAtIndexPath:indexPath];
-    CellStyleType cellStyleType = [event cellStyle];
-    if (cellStyleType == CellStyleTypePhoto)
-        result = 160.0;
-    else if (cellStyleType == CellStyleTypeText)
-        result = 124.0;
-    else if (cellStyleType == CellStyleTypeMeasure)
-        result = 132.0;
-    else if (cellStyleType == CellStyleTypeMoney)
-        result = 132.0;
-    else
-        NSLog(@"Warnign : type cell is not photo, text or measure.");
-    return result;
-}
-
-- (void)loadMoreDataForIndexPath:(NSIndexPath*)indexPath
-{
-    if(self.lastIndexPath.row == indexPath.row) return;
-    
-    self.lastIndexPath = indexPath;
-    self.filter.limit+=kFilterIncrement;
-    [self loadData];
-}
-
-- (BrowseCell *)cellInTableView:(UITableView *)tableView forCellStyleType:(CellStyleType)cellStyleType
-{
-    BrowseCell *cell;
-    if(cellStyleType == CellStyleTypePhoto)
-    {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"PictureCell_ID"];
-    }
-    else if(cellStyleType == CellStyleTypeText)
-    {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"NoteCell_ID"];
-    }
-    else if (cellStyleType == CellStyleTypeMeasure || cellStyleType == CellStyleTypeMoney)
-    {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"ValueCell_ID"];
-    } else {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"UnkownCell_ID"];
-    }
-    return cell;
-}
-
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([self.sectionsMap count] == 0) {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"add_new_cell_id"];
-        return cell;
-    }
-    PYEvent *event = [self eventAtIndexPath:indexPath];
-    CellStyleType cellStyleType = [event cellStyle];
-    BrowseCell *cell = [self cellInTableView:tableView forCellStyleType:cellStyleType];
-    [cell setDateFormatter:self.cellDateFormatter];
-    [cell updateWithEvent:event];
-    return cell;
+    return [self cellAtIndex:indexPath];
 }
 
 #pragma mark - IBAction, segue
@@ -713,11 +480,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 
 - (void)filterEventUpdate:(NSNotification *)notification
 {
-    
     NSDictionary *message = (NSDictionary*) notification.userInfo;
-    
-    
-    
+
     NSArray* toAdd = [message objectForKey:kPYNotificationKeyAdd];
     NSArray* toRemove = [message objectForKey:kPYNotificationKeyDelete];
     NSArray* modify = [message objectForKey:kPYNotificationKeyModify];
@@ -726,31 +490,21 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     // ref : http://www.nsprogrammer.com/2013/07/updating-uitableview-with-dynamic-data.html
     // ref2 : http://stackoverflow.com/questions/4777683/how-do-i-efficiently-update-a-uitableview-with-animation
     
-  
-    
     // events are sent ordered by time
-    if (toRemove) {
+    if (toRemove)
         NSLog(@"*262 REMOVE %lu", (unsigned long)toRemove.count);
-        
-    }
     
-    if (modify) {
+    if (modify)
         NSLog(@"*262 MODIFY %d", modify.count);
-    }
     
     // events are sent ordered by time
-    if (toAdd && toAdd.count > 0) {
+    if (toAdd && toAdd.count > 0)
         NSLog(@"*262 ADD %d", toAdd.count);
-    }
     
-    
-    if ((toAdd.count + modify.count + toRemove.count) == 0) {
+    if ((toAdd.count + modify.count + toRemove.count) == 0)
         return;
-    }
-    
     
     [self buildSections];
-    
     
     // [_tableView endUpdates];
     NSLog(@"*262 END");
@@ -764,10 +518,10 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 -(void) scrollToEvent:(PYEvent*)event
 {
     
-    [self.tableView scrollToRowAtIndexPath:[self getIndexPathForEvent:event] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    //[self.tableView scrollToRowAtIndexPath:[self getIndexPathForEvent:event] atScrollPosition:UITableViewScrollPositionTop animated:NO];
 }
 
--(NSIndexPath*)getIndexPathForEvent:(PYEvent*)event
+/*-(NSIndexPath*)getIndexPathForEvent:(PYEvent*)event
 {
     NSString *sectionKey = [self.sectionsKeyFormatter stringFromDate:event.eventDate];
     if (!sectionKey) return [NSIndexPath indexPathForRow:0 inSection:0];
@@ -805,7 +559,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
         
     }
     return [_sectionsMapTitles count]-1;
-}
+}*/
 
 
 #pragma mark - Loading indicator
