@@ -8,39 +8,74 @@
 
 #import "LineCell.h"
 #import "JBLineChartView.h"
+#import "JBBarChartView.h"
 #import "StreamAccessory.h"
 #import "PYStream+Helper.h"
-#import "GraphAggregateEvents.h"
+#import "NumberAggregateEvents.h"
 
-@interface LineCell () <JBLineChartViewDataSource, JBLineChartViewDelegate>
+@interface LineCell () <JBLineChartViewDataSource, JBLineChartViewDelegate, JBBarChartViewDataSource, JBBarChartViewDelegate>
 
-@property (nonatomic, strong) IBOutlet JBLineChartView *lineChartView;
 @property (nonatomic, strong) UIColor *lineColor, *fillColor;
-
+@property (nonatomic, weak) IBOutlet UIView *chartView, *backView2;
+@property (nonatomic, weak) IBOutlet UILabel *lbValue, *lbUnit, *lbDescription, *lbDate;
 @end
 
 @implementation LineCell
 
-- (void)updateWithAggregateEvent:(GraphAggregateEvents*)aggEvent
+- (void)updateWithAggregateEvent:(NumberAggregateEvents*)aggEvent
 {
-    [super updateWithEvent:[aggEvent.events objectAtIndex:0]];
-    
     self.aggEvents = aggEvent;
-    self.lineColor = [UIColor colorWithRed:189.0/255.0 green:9.0/255.0 blue:38.0/255.0 alpha:0.8];
-    self.fillColor = [UIColor colorWithRed:189.0/255.0 green:9.0/255.0 blue:38.0/255.0 alpha:0.5];
-    self.lineChartView.dataSource = self;
-    self.lineChartView.delegate = self;
-    self.lineChartView.minimumValue = 0.0f;
+    [super updateWithEvent:[aggEvent.events objectAtIndex:0]];
+    [self displayEvent:[aggEvent.events count]-1];
+
+    self.lineColor = [[[aggEvent.events objectAtIndex:0] stream] getColor];
+    [self.backView2.layer setBorderWidth:1];
+    [self.backView2.layer setBorderColor:[UIColor lightGrayColor].CGColor];
+    
+    if (self.graphStyle == kAreaGraphStyle || self.graphStyle == kLineGraphStyle) {
+        JBLineChartView *lineChartView = [[JBLineChartView alloc] init];
+        self.fillColor = [UIColor colorWithRed:189.0/255.0 green:9.0/255.0 blue:38.0/255.0 alpha:0.5];
+        [lineChartView setFrame:self.chartView.bounds];
+        lineChartView.dataSource = self;
+        lineChartView.delegate = self;
+        lineChartView.minimumValue = 0.0f;
+        
+        [self.chartView addSubview:lineChartView];
+        [lineChartView reloadData];
+    }
+    
+    if (self.graphStyle == kBarGraphStyle) {
+        JBBarChartView *lineChartView = [[JBBarChartView alloc] init];
+        [lineChartView setFrame:self.chartView.bounds];
+        lineChartView.dataSource = self;
+        lineChartView.delegate = self;
+        lineChartView.minimumValue = 0.0f;
+
+        [self.chartView addSubview:lineChartView];
+        [lineChartView reloadData];
+    }
     
     StreamAccessory *st = [[StreamAccessory alloc] initText:[[aggEvent.events objectAtIndex:0] eventBreadcrumbs] color:[[[aggEvent.events objectAtIndex:0] stream] getColor]];
     [self addSubview:st];
     
-    NSDate *d = [[aggEvent.events objectAtIndex:0] eventDate];
-    StreamAccessory *date = [[StreamAccessory alloc] initText:[[NotesAppController sharedInstance].dateFormatter stringFromDate:d] color:nil];
-    [self addSubview:date];
+    /*NSDate *d = [[aggEvent.events objectAtIndex:0] eventDate];
+    StreamAccessory *date = [[StreamAccessory alloc] initText:[[NotesAppController sharedInstance].cellDateFormatter stringFromDate:d] color:nil];
+    [self addSubview:date];*/
     
-    [self.lineChartView reloadData];
-    
+}
+
+-(void) displayLastEvent
+{
+    [self displayEvent:[self.aggEvents.events count]-1];
+}
+
+-(void) displayEvent:(NSInteger)index
+{
+    PYEvent *refEvent = [self.aggEvents.events objectAtIndex:index];
+    [self.lbValue setText:refEvent.eventContentAsString];
+    [self.lbDescription setText:[refEvent.pyType localizedName]];
+    [self.lbUnit setText:[refEvent.pyType symbol]];
+    [self.lbDate setText:[[NotesAppController sharedInstance].cellDateFormatter stringFromDate:refEvent.eventDate]];
 }
 
 - (NSUInteger)numberOfLinesInLineChartView:(JBLineChartView *)lineChartView
@@ -75,7 +110,42 @@
 
 - (UIColor *)lineChartView:(JBLineChartView *)lineChartView fillColorForLineAtLineIndex:(NSUInteger)lineIndex
 {
-    return self.fillColor;
+    return self.graphStyle == kAreaGraphStyle ? self.fillColor:nil;
+}
+
+- (NSUInteger)numberOfBarsInBarChartView:(JBBarChartView *)barChartView
+{
+    return [self.aggEvents.events count];
+}
+
+- (CGFloat)barChartView:(JBBarChartView *)barChartView heightForBarViewAtIndex:(NSUInteger)index
+{
+    return fabsf([((PYEvent*)[self.aggEvents.events objectAtIndex:index]).eventContent floatValue]);
+}
+
+-(UIColor*) barChartView:(JBBarChartView *)barChartView colorForBarViewAtIndex:(NSUInteger)index
+{
+    return self.lineColor;
+}
+
+- (void)lineChartView:(JBLineChartView *)lineChartView didSelectLineAtIndex:(NSUInteger)lineIndex horizontalIndex:(NSUInteger)horizontalIndex touchPoint:(CGPoint)touchPoint
+{
+    [self displayEvent:lineIndex];
+}
+
+- (void)didDeselectLineInLineChartView:(JBLineChartView *)lineChartView
+{
+    [self displayEvent:[self.aggEvents.events count]-1];
+}
+
+- (void)barChartView:(JBBarChartView *)barChartView didSelectBarAtIndex:(NSUInteger)index touchPoint:(CGPoint)touchPoint
+{
+    [self displayEvent:index];
+}
+
+- (void)didDeselectBarChartView:(JBBarChartView *)barChartView
+{
+    [self displayEvent:[self.aggEvents.events count]-1];
 }
 
 @end

@@ -66,7 +66,7 @@ NSString *const kBrowserShouldScrollToTop = @"kBrowserShouldScrollToTop";
     
     self.cellDateFormatter = [[NSDateFormatter alloc] init];
     //[self.cellDateFormatter setDateStyle:NSDateFormatterShortStyle];
-    //[self.cellDateFormatter setTimeStyle:NSDateFormatterShortStyle];
+    [self.cellDateFormatter setTimeStyle:NSDateFormatterShortStyle];
     [self.cellDateFormatter setDoesRelativeDateFormatting:YES];
     [self.cellDateFormatter setDateStyle:NSDateFormatterNoStyle];
     

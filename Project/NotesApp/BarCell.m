@@ -26,7 +26,8 @@
     [super updateWithEvent:[aggEvent.events objectAtIndex:0]];
     
     self.aggEvents = aggEvent;
-    self.color = [UIColor colorWithRed:189.0/255.0 green:9.0/255.0 blue:38.0/255.0 alpha:0.8];
+    self.color = [[[aggEvent.events objectAtIndex:0] stream] getColor];
+    
     self.barChartView.dataSource = self;
     self.barChartView.delegate = self;
     self.barChartView.minimumValue = 0.0f;
@@ -35,7 +36,7 @@
     [self addSubview:st];
     
     NSDate *d = [[aggEvent.events objectAtIndex:0] eventDate];
-    StreamAccessory *date = [[StreamAccessory alloc] initText:[[NotesAppController sharedInstance].dateFormatter stringFromDate:d] color:nil];
+    StreamAccessory *date = [[StreamAccessory alloc] initText:[[NotesAppController sharedInstance].cellDateFormatter stringFromDate:d] color:nil];
     [self addSubview:date];
     
     [self.barChartView reloadData];

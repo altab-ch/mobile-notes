@@ -373,6 +373,15 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     }
 }
 
+-(UITableViewCellEditingStyle) tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    id data = [self getEventsForIndex:indexPath];
+    if (data) {
+        if ([data isKindOfClass:[PYEvent class]]) return UITableViewCellEditingStyleDelete;
+        else return UITableViewCellEditingStyleNone;
+    }
+    return UITableViewCellEditingStyleNone;
+}
+
 - (void)deleteEvent:(NSIndexPath*)index
 {
     [NotesAppController sharedConnectionWithID:nil noConnectionCompletionBlock:nil withCompletionBlock:^(PYConnection *connection)

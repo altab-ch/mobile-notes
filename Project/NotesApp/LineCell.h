@@ -8,6 +8,14 @@
 
 #import "BrowseCell.h"
 
+typedef enum {
+    kBarGraphStyle = 0,
+    kLineGraphStyle,
+    kAreaGraphStyle
+}GraphStyle;
+
 @interface LineCell : BrowseCell
+
+@property(nonatomic) GraphStyle graphStyle;
 
 @end

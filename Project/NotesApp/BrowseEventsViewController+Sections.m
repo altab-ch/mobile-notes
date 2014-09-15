@@ -65,7 +65,10 @@ bool test = NO;
 - (BrowseCell *)aggregateCellForPYType:(PYEventType*)pyType
 {
     BrowseCell *cell = nil;
-    if([pyType isNumerical]) cell = test?(LineCell*)[[[NSBundle mainBundle] loadNibNamed:@"LineCell" owner:cell options:nil] objectAtIndex:0]:(BarCell*)[[[NSBundle mainBundle] loadNibNamed:@"BarCell" owner:cell options:nil] objectAtIndex:0];//[self.tableView dequeueReusableCellWithIdentifier:@"AggregateValueCell_ID"];
+    if([pyType isNumerical]){
+        cell = (LineCell*)[[[NSBundle mainBundle] loadNibNamed:@"LineCell" owner:cell options:nil] objectAtIndex:0];
+        [((LineCell*)cell) setGraphStyle:test?kBarGraphStyle:kLineGraphStyle];
+    }
     else if([pyType.key isEqualToString:@"position/wgs84"]) cell = [self.tableView dequeueReusableCellWithIdentifier:@"Map_ID"];
     test = !test;
     return cell;
@@ -171,7 +174,7 @@ bool test = NO;
 - (CGFloat)aggregateHeightForPYType:(PYEventType*)pyType
 {
     CGFloat height = 100;
-    if([pyType isNumerical]) height = 85;
+    if([pyType isNumerical]) height = 104;
     else if([pyType.key isEqualToString:@"position/wgs84"]) height = 130;
     
     return height;
