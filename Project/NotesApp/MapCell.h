@@ -13,6 +13,5 @@
 @property (nonatomic, strong) IBOutlet UILabel *valueLabel;
 @property (nonatomic, strong) IBOutlet UILabel *formatDescriptionLabel;
 @property (nonatomic, strong) IBOutlet UILabel *numberAggregation;
-@property (nonatomic, weak) AggregateEvents *aggEvents;
 
 @end

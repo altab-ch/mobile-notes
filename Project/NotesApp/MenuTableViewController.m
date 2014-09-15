@@ -160,18 +160,21 @@ static int kPickerTag = 10;
 -(UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
     UITableViewCell *headerCell = [tableView dequeueReusableCellWithIdentifier:kSectionCellID];
-    UIButton *targetedLabel = (UIButton *)[headerCell viewWithTag:kSectionTag];
+    UILabel *targetedLabel = (UILabel *)[headerCell viewWithTag:kSectionTag];
     if (section==DATE_SECTION) {
-        targetedLabel.titleLabel.text = NSLocalizedString(@"MenuTableViewController.DateSelect",nil);
+        targetedLabel.text = NSLocalizedString(@"MenuTableViewController.DateSelect",nil);
         UIView *backIm = (UIView *)[headerCell viewWithTag:kBackTag];
         [backIm setHidden:YES];
         UIView *btAll = (UIView *)[headerCell viewWithTag:kAllTag];
         [btAll setHidden:YES];
     }else{
-        if ([self getParent])
-            targetedLabel.titleLabel.text = [[self getParent] breadcrumbs];
-        else
-            targetedLabel.titleLabel.text = NSLocalizedString(@"MenuTableViewController.StreamSelect",nil);
+        if ([self getParent]){
+            targetedLabel.text = [[self getParent] breadcrumbs];
+            targetedLabel.userInteractionEnabled = YES;
+            UITapGestureRecognizer *tapGesture =[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(labelTap)];
+            [targetedLabel addGestureRecognizer:tapGesture];
+        }else
+            targetedLabel.text = NSLocalizedString(@"MenuTableViewController.StreamSelect",nil);
         
         if (![self isChild]) {
             UIView *backIm = (UIView *)[headerCell viewWithTag:kBackTag];
@@ -225,6 +228,11 @@ static int kPickerTag = 10;
     UILabel *targetedLabel = (UILabel *)[cell viewWithTag:kDateTag];
     targetedLabel.text = [self.dateFormatter stringFromDate:sender.date];
     [self setDate:sender.date];
+}
+
+-(void)labelTap
+{
+    [self btBackStreamPressed:nil];
 }
 
 - (IBAction)btBackStreamPressed:(UIButton *)sender

@@ -85,6 +85,10 @@
 		298DE20819B4BB1E0088383F /* BrowserNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 298DE20719B4BB1E0088383F /* BrowserNavigationBar.m */; };
 		298F66EA19C31FFE00CD24E5 /* AggregateValueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 298F66E919C31FFE00CD24E5 /* AggregateValueCell.m */; };
 		298F66F819C32CBF00CD24E5 /* MapCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 298F66F719C32CBF00CD24E5 /* MapCell.m */; };
+		298F66FB19C6BB7300CD24E5 /* BarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 298F66FA19C6BB7300CD24E5 /* BarCell.m */; };
+		298F670619C6C19600CD24E5 /* BarCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 298F670519C6C19600CD24E5 /* BarCell.xib */; };
+		298F670919C6CEB800CD24E5 /* LineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 298F670819C6CEB800CD24E5 /* LineCell.m */; };
+		298F670B19C6D18A00CD24E5 /* LineCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 298F670A19C6D18A00CD24E5 /* LineCell.xib */; };
 		29BDFAD919ADD8500026BFE5 /* TagLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BDFAD819ADD8500026BFE5 /* TagLabel.m */; };
 		29BDFAE819AF23350026BFE5 /* TagContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BDFAE719AF23350026BFE5 /* TagContainer.m */; };
 		29BDFAEC19B084D30026BFE5 /* DescriptionLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BDFAEB19B084D30026BFE5 /* DescriptionLabel.m */; };
@@ -311,6 +315,27 @@
 			remoteGlobalIDString = D33B138F3AAF48EB930EE91D;
 			remoteInfo = "Pods-MMDrawerController";
 		};
+		298F66FF19C6BB7400CD24E5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4E37853717953BBD00ED94DF /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 21330DF6FC604770BCFAA3DF;
+			remoteInfo = "Pods-JBChartView";
+		};
+		298F670119C6BB7400CD24E5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4E37853717953BBD00ED94DF /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F5037252452E4A5A916AA1D1;
+			remoteInfo = "Pods-PNChart";
+		};
+		298F670319C6BB7400CD24E5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4E37853717953BBD00ED94DF /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 177A69B22F514234950B71AD;
+			remoteInfo = "Pods-UICountingLabel";
+		};
 		4EF4B19D18B4A96D009C8A64 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4E37853717953BBD00ED94DF /* Pods.xcodeproj */;
@@ -501,6 +526,12 @@
 		298F66E919C31FFE00CD24E5 /* AggregateValueCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AggregateValueCell.m; sourceTree = "<group>"; };
 		298F66F619C32CBF00CD24E5 /* MapCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapCell.h; sourceTree = "<group>"; };
 		298F66F719C32CBF00CD24E5 /* MapCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapCell.m; sourceTree = "<group>"; };
+		298F66F919C6BB7300CD24E5 /* BarCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BarCell.h; sourceTree = "<group>"; };
+		298F66FA19C6BB7300CD24E5 /* BarCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BarCell.m; sourceTree = "<group>"; };
+		298F670519C6C19600CD24E5 /* BarCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BarCell.xib; sourceTree = "<group>"; };
+		298F670719C6CEB800CD24E5 /* LineCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineCell.h; sourceTree = "<group>"; };
+		298F670819C6CEB800CD24E5 /* LineCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineCell.m; sourceTree = "<group>"; };
+		298F670A19C6D18A00CD24E5 /* LineCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LineCell.xib; sourceTree = "<group>"; };
 		29BDFAD719ADD8500026BFE5 /* TagLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagLabel.h; sourceTree = "<group>"; };
 		29BDFAD819ADD8500026BFE5 /* TagLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagLabel.m; sourceTree = "<group>"; };
 		29BDFAE619AF23350026BFE5 /* TagContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagContainer.h; sourceTree = "<group>"; };
@@ -1297,12 +1328,15 @@
 				B6F207CA17954F30006FC5B0 /* libPods.a */,
 				B6087DA2189F084200891C75 /* libPods-FoundationExtension.a */,
 				B6087DA4189F084200891C75 /* libPods-GIKPopoverBackgroundView.a */,
+				298F670019C6BB7400CD24E5 /* libPods-JBChartView.a */,
 				4EF4B19E18B4A96D009C8A64 /* libPods-MCSwipeTableViewCell.a */,
 				291ED16319128561009A9B3D /* libPods-MMDrawerController.a */,
+				298F670219C6BB7400CD24E5 /* libPods-PNChart.a */,
 				96453C6B18B77DD00050618E /* libPods-PryvApiKit.a */,
 				B6F207C817954F30006FC5B0 /* libPods-SSKeychain.a */,
 				B6087DA6189F084200891C75 /* libPods-SevenSwitch.a */,
 				B6087DA8189F084200891C75 /* libPods-UI7Kit.a */,
+				298F670419C6BB7400CD24E5 /* libPods-UICountingLabel.a */,
 				B6087DAA189F084200891C75 /* libPods-UIKitResources.a */,
 				B6087DAC189F084200891C75 /* libPods-cdebug.a */,
 			);
@@ -1792,6 +1826,12 @@
 				298F66E919C31FFE00CD24E5 /* AggregateValueCell.m */,
 				298F66F619C32CBF00CD24E5 /* MapCell.h */,
 				298F66F719C32CBF00CD24E5 /* MapCell.m */,
+				298F66F919C6BB7300CD24E5 /* BarCell.h */,
+				298F66FA19C6BB7300CD24E5 /* BarCell.m */,
+				298F670519C6C19600CD24E5 /* BarCell.xib */,
+				298F670719C6CEB800CD24E5 /* LineCell.h */,
+				298F670819C6CEB800CD24E5 /* LineCell.m */,
+				298F670A19C6D18A00CD24E5 /* LineCell.xib */,
 			);
 			name = BrowseCell;
 			sourceTree = "<group>";
@@ -2113,6 +2153,27 @@
 			remoteRef = 291ED16219128561009A9B3D /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		298F670019C6BB7400CD24E5 /* libPods-JBChartView.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libPods-JBChartView.a";
+			remoteRef = 298F66FF19C6BB7400CD24E5 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		298F670219C6BB7400CD24E5 /* libPods-PNChart.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libPods-PNChart.a";
+			remoteRef = 298F670119C6BB7400CD24E5 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		298F670419C6BB7400CD24E5 /* libPods-UICountingLabel.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libPods-UICountingLabel.a";
+			remoteRef = 298F670319C6BB7400CD24E5 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		4EF4B19E18B4A96D009C8A64 /* libPods-MCSwipeTableViewCell.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -2191,6 +2252,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B6016BBB172873D40056CD3F /* InfoPlist.strings in Resources */,
+				298F670B19C6D18A00CD24E5 /* LineCell.xib in Resources */,
 				B6016BC3172873D40056CD3F /* Default.png in Resources */,
 				B6016BC5172873D40056CD3F /* Default@2x.png in Resources */,
 				B6016BC7172873D40056CD3F /* Default-568h@2x.png in Resources */,
@@ -2300,6 +2362,7 @@
 				B6B59043178B60B60009E413 /* numpad_button_active@2x.png in Resources */,
 				292ACD9A1977E87900036084 /* btn_add_note_highlight.png in Resources */,
 				B6B59044178B60B60009E413 /* numpad_button.png in Resources */,
+				298F670619C6C19600CD24E5 /* BarCell.xib in Resources */,
 				B6B59045178B60B60009E413 /* numpad_button@2x.png in Resources */,
 				96D2063718B3899D00CF5A69 /* square_border@2x.png in Resources */,
 				96088A981861F1230090ECC7 /* Icon-120.png in Resources */,
@@ -2426,6 +2489,7 @@
 				4E0901071857640400A2F044 /* AddNumericalValueCellFormat.m in Sources */,
 				2947D67D19BF1BB00010F040 /* BrowserSection.m in Sources */,
 				B6BA3E721732E91000464C2F /* UIView+Frame.m in Sources */,
+				298F670919C6CEB800CD24E5 /* LineCell.m in Sources */,
 				4E8AAFF8185A07A30083DE8C /* AppConstants.m in Sources */,
 				2947D6AF19C1EB610010F040 /* BrowseEventsViewController+Sections.m in Sources */,
 				4E713D3F18965FBD00CDB397 /* AppConstantsPrivate.m in Sources */,
@@ -2496,6 +2560,7 @@
 				B6DC81EE181E665B00118ED9 /* NoteCell.m in Sources */,
 				B61D55AE17EC51480016D0C4 /* PYStream+Helper.m in Sources */,
 				290712E2198C0EF900C3819B /* PhotoDetailCell.m in Sources */,
+				298F66FB19C6BB7300CD24E5 /* BarCell.m in Sources */,
 				B61A1948185A64E100E9F9BE /* StreamCell.m in Sources */,
 				B61D55B117EC51B80016D0C4 /* PYEvent+Helper.m in Sources */,
 				2934FBDB1986C66F00407D2B /* DurationLabel.m in Sources */,

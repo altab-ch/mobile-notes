@@ -8,6 +8,8 @@
 
 #import "BrowseEventsViewController+Sections.h"
 #import "AggregateEvents.h"
+#import "BarCell.h"
+#import "LineCell.h"
 
 #define kSectionCell @"section_cell_id"
 #define kSectionLabel 10
@@ -54,16 +56,18 @@
     BrowseCell *cell = nil;
     if([pyType.key isEqualToString:@"picture/attached"]) cell = [self.tableView dequeueReusableCellWithIdentifier:@"PictureCell_ID"];
     else if([pyType.key isEqualToString:@"note/txt"]) cell = [self.tableView dequeueReusableCellWithIdentifier:@"NoteCell_ID"];
-    else if ([pyType isNumerical]) cell = [self.tableView dequeueReusableCellWithIdentifier:@"ValueCell_ID"];
+    else if ([pyType isNumerical]) cell = (BarCell*)[[[NSBundle mainBundle] loadNibNamed:@"BarCell" owner:cell options:nil] objectAtIndex:0];//[self.tableView dequeueReusableCellWithIdentifier:@"ValueCell_ID"];
     else cell = [self.tableView dequeueReusableCellWithIdentifier:@"UnkownCell_ID"];
     return cell;
 }
 
+bool test = NO;
 - (BrowseCell *)aggregateCellForPYType:(PYEventType*)pyType
 {
     BrowseCell *cell = nil;
-    if([pyType isNumerical]) cell = [self.tableView dequeueReusableCellWithIdentifier:@"AggregateValueCell_ID"];
+    if([pyType isNumerical]) cell = test?(LineCell*)[[[NSBundle mainBundle] loadNibNamed:@"LineCell" owner:cell options:nil] objectAtIndex:0]:(BarCell*)[[[NSBundle mainBundle] loadNibNamed:@"BarCell" owner:cell options:nil] objectAtIndex:0];//[self.tableView dequeueReusableCellWithIdentifier:@"AggregateValueCell_ID"];
     else if([pyType.key isEqualToString:@"position/wgs84"]) cell = [self.tableView dequeueReusableCellWithIdentifier:@"Map_ID"];
+    test = !test;
     return cell;
 }
 
@@ -167,7 +171,7 @@
 - (CGFloat)aggregateHeightForPYType:(PYEventType*)pyType
 {
     CGFloat height = 100;
-    if([pyType isNumerical]) height = 100;
+    if([pyType isNumerical]) height = 85;
     else if([pyType.key isEqualToString:@"position/wgs84"]) height = 130;
     
     return height;

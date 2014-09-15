@@ -23,6 +23,7 @@
 @property (nonatomic, weak) IBOutlet UIView *pastille;
 @property (nonatomic, weak) IBOutlet UIView *backView;
 @property (nonatomic, weak) PYEvent *event;
+@property (nonatomic, weak) AggregateEvents *aggEvents;
 
 - (void)updateWithEvent:(PYEvent*)event;
 - (void)updateWithAggregateEvent:(AggregateEvents*)aggEvent;
