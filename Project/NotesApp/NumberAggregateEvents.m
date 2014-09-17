@@ -12,7 +12,7 @@
 
 -(BOOL) accept:(PYEvent *)event
 {
-    if ([event.pyType isNumerical]) {
+    if ([event.pyType.key isEqualToString:((PYEvent*)[self.events objectAtIndex:0]).pyType.key]) {
         [self.events addObject:event];
         return YES;
     }
