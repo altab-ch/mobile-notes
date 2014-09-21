@@ -32,6 +32,15 @@
         cell = [self aggregateCellForPYType:((AggregateEvents*)data).pyType];
         if (cell)
             [cell updateWithAggregateEvent:(AggregateEvents*)data];
+        else
+            NSLog(@"cant create cell");
+    }else
+    {
+        NSLog(@"unknown data");
+    }
+    
+    if (cell==nil) {
+        NSLog(@"cell is nil");
     }
     
     return cell;
@@ -61,16 +70,13 @@
     return cell;
 }
 
-bool test = NO;
 - (BrowseCell *)aggregateCellForPYType:(PYEventType*)pyType
 {
     BrowseCell *cell = nil;
     if([pyType isNumerical]){
         cell = (LineCell*)[[[NSBundle mainBundle] loadNibNamed:@"LineCell" owner:cell options:nil] objectAtIndex:0];
-        [((LineCell*)cell) setGraphStyle:test?kBarGraphStyle:kLineGraphStyle];
     }
     else if([pyType.key isEqualToString:@"position/wgs84"]) cell = [self.tableView dequeueReusableCellWithIdentifier:@"Map_ID"];
-    test = !test;
     return cell;
 }
 

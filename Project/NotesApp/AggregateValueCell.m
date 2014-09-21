@@ -19,7 +19,7 @@
     
     __block double val = 0.0;
     
-    if (aggEvent.numberAggregation == AggregationAverage) {
+    if (aggEvent.transform == TransformAverage) {
         [aggEvent.events enumerateObjectsUsingBlock:^(PYEvent* obj, NSUInteger idx, BOOL *stop){
             val += [obj.eventContent doubleValue];
         }];

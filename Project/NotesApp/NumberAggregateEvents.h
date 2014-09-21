@@ -8,13 +8,38 @@
 
 #import "AggregateEvents.h"
 
+typedef enum {
+    GraphStyleBar = 1,
+    GraphStyleLine,
+    GraphStyleArea
+}GraphStyle;
+
 typedef enum{
-    AggregationAverage = 0,
-    AggregationTotal = 1
-}NumberAggregation;
+    TransformAverage = 1,
+    TransformSum
+}Transform;
+
+typedef enum{
+    IntervalMonth = 1,
+    IntervalWeek,
+    IntervalDay,
+    IntervalHour
+}Interval;
+
+typedef enum{
+    HistoryYear = 1,
+    HistoryMonth,
+    HistoryWeek,
+    HistoryDay
+}History;
 
 @interface NumberAggregateEvents : AggregateEvents
 
-@property (nonatomic) NumberAggregation numberAggregation;
+@property (nonatomic) Transform transform;
+@property (nonatomic) GraphStyle graphStyle;
+@property (nonatomic) Interval interval;
+@property (nonatomic) History history;
+@property (nonatomic, strong) UIColor *color;
+@property (nonatomic, strong) NSMutableArray *sortedEvents;
 
 @end

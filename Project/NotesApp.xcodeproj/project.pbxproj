@@ -92,6 +92,8 @@
 		29BDFAD919ADD8500026BFE5 /* TagLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BDFAD819ADD8500026BFE5 /* TagLabel.m */; };
 		29BDFAE819AF23350026BFE5 /* TagContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BDFAE719AF23350026BFE5 /* TagContainer.m */; };
 		29BDFAEC19B084D30026BFE5 /* DescriptionLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BDFAEB19B084D30026BFE5 /* DescriptionLabel.m */; };
+		29E8D72519CC7EB60058DBAA /* ChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 29E8D72419CC7EB60058DBAA /* ChartView.m */; };
+		29E8D72819CE34750058DBAA /* AggregateEventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29E8D72719CE34750058DBAA /* AggregateEventsViewController.m */; };
 		29FF5D7C196ED0B60002D124 /* UnitPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29FF5D7B196ED0B60002D124 /* UnitPickerViewController.m */; };
 		4E0901071857640400A2F044 /* AddNumericalValueCellFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0901061857640400A2F044 /* AddNumericalValueCellFormat.m */; };
 		4E37857517953BBD00ED94DF /* Manifest.lock in Resources */ = {isa = PBXBuildFile; fileRef = 4E37852F17953BBD00ED94DF /* Manifest.lock */; };
@@ -538,6 +540,10 @@
 		29BDFAE719AF23350026BFE5 /* TagContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagContainer.m; sourceTree = "<group>"; };
 		29BDFAEA19B084D20026BFE5 /* DescriptionLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DescriptionLabel.h; sourceTree = "<group>"; };
 		29BDFAEB19B084D30026BFE5 /* DescriptionLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DescriptionLabel.m; sourceTree = "<group>"; };
+		29E8D72319CC7EB60058DBAA /* ChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChartView.h; sourceTree = "<group>"; };
+		29E8D72419CC7EB60058DBAA /* ChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChartView.m; sourceTree = "<group>"; };
+		29E8D72619CE34740058DBAA /* AggregateEventsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AggregateEventsViewController.h; sourceTree = "<group>"; };
+		29E8D72719CE34750058DBAA /* AggregateEventsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AggregateEventsViewController.m; sourceTree = "<group>"; };
 		29FF5D7A196ED0B60002D124 /* UnitPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitPickerViewController.h; sourceTree = "<group>"; };
 		29FF5D7B196ED0B60002D124 /* UnitPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitPickerViewController.m; sourceTree = "<group>"; };
 		4E0901051857640400A2F044 /* AddNumericalValueCellFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddNumericalValueCellFormat.h; sourceTree = "<group>"; };
@@ -1111,6 +1117,8 @@
 			children = (
 				29BDFAE619AF23350026BFE5 /* TagContainer.h */,
 				29BDFAE719AF23350026BFE5 /* TagContainer.m */,
+				29E8D72319CC7EB60058DBAA /* ChartView.h */,
+				29E8D72419CC7EB60058DBAA /* ChartView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1916,6 +1924,8 @@
 				2934FBF71989266200407D2B /* BrowserNavigationController.m */,
 				290712E6198DAEAF00C3819B /* DetailViewController.h */,
 				290712E7198DAEAF00C3819B /* DetailViewController.m */,
+				29E8D72619CE34740058DBAA /* AggregateEventsViewController.h */,
+				29E8D72719CE34750058DBAA /* AggregateEventsViewController.m */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -2482,6 +2492,7 @@
 			files = (
 				B6016BBD172873D40056CD3F /* main.m in Sources */,
 				B6016BC1172873D40056CD3F /* AppDelegate.m in Sources */,
+				29E8D72519CC7EB60058DBAA /* ChartView.m in Sources */,
 				B61A1944185A49E900E9F9BE /* StreamPickerViewController.m in Sources */,
 				2947D69B19C064970010F040 /* NumberAggregateEvents.m in Sources */,
 				B6016BD0172873D40056CD3F /* ViewController.m in Sources */,
@@ -2564,6 +2575,7 @@
 				B61A1948185A64E100E9F9BE /* StreamCell.m in Sources */,
 				B61D55B117EC51B80016D0C4 /* PYEvent+Helper.m in Sources */,
 				2934FBDB1986C66F00407D2B /* DurationLabel.m in Sources */,
+				29E8D72819CE34750058DBAA /* AggregateEventsViewController.m in Sources */,
 				290042B419640ADE00436A4B /* AddEventTableViewController.m in Sources */,
 				29BDFAE819AF23350026BFE5 /* TagContainer.m in Sources */,
 				B61D55B517EC68C80016D0C4 /* UIAlertView+PrYv.m in Sources */,

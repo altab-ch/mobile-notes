@@ -17,8 +17,11 @@
     if ([event.pyType isNumerical])
         return [[NumberAggregateEvents alloc] initWithEvent:event];
     
-    if([event.pyType.key isEqualToString:@"position/wgs84"])
+    else if([event.pyType.key isEqualToString:@"position/wgs84"])
         return [[MapAggregateEvents alloc] initWithEvent:event];
+    
+    else
+        NSLog(@"wrong type");
     
     return nil;
 }
