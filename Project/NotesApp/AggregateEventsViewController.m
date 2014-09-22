@@ -8,11 +8,12 @@
 
 #import "AggregateEventsViewController.h"
 #import "ChartView.h"
+#import "DetailViewController.h"
 
 @interface AggregateEventsViewController () <UITableViewDelegate, UITableViewDataSource, ChartViewDelegate>
 
 @property (nonatomic, weak) IBOutlet UILabel *value, *type, *date, *unitDesc;
-@property (nonatomic, weak) IBOutlet UIScrollView *scrollView;
+@property (nonatomic, weak) IBOutlet UITableView *tableView;
 @property (nonatomic, weak) IBOutlet ChartView *chartView;
 @property (nonatomic, weak) NSArray *events;
 
@@ -22,7 +23,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [self.chartView setChartDelegate:self];
+    [self.chartView updateWithAggregateEvents:self.aggEvents];
 }
 
 #pragma mark ScrollView Delegate
@@ -45,14 +47,34 @@
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [self cellAtIndex:indexPath];
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"ValueCell_ID"];
+    PYEvent *event = [self.events objectAtIndex:indexPath.row];
+    [(UILabel*)[cell viewWithTag:10] setText:[event.eventContent description]];
+    [(UILabel*)[cell viewWithTag:11] setText:[[NotesAppController sharedInstance].cellDateFormatter stringFromDate:event.eventDate]];
+    
+    return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self performSegueWithIdentifier:@"DetailViewSegue_ID" sender:[self.events objectAtIndex:indexPath.row]];
+}
+
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(PYEvent*)sender
+{
+    DetailViewController *detail = [segue destinationViewController];
+    [detail setEvent:sender];
 }
 
 #pragma mark ChartView Delegate
 
 -(void) didSelectEvents:(NSArray*)events withType:(NSString*)type value:(NSString*)value date:(NSString*)date
 {
-    
+    [self.type setText:type];
+    [self.value setText:value];
+    [self.date setText:date];
+    self.events = events;
+    [self.tableView reloadData];
 }
 
 -(void) updateInfo:(NSString*)type value:(NSString*)value unit:(NSString*)unit description:(NSString*)description

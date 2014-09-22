@@ -20,5 +20,6 @@
 -(void)addEventToSections:(PYEvent*)event;
 -(void)clearCurrentData;
 -(id) getEventsForIndex:(NSIndexPath*)index;
+-(void) didSelectRowAtIndexPath:(NSIndexPath*)indexpath;
 
 @end

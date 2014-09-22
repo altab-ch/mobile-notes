@@ -33,6 +33,7 @@
 #import "DetailViewController.h"
 #import "UIAlertView+PrYv.h"
 #import "BrowseEventsViewController+Sections.h"
+#import "AggregateEventsViewController.h"
 
 #define kPictureToDetailSegue_ID @"kPictureToDetailSegue_ID"
 #define kNoteToDetailSegue_ID @"kNoteToDetailSegue_ID"
@@ -395,6 +396,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
      }];
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self didSelectRowAtIndexPath:indexPath];
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     if ([self.sections count] == 0) return 0;
@@ -429,7 +435,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 
 #pragma mark - IBAction, segue
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(PYEvent*)sender
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:kValueToDetailSegue_ID]
         || [[segue identifier] isEqualToString:kPictureToDetailSegue_ID]
@@ -439,6 +445,12 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
         DetailViewController *detail = [segue destinationViewController];
         BrowseCell *cell = (BrowseCell*)[self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
         [detail setEvent:cell.event];
+    }
+    
+    if ([[segue identifier] isEqualToString:@"AggregateEventsSegue_ID"]) {
+        AggregateEventsViewController *detail = [segue destinationViewController];
+        BrowseCell *cell = (BrowseCell*)[self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
+        [detail setAggEvents:(NumberAggregateEvents*)cell.aggEvents];
     }
 }
 

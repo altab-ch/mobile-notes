@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AggregateEvents.h"
+#import "NumberAggregateEvents.h"
 
 @interface AggregateEventsViewController : UIViewController
 
-@property (nonatomic, weak) AggregateEvents *aggEvents;
+@property (nonatomic, weak) NumberAggregateEvents *aggEvents;
 
 @end

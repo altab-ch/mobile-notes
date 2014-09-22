@@ -46,6 +46,13 @@
     return cell;
 }
 
+-(void) didSelectRowAtIndexPath:(NSIndexPath*)indexpath
+{
+    id data = [self getEventsForIndex:indexpath];
+    if ([data isKindOfClass:[AggregateEvents class]]) [self performSegueWithIdentifier:@"AggregateEventsSegue_ID" sender:data];
+    
+}
+
 -(UIView *) viewForHeaderInSection:(NSInteger)section
 {
     if ([self.sections count] == 0) return nil;

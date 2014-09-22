@@ -17,7 +17,7 @@
 
 @end
 
-@interface ChartView : UIScrollView
+@interface ChartView : UIView
 
 -(void) updateWithAggregateEvents:(NumberAggregateEvents*)aggEvents;
 

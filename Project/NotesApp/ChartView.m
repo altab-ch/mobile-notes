@@ -11,25 +11,72 @@
 #import "JBBarChartView.h"
 #import "JBLineChartView.h"
 
-@interface ChartView () <UIScrollViewDelegate, JBBarChartViewDataSource, JBBarChartViewDelegate, JBLineChartViewDelegate, JBLineChartViewDataSource>
+@interface ChartView () <UIGestureRecognizerDelegate, JBBarChartViewDataSource, JBBarChartViewDelegate, JBLineChartViewDelegate, JBLineChartViewDataSource>
 
 @property (nonatomic, strong) NumberAggregateEvents *aggEvents;
+@property (nonatomic, strong) JBChartView *chartView;
+@property (nonatomic) CGFloat newWidth;
+@property (nonatomic) CGFloat newCenter;
+@property (nonatomic) CGFloat newX;
 
 @end
 
 @implementation ChartView
 
-- (instancetype)initWithFrame:(CGRect)frame {
-    self = [super initWithFrame:frame];
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
     if (self) {
+        self.newWidth = 310;
+        self.newCenter = 155;
+        self.newX = 0;
     }
     return self;
+}
+
+-(void)handlePinch:(UIPinchGestureRecognizer*)sender
+{
+    CGFloat newWidth = self.newWidth*((UIPinchGestureRecognizer*)sender).scale;
+    if (newWidth<self.frame.size.width) newWidth = self.frame.size.width;
+    CGFloat newX = (self.chartView.frame.origin.x-(newWidth-self.chartView.frame.size.width)/2.0);
+    if (newX > 0)
+        newX = 0;
+    if (newX + self.chartView.frame.size.width < self.frame.size.width)
+        newX = self.frame.size.width - self.chartView.frame.size.width;
+    
+    [self.chartView setFrame:CGRectMake(newX, 0, newWidth, self.frame.size.height)];
+    [self.chartView reloadData];
+    
+    if(sender.state == UIGestureRecognizerStateEnded || sender.state == UIGestureRecognizerStateFailed || sender.state == UIGestureRecognizerStateCancelled)
+    {
+        self.newWidth = self.chartView.frame.size.width;
+        self.newX = self.chartView.frame.origin.x;
+    }
+    
+    
+}
+
+-(void)handlePan:(UIPanGestureRecognizer*)sender
+{
+    CGFloat newX = self.newX + [sender translationInView:self.chartView].x;
+    if (newX>0)
+        newX = 0;
+    if (newX + self.chartView.frame.size.width < self.frame.size.width)
+        newX = self.frame.size.width - self.chartView.frame.size.width;
+    
+    [self.chartView setFrame:CGRectMake(newX, 0, self.chartView.frame.size.width, self.chartView.frame.size.width)];
+    
+    if(sender.state == UIGestureRecognizerStateEnded || sender.state == UIGestureRecognizerStateFailed || sender.state == UIGestureRecognizerStateCancelled)
+    {
+        self.newCenter = self.chartView.frame.origin.x+self.chartView.frame.size.width/2;
+        self.newX = self.chartView.frame.origin.x;
+    }
+    
 }
 
 -(void) updateWithAggregateEvents:(NumberAggregateEvents*)aggEvents
 {
     self.aggEvents = aggEvents;
-    
+
     if (self.aggEvents.graphStyle == GraphStyleLine || self.aggEvents.graphStyle == GraphStyleArea) {
         JBLineChartView *lineChartView = [[JBLineChartView alloc] init];
         [lineChartView setFrame:self.bounds];
@@ -39,6 +86,7 @@
         
         [self addSubview:lineChartView];
         [lineChartView reloadData];
+        self.chartView = lineChartView;
     }
     
     if (self.aggEvents.graphStyle == GraphStyleBar) {
@@ -50,7 +98,15 @@
         
         [self addSubview:lineChartView];
         [lineChartView reloadData];
+        self.chartView = lineChartView;
     }
+    
+    UIPinchGestureRecognizer *pinch = [[UIPinchGestureRecognizer alloc]initWithTarget:self action:@selector(handlePinch:)];
+    [self.chartView addGestureRecognizer:pinch];
+    
+    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(handlePan:)];
+    [pan setMinimumNumberOfTouches:2];
+    [self.chartView addGestureRecognizer:pan];
     
 }
 
