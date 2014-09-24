@@ -89,6 +89,7 @@
 		298F670619C6C19600CD24E5 /* BarCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 298F670519C6C19600CD24E5 /* BarCell.xib */; };
 		298F670919C6CEB800CD24E5 /* LineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 298F670819C6CEB800CD24E5 /* LineCell.m */; };
 		298F670B19C6D18A00CD24E5 /* LineCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 298F670A19C6D18A00CD24E5 /* LineCell.xib */; };
+		2994650F19D2FC8600F0EE7E /* SChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2994650E19D2FC8600F0EE7E /* SChartView.m */; };
 		29BDFAD919ADD8500026BFE5 /* TagLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BDFAD819ADD8500026BFE5 /* TagLabel.m */; };
 		29BDFAE819AF23350026BFE5 /* TagContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BDFAE719AF23350026BFE5 /* TagContainer.m */; };
 		29BDFAEC19B084D30026BFE5 /* DescriptionLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BDFAEB19B084D30026BFE5 /* DescriptionLabel.m */; };
@@ -534,6 +535,8 @@
 		298F670719C6CEB800CD24E5 /* LineCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineCell.h; sourceTree = "<group>"; };
 		298F670819C6CEB800CD24E5 /* LineCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineCell.m; sourceTree = "<group>"; };
 		298F670A19C6D18A00CD24E5 /* LineCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LineCell.xib; sourceTree = "<group>"; };
+		2994650D19D2FC8600F0EE7E /* SChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SChartView.h; sourceTree = "<group>"; };
+		2994650E19D2FC8600F0EE7E /* SChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SChartView.m; sourceTree = "<group>"; };
 		29BDFAD719ADD8500026BFE5 /* TagLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagLabel.h; sourceTree = "<group>"; };
 		29BDFAD819ADD8500026BFE5 /* TagLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagLabel.m; sourceTree = "<group>"; };
 		29BDFAE619AF23350026BFE5 /* TagContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagContainer.h; sourceTree = "<group>"; };
@@ -1119,6 +1122,8 @@
 				29BDFAE719AF23350026BFE5 /* TagContainer.m */,
 				29E8D72319CC7EB60058DBAA /* ChartView.h */,
 				29E8D72419CC7EB60058DBAA /* ChartView.m */,
+				2994650D19D2FC8600F0EE7E /* SChartView.h */,
+				2994650E19D2FC8600F0EE7E /* SChartView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -2530,6 +2535,7 @@
 				290712C4198BEB2000C3819B /* DateDetailCell.m in Sources */,
 				4E8AAFFB185A0EE40083DE8C /* SettingsController.m in Sources */,
 				290712D8198C0C3000C3819B /* NoteDetailCell.m in Sources */,
+				2994650F19D2FC8600F0EE7E /* SChartView.m in Sources */,
 				B64ACAE9175544E100E2F6F7 /* CustomNumericalKeyboard.m in Sources */,
 				B6D8EAA5175A185A00A3AA8F /* MBProgressHUD.m in Sources */,
 				298DE20819B4BB1E0088383F /* BrowserNavigationBar.m in Sources */,
