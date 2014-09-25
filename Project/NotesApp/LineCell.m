@@ -17,8 +17,8 @@
 @interface LineCell () <ChartViewDelegate>
 @property(nonatomic) GraphStyle graphStyle;
 @property (nonatomic, strong) UIColor *lineColor, *fillColor;
-@property (nonatomic, weak) IBOutlet UIView *chartView, *backView2;
-@property (nonatomic, weak) IBOutlet UILabel *lbValue, *lbUnit, *lbDescription, *lbDate;
+@property (nonatomic, weak) IBOutlet UIView *chartView;
+@property (nonatomic, weak) IBOutlet UILabel *lbValue, *lbUnit, *lbDate, *lbDescription;
 @end
 
 @implementation LineCell
@@ -29,9 +29,6 @@
     [super updateWithEvent:[aggEvent.events objectAtIndex:0]];
     [self displayEvent:[aggEvent.events count]-1];
 
-    [self.backView2.layer setBorderWidth:1];
-    [self.backView2.layer setBorderColor:[UIColor lightGrayColor].CGColor];
-    
     ChartView *chart = [[ChartView alloc] initWithFrame:self.chartView.bounds];
     [chart setChartDelegate:self];
     [chart updateWithAggregateEvents:aggEvent];
@@ -52,8 +49,11 @@
 {
     PYEvent *refEvent = [self.aggEvents.events objectAtIndex:index];
     [self.lbValue setText:refEvent.eventContentAsString];
-    [self.lbDescription setText:[refEvent.pyType localizedName]];
-    [self.lbUnit setText:[refEvent.pyType symbol]];
+    if (!refEvent.pyType.symbol)
+        [self.lbUnit setText:[refEvent.pyType localizedName]];
+    else
+        [self.lbUnit setText:[refEvent.pyType symbol]];
+    
     [self.lbDate setText:[[NotesAppController sharedInstance].cellDateFormatter stringFromDate:refEvent.eventDate]];
 }
 

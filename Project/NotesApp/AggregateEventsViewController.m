@@ -70,7 +70,6 @@
 
 -(void) didSelectEvents:(NSArray*)events withType:(NSString*)type value:(NSString*)value date:(NSString*)date
 {
-    [self.type setText:type];
     [self.value setText:value];
     [self.date setText:date];
     self.events = events;
