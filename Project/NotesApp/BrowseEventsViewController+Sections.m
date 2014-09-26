@@ -81,7 +81,8 @@
 {
     BrowseCell *cell = nil;
     if([pyType isNumerical]){
-        cell = (LineCell*)[[[NSBundle mainBundle] loadNibNamed:@"LineCell" owner:cell options:nil] objectAtIndex:0];
+        cell = [self.tableView dequeueReusableCellWithIdentifier:@"LineCell"];
+        //cell = (LineCell*)[[[NSBundle mainBundle] loadNibNamed:@"LineCell" owner:cell options:nil] objectAtIndex:0];
     }
     else if([pyType.key isEqualToString:@"position/wgs84"]) cell = [self.tableView dequeueReusableCellWithIdentifier:@"Map_ID"];
     return cell;

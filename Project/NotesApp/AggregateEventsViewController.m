@@ -9,12 +9,14 @@
 #import "AggregateEventsViewController.h"
 #import "ChartView.h"
 #import "DetailViewController.h"
+#import "SChartView.h"
 
-@interface AggregateEventsViewController () <UITableViewDelegate, UITableViewDataSource, ChartViewDelegate>
+@interface AggregateEventsViewController () <UITableViewDelegate, UITableViewDataSource, ChartViewDelegate, SChartViewDelegate>
 
 @property (nonatomic, weak) IBOutlet UILabel *value, *type, *date, *unitDesc;
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 @property (nonatomic, weak) IBOutlet ChartView *chartView;
+@property (nonatomic, weak) IBOutlet SChartView *schartView;
 @property (nonatomic, weak) NSArray *events;
 
 @end
@@ -23,8 +25,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.chartView setChartDelegate:self];
-    [self.chartView updateWithAggregateEvents:self.aggEvents];
+    //[self.chartView setChartDelegate:self];
+    //[self.chartView updateWithAggregateEvents:self.aggEvents];
+    
+    [self.schartView setChartDelegate:self];
+    [self.schartView updateWithAggregateEvents:self.aggEvents];
 }
 
 #pragma mark ScrollView Delegate

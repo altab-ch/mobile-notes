@@ -13,12 +13,14 @@
 #import "PYStream+Helper.h"
 #import "NumberAggregateEvents.h"
 #import "ChartView.h"
+#import "SChartView.h"
 
-@interface LineCell () <ChartViewDelegate>
+@interface LineCell () <ChartViewDelegate, SChartViewDelegate>
 @property(nonatomic) GraphStyle graphStyle;
 @property (nonatomic, strong) UIColor *lineColor, *fillColor;
 @property (nonatomic, weak) IBOutlet UIView *chartView;
 @property (nonatomic, weak) IBOutlet UILabel *lbValue, *lbUnit, *lbDate, *lbDescription;
+@property (nonatomic, weak) IBOutlet SChartView *schartView;
 @end
 
 @implementation LineCell
@@ -29,11 +31,14 @@
     [super updateWithEvent:[aggEvent.events objectAtIndex:0]];
     [self displayEvent:[aggEvent.events count]-1];
 
-    ChartView *chart = [[ChartView alloc] initWithFrame:self.chartView.bounds];
+    /*ChartView *chart = [[ChartView alloc] initWithFrame:self.chartView.bounds];
     [chart setChartDelegate:self];
     [chart updateWithAggregateEvents:aggEvent];
     [chart setUserInteractionEnabled:NO];
-    [self.chartView addSubview:chart];
+    [self.chartView addSubview:chart];*/
+    
+    [self.schartView setChartDelegate:self];
+    [self.schartView updateWithAggregateEvents:aggEvent];
     
     StreamAccessory *st = [[StreamAccessory alloc] initText:[[aggEvent.events objectAtIndex:0] eventBreadcrumbs] color:[[[aggEvent.events objectAtIndex:0] stream] getColor]];
     [self addSubview:st];

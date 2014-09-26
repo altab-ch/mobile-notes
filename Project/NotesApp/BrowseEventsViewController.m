@@ -145,6 +145,8 @@ static NSString *browseCellIdentifier = @"BrowseEventsCell_ID";
     self.sections = [NSMutableDictionary dictionary];
     [self loadSettings];
     
+    [self.tableView registerNib:[UINib nibWithNibName:@"LineCell" bundle:nil] forCellReuseIdentifier:@"LineCell"];
+    
     //self.navigationController.navigationBar.layer.masksToBounds = NO;
     
     [[NSNotificationCenter defaultCenter] addObserver:self

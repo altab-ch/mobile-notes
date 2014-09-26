@@ -145,7 +145,7 @@
         date = [[NotesAppController sharedInstance].cellDateFormatter stringFromDate:[((PYEvent*)([[self.aggEvents.sortedEvents objectAtIndex:index] objectAtIndex:0])) eventDate]];
     }
     if (self.aggEvents.history == HistoryDay) {
-        date = [NSString stringWithFormat:@"%ld hour", index];
+        date = [NSString stringWithFormat:@"%d hour", (int)index];
     }
     
     return date;
