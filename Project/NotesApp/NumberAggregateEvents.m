@@ -35,7 +35,7 @@
 
 -(NSString*)description
 {
-    return [NSString stringWithFormat:@"nb event %ld, key %@", [self.events count], self.pyType.key];
+    return [NSString stringWithFormat:@"nb event %lu, key %@", (unsigned long)[self.events count], self.pyType.key];
 }
 
 -(void) sort

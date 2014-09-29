@@ -9,6 +9,11 @@
 #import <UIKit/UIKit.h>
 #import <ShinobiCharts/ShinobiCharts.h>
 
+typedef enum {
+    ChartViewContextBrowser,
+    ChartViewContextDetail
+} ChartViewContext;
+
 @class NumberAggregateEvents;
 
 @protocol SChartViewDelegate <NSObject>
@@ -20,7 +25,7 @@
 
 @interface SChartView : ShinobiChart
 
--(void) updateWithAggregateEvents:(NumberAggregateEvents*)aggEvents;
+-(void) updateWithAggregateEvents:(NumberAggregateEvents*)aggEvents withContext:(ChartViewContext)context;
 
 @property (nonatomic, assign) id<SChartViewDelegate> chartDelegate;
 

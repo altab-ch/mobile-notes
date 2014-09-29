@@ -38,7 +38,7 @@
     [self.chartView addSubview:chart];*/
     
     [self.schartView setChartDelegate:self];
-    [self.schartView updateWithAggregateEvents:aggEvent];
+    [self.schartView updateWithAggregateEvents:aggEvent withContext:ChartViewContextBrowser];
     
     StreamAccessory *st = [[StreamAccessory alloc] initText:[[aggEvent.events objectAtIndex:0] eventBreadcrumbs] color:[[[aggEvent.events objectAtIndex:0] stream] getColor]];
     [self addSubview:st];

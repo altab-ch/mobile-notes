@@ -36,7 +36,7 @@
     return self;
 }
 
--(void) initChart
+-(void) initChartWithContext:(ChartViewContext)context
 {
     self.title = @"";
     self.autoresizingMask =  ~UIViewAutoresizingNone;
@@ -59,8 +59,8 @@
     [yAxis setEnableGestureZooming:NO];
     self.yAxis = yAxis;
     
-    //self.xAxis.style.majorTickStyle.showLabels = NO;
-    //self.xAxis.style.majorTickStyle.showTicks = NO;
+    self.xAxis.style.majorTickStyle.showLabels = NO;
+    self.xAxis.style.majorTickStyle.showTicks = NO;
     yAxis.style.majorTickStyle.showLabels = NO;
     yAxis.style.majorTickStyle.showTicks = NO;
     
@@ -74,10 +74,10 @@
     self.datasource = self;
 }
 
--(void) updateWithAggregateEvents:(NumberAggregateEvents*)aggEvents
+-(void) updateWithAggregateEvents:(NumberAggregateEvents*)aggEvents withContext:(ChartViewContext)context
 {
     self.aggEvents = aggEvents;
-    [self initChart];
+    [self initChartWithContext:context];
 }
 
 #pragma mark - SChartDelegate mathods
@@ -109,13 +109,13 @@ atPixelCoordinate:(CGPoint)pixelPoint
     SChartLineSeriesStyle *style = [SChartLineSeriesStyle new];
     style.pointStyle = [SChartPointStyle new];
     style.pointStyle.showPoints = YES;
-    style.pointStyle.color = [UIColor whiteColor];
-    style.pointStyle.radius = @(5);
+    style.pointStyle.color = [UIColor blueColor];
+    style.pointStyle.radius = @(3);
     
     style.selectedPointStyle = [SChartPointStyle new];
     style.selectedPointStyle.showPoints = YES;
-    style.selectedPointStyle.color = [UIColor orangeColor];
-    style.selectedPointStyle.radius = @(15);
+    style.selectedPointStyle.color = [UIColor redColor];
+    style.selectedPointStyle.radius = @(6);
     
     [lineSeries setStyle:style];
     
@@ -123,12 +123,12 @@ atPixelCoordinate:(CGPoint)pixelPoint
 }
 
 - (NSInteger)sChart:(ShinobiChart *)chart numberOfDataPointsForSeriesAtIndex:(NSInteger)seriesIndex {
-    return self.aggEvents.events.count;
+    return self.aggEvents.sortedEvents.count;
 }
 
 - (id<SChartData>)sChart:(ShinobiChart *)chart dataPointAtIndex:(NSInteger)dataIndex forSeriesAtIndex:(NSInteger)seriesIndex {
-    SChartDataPoint* datapoint = [self dataPointForDate:[[self.aggEvents.events objectAtIndex:dataIndex] eventDate]
-                                               andValue:[NSNumber numberWithFloat:[[[self.aggEvents.events objectAtIndex:dataIndex] eventContent] floatValue]]];
+    SChartDataPoint* datapoint = [self dataPointForDate:[self getDateForIndex:dataIndex]
+                                               andValue:[NSNumber numberWithFloat:[self getValueForIndex:dataIndex]]];
     
     return datapoint;
 }
@@ -160,6 +160,53 @@ atPixelCoordinate:(CGPoint)pixelPoint
     dataPoint.xValue = date;
     dataPoint.yValue = value;
     return dataPoint;
+}
+
+-(CGFloat) getValueForIndex:(NSUInteger)index
+{
+    float result = 0;
+    for (PYEvent* event in [self.aggEvents.sortedEvents objectAtIndex:index]) result += [event.eventContent floatValue];
+    if (self.aggEvents.transform == TransformAverage && [self.aggEvents.sortedEvents objectAtIndex:index] && [[self.aggEvents.sortedEvents objectAtIndex:index] count]>0) result = result / [[self.aggEvents.sortedEvents objectAtIndex:index] count];
+    return result;
+}
+
+-(NSString*) getType
+{
+    switch (self.aggEvents.transform) {
+        case TransformAverage:
+            return @"Average";
+            break;
+            
+        case TransformSum:
+            return @"Sum";
+            break;
+            
+        default:
+            break;
+    }
+    
+    return @"Last";
+}
+
+-(NSDate*) getDateForIndex:(NSInteger)index
+{
+    NSDate* date;
+    if (!self.aggEvents.transform && [[self.aggEvents.sortedEvents objectAtIndex:index] count]>0) {
+        date = [((PYEvent*)([[self.aggEvents.sortedEvents objectAtIndex:index] objectAtIndex:0])) eventDate];
+    }
+    else if (self.aggEvents.history == HistoryDay) {
+        NSDate *result = [((PYEvent*)([self.aggEvents.events objectAtIndex:0])) eventDate];
+        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        NSDateComponents *components = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitMinute|NSCalendarUnitSecond   fromDate:result];
+        [components setHour:index];
+        [components setMinute:0];
+        [components setSecond:0];
+        
+        date = [calendar dateFromComponents:components];
+        //date = [NSString stringWithFormat:@"%d hour", (int)index];
+    }
+    
+    return date;
 }
 
 @end

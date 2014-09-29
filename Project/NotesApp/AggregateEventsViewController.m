@@ -29,7 +29,7 @@
     //[self.chartView updateWithAggregateEvents:self.aggEvents];
     
     [self.schartView setChartDelegate:self];
-    [self.schartView updateWithAggregateEvents:self.aggEvents];
+    [self.schartView updateWithAggregateEvents:self.aggEvents withContext:ChartViewContextDetail];
 }
 
 #pragma mark ScrollView Delegate
