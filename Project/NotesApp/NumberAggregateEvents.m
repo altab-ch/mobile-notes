@@ -15,7 +15,7 @@
 {
     self = [super initWithEvent:event];
     if (self) {
-        self.graphStyle = GraphStyleLine;
+        self.graphStyle = GraphStyleBar;
         self.transform = TransformAverage;
         self.interval = IntervalHour;
         self.history = HistoryDay;

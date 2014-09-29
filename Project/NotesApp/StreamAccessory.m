@@ -12,7 +12,7 @@
 
 @property (nonatomic, strong) UIView *pastille;
 @property (nonatomic, strong) UILabel *label;
-@property (nonatomic, strong) NSString *text;
+//@property (nonatomic, strong) NSString *text;
 
 @end
 
@@ -24,15 +24,16 @@
     if (self) {
         [self setBackgroundColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.9]];
         [self.layer setCornerRadius:4];
-        [self setText:text];
+        //[self setText:text];
         [self setLabel:[[UILabel alloc] init]];
         [self.label setFont:[UIFont fontWithName:@"Helvetica Neue" size:12]];
         [self.label setTextColor:[UIColor grayColor]];
-        CGSize lbSize = [self.text sizeWithFont:self.label.font];
+        CGSize lbSize = [text sizeWithFont:self.label.font];
+        [self.label setText:text];
         if (color) {
             [self.label setFrame:CGRectMake(18, 0, lbSize.width, 14)];
             [self setFrame:CGRectMake(10, 6, lbSize.width+22, 16)];
-            [self.label setText:self.text];
+            [self.label setText:text];
             [self setPastille:[[UIView alloc] initWithFrame:CGRectMake(2, 2, 10, 10)]];
             [self.pastille.layer setCornerRadius:5];
             [self.pastille setBackgroundColor:color];
@@ -40,7 +41,6 @@
         }else{
             [self.label setFrame:CGRectMake(3, 0, lbSize.width, 14)];
             [self setFrame:CGRectMake(320-(lbSize.width+15), 6, lbSize.width+6, 16)];
-            [self.label setText:self.text];
         }
         
         [self addSubview:self.label];

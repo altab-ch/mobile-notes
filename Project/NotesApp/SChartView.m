@@ -44,31 +44,37 @@
     
     self.backgroundColor = [UIColor whiteColor];
     
-    // add X & Y axes, with explicit ranges so that the chart is initially rendered 'zoomed in'
-    NSDate *date = [[self.aggEvents.events objectAtIndex:[self.aggEvents.events count]-1] eventDate];
+    __block NSDate *min = nil;
+    __block NSDate *max = nil;
+    [self dateMinMax:^(NSDate* minDate, NSDate* maxDate){
+        min = minDate;
+        max = maxDate;
+    }];
     
-    SChartDateRange* dateRange = [[SChartDateRange alloc]initWithDateMinimum:[NSDate dateWithTimeInterval:-80000 sinceDate:date]
-                                                               andDateMaximum:[NSDate dateWithTimeInterval:7300 sinceDate:date]];
+    
+    //NSDate *max = [[self.aggEvents.events objectAtIndex:[self.aggEvents.events count]-1] eventDate];
+    //NSDate *max = [[self.aggEvents.events objectAtIndex:[self.aggEvents.events count]-1] eventDate];
+    
+    SChartDateRange* dateRange = [[SChartDateRange alloc]initWithDateMinimum:min andDateMaximum:max];
     SChartDateTimeAxis *xAxis = [[xTimeAxis alloc] initWithRange:dateRange];
     self.xAxis = xAxis;
     
     SChartNumberRange* numberRange = [[SChartNumberRange alloc] initWithMinimum:[self minValue] andMaximum:[self maxValue]];
     SChartNumberAxis* yAxis = [[SChartNumberAxis alloc] initWithRange:numberRange];
-    yAxis.title = @"";
-    [yAxis.style setLineColor:[UIColor whiteColor]];
-    [yAxis setEnableGestureZooming:NO];
     self.yAxis = yAxis;
     
-    self.xAxis.style.majorTickStyle.showLabels = NO;
-    self.xAxis.style.majorTickStyle.showTicks = NO;
-    yAxis.style.majorTickStyle.showLabels = NO;
-    yAxis.style.majorTickStyle.showTicks = NO;
-    
-    // enable gestures
-    //yAxis.enableGesturePanning = YES;
-    //yAxis.enableGestureZooming = YES;
-    xAxis.enableGesturePanning = YES;
-    xAxis.enableGestureZooming = YES;
+    if (context == ChartViewContextBrowser) {
+        self.userInteractionEnabled = NO;
+        self.xAxis.style.majorTickStyle.showLabels = NO;
+        self.xAxis.style.majorTickStyle.showTicks = NO;
+        self.yAxis.style.majorTickStyle.showLabels = NO;
+        self.yAxis.style.majorTickStyle.showTicks = NO;
+        self.yAxis.style.lineColor = [UIColor whiteColor];
+    }else{
+        xAxis.enableGesturePanning = YES;
+        xAxis.enableGestureZooming = YES;
+        self.yAxis.style.lineColor = [UIColor whiteColor];
+    }
     
     self.delegate = self;
     self.datasource = self;
@@ -101,25 +107,57 @@ atPixelCoordinate:(CGPoint)pixelPoint
 }
 
 -(SChartSeries *)sChart:(ShinobiChart *)chart seriesAtIndex:(NSInteger)index {
-    SChartLineSeries *lineSeries = [[SChartLineSeries alloc] init];
-    //lineSeries.stackIndex = [NSNumber numberWithInt:1];
-    //lineSeries.crosshairEnabled = YES;
-    lineSeries.selectionMode = SChartSelectionPoint;
     
-    SChartLineSeriesStyle *style = [SChartLineSeriesStyle new];
-    style.pointStyle = [SChartPointStyle new];
-    style.pointStyle.showPoints = YES;
-    style.pointStyle.color = [UIColor blueColor];
-    style.pointStyle.radius = @(3);
+    SChartSeries *chartSeries;
     
-    style.selectedPointStyle = [SChartPointStyle new];
-    style.selectedPointStyle.showPoints = YES;
-    style.selectedPointStyle.color = [UIColor redColor];
-    style.selectedPointStyle.radius = @(6);
+    if (self.aggEvents.graphStyle == GraphStyleLine) {
+        SChartLineSeries *lineChartSeries = [[SChartLineSeries alloc] init];
+        //lineSeries.stackIndex = [NSNumber numberWithInt:1];
+        //lineSeries.crosshairEnabled = YES;
+        lineChartSeries.selectionMode = SChartSelectionPoint;
+        
+        SChartLineSeriesStyle *style = [SChartLineSeriesStyle new];
+        style.lineColor = self.aggEvents.color;
+        
+        style.pointStyle = [SChartPointStyle new];
+        style.pointStyle.showPoints = YES;
+        style.pointStyle.color = self.aggEvents.color;;
+        style.pointStyle.radius = @(5);
+        
+        style.selectedPointStyle = [SChartPointStyle new];
+        style.selectedPointStyle.showPoints = YES;
+        style.selectedPointStyle.color = [UIColor redColor];
+        style.selectedPointStyle.radius = @(8);
+        
+        [lineChartSeries setStyle:style];
+        
+        return lineChartSeries;
+    }else
+    {
+        SChartColumnSeries *columnChartSeries = [[SChartColumnSeries alloc] init];
+        //lineSeries.stackIndex = [NSNumber numberWithInt:1];
+        //lineSeries.crosshairEnabled = YES;
+        columnChartSeries.selectionMode = SChartSelectionPoint;
+        
+        SChartColumnSeriesStyle *style = [SChartColumnSeriesStyle new];
+        SChartColumnSeriesStyle *selectedStyle = [SChartColumnSeriesStyle new];
+        /*style.pointStyle = [SChartPointStyle new];
+        style.pointStyle.showPoints = YES;
+        style.pointStyle.color = [UIColor blueColor];
+        style.pointStyle.radius = @(5);
+        
+        style.selectedPointStyle = [SChartPointStyle new];
+        style.selectedPointStyle.showPoints = YES;
+        style.selectedPointStyle.color = [UIColor redColor];
+        style.selectedPointStyle.radius = @(8);*/
+        
+        [columnChartSeries setStyle:style];
+        [columnChartSeries setSelectedStyle:selectedStyle];
+        
+        return columnChartSeries;
+    }
     
-    [lineSeries setStyle:style];
-    
-    return lineSeries;
+    return chartSeries;
 }
 
 - (NSInteger)sChart:(ShinobiChart *)chart numberOfDataPointsForSeriesAtIndex:(NSInteger)seriesIndex {
@@ -134,6 +172,18 @@ atPixelCoordinate:(CGPoint)pixelPoint
 }
 
 #pragma mark - Utils
+
+-(void) dateMinMax:(void (^)(NSDate* minDate, NSDate* maxDate))block
+{
+    NSMutableArray* dates = [NSMutableArray array];
+    for (int i=0; i<self.aggEvents.sortedEvents.count; i++) {
+        [dates addObject:[self getDateForIndex:i]];
+    }
+    NSSortDescriptor *descriptor=[[NSSortDescriptor alloc] initWithKey:@"self" ascending:YES];
+    NSArray *descriptors=[NSArray arrayWithObject: descriptor];
+    NSArray *reverseOrder=[dates sortedArrayUsingDescriptors:descriptors];
+    block([reverseOrder objectAtIndex:0], [reverseOrder objectAtIndex:[reverseOrder count]-1]);
+}
 
 -(NSNumber*)minValue
 {

@@ -40,6 +40,12 @@
     [self.schartView setChartDelegate:self];
     [self.schartView updateWithAggregateEvents:aggEvent withContext:ChartViewContextBrowser];
     
+    for (UIView *vi in self.subviews) {
+        if ([vi isKindOfClass:[StreamAccessory class]]) {
+            [vi removeFromSuperview];
+        }
+    }
+    
     StreamAccessory *st = [[StreamAccessory alloc] initText:[[aggEvent.events objectAtIndex:0] eventBreadcrumbs] color:[[[aggEvent.events objectAtIndex:0] stream] getColor]];
     [self addSubview:st];
     
