@@ -79,7 +79,6 @@
         [self.lbUnit setText:[refEvent.pyType symbol]];
         [self.lbDate setText:[[NotesAppController sharedInstance].cellDateFormatter stringFromDate:refEvent.eventDate]];
     }
-    
 }
 
 -(void) updateInfo:(NSString*)type value:(NSString*)value unit:(NSString*)unit description:(NSString*)description

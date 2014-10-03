@@ -22,7 +22,7 @@
 
 - (NSString *) formatStringForFrequency:(NSDateComponents *)frequency
 {
-    return @"DD/MM HH:mm";
+    return @"HH:mm";
 }
 
 @end

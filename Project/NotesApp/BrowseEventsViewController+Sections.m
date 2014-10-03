@@ -188,7 +188,7 @@
 - (CGFloat)aggregateHeightForPYType:(PYEventType*)pyType
 {
     CGFloat height = 100;
-    if([pyType isNumerical]) height = 104;
+    if([pyType isNumerical]) height = 160;
     else if([pyType.key isEqualToString:@"position/wgs84"]) height = 130;
     
     return height;

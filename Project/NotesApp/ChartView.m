@@ -180,12 +180,12 @@
 
 - (UIColor *)lineChartView:(JBLineChartView *)lineChartView colorForLineAtLineIndex:(NSUInteger)lineIndex
 {
-    return self.aggEvents.color;
+    return self.aggEvents.streamColor;
 }
 
 - (UIColor *)lineChartView:(JBLineChartView *)lineChartView fillColorForLineAtLineIndex:(NSUInteger)lineIndex
 {
-    return (self.aggEvents.graphStyle == GraphStyleArea) ? self.aggEvents.color : nil;
+    return (self.aggEvents.graphStyle == GraphStyleArea) ? self.aggEvents.streamColor : nil;
 }
 
 - (void)lineChartView:(JBLineChartView *)lineChartView didSelectLineAtIndex:(NSUInteger)lineIndex horizontalIndex:(NSUInteger)horizontalIndex touchPoint:(CGPoint)touchPoint
@@ -200,7 +200,7 @@
 
 - (UIColor *)lineChartView:(JBLineChartView *)lineChartView colorForDotAtHorizontalIndex:(NSUInteger)horizontalIndex atLineIndex:(NSUInteger)lineIndex
 {
-    return self.aggEvents.color;
+    return self.aggEvents.streamColor;
 }
 
 - (CGFloat)lineChartView:(JBLineChartView *)lineChartView widthForLineAtLineIndex:(NSUInteger)lineIndex
@@ -210,12 +210,12 @@
 
 - (UIColor *)lineChartView:(JBLineChartView *)lineChartView verticalSelectionColorForLineAtLineIndex:(NSUInteger)lineIndex
 {
-    return self.aggEvents.color;
+    return self.aggEvents.streamColor;
 }
 
 - (UIColor *)lineChartView:(JBLineChartView *)lineChartView selectionColorForLineAtLineIndex:(NSUInteger)lineIndex
 {
-    return self.aggEvents.color;
+    return self.aggEvents.streamColor;
 }
 
 - (UIColor *)lineChartView:(JBLineChartView *)lineChartView selectionFillColorForLineAtLineIndex:(NSUInteger)lineIndex
@@ -225,7 +225,7 @@
 
 - (UIColor *)lineChartView:(JBLineChartView *)lineChartView selectionColorForDotAtHorizontalIndex:(NSUInteger)horizontalIndex atLineIndex:(NSUInteger)lineIndex
 {
-    return self.aggEvents.color;
+    return self.aggEvents.streamColor;
 }
 
 - (JBLineChartViewLineStyle)lineChartView:(JBLineChartView *)lineChartView lineStyleForLineAtLineIndex:(NSUInteger)lineIndex
@@ -247,7 +247,7 @@
 
 -(UIColor*) barChartView:(JBBarChartView *)barChartView colorForBarViewAtIndex:(NSUInteger)index
 {
-    return self.aggEvents.color;
+    return self.aggEvents.streamColor;
 }
 
 - (void)barChartView:(JBBarChartView *)barChartView didSelectBarAtIndex:(NSUInteger)index touchPoint:(CGPoint)touchPoint

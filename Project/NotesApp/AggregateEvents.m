@@ -10,6 +10,7 @@
 #import "NumberAggregateEvents.h"
 #import "MapAggregateEvents.h"
 #import "PYEvent+Helper.h"
+#import "PYStream+Helper.h"
 
 @implementation AggregateEvents
 
@@ -33,6 +34,8 @@
         self.events = [NSMutableArray array];
         [self.events addObject:event];
         self.pyType = event.pyType;
+        self.breadCrumbs = event.stream.breadcrumbs;
+        self.streamColor = event.stream.getColor;
     }
     return self;
 }

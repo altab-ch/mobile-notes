@@ -92,6 +92,11 @@
 atPixelCoordinate:(CGPoint)pixelPoint
 {
     NSLog(@"%@, %@", dataPoint, series);
+    NSArray *events = dataPoint.selected ? [self.aggEvents.sortedEvents objectAtIndex:dataPoint.index] : nil;
+    [self.chartDelegate didSelectEvents:events
+                               withType:[self getType]
+                                  value:[NSString stringWithFormat:@"%f",[self getValueForIndex:dataPoint.index]]
+                                   date:[[NotesAppController sharedInstance].cellDateFormatter stringFromDate:[self getDateForIndex:dataPoint.index]]];
 }
 
 - (void)sChart:(ShinobiChart *)chart toggledSelectionForSeries:(SChartSeries *)series nearPoint:(SChartDataPoint *)dataPoint atPixelCoordinate:(CGPoint)pixelPoint{
@@ -117,11 +122,11 @@ atPixelCoordinate:(CGPoint)pixelPoint
         lineChartSeries.selectionMode = SChartSelectionPoint;
         
         SChartLineSeriesStyle *style = [SChartLineSeriesStyle new];
-        style.lineColor = self.aggEvents.color;
+        style.lineColor = self.aggEvents.streamColor;
         
         style.pointStyle = [SChartPointStyle new];
         style.pointStyle.showPoints = YES;
-        style.pointStyle.color = self.aggEvents.color;;
+        style.pointStyle.color = self.aggEvents.streamColor;;
         style.pointStyle.radius = @(5);
         
         style.selectedPointStyle = [SChartPointStyle new];
@@ -140,7 +145,9 @@ atPixelCoordinate:(CGPoint)pixelPoint
         columnChartSeries.selectionMode = SChartSelectionPoint;
         
         SChartColumnSeriesStyle *style = [SChartColumnSeriesStyle new];
+        style.areaColor = self.aggEvents.streamColor;
         SChartColumnSeriesStyle *selectedStyle = [SChartColumnSeriesStyle new];
+        selectedStyle.areaColor = [UIColor redColor];
         /*style.pointStyle = [SChartPointStyle new];
         style.pointStyle.showPoints = YES;
         style.pointStyle.color = [UIColor blueColor];
@@ -188,8 +195,16 @@ atPixelCoordinate:(CGPoint)pixelPoint
 -(NSNumber*)minValue
 {
     CGFloat result = CGFLOAT_MAX;
-    for (PYEvent* event in self.aggEvents.events) {
-        if (result > [event.eventContent floatValue]) result = [event.eventContent floatValue];
+    
+    if (self.aggEvents.transform) {
+        for (int i=0; i<[self.aggEvents.sortedEvents count];i++) {
+            if (![[self.aggEvents.sortedEvents objectAtIndex:i] count] && result>0) result = 0;
+            else if (result > [self getValueForIndex:i]) result = [self getValueForIndex:i];
+        }
+    }else{
+        for (PYEvent* event in self.aggEvents.events) {
+            if (result > [event.eventContent floatValue]) result = [event.eventContent floatValue];
+        }
     }
     
     return [NSNumber numberWithFloat:result];
@@ -198,8 +213,16 @@ atPixelCoordinate:(CGPoint)pixelPoint
 -(NSNumber*)maxValue
 {
     CGFloat result = CGFLOAT_MIN;
-    for (PYEvent* event in self.aggEvents.events) {
-        if (result < [event.eventContent floatValue]) result = [event.eventContent floatValue];
+    
+    if (self.aggEvents.transform) {
+        for (int i=0; i<[self.aggEvents.sortedEvents count];i++) {
+            if (![[self.aggEvents.sortedEvents objectAtIndex:i] count] && result<0) result = 0;
+            else if (result < [self getValueForIndex:i]) result = [self getValueForIndex:i];
+        }
+    }else{
+        for (PYEvent* event in self.aggEvents.events) {
+            if (result < [event.eventContent floatValue]) result = [event.eventContent floatValue];
+        }
     }
     
     return [NSNumber numberWithFloat:result];

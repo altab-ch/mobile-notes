@@ -39,7 +39,7 @@ typedef enum{
 @property (nonatomic) GraphStyle graphStyle;
 @property (nonatomic) Interval interval;
 @property (nonatomic) History history;
-@property (nonatomic, strong) UIColor *color;
+//@property (nonatomic, strong) UIColor *color;
 @property (nonatomic, strong) NSMutableArray *sortedEvents;
 
 @end

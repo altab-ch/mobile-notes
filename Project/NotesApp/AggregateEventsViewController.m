@@ -7,16 +7,12 @@
 //
 
 #import "AggregateEventsViewController.h"
-#import "ChartView.h"
 #import "DetailViewController.h"
 #import "SChartView.h"
+#import "ValueCell.h"
 
-@interface AggregateEventsViewController () <UITableViewDelegate, UITableViewDataSource, ChartViewDelegate, SChartViewDelegate>
+@interface AggregateEventsViewController () <SChartViewDelegate>
 
-@property (nonatomic, weak) IBOutlet UILabel *value, *type, *date, *unitDesc;
-@property (nonatomic, weak) IBOutlet UITableView *tableView;
-@property (nonatomic, weak) IBOutlet ChartView *chartView;
-@property (nonatomic, weak) IBOutlet SChartView *schartView;
 @property (nonatomic, weak) NSArray *events;
 
 @end
@@ -25,44 +21,109 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //[self.chartView setChartDelegate:self];
-    //[self.chartView updateWithAggregateEvents:self.aggEvents];
-    
-    [self.schartView setChartDelegate:self];
-    [self.schartView updateWithAggregateEvents:self.aggEvents withContext:ChartViewContextDetail];
-}
+    }
 
-#pragma mark ScrollView Delegate
+#pragma mark TableView Delegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if (section == 0) return 3;
     if (self.events) return [self.events count];
     return 0;
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return 2;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 50;
+    CGFloat result = 0;
+    if (indexPath.section == 0) {
+        switch (indexPath.row) {
+            case 0:
+                result = 48;
+                break;
+                
+            case 1:
+                result = 320;
+                break;
+                
+            case 2:
+                result = 52;
+                break;
+                
+            default:
+                break;
+        }
+    }else
+        result = 120;
+    
+    return result;
+}
+
+-(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    return section ? NSLocalizedString(@"AggEvent.header.events", nil) : NSLocalizedString(@"AggEvent.header.schart", nil);
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"ValueCell_ID"];
-    PYEvent *event = [self.events objectAtIndex:indexPath.row];
-    [(UILabel*)[cell viewWithTag:10] setText:[event.eventContent description]];
-    [(UILabel*)[cell viewWithTag:11] setText:[[NotesAppController sharedInstance].cellDateFormatter stringFromDate:event.eventDate]];
+    UITableViewCell *cel = nil;
+    if (indexPath.section == 0) {
+        switch (indexPath.row) {
+            case 0:
+            {
+                cel = [self.tableView dequeueReusableCellWithIdentifier:@"stream_id"];
+                UIView *pastille = (UIView *)[cel viewWithTag:13];
+                UILabel *lbStream = (UILabel *)[cel viewWithTag:14];
+                UILabel *lbUnit = (UILabel *)[cel viewWithTag:15];
+                
+                [pastille setBackgroundColor:self.aggEvents.streamColor];
+                [lbStream setText:self.aggEvents.breadCrumbs];
+                [lbUnit setText:[self.aggEvents.pyType localizedName]];
+            }
+                break;
+                
+            case 1:
+            {
+                cel = [self.tableView dequeueReusableCellWithIdentifier:@"schart_id"];
+                SChartView *sChartView = (SChartView*)[cel viewWithTag:10];
+                [sChartView setChartDelegate:self];
+                [sChartView updateWithAggregateEvents:self.aggEvents withContext:ChartViewContextDetail];
+            }
+                break;
+                
+            case 2:
+            {
+                cel = [self.tableView dequeueReusableCellWithIdentifier:@"valueInfo_id"];
+                UILabel *lbType = (UILabel *)[cel viewWithTag:11];
+                UILabel *lbValue = (UILabel *)[cel viewWithTag:12];
+                [lbType setText:@""];
+                [lbValue setText:@""];
+            }
+                break;
+                
+            default:
+                break;
+        }
+        
+    }
+    else if (indexPath.section == 1)
+    {
+        ValueCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"value_id"];
+        PYEvent *event = [self.events objectAtIndex:indexPath.row];
+        [cell updateWithEvent:event];
+        return cell;
+    }
     
-    return cell;
+    return cel;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self performSegueWithIdentifier:@"DetailViewSegue_ID" sender:[self.events objectAtIndex:indexPath.row]];
+    if (indexPath.section == 1)[self performSegueWithIdentifier:@"DetailViewSegue_ID" sender:[self.events objectAtIndex:indexPath.row]];
 }
 
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(PYEvent*)sender
@@ -75,10 +136,37 @@
 
 -(void) didSelectEvents:(NSArray*)events withType:(NSString*)type value:(NSString*)value date:(NSString*)date
 {
-    [self.value setText:value];
-    [self.date setText:date];
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
+    UILabel *lbType = (UILabel *)[cell viewWithTag:11];
+    UILabel *lbValue = (UILabel *)[cell viewWithTag:12];
+    [lbType setText:[NSString stringWithFormat:NSLocalizedString(@"AggEvent.type", nil), type, date]];
+    [lbValue setText:value];
+    
+    
+    
+    [self.tableView beginUpdates];
+    
+    if ([self.events count]) {
+        NSMutableArray *rows = [NSMutableArray array];
+        for (int i=0; i < self.events.count; i++) {
+            [rows addObject:[NSIndexPath indexPathForRow:i inSection:1]];
+        }
+        [self.tableView deleteRowsAtIndexPaths:rows withRowAnimation:UITableViewRowAnimationFade];
+
+    }
+    
     self.events = events;
-    [self.tableView reloadData];
+    
+    if ([self.events count]) {
+        NSMutableArray *rows = [NSMutableArray array];
+        for (int i=0; i < self.events.count; i++) {
+            [rows addObject:[NSIndexPath indexPathForRow:i inSection:1]];
+        }
+        [self.tableView insertRowsAtIndexPaths:rows withRowAnimation:UITableViewRowAnimationNone];
+    }
+    
+    [self.tableView endUpdates];
+    //[self.tableView reloadData];
 }
 
 -(void) updateInfo:(NSString*)type value:(NSString*)value unit:(NSString*)unit description:(NSString*)description

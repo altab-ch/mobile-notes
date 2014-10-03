@@ -61,6 +61,9 @@
 "Detail.duration" = "duration";
 "Detail.Running" = "Running";
 
+"AggEvent.type"= "%@ at %@ :";
+"AggEvent.header.schart" = "Graph";
+"AggEvent.header.events" = "Values";
 
 "TextEditorViewController.Title" = "Take a note";
 

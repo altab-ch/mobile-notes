@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "NumberAggregateEvents.h"
 
-@interface AggregateEventsViewController : UIViewController
+@interface AggregateEventsViewController : UITableViewController
 
 @property (nonatomic, weak) NumberAggregateEvents *aggEvents;
 

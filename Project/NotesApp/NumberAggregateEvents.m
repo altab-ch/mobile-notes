@@ -15,11 +15,11 @@
 {
     self = [super initWithEvent:event];
     if (self) {
-        self.graphStyle = GraphStyleBar;
+        self.graphStyle = GraphStyleLine;
         self.transform = TransformAverage;
         self.interval = IntervalHour;
         self.history = HistoryDay;
-        self.color = [[[self.events objectAtIndex:0] stream] getColor];
+        //self.color = [[[self.events objectAtIndex:0] stream] getColor];
     }
     return self;
 }
