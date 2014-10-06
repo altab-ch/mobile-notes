@@ -21,7 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    }
+}
 
 #pragma mark TableView Delegate
 
@@ -47,7 +47,7 @@
                 break;
                 
             case 1:
-                result = 320;
+                result = 280;
                 break;
                 
             case 2:
@@ -121,15 +121,15 @@
     return cel;
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+/*-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 1)[self performSegueWithIdentifier:@"DetailViewSegue_ID" sender:[self.events objectAtIndex:indexPath.row]];
-}
+}*/
 
--(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(PYEvent*)sender
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(ValueCell*)sender
 {
     DetailViewController *detail = [segue destinationViewController];
-    [detail setEvent:sender];
+    [detail setEvent:sender.event];
 }
 
 #pragma mark ChartView Delegate
@@ -162,11 +162,10 @@
         for (int i=0; i < self.events.count; i++) {
             [rows addObject:[NSIndexPath indexPathForRow:i inSection:1]];
         }
-        [self.tableView insertRowsAtIndexPaths:rows withRowAnimation:UITableViewRowAnimationNone];
+        [self.tableView insertRowsAtIndexPaths:rows withRowAnimation:UITableViewRowAnimationFade];
     }
     
     [self.tableView endUpdates];
-    //[self.tableView reloadData];
 }
 
 -(void) updateInfo:(NSString*)type value:(NSString*)value unit:(NSString*)unit description:(NSString*)description

@@ -49,7 +49,7 @@
 "MenuTableViewController.DateSelect" = "Date";
 "MenuTableViewController.StreamSelect" = "Streams";
 
-"AggEvent.type"= "%@ à @% :";
+"AggEvent.type"= "%@ à %@ :";
 "AggEvent.header.schart" = "Graphique";
 "AggEvent.header.events" = "Valeurs";
 

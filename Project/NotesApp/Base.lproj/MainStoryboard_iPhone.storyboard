@@ -1595,7 +1595,7 @@ height=123312</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="stream_id" rowHeight="48" id="nHA-eN-l6i">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="stream_id" rowHeight="48" id="nHA-eN-l6i">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nHA-eN-l6i" id="eb4-8e-xvp">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -1624,19 +1624,19 @@ height=123312</string>
                                     </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="schart_id" rowHeight="320" id="bgz-fx-UOe">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="schart_id" rowHeight="280" id="bgz-fx-UOe">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bgz-fx-UOe" id="4VC-LQ-YgJ">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view tag="10" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UHJ-tm-wkH" customClass="SChartView">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="319"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="279"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
                                     </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="valueInfo_id" rowHeight="52" id="DIb-Bj-F4e">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="valueInfo_id" rowHeight="52" id="DIb-Bj-F4e">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DIb-Bj-F4e" id="rgO-2L-Zfk">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -1656,7 +1656,7 @@ height=123312</string>
                                     </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="value_id" rowHeight="120" id="P50-xl-c0j" customClass="ValueCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="value_id" rowHeight="120" id="P50-xl-c0j" customClass="ValueCell">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="P50-xl-c0j" id="D67-71-mkf">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -1706,6 +1706,13 @@ height=123312</string>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="dateLabel" destination="gGl-px-ha3" id="u0u-F2-67G"/>
+                                    <outlet property="duration" destination="5j2-Wb-5FF" id="12b-ge-kOF"/>
+                                    <outlet property="formatDescriptionLabel" destination="4vR-OF-FaY" id="Xhl-fo-EFs"/>
+                                    <outlet property="pastille" destination="bz1-4R-ZFB" id="J3a-4C-t8M"/>
+                                    <outlet property="streamLabel" destination="6Mt-R9-NLL" id="HnC-KJ-Mf8"/>
+                                    <outlet property="tagContainer" destination="lx6-1q-FgL" id="vyY-S6-5ya"/>
+                                    <outlet property="valueLabel" destination="o8C-eA-5YX" id="YNR-4e-EmH"/>
                                     <segue destination="NTF-kp-JcL" kind="push" identifier="DetailViewSegue_ID" id="t9l-AL-MIY"/>
                                 </connections>
                             </tableViewCell>

@@ -13,7 +13,8 @@
 @interface SChartView () <SChartDelegate, SChartDatasource>
 
 @property (nonatomic, strong) NumberAggregateEvents *aggEvents;
-
+@property (nonatomic) ChartViewContext context;
+@property (nonatomic) BOOL firstLaunch;
 @end
 
 @implementation SChartView
@@ -83,7 +84,26 @@
 -(void) updateWithAggregateEvents:(NumberAggregateEvents*)aggEvents withContext:(ChartViewContext)context
 {
     self.aggEvents = aggEvents;
+    self.context = context;
+    self.firstLaunch = true;
     [self initChartWithContext:context];
+}
+
+-(void) layoutSubviews
+{
+    [super layoutSubviews];
+    if (self.context == ChartViewContextDetail && self.firstLaunch)
+    {
+        [[((SChartSeries*)[self.series objectAtIndex:0]).dataSeries.dataPoints objectAtIndex:0] setSelected:YES];
+        
+        NSArray *events = [self.aggEvents.sortedEvents objectAtIndex:0];
+        [self.chartDelegate didSelectEvents:events
+                                   withType:[self getType]
+                                      value:[NSString stringWithFormat:@"%f",[self getValueForIndex:0]]
+                                       date:[[NotesAppController sharedInstance].cellDateFormatter stringFromDate:[self getDateForIndex:0]]];
+        self.firstLaunch = false;
+    }
+    
 }
 
 #pragma mark - SChartDelegate mathods
@@ -91,18 +111,12 @@
 - (void)sChart:(ShinobiChart *)chart toggledSelectionForPoint:(SChartDataPoint *)dataPoint inSeries:(SChartSeries *)series
 atPixelCoordinate:(CGPoint)pixelPoint
 {
-    NSLog(@"%@, %@", dataPoint, series);
+    //NSLog(@"%@, %@", dataPoint, series);
     NSArray *events = dataPoint.selected ? [self.aggEvents.sortedEvents objectAtIndex:dataPoint.index] : nil;
     [self.chartDelegate didSelectEvents:events
                                withType:[self getType]
                                   value:[NSString stringWithFormat:@"%f",[self getValueForIndex:dataPoint.index]]
                                    date:[[NotesAppController sharedInstance].cellDateFormatter stringFromDate:[self getDateForIndex:dataPoint.index]]];
-}
-
-- (void)sChart:(ShinobiChart *)chart toggledSelectionForSeries:(SChartSeries *)series nearPoint:(SChartDataPoint *)dataPoint atPixelCoordinate:(CGPoint)pixelPoint{
-    NSLog(@"x value:%@",dataPoint.xValue);
-    NSLog(@"y value:%@",dataPoint.yValue);
-    //here you can create an label to show the x/y values or even can add an annotation
 }
 
 #pragma mark - SChartDatasource methods
