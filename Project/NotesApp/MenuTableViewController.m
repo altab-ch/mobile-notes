@@ -229,6 +229,8 @@ static int kPickerTag = 10;
 
 - (IBAction)btBackStreamPressed:(UIButton *)sender
 {
+    if (!self.streams || ![self.streams count]) return;
+    
     if ([[[self.streams objectAtIndex:0] parent] parent]) {
         self.streams = [[[[[self.streams objectAtIndex:0] parent] parent] children] sortedArrayUsingComparator:^NSComparisonResult(PYStream* ev1, PYStream* ev2) {
             return [ev1.name compare:ev2.name options:NSCaseInsensitiveSearch];
