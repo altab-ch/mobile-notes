@@ -293,7 +293,7 @@ BOOL needToRefreshOnceAgain = NO;
                 alreadyRefreshing = NO;
                 NSLog(@"********** init done **********");
                 if (needToRefreshOnceAgain) {
-                    //[self refreshFilter];
+                    [self refreshFilter];
                 }
             }];
 
@@ -313,7 +313,7 @@ BOOL needToRefreshOnceAgain = NO;
             alreadyRefreshing = NO;
             NSLog(@"********** refresh done **********");
             if (needToRefreshOnceAgain) {
-                //[self refreshFilter];
+                [self refreshFilter];
             }
         }];
         
