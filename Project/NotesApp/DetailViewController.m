@@ -141,6 +141,7 @@ typedef enum
 
 -(void) updateEvent
 {
+    self.endDateDetailCell.tableView = self.tableView;
     [self.cells enumerateObjectsUsingBlock:^(BaseDetailCell *cell, NSUInteger idx, BOOL *stop) {
         [cell setDelegate:self];
         [cell updateWithEvent:self.event];

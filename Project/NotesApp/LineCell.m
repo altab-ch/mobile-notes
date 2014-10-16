@@ -39,7 +39,7 @@
     
     [self.schartView setChartDelegate:self];
     [self.schartView updateWithAggregateEvents:aggEvent withContext:ChartViewContextBrowser];
-    
+        
     for (UIView *vi in self.subviews) {
         if ([vi isKindOfClass:[StreamAccessory class]]) {
             [vi removeFromSuperview];

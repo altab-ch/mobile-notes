@@ -1,13 +1,12 @@
 #platform :ios, '5.1'
-platform :ios, '6.1'
-
+platform :ios, '7.0'
 
 pod 'SSKeychain', '~> 1.1.0'
-pod 'UI7Kit', '~> 0.9.17'
 pod 'MCSwipeTableViewCell', '~> 2.1.0'
 
-pod 'JBChartView', '~> 2.8.6'
-pod 'PNChart', '~> 0.5'
+pod 'JBChartView', '~> 2.8.10'
+
+# Sliding 2.0 requires 7.0
 pod 'MMDrawerController', '~> 0.5.3'
 
 # a submodule-less setup for development in both at the same time

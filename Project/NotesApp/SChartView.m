@@ -58,27 +58,29 @@
     
     SChartDateRange* dateRange = [[SChartDateRange alloc]initWithDateMinimum:min andDateMaximum:max];
     SChartDateTimeAxis *xAxis = [[xTimeAxis alloc] initWithRange:dateRange];
-    self.xAxis = xAxis;
+    
     
     SChartNumberRange* numberRange = [[SChartNumberRange alloc] initWithMinimum:[self minValue] andMaximum:[self maxValue]];
     SChartNumberAxis* yAxis = [[SChartNumberAxis alloc] initWithRange:numberRange];
-    self.yAxis = yAxis;
+    
     
     if (context == ChartViewContextBrowser) {
         self.userInteractionEnabled = NO;
-        self.xAxis.style.majorTickStyle.showLabels = NO;
-        self.xAxis.style.majorTickStyle.showTicks = NO;
-        self.yAxis.style.majorTickStyle.showLabels = NO;
-        self.yAxis.style.majorTickStyle.showTicks = NO;
-        self.yAxis.style.lineColor = [UIColor whiteColor];
+        xAxis.style.majorTickStyle.showLabels = NO;
+        xAxis.style.majorTickStyle.showTicks = NO;
+        yAxis.style.majorTickStyle.showLabels = NO;
+        yAxis.style.majorTickStyle.showTicks = NO;
+        yAxis.style.lineColor = [UIColor whiteColor];
     }else{
         xAxis.enableGesturePanning = YES;
         xAxis.enableGestureZooming = YES;
-        self.yAxis.style.lineColor = [UIColor whiteColor];
+        yAxis.style.lineColor = [UIColor whiteColor];
     }
     
-    self.delegate = self;
-    self.datasource = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.yAxis = yAxis;
+        self.xAxis = xAxis;
+    });
 }
 
 -(void) updateWithAggregateEvents:(NumberAggregateEvents*)aggEvents withContext:(ChartViewContext)context
@@ -86,7 +88,11 @@
     self.aggEvents = aggEvents;
     self.context = context;
     self.firstLaunch = true;
-    [self initChartWithContext:context];
+    self.delegate = self;
+    self.datasource = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self initChartWithContext:context];
+    });
 }
 
 -(void) layoutSubviews

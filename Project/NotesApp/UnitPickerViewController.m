@@ -253,7 +253,7 @@
     if(component == 0)
     {
         [self.unitPicker reloadDataInComponent:1];
-        //        [self selectFirstTypeAnimated:YES];
+        [self.unitPicker selectRow:0 inComponent:1 animated:NO];
     }
     else if(component == 1)
     {
