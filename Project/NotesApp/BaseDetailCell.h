@@ -15,6 +15,7 @@
 @property (nonatomic, weak) PYEvent *event;
 @property (nonatomic, assign) id<DetailCellDelegate> delegate;
 @property (nonatomic, weak) IBOutlet UILabel *header;
+@property (nonatomic, weak) UITableView *tableView;
 
 -(CGFloat) getHeight;
 -(void) updateWithEvent:(PYEvent*)event;
