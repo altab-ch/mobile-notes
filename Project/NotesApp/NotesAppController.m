@@ -60,6 +60,10 @@ NSString *const kBrowserShouldScrollToTop = @"kBrowserShouldScrollToTop";
     self.sectionKeyFormatter = [[NSDateFormatter alloc] init];
     [self.sectionKeyFormatter setDateFormat:@"yyyy-MM-dd"];
     
+    self.numf = [[NSNumberFormatter alloc] init];
+    [self.numf setNumberStyle:NSNumberFormatterDecimalStyle];
+    [self.numf setMinimumFractionDigits:2];
+    
     self.sectionTitleFormatter = [[NSDateFormatter alloc] init];
     [self.sectionTitleFormatter setDateStyle:NSDateFormatterMediumStyle];
     [self.sectionTitleFormatter setDoesRelativeDateFormatting:YES];

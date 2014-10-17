@@ -32,6 +32,7 @@ extern NSString *const kBrowserShouldScrollToTop;
 
 @interface NotesAppController : NSObject
 
+@property (nonatomic, strong) NSNumberFormatter *numf;
 @property (nonatomic, strong) NSDateFormatter *sectionTitleFormatter;
 @property (nonatomic, strong) NSDateFormatter *sectionKeyFormatter;
 @property (nonatomic, strong) NSDateFormatter *cellDateFormatter;

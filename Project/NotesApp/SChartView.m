@@ -102,7 +102,7 @@
 -(void) layoutSubviews
 {
     [super layoutSubviews];
-    if (self.context == ChartViewContextDetail && self.firstLaunch)
+    /*if (self.context == ChartViewContextDetail && self.firstLaunch)
     {
         [[((SChartSeries*)[self.series objectAtIndex:0]).dataSeries.dataPoints objectAtIndex:0] setSelected:YES];
         
@@ -112,17 +112,19 @@
                                       value:[NSString stringWithFormat:@"%f",[self getValueForIndex:0]]
                                        date:[[NotesAppController sharedInstance].cellDateFormatter stringFromDate:[self getDateForIndex:0]]];
         self.firstLaunch = false;
-    }
+    }*/
+    
+    [self selectClosePoint:[self.aggEvents.sortedEvents count]-1];
     
 }
 
--(void) selectClosePoint:(SChartDataPoint*)dataPoint
+-(void) selectClosePoint:(NSInteger)index
 {
-    if ([[self.aggEvents.sortedEvents objectAtIndex:dataPoint.index] count]) {
-        [self selectPoint:dataPoint.index];
+    if ([[self.aggEvents.sortedEvents objectAtIndex:index] count]) {
+        [self selectPoint:index];
     }else
     {
-        [self selectPoint:[self findClosestEvents:dataPoint.index]];
+        [self selectPoint:[self findClosestEvents:index]];
     
     }
 }
@@ -134,7 +136,7 @@
         up++;
     
     NSInteger down = index-1;
-    while (![[self.aggEvents.sortedEvents objectAtIndex:down] count])
+    while (down >= 0 && ![[self.aggEvents.sortedEvents objectAtIndex:down] count])
         down--;
     
     if (up >= [self.aggEvents.sortedEvents count]) {
@@ -158,11 +160,20 @@
 
 -(void) selectPoint:(NSInteger)index
 {
-    NSArray *events = [self.aggEvents.sortedEvents objectAtIndex:index];
-    [self.chartDelegate didSelectEvents:events
-                               withType:[self getType]
-                                  value:[NSString stringWithFormat:@"%f",[self getValueForIndex:index]]
-                                   date:[[NotesAppController sharedInstance].cellDateFormatter stringFromDate:[self getDateForIndex:index]]];
+    if (self.firstLaunch) {
+        NSInteger lastVal = [self findClosestEvents:[self.aggEvents.sortedEvents count]-1];
+        [[((SChartSeries*)[self.series objectAtIndex:0]).dataSeries.dataPoints objectAtIndex:lastVal] setSelected:NO];
+        
+        
+        
+        [[((SChartSeries*)[self.series objectAtIndex:0]).dataSeries.dataPoints objectAtIndex:index] setSelected:YES];
+        NSArray *events = [self.aggEvents.sortedEvents objectAtIndex:index];
+        [self.chartDelegate didSelectEvents:events
+                                   withType:[self getType]
+                                      value:[NSString stringWithFormat:@"%@",[[NotesAppController sharedInstance].numf stringFromNumber:[NSNumber numberWithFloat:[self getValueForIndex:index]]]]
+                                       date:[[NotesAppController sharedInstance].cellDateFormatter stringFromDate:[self getDateForIndex:index]]];
+        self.firstLaunch = false;
+    }
 }
 
 #pragma mark - SChartDelegate mathods
@@ -170,7 +181,8 @@
 - (void)sChart:(ShinobiChart *)chart toggledSelectionForPoint:(SChartDataPoint *)dataPoint inSeries:(SChartSeries *)series
 atPixelCoordinate:(CGPoint)pixelPoint
 {
-    
+    self.firstLaunch=true;
+    [self selectClosePoint:dataPoint.index];
     
 }
 
