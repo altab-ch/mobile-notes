@@ -52,15 +52,19 @@
         max = maxDate;
     }];
     
+    __block NSNumber *minVal = nil;
+    __block NSNumber *maxVal = nil;
+    [self valueMinMax:^(NSNumber* minValue, NSNumber* maxValue){
+        minVal = minValue;
+        maxVal = maxValue;
+    }];
     
-    //NSDate *max = [[self.aggEvents.events objectAtIndex:[self.aggEvents.events count]-1] eventDate];
-    //NSDate *max = [[self.aggEvents.events objectAtIndex:[self.aggEvents.events count]-1] eventDate];
     
     SChartDateRange* dateRange = [[SChartDateRange alloc]initWithDateMinimum:min andDateMaximum:max];
     SChartDateTimeAxis *xAxis = [[xTimeAxis alloc] initWithRange:dateRange];
     
     
-    SChartNumberRange* numberRange = [[SChartNumberRange alloc] initWithMinimum:[self minValue] andMaximum:[self maxValue]];
+    SChartNumberRange* numberRange = [[SChartNumberRange alloc] initWithMinimum:minVal andMaximum:maxVal];
     SChartNumberAxis* yAxis = [[SChartNumberAxis alloc] initWithRange:numberRange];
     
     
@@ -77,10 +81,10 @@
         yAxis.style.lineColor = [UIColor whiteColor];
     }
     
-    dispatch_async(dispatch_get_main_queue(), ^{
+    //dispatch_async(dispatch_get_main_queue(), ^{
         self.yAxis = yAxis;
         self.xAxis = xAxis;
-    });
+    //});
 }
 
 -(void) updateWithAggregateEvents:(NumberAggregateEvents*)aggEvents withContext:(ChartViewContext)context
@@ -90,9 +94,9 @@
     self.firstLaunch = true;
     self.delegate = self;
     self.datasource = self;
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self initChartWithContext:context];
-    });
+    //});
 }
 
 -(void) layoutSubviews
@@ -112,17 +116,62 @@
     
 }
 
+-(void) selectClosePoint:(SChartDataPoint*)dataPoint
+{
+    if ([[self.aggEvents.sortedEvents objectAtIndex:dataPoint.index] count]) {
+        [self selectPoint:dataPoint.index];
+    }else
+    {
+        [self selectPoint:[self findClosestEvents:dataPoint.index]];
+    
+    }
+}
+
+-(NSInteger) findClosestEvents:(NSInteger)index
+{
+    NSInteger up = index+1;
+    while (up < [self.aggEvents.sortedEvents count] && ![[self.aggEvents.sortedEvents objectAtIndex:up] count])
+        up++;
+    
+    NSInteger down = index-1;
+    while (![[self.aggEvents.sortedEvents objectAtIndex:down] count])
+        down--;
+    
+    if (up >= [self.aggEvents.sortedEvents count]) {
+        if (down < 0) {
+            return index;
+        }
+        return down;
+    }
+    
+    if (down < 0) {
+        if (up >= [self.aggEvents.sortedEvents count]) {
+            return index;
+        }
+        return up;
+    }
+    
+    if(index-down > up-index)
+        return up;
+    return down;
+}
+
+-(void) selectPoint:(NSInteger)index
+{
+    NSArray *events = [self.aggEvents.sortedEvents objectAtIndex:index];
+    [self.chartDelegate didSelectEvents:events
+                               withType:[self getType]
+                                  value:[NSString stringWithFormat:@"%f",[self getValueForIndex:index]]
+                                   date:[[NotesAppController sharedInstance].cellDateFormatter stringFromDate:[self getDateForIndex:index]]];
+}
+
 #pragma mark - SChartDelegate mathods
 
 - (void)sChart:(ShinobiChart *)chart toggledSelectionForPoint:(SChartDataPoint *)dataPoint inSeries:(SChartSeries *)series
 atPixelCoordinate:(CGPoint)pixelPoint
 {
-    //NSLog(@"%@, %@", dataPoint, series);
-    NSArray *events = dataPoint.selected ? [self.aggEvents.sortedEvents objectAtIndex:dataPoint.index] : nil;
-    [self.chartDelegate didSelectEvents:events
-                               withType:[self getType]
-                                  value:[NSString stringWithFormat:@"%f",[self getValueForIndex:dataPoint.index]]
-                                   date:[[NotesAppController sharedInstance].cellDateFormatter stringFromDate:[self getDateForIndex:dataPoint.index]]];
+    
+    
 }
 
 #pragma mark - SChartDatasource methods
@@ -168,15 +217,6 @@ atPixelCoordinate:(CGPoint)pixelPoint
         style.areaColor = self.aggEvents.streamColor;
         SChartColumnSeriesStyle *selectedStyle = [SChartColumnSeriesStyle new];
         selectedStyle.areaColor = [UIColor redColor];
-        /*style.pointStyle = [SChartPointStyle new];
-        style.pointStyle.showPoints = YES;
-        style.pointStyle.color = [UIColor blueColor];
-        style.pointStyle.radius = @(5);
-        
-        style.selectedPointStyle = [SChartPointStyle new];
-        style.selectedPointStyle.showPoints = YES;
-        style.selectedPointStyle.color = [UIColor redColor];
-        style.selectedPointStyle.radius = @(8);*/
         
         [columnChartSeries setStyle:style];
         [columnChartSeries setSelectedStyle:selectedStyle];
@@ -198,6 +238,22 @@ atPixelCoordinate:(CGPoint)pixelPoint
     return datapoint;
 }
 
+- (float)sChartRadiusForDataPoint:(ShinobiChart *)chart dataPointAtIndex:(int)dataIndex forSeriesAtIndex:(int)seriesIndex
+{
+    if ([[self.aggEvents.sortedEvents objectAtIndex:dataIndex] count] == 0)
+        return 1;
+    
+    return 5;
+}
+
+- (float)sChartInnerRadiusForDataPoint:(ShinobiChart *)chart dataPointAtIndex:(int)dataIndex forSeriesAtIndex:(int)seriesIndex
+{
+    if ([[self.aggEvents.sortedEvents objectAtIndex:dataIndex] count] == 0)
+        return 0.1;
+    
+    return 3;
+}
+
 #pragma mark - Utils
 
 -(void) dateMinMax:(void (^)(NSDate* minDate, NSDate* maxDate))block
@@ -209,10 +265,19 @@ atPixelCoordinate:(CGPoint)pixelPoint
     NSSortDescriptor *descriptor=[[NSSortDescriptor alloc] initWithKey:@"self" ascending:YES];
     NSArray *descriptors=[NSArray arrayWithObject: descriptor];
     NSArray *reverseOrder=[dates sortedArrayUsingDescriptors:descriptors];
-    block([reverseOrder objectAtIndex:0], [reverseOrder objectAtIndex:[reverseOrder count]-1]);
+    double diff = ([[reverseOrder objectAtIndex:[reverseOrder count]-1] timeIntervalSince1970]-[[reverseOrder objectAtIndex:0] timeIntervalSince1970])*0.05;
+    block([[reverseOrder objectAtIndex:0] dateByAddingTimeInterval:-diff], [[reverseOrder objectAtIndex:[reverseOrder count]-1] dateByAddingTimeInterval:diff]);
 }
 
--(NSNumber*)minValue
+-(void) valueMinMax:(void (^)(NSNumber* minValue, NSNumber* maxValue))block
+{
+    CGFloat min = [self minValue];
+    CGFloat max = [self maxValue];
+    CGFloat padding = (max-min)*0.05;
+    block([NSNumber numberWithFloat:min-padding], [NSNumber numberWithFloat:max+padding]);
+}
+
+-(CGFloat)minValue
 {
     CGFloat result = CGFLOAT_MAX;
     
@@ -227,10 +292,10 @@ atPixelCoordinate:(CGPoint)pixelPoint
         }
     }
     
-    return [NSNumber numberWithFloat:result];
+    return result;
 }
 
--(NSNumber*)maxValue
+-(CGFloat)maxValue
 {
     CGFloat result = CGFLOAT_MIN;
     
@@ -245,7 +310,7 @@ atPixelCoordinate:(CGPoint)pixelPoint
         }
     }
     
-    return [NSNumber numberWithFloat:result];
+    return result;
 }
 
 - (SChartDataPoint*)dataPointForDate:(NSDate*)date andValue:(NSNumber*)value {

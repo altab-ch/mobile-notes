@@ -42,4 +42,6 @@ typedef enum{
 //@property (nonatomic, strong) UIColor *color;
 @property (nonatomic, strong) NSMutableArray *sortedEvents;
 
+-(NSString*) historyLocalized;
+
 @end

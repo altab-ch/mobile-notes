@@ -19,7 +19,7 @@
 @property(nonatomic) GraphStyle graphStyle;
 @property (nonatomic, strong) UIColor *lineColor, *fillColor;
 @property (nonatomic, weak) IBOutlet UIView *chartView;
-@property (nonatomic, weak) IBOutlet UILabel *lbValue, *lbUnit, *lbDate, *lbDescription;
+@property (nonatomic, weak) IBOutlet UILabel *lbValue, *lbUnit, *lbDate, *lbDescription, *lbHistory;
 @property (nonatomic, weak) IBOutlet SChartView *schartView;
 @end
 
@@ -65,6 +65,8 @@
     else
         [self.lbUnit setText:[refEvent.pyType symbol]];
     
+    [self.lbHistory setText:[(NumberAggregateEvents*)self.aggEvents historyLocalized]];
+    [self.lbDescription setText:[refEvent.pyType localizedName]];
     [self.lbDate setText:[[NotesAppController sharedInstance].cellDateFormatter stringFromDate:refEvent.eventDate]];
 }
 

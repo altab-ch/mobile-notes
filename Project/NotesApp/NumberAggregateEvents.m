@@ -11,6 +11,30 @@
 
 @implementation NumberAggregateEvents
 
+-(NSString*) historyLocalized
+{
+    switch (self.history) {
+        case HistoryYear:
+            return NSLocalizedString(@"year", nil);
+            break;
+            
+        case HistoryMonth:
+            return NSLocalizedString(@"month", nil);
+            break;
+            
+        case HistoryWeek:
+            return NSLocalizedString(@"week", nil);
+            break;
+            
+        case HistoryDay:
+            return NSLocalizedString(@"day", nil);
+            break;
+            
+        default:
+            break;
+    }
+}
+
 -(id) initWithEvent:(PYEvent*)event
 {
     self = [super initWithEvent:event];

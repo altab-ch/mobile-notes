@@ -16,6 +16,11 @@
 "Library" = "Bibliothèque";
 "Settings" = "Paramètres";
 
+"year" = "Année";
+"month" = "Mois";
+"week" = "Semaine";
+"day" = "Jour";
+
 "YES" = "Oui";
 "NO" = "Non";
 "Error" = "Erreur";
