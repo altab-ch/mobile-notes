@@ -315,48 +315,6 @@
 			remoteGlobalIDString = 354E9D7A82934AF8BA55A8ED;
 			remoteInfo = "Pods-PryvApiKit";
 		};
-		B6087DA1189F084200891C75 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4E37853717953BBD00ED94DF /* Pods.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4A7DBCB64826415C80DF8EC1;
-			remoteInfo = "Pods-FoundationExtension";
-		};
-		B6087DA3189F084200891C75 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4E37853717953BBD00ED94DF /* Pods.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 050F876D3AAE4630ACFC3188;
-			remoteInfo = "Pods-GIKPopoverBackgroundView";
-		};
-		B6087DA5189F084200891C75 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4E37853717953BBD00ED94DF /* Pods.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 5C2FAB545BF24C71AD5E3FAE;
-			remoteInfo = "Pods-SevenSwitch";
-		};
-		B6087DA7189F084200891C75 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4E37853717953BBD00ED94DF /* Pods.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 90E8FF3A5D8A41FA81BD0459;
-			remoteInfo = "Pods-UI7Kit";
-		};
-		B6087DA9189F084200891C75 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4E37853717953BBD00ED94DF /* Pods.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = FF838F6CC60549E0AEC797D3;
-			remoteInfo = "Pods-UIKitResources";
-		};
-		B6087DAB189F084200891C75 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4E37853717953BBD00ED94DF /* Pods.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D658EE5CFDA94379AD31EC40;
-			remoteInfo = "Pods-cdebug";
-		};
 		B6F207C717954F30006FC5B0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4E37853717953BBD00ED94DF /* Pods.xcodeproj */;
@@ -1231,16 +1189,10 @@
 			isa = PBXGroup;
 			children = (
 				B6F207CA17954F30006FC5B0 /* libPods.a */,
-				B6087DA2189F084200891C75 /* libPods-FoundationExtension.a */,
-				B6087DA4189F084200891C75 /* libPods-GIKPopoverBackgroundView.a */,
 				4EF4B19E18B4A96D009C8A64 /* libPods-MCSwipeTableViewCell.a */,
 				291ED16319128561009A9B3D /* libPods-MMDrawerController.a */,
 				96453C6B18B77DD00050618E /* libPods-PryvApiKit.a */,
 				B6F207C817954F30006FC5B0 /* libPods-SSKeychain.a */,
-				B6087DA6189F084200891C75 /* libPods-SevenSwitch.a */,
-				B6087DA8189F084200891C75 /* libPods-UI7Kit.a */,
-				B6087DAA189F084200891C75 /* libPods-UIKitResources.a */,
-				B6087DAC189F084200891C75 /* libPods-cdebug.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2053,48 +2005,6 @@
 			remoteRef = 96453C6A18B77DD00050618E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		B6087DA2189F084200891C75 /* libPods-FoundationExtension.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libPods-FoundationExtension.a";
-			remoteRef = B6087DA1189F084200891C75 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		B6087DA4189F084200891C75 /* libPods-GIKPopoverBackgroundView.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libPods-GIKPopoverBackgroundView.a";
-			remoteRef = B6087DA3189F084200891C75 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		B6087DA6189F084200891C75 /* libPods-SevenSwitch.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libPods-SevenSwitch.a";
-			remoteRef = B6087DA5189F084200891C75 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		B6087DA8189F084200891C75 /* libPods-UI7Kit.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libPods-UI7Kit.a";
-			remoteRef = B6087DA7189F084200891C75 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		B6087DAA189F084200891C75 /* libPods-UIKitResources.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libPods-UIKitResources.a";
-			remoteRef = B6087DA9189F084200891C75 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		B6087DAC189F084200891C75 /* libPods-cdebug.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libPods-cdebug.a";
-			remoteRef = B6087DAB189F084200891C75 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		B6F207C817954F30006FC5B0 /* libPods-SSKeychain.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -2499,7 +2409,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
-				PROVISIONING_PROFILE = "CE534A0D-63F3-4CE0-AE66-CA82C2769BCB";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -2526,7 +2436,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = "-ObjC";
-				PROVISIONING_PROFILE = "CE534A0D-63F3-4CE0-AE66-CA82C2769BCB";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
