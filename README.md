@@ -4,6 +4,12 @@
 
 ### Install 
 
+- Shinobi Controls
+
+download ShinobiControls for iOS on http://www.shinobicontrols.com/ios
+launch install.pkg
+relaunch xcode
+
 #### PODS
 
 - install cocoa pods [cocoapods.org](http://cocoapods.org/)

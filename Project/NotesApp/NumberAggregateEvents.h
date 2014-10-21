@@ -11,6 +11,7 @@
 typedef enum {
     GraphStyleBar = 1,
     GraphStyleLine,
+    GraphStyleLineJoined,
     GraphStyleArea
 }GraphStyle;
 

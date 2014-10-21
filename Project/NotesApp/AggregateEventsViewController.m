@@ -47,7 +47,7 @@
                 break;
                 
             case 1:
-                result = 280;
+                result = 200;
                 break;
                 
             case 2:

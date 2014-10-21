@@ -1624,13 +1624,13 @@ height=123312</string>
                                     </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="schart_id" rowHeight="280" id="bgz-fx-UOe">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="schart_id" rowHeight="200" id="bgz-fx-UOe">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bgz-fx-UOe" id="4VC-LQ-YgJ">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view tag="10" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UHJ-tm-wkH" customClass="SChartView">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="279"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="199"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
                                     </subviews>

@@ -186,6 +186,16 @@ atPixelCoordinate:(CGPoint)pixelPoint
     
 }
 
+- (void)sChart:(ShinobiChart *)chart toggledSelectionForSeries:(SChartSeries *)series nearPoint:(SChartDataPoint *)dataPoint atPixelCoordinate:(CGPoint)pixelPoint
+{
+    
+}
+
+- (void)sChart:(ShinobiChart *)chart toggledSelectionForRadialPoint:(SChartRadialDataPoint *)dataPoint inSeries:(SChartRadialSeries *)series atPixelCoordinate:(CGPoint)pixelPoint
+{
+
+}
+
 #pragma mark - SChartDatasource methods
 
 - (NSInteger)numberOfSeriesInSChart:(ShinobiChart *)chart {
@@ -250,7 +260,7 @@ atPixelCoordinate:(CGPoint)pixelPoint
     return datapoint;
 }
 
-- (float)sChartRadiusForDataPoint:(ShinobiChart *)chart dataPointAtIndex:(int)dataIndex forSeriesAtIndex:(int)seriesIndex
+- (float)sChartRadiusForDataPoint:(ShinobiChart *)chart dataPointAtIndex:(NSInteger)dataIndex forSeriesAtIndex:(NSInteger)seriesIndex
 {
     if ([[self.aggEvents.sortedEvents objectAtIndex:dataIndex] count] == 0)
         return 1;
@@ -258,7 +268,7 @@ atPixelCoordinate:(CGPoint)pixelPoint
     return 5;
 }
 
-- (float)sChartInnerRadiusForDataPoint:(ShinobiChart *)chart dataPointAtIndex:(int)dataIndex forSeriesAtIndex:(int)seriesIndex
+- (float)sChartInnerRadiusForDataPoint:(ShinobiChart *)chart dataPointAtIndex:(NSInteger)dataIndex forSeriesAtIndex:(NSInteger)seriesIndex
 {
     if ([[self.aggEvents.sortedEvents objectAtIndex:dataIndex] count] == 0)
         return 0.1;
