@@ -114,7 +114,7 @@
         self.firstLaunch = false;
     }*/
     
-    [self selectClosePoint:[self.aggEvents.sortedEvents count]-1];
+    //[self selectClosePoint:[self.aggEvents.sortedEvents count]-1];
     
 }
 
@@ -186,16 +186,6 @@ atPixelCoordinate:(CGPoint)pixelPoint
     
 }
 
-- (void)sChart:(ShinobiChart *)chart toggledSelectionForSeries:(SChartSeries *)series nearPoint:(SChartDataPoint *)dataPoint atPixelCoordinate:(CGPoint)pixelPoint
-{
-    
-}
-
-- (void)sChart:(ShinobiChart *)chart toggledSelectionForRadialPoint:(SChartRadialDataPoint *)dataPoint inSeries:(SChartRadialSeries *)series atPixelCoordinate:(CGPoint)pixelPoint
-{
-
-}
-
 #pragma mark - SChartDatasource methods
 
 - (NSInteger)numberOfSeriesInSChart:(ShinobiChart *)chart {
@@ -250,10 +240,32 @@ atPixelCoordinate:(CGPoint)pixelPoint
 }
 
 - (NSInteger)sChart:(ShinobiChart *)chart numberOfDataPointsForSeriesAtIndex:(NSInteger)seriesIndex {
+    if (self.aggEvents.graphStyle == GraphStyleLine && self.aggEvents.transform == TransformAverage) {
+        NSInteger result = 0;
+        for (NSArray *ar in self.aggEvents.sortedEvents) {
+            if ([ar count]) {
+                result++;
+            }
+        }
+        return result;
+    }
     return self.aggEvents.sortedEvents.count;
 }
 
 - (id<SChartData>)sChart:(ShinobiChart *)chart dataPointAtIndex:(NSInteger)dataIndex forSeriesAtIndex:(NSInteger)seriesIndex {
+    
+    if (self.aggEvents.graphStyle == GraphStyleLine && self.aggEvents.transform == TransformAverage) {
+        NSInteger index = 0;
+        NSInteger valid = 0;
+        for (NSArray *ar in self.aggEvents.sortedEvents) {
+            if ([ar count]) {
+                if (valid == dataIndex) return [self dataPointForDate:[self getDateForIndex:index] andValue:[NSNumber numberWithFloat:[self getValueForIndex:index]]];
+                valid++;
+            }
+            index++;
+        }
+    }
+    
     SChartDataPoint* datapoint = [self dataPointForDate:[self getDateForIndex:dataIndex]
                                                andValue:[NSNumber numberWithFloat:[self getValueForIndex:dataIndex]]];
     
@@ -262,6 +274,10 @@ atPixelCoordinate:(CGPoint)pixelPoint
 
 - (float)sChartRadiusForDataPoint:(ShinobiChart *)chart dataPointAtIndex:(NSInteger)dataIndex forSeriesAtIndex:(NSInteger)seriesIndex
 {
+    if (self.aggEvents.graphStyle == GraphStyleLine && self.aggEvents.transform == TransformAverage) {
+        return 5;
+    }
+    
     if ([[self.aggEvents.sortedEvents objectAtIndex:dataIndex] count] == 0)
         return 1;
     
@@ -270,6 +286,10 @@ atPixelCoordinate:(CGPoint)pixelPoint
 
 - (float)sChartInnerRadiusForDataPoint:(ShinobiChart *)chart dataPointAtIndex:(NSInteger)dataIndex forSeriesAtIndex:(NSInteger)seriesIndex
 {
+    if (self.aggEvents.graphStyle == GraphStyleLine && self.aggEvents.transform == TransformAverage) {
+        return 3;
+    }
+    
     if ([[self.aggEvents.sortedEvents objectAtIndex:dataIndex] count] == 0)
         return 0.1;
     
