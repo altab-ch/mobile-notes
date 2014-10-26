@@ -120,12 +120,17 @@
 
 -(void) selectClosePoint:(NSInteger)index
 {
-    if ([[self.aggEvents.sortedEvents objectAtIndex:index] count]) {
+    if (self.aggEvents.graphStyle == GraphStyleLine && self.aggEvents.transform == TransformAverage)
+    {
         [self selectPoint:index];
-    }else
+    }
+    else if ([[self.aggEvents.sortedEvents objectAtIndex:index] count])
+    {
+        [self selectPoint:index];
+    }
+    else
     {
         [self selectPoint:[self findClosestEvents:index]];
-    
     }
 }
 
@@ -162,12 +167,18 @@
 {
     if (self.firstLaunch) {
         NSInteger lastVal = [self findClosestEvents:[self.aggEvents.sortedEvents count]-1];
+        if (self.aggEvents.graphStyle == GraphStyleLine && self.aggEvents.transform == TransformAverage) {
+            lastVal = [self numberOfElementAverage]-1;
+        }
         [[((SChartSeries*)[self.series objectAtIndex:0]).dataSeries.dataPoints objectAtIndex:lastVal] setSelected:NO];
         
         
         
         [[((SChartSeries*)[self.series objectAtIndex:0]).dataSeries.dataPoints objectAtIndex:index] setSelected:YES];
         NSArray *events = [self.aggEvents.sortedEvents objectAtIndex:index];
+        if (!self.aggEvents.transform) {
+            <#statements#>
+        }
         [self.chartDelegate didSelectEvents:events
                                    withType:[self getType]
                                       value:[NSString stringWithFormat:@"%@",[[NotesAppController sharedInstance].numf stringFromNumber:[NSNumber numberWithFloat:[self getValueForIndex:index]]]]
@@ -240,14 +251,9 @@ atPixelCoordinate:(CGPoint)pixelPoint
 }
 
 - (NSInteger)sChart:(ShinobiChart *)chart numberOfDataPointsForSeriesAtIndex:(NSInteger)seriesIndex {
+    
     if (self.aggEvents.graphStyle == GraphStyleLine && self.aggEvents.transform == TransformAverage) {
-        NSInteger result = 0;
-        for (NSArray *ar in self.aggEvents.sortedEvents) {
-            if ([ar count]) {
-                result++;
-            }
-        }
-        return result;
+        return [self numberOfElementAverage];
     }
     return self.aggEvents.sortedEvents.count;
 }
@@ -297,6 +303,18 @@ atPixelCoordinate:(CGPoint)pixelPoint
 }
 
 #pragma mark - Utils
+
+-(NSInteger)numberOfElementAverage
+{
+    NSInteger result = 0;
+    for (NSArray *ar in self.aggEvents.sortedEvents) {
+        if ([ar count]) {
+            result++;
+        }
+    }
+    return result;
+    
+}
 
 -(void) dateMinMax:(void (^)(NSDate* minDate, NSDate* maxDate))block
 {

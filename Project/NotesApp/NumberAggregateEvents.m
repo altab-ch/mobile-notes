@@ -74,6 +74,8 @@
         [[self.sortedEvents objectAtIndex:index] addObject:event];
         if (!self.transform) index++;
     }
+    
+    
 }
 
 -(NSUInteger) nbValues
