@@ -61,13 +61,26 @@
     PYEvent *refEvent = [self.aggEvents.events objectAtIndex:index];
     [self.lbValue setText:refEvent.eventContentAsString];
     if (!refEvent.pyType.symbol)
+    {
         [self.lbUnit setText:[refEvent.pyType localizedName]];
-    else
-        [self.lbUnit setText:[refEvent.pyType symbol]];
+        [self.lbDescription setText:@""];
+    }
     
-    [self.lbHistory setText:[(NumberAggregateEvents*)self.aggEvents historyLocalized]];
-    [self.lbDescription setText:[refEvent.pyType localizedName]];
+    else{
+        [self.lbUnit setText:[refEvent.pyType symbol]];
+        [self.lbDescription setText:[refEvent.pyType localizedName]];
+    }
+    
+    NSString *type = [self aggregateEvents].transform ? [NSString stringWithFormat:@"%@ %@ %@", [self aggregateEvents].typeLocalized, NSLocalizedString(@"by", nil), [self aggregateEvents].intervalLocalized] : NSLocalizedString(@"RawData", nil);
+    
+    NSString *history = [NSString stringWithFormat:@"1 %@, %@", [(NumberAggregateEvents*)self.aggEvents historyLocalized], type];
+    [self.lbHistory setText:history];
     [self.lbDate setText:[[NotesAppController sharedInstance].cellDateFormatter stringFromDate:refEvent.eventDate]];
+}
+
+-(NumberAggregateEvents*)aggregateEvents
+{
+    return (NumberAggregateEvents*)self.aggEvents;
 }
 
 #pragma mark ChartView Delegate

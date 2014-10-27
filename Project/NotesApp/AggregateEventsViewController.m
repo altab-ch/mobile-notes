@@ -14,19 +14,24 @@
 @interface AggregateEventsViewController () <SChartViewDelegate>
 
 @property (nonatomic, weak) NSArray *events;
-
+@property (nonatomic) BOOL isEdit;
+@property (nonatomic, strong) NSArray *type, *transform;
 @end
 
 @implementation AggregateEventsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.isEdit = FALSE;
+    self.type = @[NSLocalizedString(@"None", nil), NSLocalizedString(@"Average", nil), NSLocalizedString(@"Sum", nil)];
+    self.transform = @[NSLocalizedString(@"Line", nil), NSLocalizedString(@"Bar", nil)];
 }
 
 #pragma mark TableView Delegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if (self.isEdit) return 4;
     if (section == 0) return 3;
     if (self.events) return [self.events count];
     return 0;
@@ -34,6 +39,7 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    if (self.isEdit) return 1;
     return 2;
 }
 
@@ -51,7 +57,11 @@
                 break;
                 
             case 2:
-                result = 52;
+                result = self.isEdit ? 44:52;
+                break;
+                
+            case 3:
+                result = 44;
                 break;
                 
             default:
@@ -97,11 +107,24 @@
                 
             case 2:
             {
-                cel = [self.tableView dequeueReusableCellWithIdentifier:@"valueInfo_id"];
-                UILabel *lbType = (UILabel *)[cel viewWithTag:11];
-                UILabel *lbValue = (UILabel *)[cel viewWithTag:12];
-                [lbType setText:@""];
-                [lbValue setText:@""];
+                if (self.isEdit) {
+                    cel = [self.tableView dequeueReusableCellWithIdentifier:@"type_id"];
+                }
+                else
+                {
+                    cel = [self.tableView dequeueReusableCellWithIdentifier:@"valueInfo_id"];
+                    UILabel *lbType = (UILabel *)[cel viewWithTag:11];
+                    UILabel *lbValue = (UILabel *)[cel viewWithTag:12];
+                    [lbType setText:@""];
+                    [lbValue setText:@""];
+                }
+                
+            }
+                break;
+                
+            case 3:
+            {
+                cel = [self.tableView dequeueReusableCellWithIdentifier:@"transform_id"];
             }
                 break;
                 
@@ -121,10 +144,21 @@
     return cel;
 }
 
-/*-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 1)[self performSegueWithIdentifier:@"DetailViewSegue_ID" sender:[self.events objectAtIndex:indexPath.row]];
-}*/
+    if (indexPath.section == 0)
+    {
+        if (indexPath.row == 2) {
+            [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+            
+        }
+        else if (indexPath.row == 3)
+        {
+            [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+            
+        }
+    }
+}
 
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(ValueCell*)sender
 {
@@ -170,6 +204,59 @@
 
 -(void) updateInfo:(NSString*)type value:(NSString*)value unit:(NSString*)unit description:(NSString*)description
 {
+    
+}
+
+#pragma mark - UIPickerView Delegate
+
+- (int)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
+}
+
+// The number of rows of data
+- (int)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    return _pickerData.count;
+}
+
+// The data to return for the row and component (column) that's being passed in
+- (NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    return _pickerData[row];
+}
+
+#pragma mark - utils
+
+-(IBAction)btEditTouched:(id)sender
+{
+    if (self.isEdit)
+    {
+        self.isEdit = !self.isEdit;
+        UITableViewCell* cel = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+        SChartView *sChartView = (SChartView*)[cel viewWithTag:10];
+        [sChartView setUserInteractionEnabled:YES];
+        
+        [self.tableView beginUpdates];
+        [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:2 inSection:0], [NSIndexPath indexPathForRow:3 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableView insertSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:2 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableView endUpdates];
+    }
+    else
+    {
+        self.isEdit = !self.isEdit;
+        
+        UITableViewCell* cel = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+        SChartView *sChartView = (SChartView*)[cel viewWithTag:10];
+        [sChartView setUserInteractionEnabled:NO];
+        
+        [self.tableView beginUpdates];
+        [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:2 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:2 inSection:0], [NSIndexPath indexPathForRow:3 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableView endUpdates];
+    }
     
 }
 

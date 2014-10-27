@@ -16,7 +16,8 @@ typedef enum {
 }GraphStyle;
 
 typedef enum{
-    TransformAverage = 1,
+    TransformNone = 0,
+    TransformAverage,
     TransformSum
 }Transform;
 
@@ -45,5 +46,6 @@ typedef enum{
 @property (nonatomic, strong) NSDate *startDate, *endDate;
 
 -(NSString*) historyLocalized;
-
+-(NSString*) typeLocalized;
+-(NSString*) intervalLocalized;
 @end

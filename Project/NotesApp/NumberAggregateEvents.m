@@ -35,12 +35,61 @@
     }
 }
 
+-(NSString*) intervalLocalized
+{
+    switch (self.interval) {
+        case IntervalMonth:
+            return NSLocalizedString(@"month", nil);
+            break;
+            
+        case IntervalWeek:
+            return NSLocalizedString(@"week", nil);
+            break;
+            
+        case IntervalDay:
+            return NSLocalizedString(@"day", nil);
+            break;
+            
+        case IntervalHour:
+            return NSLocalizedString(@"hour", nil);
+            break;
+            
+        default:
+            break;
+    }
+}
+
+-(NSString*) typeLocalized
+{
+    switch (self.transform) {
+        case TransformNone:
+            return NSLocalizedString(@"RawData", nil);
+            break;
+            
+        case TransformAverage:
+            return NSLocalizedString(@"Average", nil);
+            break;
+            
+        case TransformSum:
+            return NSLocalizedString(@"Sum", nil);
+            break;
+            
+        default:
+            break;
+    }
+}
+
 -(id) initWithEvent:(PYEvent*)event
 {
     self = [super initWithEvent:event];
     if (self) {
+        
+        PYStream * st = [event stream];
+        if ([[st.clientData allKeys] count]>1) {
+            
+        }
         self.graphStyle = GraphStyleLine;
-        self.transform = TransformAverage;
+        self.transform = TransformSum;
         self.interval = IntervalHour;
         self.history = HistoryDay;
         //self.color = [[[self.events objectAtIndex:0] stream] getColor];

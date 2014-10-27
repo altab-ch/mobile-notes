@@ -16,10 +16,13 @@
 "Library" = "Bibliothèque";
 "Settings" = "Paramètres";
 
-"year" = "Année";
-"month" = "Mois";
-"week" = "Semaine";
-"day" = "Jour";
+"year" = "année";
+"month" = "mois";
+"week" = "semaine";
+"day" = "jour";
+"hour" = "heure";
+"RawData" = "données bruts";
+"by" = "par";
 
 "YES" = "Oui";
 "NO" = "Non";
@@ -31,8 +34,9 @@
 "Done" = "OK";
 "Edit" = "Modifier";
 "day" = "jour";
-"Average" = "Moyenne";
+"Average" = "moyenne";
 "Total" = "Total";
+"Sum" = "somme";
 
 "inboarding.back" = "Se connecter";
 

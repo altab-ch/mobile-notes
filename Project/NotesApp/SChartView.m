@@ -65,7 +65,7 @@
         self.userInteractionEnabled = NO;
         xAxis.style.majorTickStyle.showLabels = NO;
         xAxis.style.majorTickStyle.showTicks = NO;
-        yAxis.style.majorTickStyle.showLabels = NO;
+        yAxis.style.majorTickStyle.showLabels = YES;
         yAxis.style.majorTickStyle.showTicks = NO;
         yAxis.style.lineColor = [UIColor whiteColor];
     }else{

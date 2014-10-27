@@ -26,8 +26,9 @@
 "Done" = "Done";
 "Edit" = "Edit";
 "day" = "day";
-"Average" = "Average";
+"Average" = "average";
 "Total" = "Total";
+"Sum" = "sum";
 
 "UnitPicker.Next" = "Next";
 "UnitPicker.Select" = "Select a unit";
@@ -49,10 +50,14 @@
 
 "BrowserViewController.Title" = "Pryv";
 
-"year" = "Year";
-"month" = "Month";
-"week" = "Week";
-"day" = "Day";
+"year" = "year";
+"month" = "month";
+"week" = "week";
+"day" = "day";
+"hour" = "hour";
+"RawData" = "raw data";
+"by" = "by";
+
 
 "DetailViewController.TitleNote" = "Note";
 "DetailViewController.TitlePicture" = "Picture";
