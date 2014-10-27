@@ -41,16 +41,9 @@
 {
     self.title = @"";
     self.autoresizingMask =  ~UIViewAutoresizingNone;
-    self.licenseKey = @"mu6q6ZGbUt7XLloMjAxNDEwMjRtYXRoaWV1LmtuZWNodEBnbWFpbC5jb20=0Hq+xXm5+B66t49SI6ka8chwMwFJLYwOjDMdVxaiX33+1RRND0Rxs7qCjTLrI2MeVCa2JLUN1UAZxGDKBznxk4TNMIChTKllDbT87yXe9FKyf3KdJdgUK6kWgvUR+IbwkcoLMFBf3yUMiF4MAAODmW6URYx8=BQxSUisl3BaWf/7myRmmlIjRnMU2cA7q+/03ZX9wdj30RzapYANf51ee3Pi8m2rVW6aD7t6Hi4Qy5vv9xpaQYXF5T7XzsafhzS3hbBokp36BoJZg8IrceBj742nQajYyV7trx5GIw9jy/V6r0bvctKYwTim7Kzq+YPWGMtqtQoU=PFJTQUtleVZhbHVlPjxNb2R1bHVzPnh6YlRrc2dYWWJvQUh5VGR6dkNzQXUrUVAxQnM5b2VrZUxxZVdacnRFbUx3OHZlWStBK3pteXg4NGpJbFkzT2hGdlNYbHZDSjlKVGZQTTF4S2ZweWZBVXBGeXgxRnVBMThOcDNETUxXR1JJbTJ6WXA3a1YyMEdYZGU3RnJyTHZjdGhIbW1BZ21PTTdwMFBsNWlSKzNVMDg5M1N4b2hCZlJ5RHdEeE9vdDNlMD08L01vZHVsdXM+PEV4cG9uZW50PkFRQUI8L0V4cG9uZW50PjwvUlNBS2V5VmFsdWU+"; // TODO: add your trial licence key here!
-    
+    /*self.licenseKey = @"mu6q6ZGbUt7XLloMjAxNDEwMjRtYXRoaWV1LmtuZWNodEBnbWFpbC5jb20=0Hq+xXm5+B66t49SI6ka8chwMwFJLYwOjDMdVxaiX33+1RRND0Rxs7qCjTLrI2MeVCa2JLUN1UAZxGDKBznxk4TNMIChTKllDbT87yXe9FKyf3KdJdgUK6kWgvUR+IbwkcoLMFBf3yUMiF4MAAODmW6URYx8=BQxSUisl3BaWf/7myRmmlIjRnMU2cA7q+/03ZX9wdj30RzapYANf51ee3Pi8m2rVW6aD7t6Hi4Qy5vv9xpaQYXF5T7XzsafhzS3hbBokp36BoJZg8IrceBj742nQajYyV7trx5GIw9jy/V6r0bvctKYwTim7Kzq+YPWGMtqtQoU=PFJTQUtleVZhbHVlPjxNb2R1bHVzPnh6YlRrc2dYWWJvQUh5VGR6dkNzQXUrUVAxQnM5b2VrZUxxZVdacnRFbUx3OHZlWStBK3pteXg4NGpJbFkzT2hGdlNYbHZDSjlKVGZQTTF4S2ZweWZBVXBGeXgxRnVBMThOcDNETUxXR1JJbTJ6WXA3a1YyMEdYZGU3RnJyTHZjdGhIbW1BZ21PTTdwMFBsNWlSKzNVMDg5M1N4b2hCZlJ5RHdEeE9vdDNlMD08L01vZHVsdXM+PEV4cG9uZW50PkFRQUI8L0V4cG9uZW50PjwvUlNBS2V5VmFsdWU+"; // TODO: add your trial licence key here!
+    */
     self.backgroundColor = [UIColor whiteColor];
-    
-    __block NSDate *min = nil;
-    __block NSDate *max = nil;
-    [self dateMinMax:^(NSDate* minDate, NSDate* maxDate){
-        min = minDate;
-        max = maxDate;
-    }];
     
     __block NSNumber *minVal = nil;
     __block NSNumber *maxVal = nil;
@@ -60,7 +53,7 @@
     }];
     
     
-    SChartDateRange* dateRange = [[SChartDateRange alloc]initWithDateMinimum:min andDateMaximum:max];
+    SChartDateRange* dateRange = [[SChartDateRange alloc]initWithDateMinimum:self.aggEvents.startDate andDateMaximum:self.aggEvents.endDate];
     SChartDateTimeAxis *xAxis = [[xTimeAxis alloc] initWithRange:dateRange];
     
     
@@ -120,11 +113,11 @@
 
 -(void) selectClosePoint:(NSInteger)index
 {
-    if (self.aggEvents.graphStyle == GraphStyleLine && self.aggEvents.transform == TransformAverage)
+    /*if (self.aggEvents.graphStyle == GraphStyleLine && self.aggEvents.transform == TransformAverage)
     {
         [self selectPoint:index];
     }
-    else if ([[self.aggEvents.sortedEvents objectAtIndex:index] count])
+    else*/ if ([[self.aggEvents.sortedEvents objectAtIndex:index] count])
     {
         [self selectPoint:index];
     }
@@ -167,18 +160,13 @@
 {
     if (self.firstLaunch) {
         NSInteger lastVal = [self findClosestEvents:[self.aggEvents.sortedEvents count]-1];
-        if (self.aggEvents.graphStyle == GraphStyleLine && self.aggEvents.transform == TransformAverage) {
-            lastVal = [self numberOfElementAverage]-1;
-        }
         [[((SChartSeries*)[self.series objectAtIndex:0]).dataSeries.dataPoints objectAtIndex:lastVal] setSelected:NO];
         
         
         
         [[((SChartSeries*)[self.series objectAtIndex:0]).dataSeries.dataPoints objectAtIndex:index] setSelected:YES];
         NSArray *events = [self.aggEvents.sortedEvents objectAtIndex:index];
-        if (!self.aggEvents.transform) {
-            <#statements#>
-        }
+        
         [self.chartDelegate didSelectEvents:events
                                    withType:[self getType]
                                       value:[NSString stringWithFormat:@"%@",[[NotesAppController sharedInstance].numf stringFromNumber:[NSNumber numberWithFloat:[self getValueForIndex:index]]]]
@@ -252,25 +240,10 @@ atPixelCoordinate:(CGPoint)pixelPoint
 
 - (NSInteger)sChart:(ShinobiChart *)chart numberOfDataPointsForSeriesAtIndex:(NSInteger)seriesIndex {
     
-    if (self.aggEvents.graphStyle == GraphStyleLine && self.aggEvents.transform == TransformAverage) {
-        return [self numberOfElementAverage];
-    }
     return self.aggEvents.sortedEvents.count;
 }
 
 - (id<SChartData>)sChart:(ShinobiChart *)chart dataPointAtIndex:(NSInteger)dataIndex forSeriesAtIndex:(NSInteger)seriesIndex {
-    
-    if (self.aggEvents.graphStyle == GraphStyleLine && self.aggEvents.transform == TransformAverage) {
-        NSInteger index = 0;
-        NSInteger valid = 0;
-        for (NSArray *ar in self.aggEvents.sortedEvents) {
-            if ([ar count]) {
-                if (valid == dataIndex) return [self dataPointForDate:[self getDateForIndex:index] andValue:[NSNumber numberWithFloat:[self getValueForIndex:index]]];
-                valid++;
-            }
-            index++;
-        }
-    }
     
     SChartDataPoint* datapoint = [self dataPointForDate:[self getDateForIndex:dataIndex]
                                                andValue:[NSNumber numberWithFloat:[self getValueForIndex:dataIndex]]];
@@ -280,10 +253,6 @@ atPixelCoordinate:(CGPoint)pixelPoint
 
 - (float)sChartRadiusForDataPoint:(ShinobiChart *)chart dataPointAtIndex:(NSInteger)dataIndex forSeriesAtIndex:(NSInteger)seriesIndex
 {
-    if (self.aggEvents.graphStyle == GraphStyleLine && self.aggEvents.transform == TransformAverage) {
-        return 5;
-    }
-    
     if ([[self.aggEvents.sortedEvents objectAtIndex:dataIndex] count] == 0)
         return 1;
     
@@ -292,10 +261,6 @@ atPixelCoordinate:(CGPoint)pixelPoint
 
 - (float)sChartInnerRadiusForDataPoint:(ShinobiChart *)chart dataPointAtIndex:(NSInteger)dataIndex forSeriesAtIndex:(NSInteger)seriesIndex
 {
-    if (self.aggEvents.graphStyle == GraphStyleLine && self.aggEvents.transform == TransformAverage) {
-        return 3;
-    }
-    
     if ([[self.aggEvents.sortedEvents objectAtIndex:dataIndex] count] == 0)
         return 0.1;
     
@@ -304,36 +269,26 @@ atPixelCoordinate:(CGPoint)pixelPoint
 
 #pragma mark - Utils
 
--(NSInteger)numberOfElementAverage
-{
-    NSInteger result = 0;
-    for (NSArray *ar in self.aggEvents.sortedEvents) {
-        if ([ar count]) {
-            result++;
-        }
-    }
-    return result;
-    
-}
-
 -(void) dateMinMax:(void (^)(NSDate* minDate, NSDate* maxDate))block
 {
-    NSMutableArray* dates = [NSMutableArray array];
+    /*NSMutableArray* dates = [NSMutableArray array];
     for (int i=0; i<self.aggEvents.sortedEvents.count; i++) {
         [dates addObject:[self getDateForIndex:i]];
     }
     NSSortDescriptor *descriptor=[[NSSortDescriptor alloc] initWithKey:@"self" ascending:YES];
     NSArray *descriptors=[NSArray arrayWithObject: descriptor];
     NSArray *reverseOrder=[dates sortedArrayUsingDescriptors:descriptors];
-    double diff = ([[reverseOrder objectAtIndex:[reverseOrder count]-1] timeIntervalSince1970]-[[reverseOrder objectAtIndex:0] timeIntervalSince1970])*0.05;
-    block([[reverseOrder objectAtIndex:0] dateByAddingTimeInterval:-diff], [[reverseOrder objectAtIndex:[reverseOrder count]-1] dateByAddingTimeInterval:diff]);
+    double diff = ([[reverseOrder objectAtIndex:[reverseOrder count]-1] timeIntervalSince1970]-[[reverseOrder objectAtIndex:0] timeIntervalSince1970])*0.05;//0.05 padding coefficient
+    block([[reverseOrder objectAtIndex:0] dateByAddingTimeInterval:-diff], [[reverseOrder objectAtIndex:[reverseOrder count]-1] dateByAddingTimeInterval:diff]);*/
+    
+    
 }
 
 -(void) valueMinMax:(void (^)(NSNumber* minValue, NSNumber* maxValue))block
 {
     CGFloat min = [self minValue];
     CGFloat max = [self maxValue];
-    CGFloat padding = (max-min)*0.05;
+    CGFloat padding = (max-min)*0.05;//0.05 padding coefficient
     block([NSNumber numberWithFloat:min-padding], [NSNumber numberWithFloat:max+padding]);
 }
 
@@ -409,7 +364,7 @@ atPixelCoordinate:(CGPoint)pixelPoint
 -(NSDate*) getDateForIndex:(NSInteger)index
 {
     NSDate* date;
-    if (!self.aggEvents.transform && [[self.aggEvents.sortedEvents objectAtIndex:index] count]>0) {
+    if (!self.aggEvents.transform || [[self.aggEvents.sortedEvents objectAtIndex:index] count]>0) {
         date = [((PYEvent*)([[self.aggEvents.sortedEvents objectAtIndex:index] objectAtIndex:0])) eventDate];
     }
     else if (self.aggEvents.history == HistoryDay) {

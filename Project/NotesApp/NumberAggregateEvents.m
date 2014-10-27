@@ -44,6 +44,19 @@
         self.interval = IntervalHour;
         self.history = HistoryDay;
         //self.color = [[[self.events objectAtIndex:0] stream] getColor];
+        
+        if (self.history == HistoryDay) {
+            NSDate *result = [event eventDate];
+            NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+            NSDateComponents *components = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitMinute|NSCalendarUnitSecond   fromDate:result];
+            [components setHour:0];
+            [components setMinute:0];
+            [components setSecond:0];
+            
+            self.startDate = [calendar dateFromComponents:components];
+            [components setHour:24];
+            self.endDate = [calendar dateFromComponents:components];
+        }
     }
     return self;
 }
@@ -75,6 +88,15 @@
         if (!self.transform) index++;
     }
     
+    if (!(self.graphStyle == GraphStyleLine && self.transform == TransformSum)) {
+        NSMutableArray *temp = [NSMutableArray array];
+        for (NSArray* ar in self.sortedEvents) {
+            if ([ar count]) {
+                [temp addObject:ar];
+            }
+        }
+        self.sortedEvents = temp;
+    }
     
 }
 
