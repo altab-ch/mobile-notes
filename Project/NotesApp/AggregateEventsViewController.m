@@ -11,7 +11,7 @@
 #import "SChartView.h"
 #import "ValueCell.h"
 
-@interface AggregateEventsViewController () <SChartViewDelegate>
+@interface AggregateEventsViewController () <SChartViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
 
 @property (nonatomic, weak) NSArray *events;
 @property (nonatomic) BOOL isEdit;
@@ -57,11 +57,11 @@
                 break;
                 
             case 2:
-                result = self.isEdit ? 44:52;
+                result = self.isEdit ? 55:52;
                 break;
                 
             case 3:
-                result = 44;
+                result = 163;
                 break;
                 
             default:
@@ -209,21 +209,25 @@
 
 #pragma mark - UIPickerView Delegate
 
-- (int)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
 {
     return 1;
 }
 
-// The number of rows of data
-- (int)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
-    return _pickerData.count;
+    if (pickerView.tag == 10)
+        return self.type.count;
+    return self.transform.count;
 }
 
-// The data to return for the row and component (column) that's being passed in
-- (NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+- (NSString *)pickerView:(UIPickerView *)pickerView
+             titleForRow:(NSInteger)row
+            forComponent:(NSInteger)component
 {
-    return _pickerData[row];
+    if (pickerView.tag == 10)
+        return [self.type objectAtIndex:row];
+    return [self.transform objectAtIndex:row];
 }
 
 #pragma mark - utils
