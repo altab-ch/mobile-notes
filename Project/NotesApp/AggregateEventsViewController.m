@@ -11,7 +11,7 @@
 #import "SChartView.h"
 #import "ValueCell.h"
 
-@interface AggregateEventsViewController () <SChartViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
+@interface AggregateEventsViewController () <SChartViewDelegate>
 
 @property (nonatomic, weak) NSArray *events;
 @property (nonatomic) BOOL isEdit;
@@ -57,11 +57,11 @@
                 break;
                 
             case 2:
-                result = self.isEdit ? 55:52;
+                result = self.isEdit ? 44:52;
                 break;
                 
             case 3:
-                result = 163;
+                result = 44;
                 break;
                 
             default:
@@ -205,29 +205,6 @@
 -(void) updateInfo:(NSString*)type value:(NSString*)value unit:(NSString*)unit description:(NSString*)description
 {
     
-}
-
-#pragma mark - UIPickerView Delegate
-
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
-{
-    return 1;
-}
-
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
-{
-    if (pickerView.tag == 10)
-        return self.type.count;
-    return self.transform.count;
-}
-
-- (NSString *)pickerView:(UIPickerView *)pickerView
-             titleForRow:(NSInteger)row
-            forComponent:(NSInteger)component
-{
-    if (pickerView.tag == 10)
-        return [self.type objectAtIndex:row];
-    return [self.transform objectAtIndex:row];
 }
 
 #pragma mark - utils

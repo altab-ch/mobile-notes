@@ -1607,7 +1607,6 @@ height=123312</string>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
                                         <view tag="13" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XDo-qx-fYj" userLabel="pastille">
-                                            <rect key="frame" x="17" y="9" width="10" height="10"/>
                                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -1616,7 +1615,7 @@ height=123312</string>
                                             </userDefinedRuntimeAttributes>
                                         </view>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="15" contentMode="left" fixedFrame="YES" text="Kilogram" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="290" translatesAutoresizingMaskIntoConstraints="NO" id="WZb-OF-iVF" userLabel="Label - format description">
-                                            <rect key="frame" x="17" y="23" width="290" height="18"/>
+                                            <rect key="frame" x="35" y="23" width="269" height="18"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1716,57 +1715,43 @@ height=123312</string>
                                     <segue destination="NTF-kp-JcL" kind="push" identifier="DetailViewSegue_ID" id="t9l-AL-MIY"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="type_id" rowHeight="55" id="38w-4p-z52" customClass="ValueCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="type_id" rowHeight="44" id="38w-4p-z52" customClass="ValueCell">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="38w-4p-z52" id="1g7-hX-87K">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Graph type :" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BTg-0Q-zB9">
-                                            <rect key="frame" x="29" y="5" width="125" height="21"/>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="10" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QzJ-Er-19i">
-                                            <rect key="frame" x="9" y="26" width="124" height="21"/>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Type" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BTg-0Q-zB9">
+                                            <rect key="frame" x="41" y="14" width="90" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" red="0.0" green="0.66666666669999997" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Graph transform :" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EWM-Rk-3jA">
-                                            <rect key="frame" x="191" y="5" width="116" height="21"/>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="10" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CzK-SX-ALb">
-                                            <rect key="frame" x="187" y="26" width="125" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="10" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QzJ-Er-19i">
+                                            <rect key="frame" x="155" y="14" width="124" height="21"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
-                                            <color key="textColor" red="0.0" green="0.66666666669999997" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="transform_id" rowHeight="163" id="flc-Xj-QIc" customClass="ValueCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="transform_id" rowHeight="44" id="flc-Xj-QIc" customClass="ValueCell">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="flc-Xj-QIc" id="1fn-nJ-XmM">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <pickerView tag="10" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9tN-eH-z6P">
-                                            <rect key="frame" x="0.0" y="0.0" width="160" height="162"/>
-                                            <connections>
-                                                <outlet property="dataSource" destination="6u8-ab-f60" id="rdo-8J-E8e"/>
-                                                <outlet property="delegate" destination="6u8-ab-f60" id="s9B-QO-X0o"/>
-                                            </connections>
-                                        </pickerView>
-                                        <pickerView tag="11" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cFE-cC-JG6">
-                                            <rect key="frame" x="160" y="0.0" width="160" height="162"/>
-                                            <connections>
-                                                <outlet property="dataSource" destination="6u8-ab-f60" id="R10-e4-4g4"/>
-                                                <outlet property="delegate" destination="6u8-ab-f60" id="WgM-9J-xmI"/>
-                                            </connections>
-                                        </pickerView>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="10" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a1A-8o-iRU">
+                                            <rect key="frame" x="154" y="15" width="125" height="21"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Transform" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RrR-8S-8Bw">
+                                            <rect key="frame" x="41" y="15" width="81" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" red="0.0" green="0.66666666669999997" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
