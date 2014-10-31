@@ -83,6 +83,7 @@ static NSString *browseCellIdentifier = @"BrowseEventsCell_ID";
 @property (nonatomic, strong) NSIndexPath *lastIndexPath;
 @property (nonatomic) NSTimeInterval *lastTimeFocus;
 @property (nonatomic) AggregationStep aggregationStep;
+@property (nonatomic, strong) NSIndexPath *eventToReload;
 
 - (void)loadData;
 - (void)userDidReceiveAccessTokenNotification:(NSNotification*)notification;
@@ -213,6 +214,13 @@ static NSString *browseCellIdentifier = @"BrowseEventsCell_ID";
     if(indexPath) [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (!_pullToRefreshManager) self.pullToRefreshManager = [[MNMPullToRefreshManager alloc] initWithPullToRefreshViewHeight:60 tableView:self.tableView withClient:self];
     self.title = NSLocalizedString(@"BrowserViewController.Title", nil);
+}
+
+-(void) viewDidAppear:(BOOL)animated
+{
+    if (self.eventToReload) {
+        [self.tableView reloadRowsAtIndexPaths:@[self.eventToReload] withRowAnimation:UITableViewRowAnimationNone];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -400,6 +408,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    self.eventToReload = indexPath;
     [self didSelectRowAtIndexPath:indexPath];
 }
 

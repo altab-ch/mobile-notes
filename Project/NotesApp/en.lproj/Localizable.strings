@@ -26,9 +26,13 @@
 "Done" = "Done";
 "Edit" = "Edit";
 "day" = "day";
-"Average" = "average";
+"Average" = "Average";
 "Total" = "Total";
-"Sum" = "sum";
+"Sum" = "Sum";
+"None" = "None";
+"AverageBy" = "Average by hour";
+"SumBy" = "Sum by hour";
+
 
 "UnitPicker.Next" = "Next";
 "UnitPicker.Select" = "Select a unit";
@@ -55,7 +59,7 @@
 "week" = "week";
 "day" = "day";
 "hour" = "hour";
-"RawData" = "raw data";
+
 "by" = "by";
 
 
@@ -73,6 +77,7 @@
 "AggEvent.type"= "%@ at %@ :";
 "AggEvent.header.schart" = "Graph";
 "AggEvent.header.events" = "Values";
+"AggEvent.header.settings" = "Settings";
 
 "TextEditorViewController.Title" = "Take a note";
 

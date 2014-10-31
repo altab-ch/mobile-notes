@@ -14,33 +14,45 @@
 @interface AggregateEventsViewController () <SChartViewDelegate>
 
 @property (nonatomic, weak) NSArray *events;
-@property (nonatomic) BOOL isEdit;
-@property (nonatomic, strong) NSArray *type, *transform;
+@property (nonatomic) BOOL isEdit, isGraphStyle, isTransform;
+@property (nonatomic, strong) NSArray *graphStyle, *transform;
 @end
 
 @implementation AggregateEventsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.isEdit = FALSE;
-    self.type = @[NSLocalizedString(@"None", nil), NSLocalizedString(@"Average", nil), NSLocalizedString(@"Sum", nil)];
-    self.transform = @[NSLocalizedString(@"Line", nil), NSLocalizedString(@"Bar", nil)];
+    self.isEdit = NO;
+    self.isGraphStyle = NO;
+    self.isTransform = NO;
+    self.transform = @[NSLocalizedString(@"None", nil), NSLocalizedString(@"AverageBy", nil), NSLocalizedString(@"SumBy", nil)];
+    self.graphStyle = @[NSLocalizedString(@"Bar", nil), NSLocalizedString(@"Line", nil)];
 }
 
 #pragma mark TableView Delegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (self.isEdit) return 4;
-    if (section == 0) return 3;
+    if (section == 0) return 2;
+    if (self.isEdit)
+    {
+        if (self.isGraphStyle) return 2;
+        else if (self.isTransform) return 3;
+        else return 2;
+    }
+
     if (self.events) return [self.events count];
     return 0;
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    if (self.isEdit) return 1;
     return 2;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 48;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -49,33 +61,41 @@
     if (indexPath.section == 0) {
         switch (indexPath.row) {
             case 0:
-                result = 48;
-                break;
-                
-            case 1:
                 result = 200;
                 break;
                 
-            case 2:
-                result = self.isEdit ? 44:52;
-                break;
-                
-            case 3:
-                result = 44;
+            case 1:
+                result = 52;
                 break;
                 
             default:
                 break;
         }
-    }else
-        result = 120;
-    
+    }else{
+        if (self.isEdit) result = 44;
+        else result = 120;
+    }
     return result;
+}
+
+-(UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    if (section == 1)
+        return nil;
+    
+    UITableViewCell *headerCell = [tableView dequeueReusableCellWithIdentifier:@"stream_id"];
+    UIView *pastille = (UIView *)[headerCell viewWithTag:13];
+    UILabel *lbStream = (UILabel *)[headerCell viewWithTag:14];
+    UILabel *lbUnit = (UILabel *)[headerCell viewWithTag:15];
+    
+    [pastille setBackgroundColor:self.aggEvents.streamColor];
+    [lbStream setText:self.aggEvents.breadCrumbs];
+    [lbUnit setText:[self.aggEvents.pyType localizedName]];
+    return headerCell.contentView;
 }
 
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return section ? NSLocalizedString(@"AggEvent.header.events", nil) : NSLocalizedString(@"AggEvent.header.schart", nil);
+    return self.isEdit ? NSLocalizedString(@"AggEvent.header.settings", nil) : NSLocalizedString(@"AggEvent.header.events", nil);
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -83,20 +103,8 @@
     UITableViewCell *cel = nil;
     if (indexPath.section == 0) {
         switch (indexPath.row) {
+                
             case 0:
-            {
-                cel = [self.tableView dequeueReusableCellWithIdentifier:@"stream_id"];
-                UIView *pastille = (UIView *)[cel viewWithTag:13];
-                UILabel *lbStream = (UILabel *)[cel viewWithTag:14];
-                UILabel *lbUnit = (UILabel *)[cel viewWithTag:15];
-                
-                [pastille setBackgroundColor:self.aggEvents.streamColor];
-                [lbStream setText:self.aggEvents.breadCrumbs];
-                [lbUnit setText:[self.aggEvents.pyType localizedName]];
-            }
-                break;
-                
-            case 1:
             {
                 cel = [self.tableView dequeueReusableCellWithIdentifier:@"schart_id"];
                 SChartView *sChartView = (SChartView*)[cel viewWithTag:10];
@@ -105,26 +113,13 @@
             }
                 break;
                 
-            case 2:
+            case 1:
             {
-                if (self.isEdit) {
-                    cel = [self.tableView dequeueReusableCellWithIdentifier:@"type_id"];
-                }
-                else
-                {
-                    cel = [self.tableView dequeueReusableCellWithIdentifier:@"valueInfo_id"];
-                    UILabel *lbType = (UILabel *)[cel viewWithTag:11];
-                    UILabel *lbValue = (UILabel *)[cel viewWithTag:12];
-                    [lbType setText:@""];
-                    [lbValue setText:@""];
-                }
-                
-            }
-                break;
-                
-            case 3:
-            {
-                cel = [self.tableView dequeueReusableCellWithIdentifier:@"transform_id"];
+                cel = [self.tableView dequeueReusableCellWithIdentifier:@"valueInfo_id"];
+                UILabel *lbType = (UILabel *)[cel viewWithTag:11];
+                UILabel *lbValue = (UILabel *)[cel viewWithTag:12];
+                [lbType setText:@""];
+                [lbValue setText:@""];
             }
                 break;
                 
@@ -135,10 +130,53 @@
     }
     else if (indexPath.section == 1)
     {
-        ValueCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"value_id"];
-        PYEvent *event = [self.events objectAtIndex:indexPath.row];
-        [cell updateWithEvent:event];
-        return cell;
+        if (self.isEdit) {
+            if (self.isGraphStyle) {
+                
+                cel = [self.tableView dequeueReusableCellWithIdentifier:@"multiChoice_id"];
+                UILabel *lbType = (UILabel *)[cel viewWithTag:10];
+                [lbType setText:[self.graphStyle objectAtIndex:indexPath.row]];
+                if (self.aggEvents.graphStyle == indexPath.row) [cel setAccessoryType:UITableViewCellAccessoryCheckmark];
+                else [cel setAccessoryType:UITableViewCellAccessoryNone];
+            }
+            else if (self.isTransform)
+            {
+                cel = [self.tableView dequeueReusableCellWithIdentifier:@"multiChoice_id"];
+                UILabel *lbType = (UILabel *)[cel viewWithTag:10];
+                [lbType setText:[self.transform objectAtIndex:indexPath.row]];
+                if (self.aggEvents.transform == indexPath.row) [cel setAccessoryType:UITableViewCellAccessoryCheckmark];
+                else [cel setAccessoryType:UITableViewCellAccessoryNone];
+            }
+            else
+            {
+                switch (indexPath.row) {
+                    case 0:
+                    {
+                        cel = [self.tableView dequeueReusableCellWithIdentifier:@"type_id"];
+                        UILabel *lbType = (UILabel *)[cel viewWithTag:10];
+                        [lbType setText:[self.aggEvents graphStyleLocalized]];
+                    }
+                        break;
+                        
+                    case 1:
+                    {
+                        cel = [self.tableView dequeueReusableCellWithIdentifier:@"transform_id"];
+                        UILabel *lbType = (UILabel *)[cel viewWithTag:10];
+                        [lbType setText:[self.aggEvents typeLocalized]];
+                    }
+                        break;
+                        
+                    default:
+                        break;
+                }
+            }
+            
+        }else{
+            ValueCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"value_id"];
+            PYEvent *event = [self.events objectAtIndex:indexPath.row];
+            [cell updateWithEvent:event];
+            return cell;
+        }
     }
     
     return cel;
@@ -146,16 +184,47 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0)
-    {
-        if (indexPath.row == 2) {
-            [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.section == 1 && self.isEdit) {
+        if (self.isGraphStyle) {
+            [[self.tableView cellForRowAtIndexPath:indexPath] setAccessoryType:UITableViewCellAccessoryCheckmark];
+            self.aggEvents.graphStyle = (int)indexPath.row;
+            self.isGraphStyle = NO;
+            [self.tableView beginUpdates];
+            [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:1], [NSIndexPath indexPathForRow:1 inSection:1]] withRowAnimation:UITableViewRowAnimationRight];
+            [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:1], [NSIndexPath indexPathForRow:1 inSection:1]] withRowAnimation:UITableViewRowAnimationLeft];
+            [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0], [NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+            [self.tableView endUpdates];
+        }
+        else if (self.isTransform)
+        {
+            [[self.tableView cellForRowAtIndexPath:indexPath] setAccessoryType:UITableViewCellAccessoryCheckmark];
+            self.aggEvents.transform = (int)indexPath.row;
+            self.isTransform = NO;
+            [self.tableView beginUpdates];
+            [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:1], [NSIndexPath indexPathForRow:1 inSection:1], [NSIndexPath indexPathForRow:2 inSection:1]] withRowAnimation:UITableViewRowAnimationRight];
+            [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:1], [NSIndexPath indexPathForRow:1 inSection:1]] withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0], [NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+            [self.tableView endUpdates];
             
         }
-        else if (indexPath.row == 3)
+        else
         {
-            [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-            
+            if (indexPath.row == 0) {
+                self.isGraphStyle = YES;
+                [self.tableView beginUpdates];
+                [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:1], [NSIndexPath indexPathForRow:1 inSection:1]] withRowAnimation:UITableViewRowAnimationAutomatic];
+                [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:1], [NSIndexPath indexPathForRow:1 inSection:1]] withRowAnimation:UITableViewRowAnimationAutomatic];
+                [self.tableView endUpdates];
+            }
+            else if(indexPath.row == 1)
+            {
+                self.isTransform = YES;
+                [self.tableView beginUpdates];
+                [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:1], [NSIndexPath indexPathForRow:1 inSection:1]] withRowAnimation:UITableViewRowAnimationAutomatic];
+                [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:1], [NSIndexPath indexPathForRow:1 inSection:1], [NSIndexPath indexPathForRow:2 inSection:1]] withRowAnimation:UITableViewRowAnimationAutomatic];
+                [self.tableView endUpdates];
+            }
         }
     }
 }
@@ -170,13 +239,11 @@
 
 -(void) didSelectEvents:(NSArray*)events withType:(NSString*)type value:(NSString*)value date:(NSString*)date
 {
-    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
     UILabel *lbType = (UILabel *)[cell viewWithTag:11];
     UILabel *lbValue = (UILabel *)[cell viewWithTag:12];
     [lbType setText:[NSString stringWithFormat:NSLocalizedString(@"AggEvent.type", nil), type, date]];
     [lbValue setText:value];
-    
-    
     
     [self.tableView beginUpdates];
     
@@ -214,28 +281,35 @@
     if (self.isEdit)
     {
         self.isEdit = !self.isEdit;
-        UITableViewCell* cel = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+        self.isGraphStyle = NO;
+        self.isTransform = NO;
+        UITableViewCell* cel = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
         SChartView *sChartView = (SChartView*)[cel viewWithTag:10];
         [sChartView setUserInteractionEnabled:YES];
         
         [self.tableView beginUpdates];
-        [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:2 inSection:0], [NSIndexPath indexPathForRow:3 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+        //[self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:2 inSection:0], [NSIndexPath indexPathForRow:3 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationAutomatic];
         [self.tableView insertSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationAutomatic];
-        [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:2 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+        //[self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:2 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
         [self.tableView endUpdates];
     }
     else
     {
         self.isEdit = !self.isEdit;
-        
-        UITableViewCell* cel = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+        self.isGraphStyle = NO;
+        self.isTransform = NO;
+
+        UITableViewCell* cel = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
         SChartView *sChartView = (SChartView*)[cel viewWithTag:10];
         [sChartView setUserInteractionEnabled:NO];
+        //[sChartView setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
         
         [self.tableView beginUpdates];
         [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationAutomatic];
-        [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:2 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
-        [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:2 inSection:0], [NSIndexPath indexPathForRow:3 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableView insertSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationAutomatic];
+        //[self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:2 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+        //[self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:2 inSection:0], [NSIndexPath indexPathForRow:3 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
         [self.tableView endUpdates];
     }
     

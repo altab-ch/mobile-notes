@@ -27,6 +27,12 @@
         if (cell)
             [cell updateWithEvent:(PYEvent*)data];
     }
+    else if ([data isKindOfClass:[AggregateEvents class]] && [((AggregateEvents*)data).events count] == 1)
+    {
+        cell = [self cellForPYType:((PYEvent*)[((AggregateEvents*)data).events objectAtIndex:0]).pyType];
+        if (cell)
+            [cell updateWithEvent:((PYEvent*)[((AggregateEvents*)data).events objectAtIndex:0])];
+    }
     else if ([data isKindOfClass:[AggregateEvents class]])
     {
         cell = [self aggregateCellForPYType:((AggregateEvents*)data).pyType];
@@ -72,7 +78,7 @@
     BrowseCell *cell = nil;
     if([pyType.key isEqualToString:@"picture/attached"]) cell = [self.tableView dequeueReusableCellWithIdentifier:@"PictureCell_ID"];
     else if([pyType.key isEqualToString:@"note/txt"]) cell = [self.tableView dequeueReusableCellWithIdentifier:@"NoteCell_ID"];
-    else if ([pyType isNumerical]) cell = (BarCell*)[[[NSBundle mainBundle] loadNibNamed:@"BarCell" owner:cell options:nil] objectAtIndex:0];//[self.tableView dequeueReusableCellWithIdentifier:@"ValueCell_ID"];
+    else if ([pyType isNumerical]) cell = [self.tableView dequeueReusableCellWithIdentifier:@"ValueCell_ID"];
     else cell = [self.tableView dequeueReusableCellWithIdentifier:@"UnkownCell_ID"];
     return cell;
 }

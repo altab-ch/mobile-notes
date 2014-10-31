@@ -71,7 +71,7 @@
         [self.lbDescription setText:[refEvent.pyType localizedName]];
     }
     
-    NSString *type = [self aggregateEvents].transform ? [NSString stringWithFormat:@"%@ %@ %@", [self aggregateEvents].typeLocalized, NSLocalizedString(@"by", nil), [self aggregateEvents].intervalLocalized] : NSLocalizedString(@"RawData", nil);
+    NSString *type = [self aggregateEvents].transform ? [self aggregateEvents].typeLocalized : NSLocalizedString(@"None", nil);
     
     NSString *history = [NSString stringWithFormat:@"1 %@, %@", [(NumberAggregateEvents*)self.aggEvents historyLocalized], type];
     [self.lbHistory setText:history];

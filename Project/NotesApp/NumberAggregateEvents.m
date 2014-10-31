@@ -8,6 +8,7 @@
 
 #import "NumberAggregateEvents.h"
 #import "PYStream+Helper.h"
+#import <PryvApiKit/PYConnection+Streams.h>
 
 @implementation NumberAggregateEvents
 
@@ -63,15 +64,15 @@
 {
     switch (self.transform) {
         case TransformNone:
-            return NSLocalizedString(@"RawData", nil);
+            return NSLocalizedString(@"None", nil);
             break;
             
         case TransformAverage:
-            return NSLocalizedString(@"Average", nil);
+            return NSLocalizedString(@"AverageBy", nil);
             break;
             
         case TransformSum:
-            return NSLocalizedString(@"Sum", nil);
+            return NSLocalizedString(@"SumBy", nil);
             break;
             
         default:
@@ -79,17 +80,67 @@
     }
 }
 
+-(NSString*) graphStyleLocalized
+{
+    switch (self.graphStyle) {
+        case GraphStyleLine:
+            return NSLocalizedString(@"Line", nil);
+            break;
+            
+        case GraphStyleBar:
+            return NSLocalizedString(@"Bar", nil);
+            break;
+            
+        case GraphStyleArea:
+            return NSLocalizedString(@"Bar", nil);
+            break;
+            
+        case GraphStyleLineJoined:
+            return NSLocalizedString(@"Bar", nil);
+            break;
+            
+        default:
+            break;
+    }
+}
+
+-(GraphStyle) graphStyleFromClientData:(NSDictionary*)data withPyType:(NSString*)key
+{
+    NSString * graphStyle = [[[[data objectForKey:@"pryv-browser:charts"] objectForKey:key] objectForKey:@"settings"] objectForKey:@"style"];
+    if ([graphStyle isEqualToString:@"line"])
+        return GraphStyleLine;
+    else
+        return GraphStyleBar;
+}
+
+-(Transform) transformFromClientData:(NSDictionary*)data withPyType:(NSString*)key
+{
+    NSString * transform = [[[[data objectForKey:@"pryv-browser:charts"] objectForKey:key] objectForKey:@"settings"] objectForKey:@"transform"];
+    if ([transform isEqualToString:@""])
+        return TransformNone;
+    else if ([transform isEqualToString:@"sum"])
+        return TransformSum;
+    else
+        return TransformAverage;
+}
+
 -(id) initWithEvent:(PYEvent*)event
 {
     self = [super initWithEvent:event];
     if (self) {
         
-        PYStream * st = [event stream];
-        if ([[st.clientData allKeys] count]>1) {
-            
+        _stream = [event stream];
+        
+        if (![_stream.clientData objectForKey:@"pryv-browser:charts"]) {
+            NSDictionary *chartsDic = [self defaultClientDataCharts:self.pyType.key];
+            NSMutableDictionary *dic = [_stream.clientData mutableCopy];
+            [dic setValue:chartsDic forKey:@"pryv-browser:charts"];
+            [_stream setClientData:dic];
+            [[NotesAppController sharedInstance].connection streamSaveModifications:_stream successHandler:nil errorHandler:nil];
         }
-        self.graphStyle = GraphStyleLine;
-        self.transform = TransformSum;
+        
+        _graphStyle = [self graphStyleFromClientData:_stream.clientData withPyType:self.pyType.key];
+        _transform = [self transformFromClientData:_stream.clientData withPyType:self.pyType.key];
         self.interval = IntervalHour;
         self.history = HistoryDay;
         //self.color = [[[self.events objectAtIndex:0] stream] getColor];
@@ -181,6 +232,77 @@
 -(NSUInteger) getMonthFromEvent:(PYEvent*)event
 {
     return 22;
+}
+
+-(NSDictionary*) defaultClientDataCharts:(NSString*)pyType
+{
+    return [self clientDataChartsWithStyle:@"bar" transform:@"average" pyType:pyType];
+}
+
+-(NSDictionary*)clientDataChartsWithStyle:(NSString*)style transform:(NSString*)transform pyType:(NSString*)pyType
+{
+    NSDictionary *result = @{pyType:@{@"settings":@{@"color":@"#c0392b",
+                                                    @"style":style,
+                                                    @"transform":transform,
+                                                    @"interval":@"hourly",
+                                                    @"history":@"day"
+                                                    }
+                                      }
+                             };
+    return result;
+}
+
+-(void)saveStreamData
+{
+    NSString *style;
+    switch (_graphStyle) {
+        case 0:
+            style = @"bar";
+            break;
+        case 1:
+            style = @"line";
+            break;
+            
+        default:
+            break;
+    }
+    
+    NSString *transform;
+    switch (_transform) {
+        case 0:
+            transform = @"";
+            break;
+        case 1:
+            transform = @"average";
+            break;
+            
+        case 2:
+            transform = @"sum";
+            break;
+            
+        default:
+            break;
+    }
+    
+    NSDictionary *chartsDic = [self clientDataChartsWithStyle:style transform:transform pyType:self.pyType.key];
+    NSMutableDictionary *dic = [_stream.clientData mutableCopy];
+    [dic setValue:chartsDic forKey:@"pryv-browser:charts"];
+    [_stream setClientData:dic];
+    [[NotesAppController sharedInstance].connection streamSaveModifications:_stream successHandler:nil errorHandler:nil];
+}
+
+-(void) setTransform:(Transform)transform
+{
+    _transform = transform;
+    [self saveStreamData];
+    [self sort];
+}
+
+-(void) setGraphStyle:(GraphStyle)graphStyle
+{
+    _graphStyle = graphStyle;
+    [self saveStreamData];
+    [self sort];
 }
 
 

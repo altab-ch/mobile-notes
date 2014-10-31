@@ -21,7 +21,7 @@
 "week" = "semaine";
 "day" = "jour";
 "hour" = "heure";
-"RawData" = "données bruts";
+"None" = "Aucune";
 "by" = "par";
 
 "YES" = "Oui";
@@ -37,6 +37,9 @@
 "Average" = "moyenne";
 "Total" = "Total";
 "Sum" = "somme";
+"AverageBy" = "Moyenne par heure";
+"SumBy" = "Somme par heure";
+
 
 "inboarding.back" = "Se connecter";
 
@@ -61,6 +64,7 @@
 "AggEvent.type"= "%@ à %@ :";
 "AggEvent.header.schart" = "Graphique";
 "AggEvent.header.events" = "Valeurs";
+"AggEvent.header.settings" = "Paramètres";
 
 "BrowserViewController.Title" = "Pryv";
 

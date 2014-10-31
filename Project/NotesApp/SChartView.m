@@ -14,7 +14,7 @@
 
 @property (nonatomic, strong) NumberAggregateEvents *aggEvents;
 @property (nonatomic) ChartViewContext context;
-@property (nonatomic) BOOL firstLaunch;
+@property (nonatomic) BOOL firstLaunch, selection;
 @end
 
 @implementation SChartView
@@ -85,6 +85,7 @@
     self.aggEvents = aggEvents;
     self.context = context;
     self.firstLaunch = true;
+    self.selection = false;
     self.delegate = self;
     self.datasource = self;
     //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -95,17 +96,18 @@
 -(void) layoutSubviews
 {
     [super layoutSubviews];
-    /*if (self.context == ChartViewContextDetail && self.firstLaunch)
+    if (self.firstLaunch)
     {
-        [[((SChartSeries*)[self.series objectAtIndex:0]).dataSeries.dataPoints objectAtIndex:0] setSelected:YES];
+        NSInteger lastVal = [self findClosestEvents:[self.aggEvents.sortedEvents count]-1];
+        [[((SChartSeries*)[self.series objectAtIndex:0]).dataSeries.dataPoints objectAtIndex:lastVal] setSelected:YES];
         
-        NSArray *events = [self.aggEvents.sortedEvents objectAtIndex:0];
+        NSArray *events = [self.aggEvents.sortedEvents objectAtIndex:lastVal];
         [self.chartDelegate didSelectEvents:events
                                    withType:[self getType]
-                                      value:[NSString stringWithFormat:@"%f",[self getValueForIndex:0]]
-                                       date:[[NotesAppController sharedInstance].cellDateFormatter stringFromDate:[self getDateForIndex:0]]];
+                                      value:[NSString stringWithFormat:@"%f",[self getValueForIndex:lastVal]]
+                                       date:[[NotesAppController sharedInstance].cellDateFormatter stringFromDate:[self getDateForIndex:lastVal]]];
         self.firstLaunch = false;
-    }*/
+    }
     
     //[self selectClosePoint:[self.aggEvents.sortedEvents count]-1];
     
@@ -113,11 +115,7 @@
 
 -(void) selectClosePoint:(NSInteger)index
 {
-    /*if (self.aggEvents.graphStyle == GraphStyleLine && self.aggEvents.transform == TransformAverage)
-    {
-        [self selectPoint:index];
-    }
-    else*/ if ([[self.aggEvents.sortedEvents objectAtIndex:index] count])
+    if ([[self.aggEvents.sortedEvents objectAtIndex:index] count])
     {
         [self selectPoint:index];
     }
@@ -129,6 +127,7 @@
 
 -(NSInteger) findClosestEvents:(NSInteger)index
 {
+    if ([[self.aggEvents.sortedEvents objectAtIndex:index] count]) return index;
     NSInteger up = index+1;
     while (up < [self.aggEvents.sortedEvents count] && ![[self.aggEvents.sortedEvents objectAtIndex:up] count])
         up++;
@@ -158,7 +157,7 @@
 
 -(void) selectPoint:(NSInteger)index
 {
-    if (self.firstLaunch) {
+    if (self.selection) {
         NSInteger lastVal = [self findClosestEvents:[self.aggEvents.sortedEvents count]-1];
         [[((SChartSeries*)[self.series objectAtIndex:0]).dataSeries.dataPoints objectAtIndex:lastVal] setSelected:NO];
         
@@ -171,7 +170,7 @@
                                    withType:[self getType]
                                       value:[NSString stringWithFormat:@"%@",[[NotesAppController sharedInstance].numf stringFromNumber:[NSNumber numberWithFloat:[self getValueForIndex:index]]]]
                                        date:[[NotesAppController sharedInstance].cellDateFormatter stringFromDate:[self getDateForIndex:index]]];
-        self.firstLaunch = false;
+        self.selection = false;
     }
 }
 
@@ -180,7 +179,7 @@
 - (void)sChart:(ShinobiChart *)chart toggledSelectionForPoint:(SChartDataPoint *)dataPoint inSeries:(SChartSeries *)series
 atPixelCoordinate:(CGPoint)pixelPoint
 {
-    self.firstLaunch=true;
+    self.selection=true;
     [self selectClosePoint:dataPoint.index];
     
 }
@@ -269,21 +268,6 @@ atPixelCoordinate:(CGPoint)pixelPoint
 
 #pragma mark - Utils
 
--(void) dateMinMax:(void (^)(NSDate* minDate, NSDate* maxDate))block
-{
-    /*NSMutableArray* dates = [NSMutableArray array];
-    for (int i=0; i<self.aggEvents.sortedEvents.count; i++) {
-        [dates addObject:[self getDateForIndex:i]];
-    }
-    NSSortDescriptor *descriptor=[[NSSortDescriptor alloc] initWithKey:@"self" ascending:YES];
-    NSArray *descriptors=[NSArray arrayWithObject: descriptor];
-    NSArray *reverseOrder=[dates sortedArrayUsingDescriptors:descriptors];
-    double diff = ([[reverseOrder objectAtIndex:[reverseOrder count]-1] timeIntervalSince1970]-[[reverseOrder objectAtIndex:0] timeIntervalSince1970])*0.05;//0.05 padding coefficient
-    block([[reverseOrder objectAtIndex:0] dateByAddingTimeInterval:-diff], [[reverseOrder objectAtIndex:[reverseOrder count]-1] dateByAddingTimeInterval:diff]);*/
-    
-    
-}
-
 -(void) valueMinMax:(void (^)(NSNumber* minValue, NSNumber* maxValue))block
 {
     CGFloat min = [self minValue];
@@ -347,18 +331,18 @@ atPixelCoordinate:(CGPoint)pixelPoint
 {
     switch (self.aggEvents.transform) {
         case TransformAverage:
-            return @"Average";
+            return NSLocalizedString(@"Average", nil);
             break;
             
         case TransformSum:
-            return @"Sum";
+            return NSLocalizedString(@"Sum", nil);
             break;
             
         default:
             break;
     }
     
-    return @"Last";
+    return NSLocalizedString(@"Last", nil);;
 }
 
 -(NSDate*) getDateForIndex:(NSInteger)index

@@ -9,7 +9,7 @@
 #import "AggregateEvents.h"
 
 typedef enum {
-    GraphStyleBar = 1,
+    GraphStyleBar = 0,
     GraphStyleLine,
     GraphStyleLineJoined,
     GraphStyleArea
@@ -44,8 +44,10 @@ typedef enum{
 //@property (nonatomic, strong) UIColor *color;
 @property (nonatomic, strong) NSMutableArray *sortedEvents;
 @property (nonatomic, strong) NSDate *startDate, *endDate;
+@property (nonatomic, strong) PYStream *stream;
 
 -(NSString*) historyLocalized;
 -(NSString*) typeLocalized;
 -(NSString*) intervalLocalized;
+-(NSString*) graphStyleLocalized;
 @end
