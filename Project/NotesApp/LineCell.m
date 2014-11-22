@@ -59,7 +59,11 @@
 -(void) displayEvent:(NSInteger)index
 {
     PYEvent *refEvent = [self.aggEvents.events objectAtIndex:index];
-    [self.lbValue setText:refEvent.eventContentAsString];
+    if ([refEvent.eventContent isKindOfClass:[NSNumber class]]) {
+        [self.lbValue setText:[[[NotesAppController sharedInstance] numf] stringFromNumber:refEvent.eventContent]];
+    }else
+        [self.lbValue setText:refEvent.eventContentAsString];
+    
     if (!refEvent.pyType.symbol)
     {
         [self.lbUnit setText:[refEvent.pyType localizedName]];

@@ -111,7 +111,7 @@
 -(void) sortSingleEvents
 {
     [self.singleEvents sortUsingComparator:^NSComparisonResult(PYEvent* a, PYEvent* b) {
-        return [a.eventDate compare:b.eventDate]==NSOrderedDescending;
+        return [a.eventDate compare:b.eventDate]==NSOrderedAscending;
     }];
 }
 

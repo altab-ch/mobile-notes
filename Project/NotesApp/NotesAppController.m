@@ -62,7 +62,7 @@ NSString *const kBrowserShouldScrollToTop = @"kBrowserShouldScrollToTop";
     
     self.numf = [[NSNumberFormatter alloc] init];
     [self.numf setNumberStyle:NSNumberFormatterDecimalStyle];
-    [self.numf setMinimumFractionDigits:2];
+    [self.numf setMaximumFractionDigits:2];
     
     self.sectionTitleFormatter = [[NSDateFormatter alloc] init];
     [self.sectionTitleFormatter setDateStyle:NSDateFormatterMediumStyle];

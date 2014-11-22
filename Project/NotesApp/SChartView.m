@@ -41,8 +41,7 @@
 {
     self.title = @"";
     self.autoresizingMask =  ~UIViewAutoresizingNone;
-    /*self.licenseKey = @"mu6q6ZGbUt7XLloMjAxNDEwMjRtYXRoaWV1LmtuZWNodEBnbWFpbC5jb20=0Hq+xXm5+B66t49SI6ka8chwMwFJLYwOjDMdVxaiX33+1RRND0Rxs7qCjTLrI2MeVCa2JLUN1UAZxGDKBznxk4TNMIChTKllDbT87yXe9FKyf3KdJdgUK6kWgvUR+IbwkcoLMFBf3yUMiF4MAAODmW6URYx8=BQxSUisl3BaWf/7myRmmlIjRnMU2cA7q+/03ZX9wdj30RzapYANf51ee3Pi8m2rVW6aD7t6Hi4Qy5vv9xpaQYXF5T7XzsafhzS3hbBokp36BoJZg8IrceBj742nQajYyV7trx5GIw9jy/V6r0bvctKYwTim7Kzq+YPWGMtqtQoU=PFJTQUtleVZhbHVlPjxNb2R1bHVzPnh6YlRrc2dYWWJvQUh5VGR6dkNzQXUrUVAxQnM5b2VrZUxxZVdacnRFbUx3OHZlWStBK3pteXg4NGpJbFkzT2hGdlNYbHZDSjlKVGZQTTF4S2ZweWZBVXBGeXgxRnVBMThOcDNETUxXR1JJbTJ6WXA3a1YyMEdYZGU3RnJyTHZjdGhIbW1BZ21PTTdwMFBsNWlSKzNVMDg5M1N4b2hCZlJ5RHdEeE9vdDNlMD08L01vZHVsdXM+PEV4cG9uZW50PkFRQUI8L0V4cG9uZW50PjwvUlNBS2V5VmFsdWU+"; // TODO: add your trial licence key here!
-    */
+    
     self.backgroundColor = [UIColor whiteColor];
     
     __block NSNumber *minVal = nil;
@@ -60,6 +59,13 @@
     SChartNumberRange* numberRange = [[SChartNumberRange alloc] initWithMinimum:minVal andMaximum:maxVal];
     SChartNumberAxis* yAxis = [[SChartNumberAxis alloc] initWithRange:numberRange];
     
+    
+    if (self.aggEvents.graphStyle == GraphStyleBar) {
+        [xAxis.style setInterSeriesPadding:@(1)];
+        [xAxis.style setInterSeriesSetPadding:@(1)];
+        [yAxis.style setInterSeriesPadding:@(1)];
+        [yAxis.style setInterSeriesSetPadding:@(1)];
+    }
     
     if (context == ChartViewContextBrowser) {
         self.userInteractionEnabled = NO;
@@ -104,7 +110,7 @@
         NSArray *events = [self.aggEvents.sortedEvents objectAtIndex:lastVal];
         [self.chartDelegate didSelectEvents:events
                                    withType:[self getType]
-                                      value:[NSString stringWithFormat:@"%f",[self getValueForIndex:lastVal]]
+                                      value:[[[NotesAppController sharedInstance] numf] stringFromNumber:@([self getValueForIndex:lastVal])]
                                        date:[[NotesAppController sharedInstance].cellDateFormatter stringFromDate:[self getDateForIndex:lastVal]]];
         self.firstLaunch = false;
     }
@@ -219,14 +225,14 @@ atPixelCoordinate:(CGPoint)pixelPoint
     }else
     {
         SChartColumnSeries *columnChartSeries = [[SChartColumnSeries alloc] init];
-        //lineSeries.stackIndex = [NSNumber numberWithInt:1];
-        //lineSeries.crosshairEnabled = YES;
         columnChartSeries.selectionMode = SChartSelectionPoint;
         
         SChartColumnSeriesStyle *style = [SChartColumnSeriesStyle new];
         style.areaColor = self.aggEvents.streamColor;
+        style.showAreaWithGradient = NO;
         SChartColumnSeriesStyle *selectedStyle = [SChartColumnSeriesStyle new];
         selectedStyle.areaColor = [UIColor redColor];
+        selectedStyle.showAreaWithGradient = NO;
         
         [columnChartSeries setStyle:style];
         [columnChartSeries setSelectedStyle:selectedStyle];
@@ -348,7 +354,7 @@ atPixelCoordinate:(CGPoint)pixelPoint
 -(NSDate*) getDateForIndex:(NSInteger)index
 {
     NSDate* date;
-    if (!self.aggEvents.transform || [[self.aggEvents.sortedEvents objectAtIndex:index] count]>0) {
+    if (!self.aggEvents.transform && [[self.aggEvents.sortedEvents objectAtIndex:index] count]>0) {
         date = [((PYEvent*)([[self.aggEvents.sortedEvents objectAtIndex:index] objectAtIndex:0])) eventDate];
     }
     else if (self.aggEvents.history == HistoryDay) {

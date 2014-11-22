@@ -106,22 +106,32 @@
 
 -(GraphStyle) graphStyleFromClientData:(NSDictionary*)data withPyType:(NSString*)key
 {
-    NSString * graphStyle = [[[[data objectForKey:@"pryv-browser:charts"] objectForKey:key] objectForKey:@"settings"] objectForKey:@"style"];
-    if ([graphStyle isEqualToString:@"line"])
-        return GraphStyleLine;
-    else
-        return GraphStyleBar;
+    if ([data objectForKey:@"pryv-browser:charts"]) {
+        NSString * graphStyle = [[[[data objectForKey:@"pryv-browser:charts"] objectForKey:key] objectForKey:@"settings"] objectForKey:@"style"];
+        if ([graphStyle isEqualToString:@"line"])
+            return GraphStyleLine;
+        else
+            return GraphStyleBar;
+    }
+
+    return GraphStyleBar;
+    
 }
 
 -(Transform) transformFromClientData:(NSDictionary*)data withPyType:(NSString*)key
 {
-    NSString * transform = [[[[data objectForKey:@"pryv-browser:charts"] objectForKey:key] objectForKey:@"settings"] objectForKey:@"transform"];
-    if ([transform isEqualToString:@""])
-        return TransformNone;
-    else if ([transform isEqualToString:@"sum"])
-        return TransformSum;
-    else
-        return TransformAverage;
+    if ([data objectForKey:@"pryv-browser:charts"]) {
+        NSString * transform = [[[[data objectForKey:@"pryv-browser:charts"] objectForKey:key] objectForKey:@"settings"] objectForKey:@"transform"];
+        if ([transform isEqualToString:@""])
+            return TransformNone;
+        else if ([transform isEqualToString:@"sum"])
+            return TransformSum;
+        else
+            return TransformAverage;
+    }
+    
+    return TransformSum;
+    
 }
 
 -(id) initWithEvent:(PYEvent*)event
@@ -131,13 +141,13 @@
         
         _stream = [event stream];
         
-        if (![_stream.clientData objectForKey:@"pryv-browser:charts"]) {
+        /*if (![_stream.clientData objectForKey:@"pryv-browser:charts"]) {
             NSDictionary *chartsDic = [self defaultClientDataCharts:self.pyType.key];
             NSMutableDictionary *dic = [_stream.clientData mutableCopy];
             [dic setValue:chartsDic forKey:@"pryv-browser:charts"];
             [_stream setClientData:dic];
             [[NotesAppController sharedInstance].connection streamSaveModifications:_stream successHandler:nil errorHandler:nil];
-        }
+        }*/
         
         _graphStyle = [self graphStyleFromClientData:_stream.clientData withPyType:self.pyType.key];
         _transform = [self transformFromClientData:_stream.clientData withPyType:self.pyType.key];
@@ -188,7 +198,7 @@
         if (!self.transform) index++;
     }
     
-    if (!(self.graphStyle == GraphStyleLine && self.transform == TransformSum)) {
+    if (!((self.graphStyle == GraphStyleLine && self.transform == TransformSum) || self.graphStyle == GraphStyleBar)) {
         NSMutableArray *temp = [NSMutableArray array];
         for (NSArray* ar in self.sortedEvents) {
             if ([ar count]) {
@@ -203,6 +213,8 @@
 -(NSUInteger) nbValues
 {
     if (self.transform) {
+        return 24;
+        /*
         switch (self.history) {
             case HistoryDay:
                 return 24;
@@ -210,7 +222,7 @@
                 
             default:
                 break;
-        }
+        }*/
     }
     return [self.events count];
 }
