@@ -43,6 +43,9 @@
 - (void)updateWithEvent:(PYEvent *)event
 {
     for (UIView *vi in self.subviews) {
+        if ([vi isKindOfClass:[StreamAccessory class]] || [vi isKindOfClass:[DescriptionLabel class]]) {
+            [vi removeFromSuperview];
+        }
         for (UIView *vi2 in vi.subviews) {
             if ([vi2 isKindOfClass:[StreamAccessory class]] || [vi2 isKindOfClass:[DescriptionLabel class]]) {
                 [vi2 removeFromSuperview];

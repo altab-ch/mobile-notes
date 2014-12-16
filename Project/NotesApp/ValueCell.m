@@ -17,9 +17,15 @@
 {
     [super updateWithEvent:event];
     
+    NSNumber *temp;
+    if ([event.eventContent isKindOfClass:[NSString class]]) {
+        temp = [NSNumber numberWithFloat:[event.eventContent floatValue]];
+    }else
+        temp = event.eventContent;
+    
     NSNumberFormatter *numf = [[NSNumberFormatter alloc] init];
     [numf setNumberStyle:NSNumberFormatterDecimalStyle];
-    if ([[numf stringFromNumber:event.eventContent] rangeOfString:@"."].length != 0){
+    if ([[numf stringFromNumber:temp] rangeOfString:@"."].length != 0){
         [numf setMinimumFractionDigits:2];
     }else{
         [numf setMaximumFractionDigits:0];
@@ -41,7 +47,7 @@
     
     [self addSubview:desc];
     
-    NSString *value = [NSString stringWithFormat:@"%@ %@",[numf stringFromNumber:event.eventContent], unit];
+    NSString *value = [NSString stringWithFormat:@"%@ %@",[numf stringFromNumber:temp], unit];
     [self.valueLabel setText:value];
 
 }

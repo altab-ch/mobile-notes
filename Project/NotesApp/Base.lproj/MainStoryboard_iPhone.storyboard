@@ -1987,8 +1987,8 @@ height=123312</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="gt0-kL-XUL"/>
         <segue reference="dsN-2e-Wot"/>
-        <segue reference="t9l-AL-MIY"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.0" green="0.66666666669999997" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
 </document>

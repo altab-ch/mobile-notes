@@ -455,6 +455,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
         //EventDetailsViewController *detail = [segue destinationViewController];
         DetailViewController *detail = [segue destinationViewController];
         BrowseCell *cell = (BrowseCell*)[self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
+        
         [detail setEvent:cell.event];
     }
     

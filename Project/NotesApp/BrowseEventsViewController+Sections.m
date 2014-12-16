@@ -55,7 +55,7 @@
 -(void) didSelectRowAtIndexPath:(NSIndexPath*)indexpath
 {
     id data = [self getEventsForIndex:indexpath];
-    if ([data isKindOfClass:[AggregateEvents class]]) [self performSegueWithIdentifier:@"AggregateEventsSegue_ID" sender:data];
+    if ([data isKindOfClass:[AggregateEvents class]] && [((AggregateEvents*)data).events count] > 1) [self performSegueWithIdentifier:@"AggregateEventsSegue_ID" sender:data];
     
 }
 
@@ -172,11 +172,11 @@
     if ([self.sections count] ==0)
         return 60;
     
-    CGFloat result = 100.0;
+    CGFloat result = 132.0;
     
     id data = [self getEventsForIndex:indexPath];
     if ([data isKindOfClass:[PYEvent class]]) result = [self heightForPYType:((PYEvent*)data).pyType];
-    else if ([data isKindOfClass:[AggregateEvents class]]) result = [self aggregateHeightForPYType:((AggregateEvents*)data).pyType];
+    else if ([data isKindOfClass:[AggregateEvents class]] && [((AggregateEvents*)data).events count] > 1) result = [self aggregateHeightForPYType:((AggregateEvents*)data).pyType];
     
     return result;
 }
@@ -186,7 +186,7 @@
     CGFloat height = 100;
     if([pyType.key isEqualToString:@"picture/attached"]) height = 160;
     else if([pyType.key isEqualToString:@"note/txt"]) height = 124;
-    else if ([pyType isNumerical]) height = 132;
+    else if ([pyType isNumerical]) height = 130;
     
     return height;
 }

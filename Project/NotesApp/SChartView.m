@@ -44,6 +44,7 @@
     
     self.backgroundColor = [UIColor whiteColor];
     
+    
     __block NSNumber *minVal = nil;
     __block NSNumber *maxVal = nil;
     [self valueMinMax:^(NSNumber* minValue, NSNumber* maxValue){
@@ -94,9 +95,11 @@
     self.selection = false;
     self.delegate = self;
     self.datasource = self;
-    //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    
+    if ([self.aggEvents.events count]) {
         [self initChartWithContext:context];
-    //});
+    }
+    
 }
 
 -(void) layoutSubviews
@@ -314,6 +317,7 @@ atPixelCoordinate:(CGPoint)pixelPoint
             if (result < [event.eventContent floatValue]) result = [event.eventContent floatValue];
         }
     }
+    
     
     return result;
 }
